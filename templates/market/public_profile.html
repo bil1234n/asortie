@@ -5,7 +5,7 @@
 <!-- Custom Styles for this Page -->
 <style>
     :root {
-        --coffee-dark: #2C1A11;
+        --coffee-dark: #1B3C59;
         --gold: #D4AF37;
         --cream: #F5F5F5;
     }
@@ -90,6 +90,9 @@
                         <i class="fa-solid fa-location-dot me-1 text-warning"></i> 
                         {{ profile.city|default:"City" }}, {{ profile.country|default:"Country" }}
                     </p>
+                    <a href="{% url 'chat_room' seller.id %}" class="small small_white mb-2 opacity-75">
+                        <i class="fa-regular fa-comments me-1"></i> Chat 
+                    </a>
                     
                     <!-- Role Badges -->
                     <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start mb-3">
@@ -106,7 +109,6 @@
                             <span class="badge bg-warning text-dark role-badge"><i class="fa-solid fa-truck me-1"></i> Supplier</span>
                         {% endif %}
                     </div>
-
                     <p class="small opacity-75 mb-0" style="max-width: 700px;">
                         {{ profile.description|default:"This seller has not added a description yet." }}
                     </p>
@@ -130,7 +132,7 @@
                 </div>
                 <div class="col-6">
                     <div class="card stat-card shadow-sm h-100 py-3 text-center">
-                        <h3 class="fw-bold mb-0 text-dark">{{ product_count }}</h3>
+                        <h3 class="fw-bold mb-0 text-dark">{{ product_count_all }}</h3>
                         <small class="text-muted">Active Products</small>
                     </div>
                 </div>
@@ -219,7 +221,7 @@
             
             <div class="row g-4">
                 {% for product in products %}
-                <div class="col-md-6 col-xl-4">
+                <div class="col-md-7 col-xl-6">
                     <div class="card h-100 shadow-sm border-0">
                         <!-- Image -->
                         {% if product.image %}
@@ -242,9 +244,20 @@
                                 {{ product.description|truncatechars:50 }}
                             </p>
                             
-                            <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-dark btn-sm rounded-pill btn_2_c px-3">
-                                View Details
-                            </a>
+                            <!-- UPDATED LOGIC FOR BUTTON -->
+                            {% if user.is_authenticated and user.role == 'seller' %}
+                                <!-- Disabled Button for Sellers (Pro Style) -->
+                                <button class="btn btn-sm rounded-pill w-100" disabled 
+                                        style="background-color: #f8f9fa; color: #adb5bd; border: 1px dashed #dee2e6; font-weight: 600; cursor: not-allowed; padding: 0.5rem;">
+                                    <i class="fa-solid fa-lock me-1"></i> To Order Login By Buyer
+                                </button>
+                            {% else %}
+                                <!-- Original Button for Buyers/Guests -->
+                                <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-dark btn-sm rounded-pill btn_2_c px-3">
+                                    View Details
+                                </a>
+                            {% endif %}
+                            
                         </div>
                     </div>
                 </div>

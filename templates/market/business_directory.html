@@ -5,7 +5,7 @@
 
 <style>
     :root {
-        --coffee-dark: #2C1A11;
+        --coffee-dark: #1B3C59;
         --gold: #D4AF37;
     }
     .search-input {
@@ -56,8 +56,8 @@
     
     <!-- HEADER & SEARCH -->
     <div class="text-center mb-5">
-        <h1 class="fw-bold" style="color: var(--coffee-dark);">Business Directory</h1>
-        <p class="text-muted">Discover verified farmers, roasters, and suppliers.</p>
+        <h1 class="fw-bold" style="color: var(--coffee-dark);">Merchant Hub</h1>
+        <p class="text-muted">Access deep insights into seller performance, business credentials, and live product catalogs.</p>
         
         <!-- TOP FILTER BAR (Full Width)  -->
         <form method="get" class="filter-bar mb-5">
@@ -164,7 +164,7 @@
                     </p>
                     <!-- ACTION BUTTON (View Products) -->
                     <div class="d-grid">
-                        <a href="{% url 'public_seller_profile' profile.user.id %}" class="btn btn-gold">
+                        <a href="{% url 'public_business_profile' profile.user.id %}" class="btn btn-gold">
                             <i class="fa-solid fa-box-open me-2"></i> View Products
                         </a>
                     </div>

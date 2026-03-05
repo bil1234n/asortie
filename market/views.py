@@ -1,86 +1,301 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Product, Order
-from django.db.models import Count, Sum
 from django.contrib import messages
-import json
-
 from django.utils import timezone
-from django.db.models import Sum, Q, Value, DecimalField
-from django.db.models.functions import Coalesce # <--- Important Import
-from .models import SellerProfile, Product, Order, SellerCertification
-from accounts.models import User
-from .forms import CertificationForm 
-
+from django.db.models import Sum, Q, Value, DecimalField, Count
+from django.db.models.functions import Coalesce 
 from django.contrib.auth import get_user_model
-from .forms import CertificationForm
+import json
+import stripe
+import requests
+from django.conf import settings
+from django.urls import reverse
+
+# Import Models
+from .models import Product, Order, BusinessProfile, BusinessCertification, ProductVariant, ProductImage
+from core.models import Notification 
+from .forms import CertificationForm 
 
 User = get_user_model()
 
-def product_list(request):
-    # 1. Start with base query
-    products = Product.objects.filter(is_active=True, seller__is_verified=True)
+# ==========================
+# 1. MARKETPLACE VIEWS (PUBLIC)
+# ==========================
 
-    # 2. Get Filter Parameters
+def product_list(request):
+    products = Product.objects.filter(is_active=True, seller__is_verified=True)
     q = request.GET.get('q')
     category = request.GET.get('category')
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
     sort_by = request.GET.get('sort')
 
-    # 3. Apply Filters
     if q:
-        products = products.filter(
-            Q(name__icontains=q) | 
-            Q(description__icontains=q)
-        )
-    
+        products = products.filter(Q(name__icontains=q) | Q(description__icontains=q))
     if category:
         products = products.filter(category=category)
-
     if min_price:
-        try:
-            products = products.filter(price__gte=float(min_price))
-        except ValueError:
-            pass # Ignore invalid numbers
-
+        try: products = products.filter(price__gte=float(min_price))
+        except: pass
     if max_price:
-        try:
-            products = products.filter(price__lte=float(max_price))
-        except ValueError:
-            pass
+        try: products = products.filter(price__lte=float(max_price))
+        except: pass
 
-    # 4. Sorting
-    if sort_by == 'price_asc':
-        products = products.order_by('price')
-    elif sort_by == 'price_desc':
-        products = products.order_by('-price')
-    else:
-        # Default: Newest first
-        products = products.order_by('-created_at')
+    if sort_by == 'price_asc': products = products.order_by('price')
+    elif sort_by == 'price_desc': products = products.order_by('-price')
+    else: products = products.order_by('-created_at')
 
-    # 5. Get Categories for the Dropdown (from Model choices)
-    # We retrieve the actual choices list from the model class
-    categories = Product.CATEGORY_CHOICES 
-
-    context = {
-        'products': products,
-        'categories': categories,
-    }
+    context = {'products': products, 'categories': Product.CATEGORY_CHOICES}
     return render(request, 'market/list.html', context)
 
-# --- 2. NEW: PRODUCT DETAIL VIEW ---
 def product_detail(request, product_id):
-    """Shows full details and allows ordering"""
     product = get_object_or_404(Product, id=product_id)
-    return render(request, 'market/detail.html', {'product': product})
+    # Prefetch related variants and gallery for performance
+    variants = product.variants.all() 
+    gallery = product.gallery.all()
+    
+    return render(request, 'market/detail.html', {
+        'product': product,
+        'variants': variants,
+        'gallery': gallery
+    })
 
-# --- 3. UPDATED: CREATE ORDER (Handles Quantity) ---
+# ==========================
+# 2. SELLER PANEL VIEWS
+# ==========================
+
+@login_required
+def seller_dashboard(request):
+    if request.user.role != 'seller': return redirect('home')
+    my_products = Product.objects.filter(seller=request.user, is_active=True)
+    my_orders = Order.objects.filter(product__seller=request.user)
+    
+    valid_statuses = ['Paid', 'Shipped', 'Delivered']
+    revenue = my_orders.filter(status__in=valid_statuses).aggregate(Sum('total_price'))['total_price__sum'] or 0
+    
+    status_data = list(my_orders.values('status').annotate(count=Count('status')))
+    
+    # Handle charts safely
+    import json
+    chart_labels = json.dumps([x['status'] for x in status_data])
+    chart_values = json.dumps([x['count'] for x in status_data])
+
+    context = {
+        'products_count': my_products.count(),
+        'orders_count': my_orders.count(),
+        'revenue': revenue,
+        'chart_labels': chart_labels,
+        'chart_values': chart_values
+    }
+    return render(request, 'seller_panel/dashboard.html', context)
+
+@login_required
+def seller_products(request):
+    """List view for Seller's products"""
+    if request.user.role != 'seller':
+        return redirect('home')
+
+    products = Product.objects.filter(seller=request.user, is_active=True).order_by('-created_at')
+    return render(request, 'seller_panel/products.html', {'products': products})
+
+@login_required
+def seller_product_add(request):
+    """Handles creating a new product with Gallery and 3D Variants"""
+    if request.user.role != 'seller':
+        return redirect('home')
+    
+    if not request.user.is_verified:
+        messages.error(request, "You must be a verified seller to list products.")
+        return redirect('seller_products')
+
+    if request.method == 'POST':
+        # 1. Basic Product Info
+        name = request.POST.get('name')
+        category = request.POST.get('category')
+        description = request.POST.get('description')
+        price = request.POST.get('price')
+        
+        # Handle empty price for 'Negotiated' strategy
+        if not price or price.strip() == "":
+            price = 0
+            
+        main_image = request.FILES.get('image')
+
+        product = Product.objects.create(
+            seller=request.user,
+            name=name,
+            category=category,
+            price=price,
+            description=description,
+            image=main_image
+        )
+
+        # 2. Handle Gallery Images (Multiple)
+        gallery_files = request.FILES.getlist('gallery_images')
+        for f in gallery_files:
+            ProductImage.objects.create(product=product, image=f)
+
+        # 3. Handle 3D Variants (Dynamic List)
+        v_names = request.POST.getlist('variant_name[]')
+        v_files = request.FILES.getlist('variant_file[]')
+        v_links = request.POST.getlist('variant_link[]')
+
+        for i in range(len(v_names)):
+            if v_names[i]:
+                file_to_upload = v_files[i] if i < len(v_files) else None
+                link_to_save = v_links[i] if i < len(v_links) else ""
+
+                ProductVariant.objects.create(
+                    product=product,
+                    variant_name=v_names[i],
+                    model_3d=file_to_upload,
+                    model_3d_link=link_to_save
+                )
+
+        messages.success(request, "Product added successfully with gallery and variants.")
+        return redirect('seller_products')
+
+    return render(request, 'seller_panel/products_form.html', {'edit_mode': False})
+
+@login_required
+def seller_product_edit(request, pk):
+    """Handles editing existing product with professional deletion logic"""
+    product = get_object_or_404(Product, pk=pk, seller=request.user)
+
+    if request.method == 'POST':
+        # 1. Update Basic Fields
+        product.name = request.POST.get('name')
+        product.category = request.POST.get('category')
+        product.description = request.POST.get('description')
+        
+        price = request.POST.get('price')
+        product.price = price if price and price.strip() else 0
+        
+        # Update Main Image if a new one is uploaded
+        if request.FILES.get('image'):
+            product.image = request.FILES.get('image')
+        
+        product.save()
+
+        # 2. DELETE Logic (Professional Handling)
+        # We receive a comma-separated string of IDs to delete (e.g., "4,8,12")
+        del_gallery_ids = request.POST.get('delete_gallery_ids', '').split(',')
+        del_variant_ids = request.POST.get('delete_variant_ids', '').split(',')
+
+        # Clean empty strings and Delete from DB
+        del_gallery_ids = [id for id in del_gallery_ids if id.isdigit()]
+        if del_gallery_ids:
+            ProductImage.objects.filter(id__in=del_gallery_ids, product=product).delete()
+
+        del_variant_ids = [id for id in del_variant_ids if id.isdigit()]
+        if del_variant_ids:
+            ProductVariant.objects.filter(id__in=del_variant_ids, product=product).delete()
+
+        # 3. ADD NEW Gallery Images
+        gallery_files = request.FILES.getlist('gallery_images')
+        for f in gallery_files:
+            ProductImage.objects.create(product=product, image=f)
+
+        # 4. ADD NEW Variants
+        v_names = request.POST.getlist('variant_name[]')
+        v_files = request.FILES.getlist('variant_file[]')
+        v_links = request.POST.getlist('variant_link[]')
+
+        for i in range(len(v_names)):
+            if v_names[i]: # Only create if name exists
+                file_to_upload = v_files[i] if i < len(v_files) else None
+                link_to_save = v_links[i] if i < len(v_links) else ""
+                
+                ProductVariant.objects.create(
+                    product=product,
+                    variant_name=v_names[i],
+                    model_3d=file_to_upload,
+                    model_3d_link=link_to_save
+                )
+
+        messages.success(request, "Product updated successfully.")
+        return redirect('seller_products')
+
+    return render(request, 'seller_panel/products_form.html', {'product': product, 'edit_mode': True})
+
+@login_required
+def seller_product_delete(request, pk):
+    """Permanently removes a product from the database"""
+    product = get_object_or_404(Product, pk=pk, seller=request.user)
+    
+    if request.method == "POST":
+        # Delete the product and all associated variants/images (Cascade)
+        product.delete() 
+        messages.success(request, "Product permanently deleted.")
+        
+    return redirect('seller_products')
+
+
+
+# ==========================
+# 3. ORDER & PAYMENT (THE FIX)
+# ==========================
+@login_required
+def seller_orders(request):
+    if request.user.role != 'seller': 
+        return redirect('home')
+
+    if request.method == 'POST':
+        o_id = request.POST.get('order_id')
+        action = request.POST.get('action')
+        order = get_object_or_404(Order, id=o_id, product__seller=request.user)
+        
+        # 1. NEGOTIATION LOGIC
+        if action == 'set_quote':
+            order.total_price = request.POST.get('total_price')
+            order.seller_note = request.POST.get('seller_note')
+            order.status = 'Quoted'
+            messages.success(request, f"Quote sent for Order #{order.id}")
+        
+        # 2. STANDARD WORKFLOW LOGIC (Forward)
+        elif action == 'accept': 
+            order.status = 'Accepted'
+        elif action == 'shipped': 
+            order.status = 'Shipped'
+        elif action == 'delivered': 
+            order.status = 'Delivered'
+        elif action == 'decline': 
+            order.status = 'Declined'
+            
+        # 3. REVERSE & RE-OPEN LOGIC (Backwards)
+        elif action == 'pending': 
+            # This handles both "Reset to Pending" and "Re-open Declined Inquiry"
+            order.status = 'Pending'
+        elif action == 'quoted_reverse': 
+            order.status = 'Quoted'
+        elif action == 'accepted_reverse': 
+            order.status = 'Accepted'
+        elif action == 'shipped_reverse': 
+            order.status = 'Shipped'
+        
+        # Save the changes
+        order.save()
+        
+        # 4. PROFESSIONAL NOTIFICATION
+        # We use get_status_display() to show the "Human Readable" name (e.g. "Price Offered")
+        Notification.objects.create(
+            recipient=order.buyer,
+            sender=request.user,
+            notification_type='order',
+            message=f"Order Update: Your inquiry for {order.product.name} is now '{order.get_status_display()}'.",
+            link=reverse('buyer_orders')
+        )
+        
+        messages.info(request, f"Order #{order.id} moved to {order.get_status_display()}.")
+        return redirect('seller_orders')
+
+    # GET: Fetch all orders including 'Pending'
+    orders = Order.objects.filter(product__seller=request.user).order_by('-created_at')
+    return render(request, 'seller_panel/orders.html', {'orders': orders})
+
 @login_required
 def create_order(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    
-    # Validation
     if not product.seller.is_verified:
         messages.error(request, "Seller not verified.")
         return redirect('product_list')
@@ -90,282 +305,151 @@ def create_order(request, product_id):
         return redirect('product_detail', product_id=product.id)
 
     if request.method == 'POST':
-        # Get quantity from the form (Default to 1 kg if missing)
         qty = int(request.POST.get('quantity', 1))
         
-        if qty < 1:
-            messages.error(request, "Quantity must be at least 1kg.")
-            return redirect('product_detail', product_id=product.id)
-
-        # Create Order
+        # New Inquiry Logic: Initial price is 0
         order = Order.objects.create(
             buyer=request.user, 
             product=product,
-            quantity=qty,               # Save quantity
-            total_price=product.price * qty, # Calculate Total
+            quantity=qty,
+            total_price=0, 
             status='Pending'
         )
-        return redirect('payment_page', order_id=order.id)
+        
+        # Notify Seller of new inquiry
+        Notification.objects.create(
+            recipient=product.seller,
+            sender=request.user,
+            notification_type='order',
+            message=f"New Inquiry: {request.user.username} is interested in {product.name}.",
+            link=reverse('seller_orders')
+        )
+
+        messages.success(request, "Inquiry sent! Please wait for the seller to provide a final quote.")
+        return redirect('buyer_orders')
     
-    # If someone tries to GET this URL directly, send them to detail page
     return redirect('product_detail', product_id=product.id)
 
 @login_required
-def payment_page(request, order_id):
+def buyer_orders(request):
+    orders = Order.objects.filter(buyer=request.user).select_related('product', 'product__seller').order_by('-created_at')
+    total_spend = orders.filter(status__in=['Paid', 'Shipped', 'Delivered']).aggregate(Sum('total_price'))['total_price__sum'] or 0
+    return render(request, 'market/buyer_orders.html', {'orders': orders, 'total_spend': total_spend})
+
+@login_required
+def payment(request, order_id):
     order = get_object_or_404(Order, id=order_id, buyer=request.user)
-    if request.method == 'POST':
-        order.status = 'Paid'
-        order.save()
-        messages.success(request, "Payment successful! Order sent to seller.")
-        return redirect('chat_room', user_id=order.product.seller.id)
+    
+    # SAFETY: Don't allow payment if price isn't set
+    if order.status == 'Pending':
+        messages.warning(request, "Awaiting seller quote. You will be able to pay once the price is set.")
+        return redirect('buyer_orders')
+
     return render(request, 'market/payment.html', {'order': order})
 
 @login_required
-def add_product(request):
-    if request.user.role == 'seller':
-        return redirect('seller_products')
-    return redirect('home')
+def stripe_checkout(request, order_id):
+    order = get_object_or_404(Order, id=order_id, buyer=request.user)
+    
+    # Safety Check
+    if order.total_price <= 0:
+        messages.error(request, "Price not yet quoted.")
+        return redirect('buyer_orders')
 
-# ==========================================
-# 2. SELLER DASHBOARD VIEWS
-# ==========================================
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    success_url = request.build_absolute_uri(f'/payment-success/{order.id}/')
+    
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {'name': order.product.name},
+                'unit_amount': int(order.total_price * 100), # Uses Negotiated Price
+            },
+            'quantity': 1, # Negotiated price usually covers the full set
+        }],
+        mode='payment',
+        success_url=success_url,
+        cancel_url=request.build_absolute_uri(f'/payment-page/{order.id}'),
+    )
+    return redirect(session.url)
 
 @login_required
-def seller_dashboard(request):
-    if request.user.role != 'seller': return redirect('home')
-
-    # Alert if not verified
-    if not request.user.is_verified:
-        messages.warning(request, "Your account is NOT verified. You cannot list products until Admin approval.")
-
-    my_products = Product.objects.filter(seller=request.user, is_active=True)
-    my_orders = Order.objects.filter(product__seller=request.user)
+def chapa_checkout(request, order_id):
+    order = get_object_or_404(Order, id=order_id, buyer=request.user)
     
-    # --- FIX IS HERE ---
-    # We now calculate revenue for Paid, Shipped, AND Delivered orders
-    valid_statuses = ['Paid', 'Shipped', 'Delivered']
-    
-    revenue = my_orders.filter(status__in=valid_statuses).aggregate(Sum('total_price'))['total_price__sum'] or 0
-    # -------------------
-    
-    status_data = list(my_orders.values('status').annotate(count=Count('status')))
-    labels = [x['status'] for x in status_data]
-    values = [x['count'] for x in status_data]
+    if order.total_price <= 0:
+        messages.error(request, "Price not yet quoted.")
+        return redirect('buyer_orders')
 
-    context = {
-        'products_count': my_products.count(),
-        'orders_count': my_orders.count(),
-        'revenue': revenue,
-        'chart_labels': json.dumps(labels),
-        'chart_values': json.dumps(values)
+    USD_TO_ETB_RATE = 156.00
+    etb_amount = float(order.total_price) * USD_TO_ETB_RATE
+    
+    headers = {"Authorization": f"Bearer {settings.CHAPA_SECRET_KEY}", "Content-Type": "application/json"}
+    callback_url = request.build_absolute_uri(f'/payment-success/{order.id}/')
+
+    data = {
+        "amount": etb_amount,
+        "currency": "ETB",
+        "email": request.user.email,
+        "callback_url": callback_url,
+        "return_url": callback_url,
+        "title": f"Payment for {order.product.name}"
     }
-    return render(request, 'seller_panel/dashboard.html', context)
+    
+    response = requests.post("https://api.chapa.co/v1/transaction/initialize", json=data, headers=headers)
+    result = response.json()
+    
+    if result.get('status') == 'success':
+        return redirect(result['data']['checkout_url'])
+    else:
+        messages.error(request, "Payment gateway error.")
+        return redirect('payment_page', order_id=order.id)
 
 @login_required
-def seller_products(request):
-    if request.user.role != 'seller': return redirect('home')
+def payment_success(request, order_id):
+    order = get_object_or_404(Order, id=order_id, buyer=request.user)
+    if order.status == 'Paid': return redirect('buyer_orders')
 
-    # --- SECURITY CHECK ---
-    # If seller is not verified, they cannot add products
-    if request.method == 'POST':
-        if not request.user.is_verified:
-            messages.error(request, "Action Failed: Your account is pending verification.")
-            return redirect('seller_products')
+    order.status = 'Paid'
+    order.save()
 
-        action = request.POST.get('action')
-        
-        if action == 'add':
-            Product.objects.create(
-                seller=request.user,
-                name=request.POST.get('name'),
-                category=request.POST.get('category'),
-                price=request.POST.get('price'),
-                description=request.POST.get('description'),
-                image=request.FILES.get('image')
-            )
-            messages.success(request, "Product listed successfully.")
-            
-        elif action == 'remove':
-            p_id = request.POST.get('product_id')
-            p = get_object_or_404(Product, id=p_id, seller=request.user)
-            p.is_active = False 
-            p.save()
-            messages.warning(request, "Product removed from market.")
-        
-        return redirect('seller_products')
-
-    products = Product.objects.filter(seller=request.user, is_active=True)
-    return render(request, 'seller_panel/products.html', {'products': products})
-
+    # Notification Logic
+    msg_buyer = f"Payment Successful: Order #{order.id} for {order.product.name}."
+    msg_seller = f"New Payment! {request.user.username} paid ${order.total_price} for {order.product.name}."
+    
+    Notification.objects.create(recipient=request.user, notification_type='order', message=msg_buyer, link=reverse('buyer_orders'))
+    Notification.objects.create(recipient=order.product.seller, notification_type='order', message=msg_seller, link=reverse('seller_orders'))
+    
+    messages.success(request, "Payment confirmed!")
+    return redirect('buyer_orders')
 
 @login_required
-def seller_orders(request):
-    if request.user.role != 'seller': return redirect('home')
-
-    if request.method == 'POST':
-        if not request.user.is_verified:
-            messages.error(request, "Verification Required to manage orders.")
-            return redirect('seller_orders')
-
-        o_id = request.POST.get('order_id')
-        action = request.POST.get('action')
-        order = get_object_or_404(Order, id=o_id, product__seller=request.user)
-        
-        # --- Handle Status Actions ---
-        if action == 'accept':
-            order.status = 'Accepted' # Or 'Paid' if you want to skip payment logic
-            messages.success(request, "Order Accepted.")
-            
-        elif action == 'shipped':
-            order.status = 'Shipped'
-            messages.info(request, "Order marked as On Shipping.")
-            
-        elif action == 'delivered':
-            order.status = 'Delivered'
-            messages.success(request, "Order marked as Delivered.")
-            
-        elif action == 'decline':
-            order.status = 'Declined'
-            messages.warning(request, "Order Declined.")
-
-        elif action == 'pending':
-            order.status = 'Pending' # Reset status
-            messages.info(request, "Order status reset to Pending.")
-        
+def cancel_order(request, order_id):
+    # We look for the order
+    order = get_object_or_404(Order, id=order_id, buyer=request.user)
+    
+    # Check if it's in a state where cancellation is allowed
+    if order.status in ['Pending', 'Quoted']:
+        order.status = 'Cancelled' # Or add 'Cancelled' to your STATUS_CHOICES
         order.save()
-        return redirect('seller_orders')
+        messages.info(request, "Inquiry cancelled.")
+    else:
+        messages.error(request, "Cannot cancel an order that is already being processed or paid.")
+        
+    return redirect('buyer_orders')
 
-    orders = Order.objects.filter(product__seller=request.user).order_by('-created_at')
-    return render(request, 'seller_panel/orders.html', {'orders': orders})
-
-# --- BUYER ORDERS ---
-@login_required
-def buyer_orders(request):
-    """View for buyers to see their purchase history"""
-    orders = Order.objects.filter(buyer=request.user).order_by('-created_at')
-    return render(request, 'market/buyer_orders.html', {'orders': orders})
-
+# ==========================
+# 3. UNIFIED BUSINESS PROFILE
+# ==========================
 @login_required
 def business_profile(request):
-    if request.user.role != 'seller': 
-        return redirect('home')
+    profile, created = BusinessProfile.objects.get_or_create(user=request.user)
+    cert_form = CertificationForm()
 
-    # 1. Get or Create Profile
-    profile, created = SellerProfile.objects.get_or_create(user=request.user)
-
-    # 2. Handle Form Post (Updating Profile)
+    # --- 1. HANDLE FORMS ---
     if request.method == 'POST':
-        # Text Fields
-        profile.company_name = request.POST.get('company_name', '')
-        profile.country = request.POST.get('country', '')
-        profile.city = request.POST.get('city', '')
-        profile.description = request.POST.get('description', '')
-        profile.core_products = request.POST.get('core_products', '')
-        profile.certifications = request.POST.get('certifications', '')
-
-        # Roles (Booleans)
-        profile.is_farmer = 'is_farmer' in request.POST
-        profile.is_roaster = 'is_roaster' in request.POST
-        profile.is_exporter = 'is_exporter' in request.POST
-        profile.is_supplier = 'is_supplier' in request.POST
-
-        # File Upload (Logo)
-        if 'logo' in request.FILES:
-            profile.logo = request.FILES['logo']
-
-        profile.save()
-        messages.success(request, "Business Profile Updated Successfully!")
-        return redirect('business_profile')
-
-    # 3. Revenue Calculations (Existing Logic)
-    now = timezone.now()
-    valid_status = ['Paid', 'Shipped', 'Delivered']
-    
-    all_sales = Order.objects.filter(product__seller=request.user, status__in=valid_status)
-
-    rev_today = all_sales.filter(created_at__date=now.date()).aggregate(Sum('total_price'))['total_price__sum'] or 0
-    rev_month = all_sales.filter(created_at__month=now.month, created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
-    rev_year = all_sales.filter(created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
-
-    # 4. Inventory Stats
-    total_products = Product.objects.filter(seller=request.user, is_active=True).count()
-    total_orders = all_sales.count()
-
-    # 5. Market Ranking (Existing Logic)
-    # Note: Ensure User model is imported
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-    
-    sellers_ranked = User.objects.filter(role='seller').annotate(
-        total_revenue=Coalesce(
-            Sum('product__order__total_price', 
-                filter=Q(product__order__status__in=valid_status)
-            ), 
-            Value(0), 
-            output_field=DecimalField()
-        )
-    ).order_by('-total_revenue')
-
-    my_rank = 0
-    total_sellers = sellers_ranked.count()
-    for rank, seller in enumerate(sellers_ranked, start=1):
-        if seller.id == request.user.id:
-            my_rank = rank
-            break
-
-    context = {
-        'profile': profile,
-        'rev_today': rev_today,
-        'rev_month': rev_month,
-        'rev_year': rev_year,
-        'total_products': total_products,
-        'total_orders': total_orders,
-        'my_rank': my_rank,
-        'total_sellers': total_sellers,
-        'chart_labels': json.dumps(['Today', 'This Month', 'This Year']),
-        'chart_data': json.dumps([float(rev_today), float(rev_month), float(rev_year)])
-    }
-    return render(request, 'seller_panel/business_profile.html', context)
-
-# ================================
-# 2. PUBLIC SELLER PROFILE (UPDATE)
-# ================================
-def public_seller_profile(request, seller_id):
-    seller_user = get_object_or_404(User, id=seller_id)
-    profile = get_object_or_404(SellerProfile, user=seller_user)
-    
-    # 1. Fetch Products for this seller
-    products = Product.objects.filter(seller=seller_user, is_active=True)
-    
-    # 2. Fetch Certifications
-    certs = SellerCertification.objects.filter(seller=profile)
-    
-    # 3. Calculate Stats
-    valid_status = ['Paid', 'Shipped', 'Delivered']
-    successful_orders = Order.objects.filter(product__seller=seller_user, status__in=valid_status).count()
-
-    context = {
-        'seller': seller_user,
-        'profile': profile,
-        'products': products,       # <--- Pass products to the template
-        'certs': certs,
-        'successful_orders': successful_orders,
-        'product_count': products.count(),
-    }
-    # Ensure you have this template created (code below if you need it)
-    return render(request, 'market/public_profile.html', context)
-
-@login_required
-def business_profile(request):
-    if request.user.role != 'seller': 
-        return redirect('home')
-
-    # 1. Get Profile
-    profile, created = SellerProfile.objects.get_or_create(user=request.user)
-    
-    # 2. Handle Forms (POST)
-    if request.method == 'POST':
-        # --- A. Update Profile Info ---
         if 'update_profile' in request.POST:
             profile.company_name = request.POST.get('company_name', '')
             profile.country = request.POST.get('country', '')
@@ -373,7 +457,7 @@ def business_profile(request):
             profile.description = request.POST.get('description', '')
             profile.core_products = request.POST.get('core_products', '')
             
-            # Roles (Checkbox logic)
+            # Roles
             profile.is_farmer = 'is_farmer' in request.POST
             profile.is_roaster = 'is_roaster' in request.POST
             profile.is_exporter = 'is_exporter' in request.POST
@@ -383,106 +467,210 @@ def business_profile(request):
                 profile.logo = request.FILES['logo']
             
             profile.save()
-            messages.success(request, "Profile details updated successfully.")
+            messages.success(request, "Profile updated successfully.")
             return redirect('business_profile')
 
-        # --- B. Upload Certificate ---
         elif 'upload_cert' in request.POST:
             cert_form = CertificationForm(request.POST, request.FILES)
             if cert_form.is_valid():
                 cert = cert_form.save(commit=False)
-                cert.seller = profile
+                cert.profile = profile 
                 cert.save()
-                messages.success(request, "Certificate uploaded! Pending Verification.")
+                messages.success(request, "Document uploaded successfully.")
                 return redirect('business_profile')
             else:
-                messages.error(request, "Error uploading certificate. Please check input.")
-    
-    else:
-        cert_form = CertificationForm()
+                messages.error(request, "Error uploading document.")
 
-    # 3. Revenue Logic
+    # --- 2. ANALYTICS & REVENUE ---
     now = timezone.now()
     valid_status = ['Paid', 'Shipped', 'Delivered']
     
-    # Filter orders belonging to this seller
-    all_sales = Order.objects.filter(product__seller=request.user, status__in=valid_status)
-
-    # Calculate Totals
-    rev_today = all_sales.filter(created_at__date=now.date()).aggregate(Sum('total_price'))['total_price__sum'] or 0
-    rev_month = all_sales.filter(created_at__month=now.month, created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
-    rev_year = all_sales.filter(created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
-
-    # 4. Inventory Stats
-    total_products = Product.objects.filter(seller=request.user, is_active=True).count()
-    total_orders = all_sales.count()
-
-    # 5. Market Ranking Logic
-    # Rank sellers based on total revenue of valid orders
-    sellers_ranked = User.objects.filter(role='seller').annotate(
-        total_revenue=Coalesce(
-            Sum('product__order__total_price', 
-                filter=Q(product__order__status__in=valid_status)
-            ), 
-            Value(0), 
-            output_field=DecimalField()
-        )
-    ).order_by('-total_revenue')
-
-    my_rank = "N/A"
-    total_sellers = sellers_ranked.count()
+    # Defaults
+    val_today = 0
+    val_month = 0
+    val_year = 0
+    label_1 = "Revenue Today" # Default to Seller terminology
+    label_2 = "Active Listings"
+    label_3 = "Total Sales"
+    count_1 = 0 
+    count_2 = 0
     
-    # Find loop index
-    for rank, seller in enumerate(sellers_ranked, start=1):
-        if seller.id == request.user.id:
-            my_rank = rank
-            break
+    # Ranking Defaults
+    my_rank = "N/A"
+    total_sellers = 0
 
-    # 6. Chart Data Preparation
-    # Convert Decimals to Float for JSON
-    chart_data = [float(rev_today), float(rev_month), float(rev_year)]
-    chart_labels = ["Today", "This Month", "This Year"]
+    if request.user.role == 'seller':
+        # SELLER LOGIC
+        orders = Order.objects.filter(product__seller=request.user, status__in=valid_status)
+        
+        # Financials
+        val_today = orders.filter(created_at__date=now.date()).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        val_month = orders.filter(created_at__month=now.month, created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        val_year = orders.filter(created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        
+        count_1 = Product.objects.filter(seller=request.user, is_active=True).count()
+        count_2 = orders.count()
 
+        # --- MARKET RANKING ALGORITHM ---
+        # 1. Annotate every seller with their total revenue
+        sellers_ranked = User.objects.filter(role='seller').annotate(
+            total_revenue=Coalesce(
+                Sum('product__order__total_price', 
+                    filter=Q(product__order__status__in=valid_status)
+                ), 
+                Value(0), 
+                output_field=DecimalField()
+            )
+        ).order_by('-total_revenue')
+
+        total_sellers = sellers_ranked.count()
+        
+        # 2. Find my index
+        for rank, seller in enumerate(sellers_ranked, start=1):
+            if seller.id == request.user.id:
+                my_rank = rank
+                break
+
+    else:
+        # BUYER LOGIC (Spend Analysis)
+        label_1 = "Spend Today"
+        label_2 = "Orders Placed"
+        label_3 = "-" 
+        
+        orders = Order.objects.filter(buyer=request.user, status__in=valid_status)
+        val_today = orders.filter(created_at__date=now.date()).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        val_month = orders.filter(created_at__month=now.month, created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        val_year = orders.filter(created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        
+        count_1 = orders.count()
+
+    # --- 3. CONTEXT ---
     context = {
         'profile': profile,
         'cert_form': cert_form,
         
-        # Financials
-        'rev_today': rev_today,
-        'rev_month': rev_month,
-        'rev_year': rev_year,
+        # Financial Values
+        'val_today': val_today,
+        'val_month': val_month,
+        'val_year': val_year,
+        
+        # Dynamic Labels (So it works for Buyer & Seller)
+        'label_1': label_1, 
+        'label_2': label_2, 
+        'label_3': label_3,
         
         # Stats
-        'total_products': total_products,
-        'total_orders': total_orders,
+        'count_1': count_1,
+        'count_2': count_2,
+        
+        # Ranking
         'my_rank': my_rank,
         'total_sellers': total_sellers,
         
-        # Chart (JSON strings)
-        'chart_labels': json.dumps(chart_labels),
-        'chart_data': json.dumps(chart_data)
+        # Chart
+        'chart_labels': json.dumps(['Today', 'This Month', 'This Year']),
+        'chart_data': json.dumps([float(val_today), float(val_month), float(val_year)])
     }
     
-    return render(request, 'seller_panel/business_profile.html', context)
+    return render(request, 'market/business_profile.html', context)
+
+@login_required
+def view_business_profile(request, user_id):
+    user_obj = get_object_or_404(User, id=user_id)
+    profile, created = BusinessProfile.objects.get_or_create(user=user_obj)
+
+    # The SAME analytics logic you already have
+    now = timezone.now()
+    valid_status = ['Paid', 'Shipped', 'Delivered']
+
+    # Financial defaults
+    val_today = val_month = val_year = 0
+    label_1 = "Revenue Today"
+    label_2 = "Active Listings"
+    label_3 = "Total Sales"
+    count_1 = count_2 = 0
+    my_rank = "N/A"
+    total_sellers = 0
+
+    # If seller → seller analytics
+    if user_obj.role == 'seller':
+        orders = Order.objects.filter(product__seller=user_obj, status__in=valid_status)
+
+        val_today = orders.filter(created_at__date=now.date()).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        val_month = orders.filter(created_at__month=now.month, created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        val_year = orders.filter(created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
+
+        count_1 = Product.objects.filter(seller=user_obj, is_active=True).count()
+        count_2 = orders.count()
+
+        sellers_ranked = User.objects.filter(role='seller').annotate(
+            total_revenue=Coalesce(
+                Sum('product__order__total_price',
+                    filter=Q(product__order__status__in=valid_status)
+                ),
+                Value(0),
+                output_field=DecimalField()
+            )
+        ).order_by('-total_revenue')
+
+        total_sellers = sellers_ranked.count()
+
+        for rank, seller in enumerate(sellers_ranked, start=1):
+            if seller.id == user_obj.id:
+                my_rank = rank
+                break
+
+    # If buyer → buyer analytics
+    else:
+        label_1 = "Spend Today"
+        label_2 = "Orders Placed"
+        label_3 = "-"
+
+        orders = Order.objects.filter(buyer=user_obj, status__in=valid_status)
+
+        val_today = orders.filter(created_at__date=now.date()).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        val_month = orders.filter(created_at__month=now.month, created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
+        val_year = orders.filter(created_at__year=now.year).aggregate(Sum('total_price'))['total_price__sum'] or 0
+
+        count_1 = orders.count()
+
+    context = {
+        'profile': profile,
+        'view_user': user_obj,   # important!
+        
+        'val_today': val_today,
+        'val_month': val_month,
+        'val_year': val_year,
+
+        'label_1': label_1,
+        'label_2': label_2,
+        'label_3': label_3,
+
+        'count_1': count_1,
+        'count_2': count_2,
+
+        'my_rank': my_rank,
+        'total_sellers': total_sellers,
+
+        'chart_labels': json.dumps(['Today', 'This Month', 'This Year']),
+        'chart_data': json.dumps([float(val_today), float(val_month), float(val_year)]),
+    }
+
+    return render(request, 'market/business_profile.html', context)
 
 @login_required
 def delete_certificate(request, cert_id):
-    # Ensure user owns the profile linked to the cert
-    cert = get_object_or_404(SellerCertification, id=cert_id, seller__user=request.user)
+    cert = get_object_or_404(BusinessCertification, id=cert_id, profile__user=request.user)
     cert.delete()
-    messages.warning(request, "Certificate removed.")
+    messages.warning(request, "Document removed.")
     return redirect('business_profile')
-
 
 def business_directory(request):
     """
-    Advanced Business Directory with Filtering and Sorting
+    Directory to find Sellers.
     """
-    # 1. Base Query: All Sellers
-    profiles = SellerProfile.objects.filter(user__role='seller')
-
-    # 2. Annotation: Count Successful Orders (for sorting by success)
-    # We follow the path: Profile -> User -> Product -> Order
+    profiles = BusinessProfile.objects.filter(user__role='seller')
+    
     valid_statuses = ['Paid', 'Shipped', 'Delivered']
     profiles = profiles.annotate(
         successful_orders=Count(
@@ -491,48 +679,47 @@ def business_directory(request):
         )
     )
 
-    # 3. Get Filter Parameters
     query = request.GET.get('q')
     country = request.GET.get('country')
-    verified_seller = request.GET.get('verified_seller')
-    verified_cert = request.GET.get('verified_cert')
-    sort_by = request.GET.get('sort')
+    verified = request.GET.get('verified_seller')
 
-    # 4. Apply Filters
-    
-    # Search Text
     if query:
         profiles = profiles.filter(
             Q(company_name__icontains=query) | 
             Q(core_products__icontains=query) |
             Q(user__username__icontains=query)
         )
-
-    # Filter by Country
     if country:
         profiles = profiles.filter(country=country)
-
-    # Filter by Verified Seller Badge
-    if verified_seller == 'on':
+    if verified == 'on':
         profiles = profiles.filter(user__is_verified=True)
 
-    # Filter by Verified Certificates (Has at least one verified cert)
-    if verified_cert == 'on':
-        profiles = profiles.filter(certificates__is_verified=True).distinct()
+    countries = BusinessProfile.objects.exclude(country='').values_list('country', flat=True).distinct()
 
-    # 5. Apply Sorting
-    if sort_by == 'orders_high':
-        profiles = profiles.order_by('-successful_orders')
-    else:
-        # Default sort: Verified sellers first, then by company name
-        profiles = profiles.order_by('-user__is_verified', 'company_name')
-
-    # 6. Get List of Countries for the Dropdown (Unique values only)
-    # Exclude empty strings
-    countries = SellerProfile.objects.exclude(country='').values_list('country', flat=True).distinct().order_by('country')
-
-    context = {
-        'profiles': profiles,
-        'countries': countries,
-    }
+    context = {'profiles': profiles, 'countries': countries}
     return render(request, 'market/business_directory.html', context)
+
+def public_business_profile(request, seller_id):
+    seller = get_object_or_404(User, id=seller_id)
+    profile = get_object_or_404(BusinessProfile, user=seller)
+    
+    products = Product.objects.filter(seller=seller, is_active=True)
+    certs = BusinessCertification.objects.filter(profile=profile, is_verified=True)
+    
+    valid_status = ['Paid', 'Shipped', 'Delivered']
+    successful_orders = Order.objects.filter(product__seller=seller, status__in=valid_status).count()
+    product_count_all = Product.objects.filter(seller=seller).count()
+
+    
+    context = {
+        'seller': seller,
+        'profile': profile,
+        'products': products,
+        'certs': certs,
+        'successful_orders': successful_orders,
+        'product_count_all': product_count_all,
+    }
+    return render(request, 'market/public_profile.html', context)
+
+
+

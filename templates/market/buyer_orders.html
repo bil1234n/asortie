@@ -1,78 +1,129 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold"><i class="fa-solid fa-bag-shopping me-2"></i> My Orders</h2>
-        <a href="{% url 'product_list' %}" class="btn btn-outline-dark btn-sm">
-            <i class="fa-solid fa-arrow-left"></i> Back to Market
-        </a>
+<div class="container py-5">
+    
+    <!-- DASHBOARD HEADER -->
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-8">
+            <h2 class="fw-bold text-dark"><i class="fa-solid fa-bag-shopping me-2"></i>My Orders</h2>
+            <p class="text-muted">Manage your purchases and track shipments.</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="card bg-light border-0 shadow-sm">
+                <div class="card-body py-2 px-3">
+                    <small class="text-muted text-uppercase fw-bold">Total Spent</small>
+                    <h4 class="mb-0 text-success fw-bold">${{ total_spend|default:"0.00" }}</h4>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-0 table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="bg-light">
-                    <tr>
-                        <th class="ps-4">Order ID</th>
-                        <th>Product</th>
-                        <th>Seller</th>
-                        <th>Qty / Price</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for order in orders %}
-                    <tr>
-                        <td class="ps-4 fw-bold text-muted">#{{ order.id }}</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                {% if order.product.image %}
-                                    <img src="{{ order.product.image.url }}" class="rounded me-2" style="width: 40px; height: 40px; object-fit: contain;">
-                                {% else %}
-                                    <div class="bg-light rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                        <i class="fa-solid fa-mug-hot text-muted small"></i>
+    <!-- ORDERS TABLE (Seller Style) -->
+    <div class="card shadow border-0 overflow-hidden">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-secondary text-uppercase small">
+                        <tr>
+                            <th class="ps-4 py-3">Item</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <th class="text-end pe-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <!-- 1. PRODUCT INFO -->
+                            <td class="ps-4 py-3">
+                                <div class="d-flex align-items-center">
+                                    {% if order.product.image %}
+                                        <img src="{{ order.product.image.url }}" class="rounded shadow-sm me-3" style="width: 50px; height: 50px; object-fit: contain;">
+                                    {% else %}
+                                        <div class="bg-secondary rounded shadow-sm me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                            <i class="fa-solid fa-coffee text-white"></i>
+                                        </div>
+                                    {% endif %}
+                                    <div>
+                                        <a href="{% url 'product_detail' order.product.id %}" class="text-dark fw-bold text-decoration-none d-block">
+                                            {{ order.product.name }}
+                                        </a>
+                                        <small class="text-muted">
+                                            Seller: <a href="{% url 'public_business_profile' order.product.seller.id %}" class="text-muted">{{ order.product.seller.username }}</a>
+                                            <!-- CHAT BUTTON -->
+                                            <a href="{% url 'chat_room' order.product.seller.id %}" class="small_chat_i">
+                                                <i class="fa-regular fa-comments me-1"></i> 
+                                            </a>
+                                        </small>
                                     </div>
+                                </div>
+                            </td>
+
+                            <!-- 2. DATE -->
+                            <td class="text-muted small">
+                                <i class="fa-regular fa-calendar me-1"></i> {{ order.created_at|date:"M d, Y" }}
+                            </td>
+
+                            <!-- 3. STATUS BADGE -->
+                            <td>
+                                {% if order.status == 'Pending' %}
+                                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Price Pending</span>
+                                {% elif order.status == 'Paid' %}
+                                    <span class="badge bg-info text-dark px-3 py-2 rounded-pill">Paid</span>
+                                {% elif order.status == 'Accepted' %}
+                                    <span class="badge bg-primary px-3 py-2 rounded-pill">Processing</span>
+                                {% elif order.status == 'Shipped' %}
+                                    <span class="badge bg-secondary px-3 py-2 rounded-pill">On the way</span>
+                                {% elif order.status == 'Delivered' %}
+                                    <span class="badge bg-success px-3 py-2 rounded-pill">Delivered</span>
+                                {% else %}
+                                    <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">{{ order.status }}</span>
                                 {% endif %}
-                                <span class="fw-bold text-dark">{{ order.product.name }}</span>
-                            </div>
-                        </td>
-                        <td>{{ order.product.seller.username }}</td>
-                        <td>
-                            <span class="d-block">{{ order.quantity }} kg</span>
-                            <span class="text-success fw-bold">${{ order.total_price }}</span>
-                        </td>
-                        <td class="text-muted small">{{ order.created_at|date:"M d, Y" }}</td>
-                        <td>
-                            {% if order.status == 'Pending' %}
-                                <span class="badge bg-warning text-dark">Pending</span>
-                            {% elif order.status == 'Accepted' or order.status == 'Paid' %}
-                                <span class="badge bg-success">Processing</span>
-                            {% elif order.status == 'Declined' %}
-                                <span class="badge bg-danger">Declined</span>
-                            {% elif order.status == 'Shipped' %}
-                                <span class="badge bg-info text-dark">Shipped</span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            <!-- Chat with Seller -->
-                            <a href="{% url 'chat_room' order.product.seller.id %}" class="btn btn-sm btn-outline-primary">
-                                <i class="fa-solid fa-comment"></i> Chat
-                            </a>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="7" class="text-center py-5">
-                            <i class="fa-solid fa-basket-shopping fa-3x text-muted mb-3"></i>
-                            <h5 class="text-muted">You haven't ordered anything yet.</h5>
-                            <a href="{% url 'product_list' %}" class="btn btn-warning mt-2">Start Shopping</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                            </td>
+
+                            <!-- 4. AMOUNT -->
+                            <td>
+                                <span class="fw-bold text-dark">${{ order.total_price }}</span>
+                                <div class="small text-muted">{{ order.quantity }} set</div>
+                            </td>
+
+                            <!-- 5. ACTIONS -->
+                            <td class="text-end pe-4">
+                                {% if order.status == 'Quoted' %}
+                                    <!-- PAY BUTTON -->
+                                    <a href="{% url 'payment' order.id %}" class="btn btn-dark btn-sm shadow-sm rounded-pill px-3">
+                                        Pay Now <i class="fa-solid fa-chevron-right ms-1"></i>
+                                    </a>
+                                    <!-- CANCEL BUTTON -->
+                                    <a href="{% url 'cancel_order' order.id %}" class="btn btn-outline-danger btn-sm rounded-circle ms-1" title="Cancel Order" onclick="return confirm('Are you sure you want to delete the order?');">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </a>
+                                {% else %}
+                                    <!-- CHAT BUTTON -->
+                                    <a href="{% url 'chat_room' order.product.seller.id %}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                                        <i class="fa-regular fa-comments me-1"></i> Chat
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <div class="text-muted">
+                                    <i class="fa-solid fa-clipboard-list fa-3x mb-3"></i>
+                                    <h5>No orders found</h5>
+                                    <p class="small">You haven't placed any orders yet.</p>
+                                    <a href="{% url 'product_list' %}" class="btn btn-primary mt-2">Browse Products</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

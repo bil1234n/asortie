@@ -37,7 +37,7 @@
 
     /* Specific User Styles */
     .msg-me {
-        background-color: #2C1A11; /* Coffee Dark */
+        background-color: #1B3C59; /* Coffee Dark */
         color: #fff;
         border-bottom-right-radius: 2px;
     }
@@ -64,6 +64,16 @@
     .deleted-text {
         font-style: italic;
         color: #999;
+    }
+    #msg-input {
+        width: 100%;
+        font-size: 0.95rem;
+        resize: none;      
+        padding: 10px 15px;
+        border-radius: 20px;
+        field-sizing: content;
+        max-height: 20vh; 
+        overflow-y: auto; 
     }
 </style>
 
@@ -119,11 +129,12 @@
                 <!-- 3. INPUT AREA -->
                 <div class="card-footer bg-white border-top p-3">
                     <form id="chat-form" class="d-flex align-items-center gap-2">
-                        <input type="text" id="msg-input" class="form-control form-control-lg border-0 bg-light" 
-                               placeholder="Type your message..." required autocomplete="off" style="font-size: 0.95rem;">
+                        <!-- Changed input to textarea -->
+                        <textarea id="msg-input" class="form-control border-0 bg-light" 
+                                placeholder="Type your message..." required autocomplete="off" rows="1"></textarea>
                         
                         <button type="submit" class="btn btn-warning text-dark rounded-circle shadow-sm" 
-                                style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+                                style="width: 45px; height: 45px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
                             <i class="fa-solid fa-paper-plane"></i>
                         </button>
                     </form>
@@ -143,7 +154,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <input type="text" id="edit-input" class="form-control">
+                
+                <textarea class="form-control border-0 bg-light" required autocomplete="off" rows="1" id="edit-input" style="height: 60px;"></textarea>
+                <!-- <input type="text" id="edit-input" class="form-control"> -->
                 <input type="hidden" id="edit-msg-id">
             </div>
             <div class="modal-footer">

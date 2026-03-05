@@ -1,0 +1,106 @@
+
+        <div class="main-content" id="main-content">           
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="mobile-toggle" id="mobile-toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                
+                <div class="top-right-actions ms-auto">
+                    
+                    {% if user.is_authenticated %}
+                        <!-- NOTIFICATION BELL -->
+                        <li class="nav-item dropdown me-3" style="list-style: none;">
+                            <a class="nav-link position-relative" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-bell fa-lg text-secondary"></i>
+                                
+                                {% if notification_count > 0 %}
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ notification_count }}
+                                    </span>
+                                {% endif %}
+                            </a>
+                            
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="width: 300px; max-height: 400px; overflow-y: auto;">
+                                <li class="dropdown-header fw-bold">Notifications</li>
+                                <li><hr class="dropdown-divider"></li>
+                                
+                                {% if notifications %}
+                                    {% for n in notifications %}
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-start gap-2 py-2" href="{% url 'mark_read' n.id %}">
+                                            <div class="mt-1">
+                                                {% if n.notification_type == 'order' %}
+                                                    <i class="fa-solid fa-cart-shopping text-success"></i>
+                                                {% elif n.notification_type == 'message' %}
+                                                    <i class="fa-solid fa-comment text-primary"></i>
+                                                {% else %}
+                                                    <i class="fa-solid fa-bell text-warning"></i>
+                                                {% endif %}
+                                            </div>
+                                            <div style="white-space: normal;">
+                                                <p class="mb-0 small fw-bold">{{ n.message }}</p>
+                                                <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} ago</small>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="text-center py-3 small text-muted">No new notifications</li>
+                                {% endif %}
+                                
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">View All History</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        
+                        <!-- CLICKABLE PROFILE LINK -->
+                        <a href="{% url 'profile' %}" style="text-decoration: none; color: inherit; margin-right: 10px;">
+                            <div class="user-profile">
+                                <div class="profile-img-placeholder">
+                                    {{ user.username|first|upper }}
+                                </div>
+                                <span class="user-name">{{ user.username }}</span>
+                            </div>
+                        </a>
+
+                        <!-- LOGOUT BUTTON -->
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn" title="Logout">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </button>
+                        </form>
+
+                    {% else %}
+                        <!-- GUEST BUTTONS -->
+                        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">Login</a>
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">Sign Up</a>
+                    {% endif %}
+                </div>
+            </header>
+
+            <!-- Dynamic Content Wrapper -->
+            <div class="content-wrapper">
+                
+                <!-- MESSAGES SECTION -->
+                {% if messages %}
+                    <div class="container mt-3">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                                <i class="fa-solid fa-info-circle me-2"></i> {{ message|stringformat:"s" }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- *** CRITICAL FIX: THIS WAS MISSING *** -->
+                <!-- This allows other pages to inject their HTML here -->
+                {% block content %}
+                {% endblock %}
+                <!-- ************************************** -->
+
+            </div>

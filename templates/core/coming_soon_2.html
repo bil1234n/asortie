@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Internal CSS for this page only (Move to style.css in production) -->
+<style>
+    :root {
+        --coffee-black: #1a1a1a;
+        --coffee-dark: #1B3C59;
+        --coffee-medium: #6d4c41;
+        --coffee-light: #d7ccc8;
+        --gold: #d4af37;
+        --gold-hover: #b89628;
+    }
+
+    .coming-soon-wrapper {
+        min-height: 100vh;
+        color: var(--text-dark);
+        padding-bottom: 5rem;
+    }
+
+    .hero-section {
+        padding-top: 50px;
+        padding-bottom: 60px;
+    }
+
+    .badge-soft {
+        background-color: rgba(212, 175, 55, 0.2);
+        color: var(--gold);
+        border: 1px solid var(--gold);
+        padding: 5px 15px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    /* Pricing Card Styling */
+    .pricing-card {
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--coffee-black);
+        border-radius: 15px;
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        border: 1px solid rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .pricing-card.pro-tier {
+        background: linear-gradient(145deg, #1B3C59, #0F1F2E);
+        color: white;
+        border: 1px solid var(--gold);
+    }
+
+    .pricing-card.pro-tier .price-text {
+        color: var(--gold);
+    }
+
+    .pricing-card.premium-tier {
+        border-top: 5px solid #1B3C59;
+    }
+
+    .card-title {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .price-text {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+    }
+
+    .price-period {
+        font-size: 1rem;
+        font-weight: 400;
+        opacity: 0.7;
+    }
+
+    /* Feature Lists */
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 2rem;
+        text-align: left;
+    }
+
+    .feature-list li {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+    }
+
+    .feature-list i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+    }
+
+    .check-icon { color: #28a745; }
+    .cross-icon { color: #dc3545; opacity: 0.6; }
+    .gold-icon { color: var(--gold); }
+
+    /* Button Styling */
+    .btn-pricing {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: all 0.3s;
+    }
+
+    .btn-outline-coffee {
+        border: 2px solid var(--coffee-dark);
+        color: var(--coffee-dark);
+    }
+    .btn-outline-coffee:hover {
+        background: var(--coffee-dark);
+        color: white;
+    }
+
+    .btn-gold {
+        background: var(--gold);
+        color: black;
+        border: none;
+    }
+    .btn-gold:hover {
+        background: var(--gold-hover);
+        color: white;
+    }
+
+    .ribbon {
+        position: absolute;
+        top: 20px;
+        right: -35px;
+        transform: rotate(45deg);
+        background-color: var(--gold);
+        color: #000;
+        padding: 5px 40px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .text-dimmed {
+        opacity: 0.6;
+        text-decoration: line-through;
+    }
+</style>
+
+<div class="coming-soon-wrapper">
+    <div class="container text-center hero-section">
+        <div class="row justify-content-center">
+            <div class="mb-4">
+                <i class="fa-solid fa-cubes fa-5x" style="color: var(--text-dark);"></i>
+            </div>
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold mb-3">Coming Soon</h1>
+                <span class="badge-soft mb-3">3D Visualization System In Progress</span>
+                <p class="lead text-muted my-4">
+                    We are integrating powerful <strong>3D Visualization</strong> experience for our furniture in immersive 3D with real-time color customization and AR placement directly in your space.
+                </p>
+                
+                <!-- Progress Bar -->
+                <div class="progress mb-2" style="height: 6px; background-color: rgb(97 95 95 / 20%)">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 35%"></div>
+                </div>
+                <div class="d-flex justify-content-between text-muted small mb-5">
+                    <span>Development</span>
+                    <span>Launch Phase (85%)</span>
+                    <span>Live</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Packages -->
+        <div class="row g-4 mt-2">
+            
+            <!-- 1. BASIC PACKAGE -->
+            <div class="col-md-4">
+                <div class="pricing-card basic-tier">
+                    <h4 class="card-title text-muted">Basic Starter</h4>
+                    <div class="price-text">$0 <span class="price-period">/Year</span></div>
+                    <p class="text-muted small">Essential access for casual traders.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check check-icon"></i>Business Profile</li>
+                        <li><i class="fa-solid fa-check check-icon"></i>Merchant Hub Listing
+</li>
+                        <li><i class="fa-solid fa-check check-icon"></i> Luxury Furniture Listings</li>
+                        <li><i class="fa-solid fa-check check-icon"></i>Private B2B Messaging</li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> No AI Assistant</li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">0 Smart Agents</span></li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Full 3D Visualization</span></li>
+                    </ul>
+
+                    <button class="btn btn-outline-coffee btn-pricing">Current Plan</button>
+                </div>
+            </div>
+
+            <!-- 2. PREMIUM PACKAGE -->
+            <div class="col-md-4">
+                <div class="pricing-card premium-tier">
+                    <h4 class="card-title" style="color: var(--coffee-dark);">Premium</h4>
+                    <div class="price-text">$400 <span class="price-period">/Year</span></div>
+                    <p class="text-muted small">For serious importers requiring consistency.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check check-icon"></i>Everything in Free,<strong>&nbsp; Plus+</strong></li>
+                        <li><i class="fa-solid fa-check check-icon"></i>AI Assistant</li>
+                        <li><i class="fa-solid fa-check check-icon"></i>4 Smart Agents</li>
+                        <li><i class="fa-solid fa-check check-icon"></i>Full 3D Visualization</li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Advanced Analytics</span></li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Priority Support</span></li>
+                    </ul>
+
+                    <button class="btn btn-dark btn-pricing" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <!-- 3. PROFESSIONAL PACKAGE -->
+            <div class="col-md-4">
+                <div class="pricing-card pro-tier">
+                    <div class="ribbon">BEST VALUE</div>
+                    <h4 class="card-title"><i class="fa-solid fa-crown me-2" style="color: var(--gold);"></i> Professional</h4>
+                    <div class="price-text">$800 <span class="price-period">/Year</span></div>
+                    <p class="small">Full power of AI and Live Auctions.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check gold-icon"></i>Everything in Free,<strong>&nbsp; Plus++</strong></li>
+                        <li><i class="fa-solid fa-check gold-icon"></i>4 Additional Smart Agents (Total 8 Agents)</li>
+                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">Advanced Analytics</span></li>
+                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">Priority Support</span></li>
+                    </ul>
+
+                    <button class="btn btn-gold btn-pricing">Coming Soon</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+            <!-- Back Button -->
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5" 
+               style="background-color: var(--secondary-color); border: none;">
+                <i class="fa-solid fa-arrow-left me-2"></i> Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

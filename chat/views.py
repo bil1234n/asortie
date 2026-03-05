@@ -45,28 +45,79 @@ def chat_room(request, user_id):
         'other_user': other_user
     })
 
-@login_required
 def contact_admin(request):
-    """Finds a random admin and redirects to chat with them"""
-    
-    # 1. Try to find users with role='admin'
-    admins = User.objects.filter(role='admin', is_active=True)
-    
-    # 2. Fallback: If no custom 'admin' role exists, look for Superusers
-    if not admins.exists():
-        admins = User.objects.filter(is_superuser=True, is_active=True)
-    
-    if admins.exists():
-        # Pick one random admin
-        selected_admin = random.choice(list(admins))
+    # =================================================
+    # SCENARIO 1: USER IS LOGGED IN -> Direct Chat
+    # =================================================
+    if request.user.is_authenticated:
+        # 1. Find admins
+        admins = User.objects.filter(role='admin', is_active=True)
+        if not admins.exists():
+            admins = User.objects.filter(is_superuser=True, is_active=True)
         
-        # Redirect to the chat room with this specific admin ID
-        return redirect('chat_room', user_id=selected_admin.id)
-    else:
-        # Error handling if no admins exist in the system
-        messages.error(request, "No support agents are currently available.")
-        return redirect('chat_inbox')
-    
+        if admins.exists():
+            selected_admin = random.choice(list(admins))
+            return redirect('chat_room', user_id=selected_admin.id)
+        else:
+            messages.error(request, "No support agents are currently available.")
+            return redirect('chat_inbox')
+
+    # =================================================
+    # SCENARIO 2: USER IS GUEST -> Show Contact Form
+    # =================================================
+    if request.method == 'POST':
+        # 1. Get data from the HTML form
+        name = request.POST.get('name')
+        email = request.POST.get('email') # Check case sensitivity in your HTML
+        phone = request.POST.get('phone')
+        body = request.POST.get('message')
+
+        # 2. Find an admin to receive the message
+        admins = list(User.objects.filter(Q(role='admin') | Q(is_superuser=True), is_active=True))
+        
+        if not admins:
+            messages.error(request, "System Error: No support agents available to receive your message.")
+            return redirect('contact_admin') # Redirect back to form
+
+        target_admin = random.choice(admins)
+
+        # 3. Create/Get a generic "Guest User" for the DB
+        # This ensures the message has a sender, but doesn't require real login
+        guest_user, created = User.objects.get_or_create(username="Website_Guest")
+        if created:
+            guest_user.email = "guest@system.local"
+            guest_user.set_unusable_password()
+            guest_user.save()
+
+        # 4. Create Chat Room (Guest User <-> Admin)
+        room = ChatRoom.objects.filter(
+            (Q(participant_1=guest_user) & Q(participant_2=target_admin)) |
+            (Q(participant_1=target_admin) & Q(participant_2=guest_user))
+        ).first()
+
+        if not room:
+            room = ChatRoom.objects.create(participant_1=guest_user, participant_2=target_admin)
+
+        # 5. Format the message
+        full_message = (
+            f"📢 **GUEST INQUIRY**\n"
+            f"👤 Name: {name}\n"
+            f"📧 Email: {email}\n"
+            f"📞 Phone: {phone}\n"
+            f"----------------------\n"
+            f"{body}"
+        )
+
+        # 6. Send Message
+        Message.objects.create(room=room, sender=guest_user, content=full_message)
+        room.save() # Update timestamp
+
+        messages.success(request, f"Thank you, {name}! Your message has been sent. We will contact you via email.")
+        return redirect('contact_admin') # Or redirect to home
+
+    # If GET request and not logged in, show the form
+    return render(request, 'chat/guest_contact.html')
+
 # --- AJAX API: SEND MESSAGE ---
 @login_required
 def send_message_api(request, room_id):

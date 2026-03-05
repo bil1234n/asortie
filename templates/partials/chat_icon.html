@@ -1,0 +1,50 @@
+
+<!-- 1. The Floating Button -->
+<div class="chat-btn-float" id="chatToggleBtn">
+    <i class="fa-solid fa-comments"></i>
+</div>
+
+<!-- 2. The Chat Window -->
+<div class="chat-widget-container" id="chatWindow">
+    <!-- Header -->
+    <div class="chat-header">
+        <h5 class="mb-0 fs-6"><i class="fa-solid fa-headset me-2"></i> AI Assistant</h5>
+        <button class="close-chat" id="closeChatBtn">&times;</button>
+    </div>
+
+    <!-- Body: Under Development State -->
+    <div class="chat-body d-flex flex-column align-items-center justify-content-center text-center">
+        
+        <!-- Animated/Styled Icon -->
+        <div class="position-relative mb-3 mt-2">
+            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 80px; height: 80px;">
+                <i class="fa-solid fa-robot fa-2x" style="color: #1B3C59;"></i>
+            </div>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark border border-white">
+                CHAT
+            </span>
+        </div>
+
+        <!-- Professional Text -->
+        <h6 class="fw-bold mb-2" style="color: #1B3C59;">Super AI Agent</h6>
+        
+        <p class="small text-muted px-3" style="line-height: 1.5;">
+            Elite automated interior guidance;  <br>
+            <span class="fst-italic text-secondary"> live agent support in v2.0.</span>
+        </p>
+
+        <div class="w-100 px-4 mb-4">
+            <a href="{% url 'ai' %}" class="btn btn-outline-dark btn_sm w-100 py-1" style="border-color: #1B3C59; color: #1B3C59;">
+                <i class="fa-solid fa-robot me-2"></i> AI Agent v2.1
+            </a>
+        </div>
+        <!-- Redirect to Real Human Chat -->
+        <div class="w-100 px-4">
+            <p class="small fw-bold mb-2 text-secondary">Reach our private concierge?</p>
+            <a href="{% url 'contact_admin' %}" class="btn btn-outline-dark btn_sm w-100 py-2" style="border-color: #1B3C59; color: #1B3C59;">
+                <i class="fa-solid fa-envelope me-2"></i> Message Specialist
+            </a>
+        </div>
+    </div>
+
+</div>

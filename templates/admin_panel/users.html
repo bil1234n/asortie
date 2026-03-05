@@ -11,7 +11,7 @@
         --dark-text: #111827;
         --muted-text: #6b7280;
         --border-color: #e5e7eb;
-        --primary-brand: #2C1A11; /* Coffee Dark */
+        --primary-brand: #1B3C59; /* Coffee Dark */
         --accent-gold: #D4AF37;
     }
 
@@ -151,13 +151,13 @@
 
                         <!-- Certificate Status -->
                         <td>
-                            {% if u.role == 'seller' and u.seller_profile %}
-                                {% with cert_count=u.seller_profile.certificates.count %}
+                            {% if u.business_profile and u.business_profile.certificates.exists %}
+                                {% with cert_count=u.business_profile.certificates.count %}
                                     {% if cert_count > 0 %}
                                         <div class="d-flex align-items-center gap-2">
                                             <span class="fw-bold text-dark">{{ cert_count }}</span> Uploaded
                                             <!-- Red dot if any unverified -->
-                                            {% if u.seller_profile.certificates.filter.is_verified|length != cert_count %}
+                                            {% if u.business_profile.certificates.filter.is_verified|length != cert_count %}
                                                 <span class="badge bg-warning text-dark rounded-circle p-1" style="width: 10px; height: 10px;"></span>
                                             {% endif %}
                                         </div>
@@ -175,13 +175,11 @@
                             <div class="d-flex justify-content-end align-items-center gap-2">
                                 
                                 <!-- 1. Review Modal Button (Only for Sellers) -->
-                                {% if u.role == 'seller' %}
                                     <button class="btn btn-dark btn-sm rounded-pill px-3 fw-bold" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#modal{{ u.id }}">
                                         Review
                                     </button>
-                                {% endif %}
                                 <!-- 2. Quick Suspend/Restore Form -->
                                 <form method="post" class="d-inline">
                                     {% csrf_token %}
@@ -213,7 +211,6 @@
                     <!-- ========================== -->
                     <!-- COMPLIANCE REVIEW MODAL    -->
                     <!-- ========================== -->
-                    {% if u.role == 'seller' %}
                     <div class="modal fade review-modal" id="modal{{ u.id }}" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-xl modal-dialog-centered">
                             <div class="modal-content">
@@ -230,16 +227,16 @@
                                             
                                             <div class="mb-3">
                                                 <small class="d-block text-muted fw-bold">Company Name</small>
-                                                <span class="text-dark">{{ u.seller_profile.company_name|default:"Not Set" }}</span>
+                                                <span class="text-dark">{{ u.business_profile.company_name|default:"Not Set" }}</span>
                                             </div>
                                             <div class="mb-3">
                                                 <small class="d-block text-muted fw-bold">Location</small>
-                                                <span class="text-dark">{{ u.seller_profile.city }}, {{ u.seller_profile.country }}</span>
+                                                <span class="text-dark">{{ u.business_profile.city }}, {{ u.business_profile.country }}</span>
                                             </div>
                                             <div class="mb-3">
                                                 <small class="d-block text-muted fw-bold">Roles</small>
-                                                {% if u.seller_profile.is_farmer %}<span class="badge bg-success me-1">Farmer</span>{% endif %}
-                                                {% if u.seller_profile.is_roaster %}<span class="badge bg-danger">Roaster</span>{% endif %}
+                                                {% if u.business_profile.is_farmer %}<span class="badge bg-success me-1">Farmer</span>{% endif %}
+                                                {% if u.business_profile.is_roaster %}<span class="badge bg-danger">Roaster</span>{% endif %}
                                             </div>
 
                                             <hr>
@@ -301,7 +298,7 @@
                                             <!-- SECTION 2: CERTIFICATES -->
                                             <h5 class="fw-bold mb-3 text-dark mt-5">2. Trade Certificates</h5>
                                             
-                                            {% for cert in u.seller_profile.certificates.all %}
+                                            {% for cert in u.business_profile.certificates.all %}
                                                 <div class="doc-card">
                                                     <div class="doc-header">
                                                         <div>
@@ -354,8 +351,6 @@
                             </div>
                         </div>
                     </div>
-                    {% endif %} <!-- End Modal Logic -->
-
                     {% endfor %}
                 </tbody>
             </table>

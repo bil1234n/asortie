@@ -1,7 +1,7 @@
 /* --- Variables & Reset --- */
 :root {
-    --primary-color: #3e2723; /* Dark Coffee */
-    --secondary-color: #5d4037; /* Medium Coffee */
+    --primary-color: #0F1F2E;
+    --secondary-color: #1B3C59;
     --accent-color: #d7ccc8; /* Latte */
     --highlight-color: #c6a700; /* Gold/Harvest */
     --bg-color: #f4f6f8;
@@ -54,7 +54,7 @@ body {
 }
 
 .logo-section img{
-    width: 30px;
+    width: 200px;
 }
 
 .nav-links {
@@ -63,6 +63,26 @@ body {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--highlight-color) transparent;
+}
+
+.nav-links::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.nav-links::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.nav-links::-webkit-scrollbar-thumb {
+    background-color: rgba(212, 175, 55, 0.5);
+    border-radius: 20px; 
+    transition: background-color 0.3s;
+}
+
+.nav-links:hover::-webkit-scrollbar-thumb {
+    background-color: var(--highlight-color);
 }
 
 /* Sidebar Links */
@@ -187,7 +207,13 @@ body {
     padding: 30px;
     flex: 1;
 }
-
+.small_chat_i{
+    color: #0F1F2E;
+}
+.small_white{
+    color: #fff;
+    text-decoration: none;
+}
 /* --- Footer --- */
 .main-footer {
     background-color: var(--white);
@@ -199,6 +225,138 @@ body {
     color: #13171cbd;
     text-decoration: none;
 }
+/* Floating Button (Bottom Right) */
+.chat-btn-float {
+    position: fixed;
+    bottom: 5%;
+    right: 3%; 
+    width: 60px;
+    height: 60px;
+    background-color: #1B3C59; /* Coffee Dark */
+    color: #D4AF37; /* Gold */
+    border-radius: 50%;
+    border: 2px solid #D4AF37;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1050;
+    transition: transform 0.3s ease;
+}
+
+.chat-btn-float:hover {
+    transform: scale(1.1);
+    background-color: #1864a7;
+}
+
+/* Chat Container */
+.chat-widget-container {
+    position: fixed;
+    bottom: 100px;
+    right: 5%; 
+    width: 350px;
+    height: 450px;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 1050;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+/* Show class for JS toggle */
+.chat-widget-container.active {
+    display: flex;
+    animation: fadeInUps 0.3s ease-in-out;
+}
+
+/* Chat Header */
+.chat-header {
+    background-color: #1B3C59;
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h5 {
+    margin: 0;
+    font-size: 16px;
+    color: #D4AF37;
+}
+
+.close-chat {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Chat Body */
+.chat-body {
+    padding: 25px 15px 10px;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+}
+
+.msg-system {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+@keyframes fadeInUps {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.footer_v{
+    color: rgb(253 253 253 / 75%) !important;
+}
+.logo-section {
+    padding: 30px 15px;
+}
+
+.logo-section span{
+    width: 30px;
+    border-radius: 5px 0;
+    filter: drop-shadow(0 5px 15px rgba(235, 235, 235, 0.221));
+}
+.logo_1{
+    width: 30px;
+    border-radius: 5px 0;
+    filter: drop-shadow(0 5px 15px rgba(235, 235, 235, 0.221));
+}
+.btn_coffee{
+    background: var(--secondary-color);
+}
+.bg-dark{
+    background: var(--secondary-color) !important;
+}
+.btn_sm:hover{
+    color: #fff !important;
+}
+.btn-warning{
+    padding: 15px;
+    font-size: 1.2rem;
+}
+.cont_or_p th, 
+.cont_or_p tr, 
+.cont_or_p td{
+    padding: 0.5rem 1rem !important;
+}
+.bg_coffee_c{
+    background: var(--secondary-color);
+    color: #fff;
+}
+
+/* ai */
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
     .sidebar {

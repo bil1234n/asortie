@@ -1,0 +1,528 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxé | Ultimate Immersive Experience</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <style>
+        :root { 
+            --accent: #c5a059; 
+            --dark: #111; 
+            --glass: rgba(255, 255, 255, 0.88); 
+            --shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            
+            /* Vars from old code */
+            --primary-color: #0F1F2E;
+            --secondary-color: #1B3C59;
+            --top-header-bg: #ffffff;
+            --top-header-text: #000000;
+            --border-light: rgba(0,0,0,0.1);
+            --danger: #e74c3c;
+        }
+        
+        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        body { margin: 0; font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; background: #fff; }
+
+        /* --- Enhanced Dark Sidebar (From Old Code) --- */
+        .sidebar { 
+            width: 320px; /* Matched w-80 from old code */
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: #ffffff;
+            display: flex; 
+            flex-direction: column; 
+            z-index: 1001; 
+            position: relative; 
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2); 
+            flex-shrink: 0;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* Desktop hiding mechanism */
+        .sidebar.hidden { 
+            transform: translateX(-100%); 
+            margin-right: -320px; 
+        }
+
+        .border_bot {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Adapted Sidebar Elements for Dark Mode */
+        .category-nav { 
+            display: flex; gap: 12px; padding: 0 20px 15px 20px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; border-bottom: 1px solid rgba(255,255,255,0.05); 
+        }
+        .category-nav::-webkit-scrollbar { display: none; }
+        
+        .cat-pill { 
+            padding: 8px 16px; border-radius: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; cursor: pointer; border: 1px solid transparent; 
+            color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.05); transition: all 0.3s ease;
+        }
+        .cat-pill:hover { background: rgba(255,255,255,0.15); color: #fff; }
+        .cat-pill.active { background: #fff; color: var(--primary-color); }
+
+        .product-list { flex: 1; overflow-y: auto; padding: 20px; }
+        .product-list::-webkit-scrollbar { width: 5px; }
+        .product-list::-webkit-scrollbar-track { background: transparent; }
+        .product-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .product-list::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        .item-card { 
+            padding: 18px; margin-bottom: 12px; cursor: pointer; border-radius: 12px; display: flex; flex-direction: column; 
+            border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.03); transition: all 0.3s ease; color: #fff;
+        }
+        .item-card:hover {
+            border-color: rgba(255,255,255,0.2); transform: translateY(-2px); background: rgba(255,255,255,0.08);
+        }
+        .item-card.active { 
+            background: rgba(255,255,255,0.1); border-color: var(--accent); box-shadow: 0 8px 20px rgba(197, 160, 89, 0.15); 
+        }
+
+        .view-selector { 
+            margin-top: 15px; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; outline: none; background: rgba(0,0,0,0.2); cursor: pointer; font-weight: 600; color: #fff; transition: border-color 0.3s;
+        }
+        .view-selector option { color: var(--dark); background: #fff; }
+        .view-selector:hover { border-color: #fff; }
+
+        /* --- Top Bar (From Old Code) --- */
+        .top-bar_full {
+            background-color: var(--top-header-bg); color: var(--top-header-text); height: 75px; border-bottom: 1px solid var(--border-light); box-shadow: 0 2px 10px rgba(0,0,0,0.03); z-index: 900; position: relative; width: 100%;
+        }
+        .top-bar {
+            height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
+        }
+        .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
+        .top-right-actions { display: flex; align-items: center; gap: 20px; }
+        .user-profile { display: flex; align-items: center; gap: 10px; }
+        .profile-img-placeholder { width: 35px; height: 35px; background-color: var(--primary-color); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; }
+        .user-name { font-weight: 500; font-size: 0.9rem; color: var(--dark); }
+        .logout-btn { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 6px 16px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
+        .logout-btn:hover { background: var(--danger); color: #fff; }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 1024px) {
+            .mobile-toggle { display: block; }
+            .sidebar {
+                position: fixed; top: 0; left: 0; height: 100vh; transform: translateX(-100%); margin-right: 0; box-shadow: 10px 0 30px rgba(0,0,0,0.5); z-index: 10000;
+            }
+            .sidebar.active-mobile { transform: translateX(0); }
+            .sidebar.hidden { transform: translateX(-100%); }
+            .top-bar_full { padding-left: 15px; padding-right: 15px; }
+            .header-title {
+                display: none; /* Hide title text on very small screens to save space */
+            }
+        }
+
+        /* Main Display Stage */
+        .content-wrapper { flex: 1; display: flex; flex-direction: column; position: relative; width: 100%; overflow: hidden; }
+        .main-stage { flex: 1; position: relative; background: radial-gradient(circle at center, #ffffff 0%, #f2f2f2 100%); }
+        model-viewer { width: 100%; height: 100%; outline: none; --poster-color: transparent; }
+
+        /* Measurement Labels */
+        .dim-label { background: #fff; border: 1px solid #000; padding: 4px 10px; font-size: 10px; font-weight: 600; color: #000; pointer-events: none; box-shadow: 4px 4px 0px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 5px; white-space: nowrap; opacity: 0; transform: translateY(10px); }
+        model-viewer.show-dimensions .dim-label { opacity: 1; transform: translateY(0); }
+        .dim-line { width: 1px; height: 15px; background: #000; position: absolute; top: 100%; left: 50%; }
+
+        /* Image Gallery Overlays */
+        #image-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background: #fdfdfd; z-index: 5; }
+        #image-overlay img { max-width: 80%; max-height: 80%; object-fit: contain; border-radius: 10px; }
+
+        .gallery-nav { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; align-items: center; background: white; padding: 10px 25px; border-radius: 40px; box-shadow: var(--shadow); z-index: 10; }
+        .nav-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--dark); font-weight: bold; }
+
+        /* Controls */
+        .control-dock { position: absolute; top: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
+        .icon-btn { width: 54px; height: 54px; background: white; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); color: var(--dark); }
+        .icon-btn:hover, .icon-btn.active { background: var(--dark); color: white; transform: scale(1.1); }
+
+        /* Info Panel */
+        .glass-panel { position: absolute; bottom: 30px; left: 50%; transform: translate(-50%, 150%); width: 90%; max-width: 500px; background: var(--glass); backdrop-filter: blur(25px); padding: 30px 40px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.4); box-shadow: var(--shadow); z-index: 20; opacity: 0; }
+        .glass-panel.show { transform: translate(-50%, 0); opacity: 1; }
+
+        .price { font-size: 1.8rem; font-weight: 200; margin: 10px 0; color: var(--dark); }
+        
+        /* New Professional Variant Pills */
+        .variant-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-top: 15px; display: block; }
+        .swatch-container { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+        .variant-pill { 
+            padding: 8px 16px; border-radius: 30px; background: white; border: 1px solid #ddd; 
+            font-size: 11px; cursor: pointer; white-space: nowrap; transition: 0.2s; color: var(--dark);
+        }
+        .variant-pill:hover { border-color: var(--accent); }
+        .variant-pill.active { background: var(--dark); color: white; border-color: var(--dark); }
+
+        .ar-btn { width: 100%; background: var(--dark); color: white; border: none; padding: 18px; border-radius: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+
+        #loader-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: flex; align-items: center; justify-content: center; z-index: 500; }
+        #loader-overlay.hidden { opacity: 0; visibility: hidden; }
+        #loader-bar-fill { position: absolute; height: 100%; width: 0%; background: var(--accent); }
+
+        .prod_desc{ height: 20vh; overflow-y: scroll; color: #444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar p-6" id="sidebar">
+    <div class="mb-6 text-center border_bot">
+        <img src="{% static 'img/logo_2.png' %}" style="max-width: 230px; margin: 0 auto;" alt="Logo">
+        <p class="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1">Interior Intelligence Hub</p>
+    </div>
+    
+    <div class="space-y-3 mb-8 px-2">
+        <button onclick="location.href='{% url 'home' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
+            <i class="fa-solid fa-house mr-2"></i> Dashboard
+        </button>
+        {% if user.role == 'admin' or user.is_superuser %}
+            <button onclick="location.href='{% url 'trainer' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
+                <i class="fa-solid fa-robot mr-2"></i> Train Ai
+            </button>
+        {% endif %}
+    </div>
+
+    <div class="category-nav" id="category-nav">
+        <div class="cat-pill active" onclick="filterByCategory('All', this)">All</div>
+    </div>
+    <div class="product-list" id="ui-list"></div>
+</aside>
+
+<div class="content-wrapper">  
+    <header class="top-bar_full px-8 flex justify-between items-center shrink-0">
+        <div class="flex items-center">
+            <div class="mobile-toggle" id="mobile-toggle" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <h2 class="header-title text-sm font-bold text-gray-500 uppercase tracking-widest mb-0">
+                <i class="fa-solid fa-folder-open mr-2 text-blue-800"></i> 
+                <span id="active-model-title">Loading...</span>
+            </h2>
+        </div>
+
+            <div class="top-right-actions">
+                
+                {% if user.is_authenticated %}
+                    <!-- NOTIFICATION BELL -->
+                    <li class="nav-item dropdown me-3" style="list-style: none;">
+                        <a class="nav-link position-relative" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-bell fa-lg text-secondary"></i>
+                            
+                            {% if notification_count > 0 %}
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ notification_count }}
+                                </span>
+                            {% endif %}
+                        </a>
+                        
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="width: 300px; max-height: 400px; overflow-y: auto;">
+                            <li class="dropdown-header fw-bold">Notifications</li>
+                            <li><hr class="dropdown-divider"></li>
+                            
+                            {% if notifications %}
+                                {% for n in notifications %}
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-start gap-2 py-2" href="{% url 'mark_read' n.id %}">
+                                        <div class="mt-1">
+                                            {% if n.notification_type == 'order' %}
+                                                <i class="fa-solid fa-cart-shopping text-success"></i>
+                                            {% elif n.notification_type == 'message' %}
+                                                <i class="fa-solid fa-comment text-primary"></i>
+                                            {% else %}
+                                                <i class="fa-solid fa-bell text-warning"></i>
+                                            {% endif %}
+                                        </div>
+                                        <div style="white-space: normal;">
+                                            <p class="mb-0 small fw-bold">{{ n.message }}</p>
+                                            <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} ago</small>
+                                        </div>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="text-center py-3 small text-muted">No new notifications</li>
+                            {% endif %}
+                            
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">View All History</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    
+                    <!-- CLICKABLE PROFILE LINK -->
+                    <a href="{% url 'profile' %}" style="text-decoration: none; color: inherit; margin-right: 10px;">
+                        <div class="user-profile">
+                            <div class="profile-img-placeholder">
+                                {{ user.username|first|upper }}
+                            </div>
+                            <span class="user-name">{{ user.username }}</span>
+                        </div>
+                    </a>
+
+                    <!-- LOGOUT BUTTON -->
+                    <form action="{% url 'logout' %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn" title="Logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </form>
+
+                {% else %}
+                    <!-- GUEST BUTTONS -->
+                    <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">Login</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">Sign Up</a>
+                {% endif %}
+            </div>
+    </header>
+
+    <div class="main-stage">
+        <div class="control-dock">
+            <button class="icon-btn" onclick="toggleDimensions(this)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9h20M2 15h20M2 9v6M22 9v6M7 9v3M12 9v3M17 9v3"/></svg></button>
+            
+            <button class="icon-btn hidden lg:flex" onclick="toggleSidebar()"><svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
+            
+            <button class="icon-btn" onclick="toggleInfo()"><svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></button>
+        </div>
+
+        <div id="loader-overlay">
+            <div class="loader-content" style="text-align:center;">
+                <div style="font-size: 3rem; font-weight: 200; color: var(--dark);"><span id="load-percentage">0</span>%</div>
+                <div style="width: 200px; height: 2px; background: #eee; position: relative;"><div id="loader-bar-fill"></div></div>
+            </div>
+        </div>
+
+        <model-viewer id="viewer" camera-controls auto-rotate shadow-intensity="1.8" environment-image="neutral" exposure="1.1" ar ar-modes="webxr scene-viewer quick-look">
+            <div slot="hotspot-dim-width" class="dim-label">W: <span id="v-width">--</span><div class="dim-line"></div></div>
+            <div slot="hotspot-dim-height" class="dim-label">H: <span id="v-height">--</span><div class="dim-line" style="transform:rotate(90deg); left:100%; top:50%;"></div></div>
+            <div slot="hotspot-dim-depth" class="dim-label">D: <span id="v-depth">--</span></div>
+        </model-viewer>
+
+        <div id="image-overlay">
+            <img id="static-img" src="">
+            <div class="gallery-nav" id="gallery-controls">
+                <button class="nav-btn" onclick="changeImage(-1)">‹</button>
+                <span id="gallery-counter" style="font-size: 12px; font-weight: 600;">1 / 1</span>
+                <button class="nav-btn" onclick="changeImage(1)">›</button>
+            </div>
+        </div>
+
+        <div class="glass-panel" id="info-panel">
+            <span id="p-cat" style="text-transform: uppercase; font-size: 11px; letter-spacing: 4px; color: var(--accent); font-weight: 600;"></span>
+            <h2 id="p-title" style="margin:10px 0 0 0; font-weight: 400; font-size: 1.2rem; color: var(--dark);"></h2>
+            <div class="price" id="p-price"></div>
+            
+            <span class="variant-tag">Color & Type Options</span>
+            <div class="swatch-container" id="swatch-container"></div>
+            
+            <p id="p-desc" class="prod_desc"></p>
+            <button class="ar-btn" onclick="viewer.activateAR()">OPEN IN AR</button>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const inventory = [
+        {% for p in products %}
+        {
+            id: "{{ p.id }}",
+            name: "{{ p.name }}",
+            category: "{{ p.category }}", 
+            price: "{{ p.price }}",
+            desc: "{{ p.description|escapejs }}",
+            variants: [
+                {% for v in p.variants.all %}
+                {
+                    name: "{{ v.variant_name|escapejs }}",
+                    file: "{{ v.get_model_url|escapejs }}"
+                }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ],
+            images: ["{{ p.image.url }}", {% for extra in p.gallery.all %}"{{ extra.image.url }}",{% endfor %}],
+            currentImgIndex: 0
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    let activeItemID = null;
+    const viewer = document.getElementById('viewer');
+
+    function init() {
+        renderCategoryFilters();
+        renderProductList('All');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productID = urlParams.get('product');
+
+        if (productID) {
+            const targetItem = inventory.find(p => String(p.id) === String(productID));
+            if (targetItem) {
+                selectItem(targetItem.id);
+                setTimeout(() => {
+                    const card = document.getElementById(`card-${targetItem.id}`);
+                    if (card) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }, 100);
+            } else {
+                if (inventory.length > 0) selectItem(inventory[0].id);
+            }
+        } else {
+            if (inventory.length > 0) selectItem(inventory[0].id);
+        }
+    }
+
+    function selectItem(id) {
+        const item = inventory.find(p => String(p.id) === String(id));
+        if (!item) return; 
+
+        activeItemID = String(id);
+        updateViewMode(id, '3d');
+
+        // ADD THIS LINE TO UPDATE THE TOP HEADER
+        document.getElementById('active-model-title').innerText = item.name;
+
+        document.getElementById('p-title').innerText = item.name;
+        document.getElementById('p-price').innerText = `$${item.price}`;
+        document.getElementById('p-desc').innerText = item.desc;
+        document.getElementById('p-cat').innerText = item.category;
+
+        const container = document.getElementById('swatch-container');
+        if (item.variants && item.variants.length > 0) {
+            container.innerHTML = item.variants.map((v, index) => `
+                <div class="variant-pill ${index === 0 ? 'active' : ''}" 
+                    onclick="switchVariant('${v.file}', this)">
+                    ${v.name}
+                </div>
+            `).join('');
+            switchVariant(item.variants[0].file, container.querySelector('.variant-pill'));
+        } else {
+            container.innerHTML = '<span class="text-muted small">No 3D configurations</span>';
+        }
+
+        document.querySelectorAll('.item-card').forEach(c => c.classList.remove('active'));
+        const activeCard = document.getElementById(`card-${id}`);
+        if (activeCard) activeCard.classList.add('active');
+    }
+
+    function renderCategoryFilters() {
+        const nav = document.getElementById('category-nav');
+        const categories = [...new Set(inventory.map(p => p.category))];
+        categories.forEach(cat => {
+            const pill = document.createElement('div');
+            pill.className = 'cat-pill';
+            pill.innerText = cat;
+            pill.onclick = (e) => filterByCategory(cat, e.target);
+            nav.appendChild(pill);
+        });
+    }
+
+    function filterByCategory(category, element) {
+        document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+        element.classList.add('active');
+        renderProductList(category);
+    }
+
+    function renderProductList(category) {
+        const list = document.getElementById('ui-list');
+        const filtered = category === 'All' ? inventory : inventory.filter(p => p.category === category);
+        list.innerHTML = filtered.map((p) => `
+            <div class="item-card ${activeItemID === p.id ? 'active' : ''}" id="card-${p.id}" onclick="selectItem('${p.id}')">
+                <span style="font-size: 9px; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; font-weight:600;">${p.category}</span>
+                <span style="font-weight: 600; font-size: 0.95rem; margin-top:4px;">${p.name}</span>
+                <select class="view-selector" onclick="event.stopPropagation()" onchange="updateViewMode('${p.id}', this.value)">
+                    <option value="3d">Digital Twin (3D)</option>
+                    <option value="image">Photography</option>
+                </select>
+            </div>
+        `).join('');
+    }
+
+   function switchVariant(fileUrl, element) {
+        document.querySelectorAll('.variant-pill').forEach(p => p.classList.remove('active'));
+        element.classList.add('active');
+
+        document.getElementById('loader-overlay').classList.remove('hidden');
+        viewer.src = fileUrl;
+    }
+
+    function updateViewMode(id, mode) {
+        const item = inventory.find(p => p.id === id);
+        const overlay = document.getElementById('image-overlay');
+        
+        if (mode === 'image') {
+            overlay.style.display = 'flex';
+            document.getElementById('static-img').src = item.images[item.currentImgIndex];
+        } else {
+            overlay.style.display = 'none';
+        }
+    }
+
+    function changeImage(dir) {
+        const item = inventory.find(p => p.id === activeItemID);
+        item.currentImgIndex = (item.currentImgIndex + dir + item.images.length) % item.images.length;
+        document.getElementById('static-img').src = item.images[item.currentImgIndex];
+        updateGalleryUI(item);
+    }
+
+    function updateGalleryUI(item) {
+        document.getElementById('gallery-counter').innerText = `${item.currentImgIndex + 1} / ${item.images.length}`;
+    }
+
+    viewer.addEventListener('progress', (e) => {
+        const p = Math.round(e.detail.totalProgress * 100);
+        document.getElementById('load-percentage').innerText = p;
+        document.getElementById('loader-bar-fill').style.width = p + '%';
+        if(p === 100) setTimeout(() => document.getElementById('loader-overlay').classList.add('hidden'), 600);
+    });
+
+    viewer.addEventListener('load', () => {
+        const center = viewer.getBoundingBoxCenter();
+        const size = viewer.getDimensions();
+        
+        document.getElementById('v-width').innerText = (size.x * 100).toFixed(1) + 'cm';
+        document.getElementById('v-height').innerText = (size.y * 100).toFixed(1) + 'cm';
+        document.getElementById('v-depth').innerText = (size.z * 100).toFixed(1) + 'cm';
+
+        viewer.updateHotspot({ name: 'hotspot-dim-width', position: `${center.x} ${center.y - size.y/2} ${center.z + size.z/2}` });
+        viewer.updateHotspot({ name: 'hotspot-dim-height', position: `${center.x + size.x/2} ${center.y} ${center.z + size.z/2}` });
+        viewer.updateHotspot({ name: 'hotspot-dim-depth', position: `${center.x + size.x/2} ${center.y - size.y/2} ${center.z}` });
+    });
+
+    function toggleDimensions(btn) { viewer.classList.toggle('show-dimensions'); btn.classList.toggle('active'); }
+    function toggleInfo() { document.getElementById('info-panel').classList.toggle('show'); }
+    
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const isMobile = window.innerWidth <= 1024;
+
+        if (isMobile) {
+            sidebar.classList.toggle('active-mobile');
+            sidebar.classList.remove('hidden'); 
+        } else {
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.remove('active-mobile');
+        }
+    }
+
+    const originalSelectItem = selectItem;
+    selectItem = function(id) {
+        originalSelectItem(id);
+        if (window.innerWidth <= 1024) {
+            document.getElementById('sidebar').classList.remove('active-mobile');
+        }
+    };
+
+    init();
+</script>
+</body>
+</html>

@@ -20,10 +20,11 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Category</label>
                                 <select name="category" class="form-select">
-                                    <option value="Green" {% if product.category == 'Green' %}selected{% endif %}>Green Coffee Beans</option>
-                                    <option value="Roasted" {% if product.category == 'Roasted' %}selected{% endif %}>Roasted Coffee</option>
-                                    <option value="Ground" {% if product.category == 'Ground' %}selected{% endif %}>Ground Coffee</option>
-                                    <option value="Equipment" {% if product.category == 'Equipment' %}selected{% endif %}>Equipment</option>
+                                    <option value="Classic" {% if product.category == 'Classic' %}selected{% endif %}>Classic</option>
+                                    <option value="Modern" {% if product.category == 'Modern' %}selected{% endif %}>Modern</option>
+                                    <option value="Decoration" {% if product.category == 'Decoration' %}selected{% endif %}>Decoration</option>
+                                    <option value="Office" {% if product.category == 'Office' %}selected{% endif %}>Office</option>
+                                    <option value="Hotel" {% if product.category == 'Hotel' %}selected{% endif %}>Hotel</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">

@@ -12,17 +12,17 @@
         }
     </style>
     <meta charset="utf-8">
-    <title>TheCoffeeLink</title>
+    <title>Asortie</title>
     <meta
-        content="TheCoffeeLink is a stylish and modern Webflow templete designed exclusively for coffee shops. With its captivating visuals, seamless functionality, and intuitive layout, TheCoffeeLinkhelps shop owners to show their unique charm online presence."
+        content="Asortie is a modern, enterprise-grade platform built exclusively for the coffee import and export industry. Designed with advanced AI capabilities and integrated live-streaming technology, it delivers a powerful, efficient, and visually compelling digital presence for global coffee traders."
         name="description">
-    <meta content="TheCoffeeLink" property="og:title">
+    <meta content="Asortie" property="og:title">
     <meta
-        content="TheCoffeeLink is a stylish and modern Webflow templete designed exclusively for coffee shops. With its captivating visuals, seamless functionality, and intuitive layout, TheCoffeeLinkhelps shop owners to show their unique charm online presence."
+        content="Asortie is a modern, enterprise-grade platform built exclusively for the coffee import and export industry. Designed with advanced AI capabilities and integrated live-streaming technology, it delivers a powerful, efficient, and visually compelling digital presence for global coffee traders."
         property="og:description">
-    <meta content="TheCoffeeLink" property="twitter:title">
+    <meta content="Asortie" property="twitter:title">
     <meta
-        content="TheCoffeeLink is a stylish and modern Webflow templete designed exclusively for coffee shops. With its captivating visuals, seamless functionality, and intuitive layout, TheCoffeeLinkhelps shop owners to show their unique charm online presence."
+        content="Asortie is a modern, enterprise-grade platform built exclusively for the coffee import and export industry. Designed with advanced AI capabilities and integrated live-streaming technology, it delivers a powerful, efficient, and visually compelling digital presence for global coffee traders."
         property="twitter:description">
     <meta property="og:type" content="website">
     <meta content="summary_large_image" name="twitter:card">
@@ -89,11 +89,20 @@
         </div>
         <div class="container w-container">
             <div class="navbar-wrap">
-                <nav role="navigation" class="nav-menu w-nav-menu"><a href="{% url 'landing_page' %}" class="nav-link first w-nav-link"
+                <nav role="navigation" class="nav-menu w-nav-menu">
+                    <div class="left_nav_h">
+                        <a href="{% url 'landing_page' %}" class="nav-link first w-nav-link"
                         style="max-width: 1400px;">Home</a>
-                    <a href="{% url 'about' %}" class="nav-link w-nav-link" style="max-width: 1400px;">About Us</a><a href="{% url 'marketing_shop' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Shop</a><a href="{% url 'contact' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Contact-Us</a>
-                        <a href="{% url 'login' %}" class="nav-link w-nav-link right_nav" style="margin-right: 0%;">Login</a>
-                    <a href="{% url 'register' %}" class="nav-link w-nav-link right_nav_2" style="margin-right: 0%;">Register</a>
+                        <a href="{% url 'about' %}" class="nav-link w-nav-link" style="max-width: 1400px;">About Us</a>
+                        <a href="{% url 'producers' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Producers</a>
+                        <a href="{% url 'roasters' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Roasters</a>
+                    </div>
+                    <div class="right_nav_h">
+
+                        <a href="{% url 'contact' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Contact-Us</a>
+                            <a href="{% url 'login' %}" class="nav-link w-nav-link" style="margin-right: 0%;">Login</a>
+                        <a href="{% url 'register' %}" class="nav-link w-nav-link" style="margin-right: 0%;">Register</a>
+                    </div>
                 </nav><a href="{% url 'landing_page' %}" id="w-node-_8a2c85c8-55c7-6664-7de1-0dc14c633a9f-4c633a72"
                     class="brand w-nav-brand"><img
                         src="../../static/img/logo_1.png"
@@ -221,58 +230,40 @@
                     <div class="contact-card-info"><img
                             src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/64410b8b4482b65492f5f315_59f5b840defbd900010137b9_location-icon.webp"
                             loading="lazy" width="64" alt="image" class="location-image">
+                            
                         <h3 class="contact-title">Find Easily</h3>
-                        <p>The Queen's Walk, Bishop's, London SE1 7PB, United Kingdom</p><a href="#"
-                            class="contact-card-email">peacefulqode@gmail.com</a>
-                        <div class="contact-card-number">+ (567) 1234-567-8900</div>
+                        <p>Ethiopia, Addis Ababa, Kera Ditamo Building</p>
+                        <a href="mailto:Asortiess@gmail.com">Asortiess@gmail.com</a>
+                        <a href="tel:+251945353545"
+                            >+251-945-353-545</a>
                     </div>
                     <div class="google-map">
-                        <div class="w-embed w-iframe"><iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.804934796049!2d72.91798601546688!3d20.920166196851277!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be0f76d7a7bd155%3A0xe715e4218027ad!2sShree%20Swaminarayan%20International%20School!5e0!3m2!1sen!2sin!4v1674024175689!5m2!1sen!2sin"
-                                width="100%" height="420" style="border:0;" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                        <div class="w-embed w-iframe">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15763.389927245184!2d38.73250698392079!3d8.986178736395788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8511a8d294d7%3A0xced745ce824e2281!2zRGl0YW1vIEJ1aWxkaW5nIHwgS2VyYSB8IOGLsuGJs-GIniDhiJXhipXhjYMgfCDhiYThiKs!5e0!3m2!1sen!2set!4v1765101636567!5m2!1sen!2set" width="100%" height="420" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
                     </div>
                 </div>
                 <div data-w-id="eac37b0b-215f-b847-79af-e09159cfb9d3" class="working-hours"
                     style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                     <div class="working-hours-content">
-                        <h3 class="opening-hours-title">Opening Hours</h3>
+                        <h3 class="opening-hours-title">For More Information</h3>
                     </div>
                     <div class="opening-hours-table">
                         <div class="opening-hours-list">
-                            <div>Monday</div>
-                            <div class="menu-dots-line"></div>
-                            <div>8am - 10pm</div>
+                            Social Media: &nbsp;<a href="https://www.instagram.com/the_coffeelink?igsh=MWs3a3BwN2xvZ29ocg==">Instagram</a>
                         </div>
                         <div class="opening-hours-list">
-                            <div>Tuesday</div>
-                            <div class="menu-dots-line"></div>
-                            <div>8am - 10pm</div>
+                            Social Media: &nbsp;<a href="https://t.me/+2D3q4kmR_R42YTQ0">Telegram</a>
                         </div>
                         <div class="opening-hours-list">
-                            <div>Wednesday</div>
-                            <div class="menu-dots-line"></div>
-                            <div>8am - 10pm</div>
+                            Social Media: &nbsp;<a href="https://chat.whatsapp.com/EbkjJxIac5sBBXCtx4GVI5">WhatsApp</a>
                         </div>
                         <div class="opening-hours-list">
-                            <div>Thursday</div>
-                            <div class="menu-dots-line"></div>
-                            <div>8am - 10pm</div>
+                            Phone No: &nbsp;<a href="tel:+251945353545"
+                            >+251-945-353-545</a>
                         </div>
                         <div class="opening-hours-list">
-                            <div>Friday</div>
-                            <div class="menu-dots-line"></div>
-                            <div>8am - 10pm</div>
-                        </div>
-                        <div class="opening-hours-list">
-                            <div>Saturday</div>
-                            <div class="menu-dots-line"></div>
-                            <div>8am - 3pm</div>
-                        </div>
-                        <div class="opening-hours-list">
-                            <div>Sunday</div>
-                            <div class="menu-dots-line"></div>
-                            <div>Closed</div>
+                            Email: <a href="mailto:Asortiess@gmail.com">Asortiess@gmail.com</a>
                         </div>
                     </div>
                 </div>
@@ -283,7 +274,7 @@
     <div class="section instagram-section">
         <div data-w-id="0924a943-531a-0cd4-6b47-b6d60551d7e0" class="instagram-block"
             style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
-            <a href="https://www.instagram.com/peacefulqode/" target="_blank"
+            <a href="https://www.instagram.com/the_coffeelink?igsh=MWs3a3BwN2xvZ29ocg==" target="_blank"
                 class="instagram-image-link w-inline-block"><img
                     src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe394b643939a28997d_6.webp"
                     loading="lazy"
@@ -291,7 +282,7 @@
                     srcset="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe394b643939a28997d_6-p-500.webp 500w, https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe394b643939a28997d_6.webp 580w"
                     alt="Instagram Image" class="instagram-image">
                 <div class="instagram-icon"></div>
-            </a><a href="https://www.instagram.com/peacefulqode/" target="_blank"
+            </a><a href="https://www.instagram.com/the_coffeelink?igsh=MWs3a3BwN2xvZ29ocg==" target="_blank"
                 class="instagram-image-link w-inline-block"><img
                     src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe387dd93ae4f41e4c9_5.webp"
                     loading="lazy"
@@ -299,7 +290,7 @@
                     srcset="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe387dd93ae4f41e4c9_5-p-500.webp 500w, https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe387dd93ae4f41e4c9_5.webp 580w"
                     alt="Instagram Image" class="instagram-image">
                 <div class="instagram-icon"></div>
-            </a><a href="https://www.instagram.com/peacefulqode/" target="_blank"
+            </a><a href="https://www.instagram.com/the_coffeelink?igsh=MWs3a3BwN2xvZ29ocg==" target="_blank"
                 class="instagram-image-link w-inline-block"><img
                     src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe240b8f9fa46436b0e_4.webp"
                     loading="lazy"
@@ -307,7 +298,7 @@
                     srcset="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe240b8f9fa46436b0e_4-p-500.webp 500w, https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe240b8f9fa46436b0e_4.webp 580w"
                     alt="Instagram Image" class="instagram-image">
                 <div class="instagram-icon"></div>
-            </a><a href="https://www.instagram.com/peacefulqode/" target="_blank"
+            </a><a href="https://www.instagram.com/the_coffeelink?igsh=MWs3a3BwN2xvZ29ocg==" target="_blank"
                 class="instagram-image-link w-inline-block"><img
                     src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe2d53af6317ea70c4b_1.webp"
                     loading="lazy"
@@ -315,7 +306,7 @@
                     srcset="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe2d53af6317ea70c4b_1-p-500.webp 500w, https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe2d53af6317ea70c4b_1.webp 580w"
                     alt="Instagram Image" class="instagram-image">
                 <div class="instagram-icon"></div>
-            </a><a href="https://www.instagram.com/peacefulqode/" target="_blank"
+            </a><a href="https://www.instagram.com/the_coffeelink?igsh=MWs3a3BwN2xvZ29ocg==" target="_blank"
                 class="instagram-image-link w-inline-block"><img
                     src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe203c9015aec4e29a0_2.webp"
                     loading="lazy"
@@ -323,7 +314,7 @@
                     srcset="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe203c9015aec4e29a0_2-p-500.webp 500w, https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe203c9015aec4e29a0_2.webp 580w"
                     alt="Instagram Image" class="instagram-image">
                 <div class="instagram-icon"></div>
-            </a><a href="https://www.instagram.com/peacefulqode/" target="_blank"
+            </a><a href="https://www.instagram.com/the_coffeelink?igsh=MWs3a3BwN2xvZ29ocg==" target="_blank"
                 class="instagram-image-link w-inline-block"><img
                     src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe271a669771836466d_3.webp"
                     loading="lazy"
@@ -341,31 +332,45 @@
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932ead-4a932ea9"
                         data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ead" class="footer-block"
                         style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
-                        <h3 class="footer-title">Contact Us</h3>
+                        <h3 class="footer-title">The Coffee Link</h3>
                         <div class="footer-contact-us">
-                            <div class="footer-address-item">
-                                <div class="address-block">TheCoffeeLink,shop no.24 Fifth,USA</div>
+                            <div class="footer-contact-us-item">
+                                <a href="mailto:Asortiess@gmail.com"
+                                class="footer-contact-us-item-link">Asortiess@gmail.com</a>
                             </div>
-                            <div class="footer-contact-us-item"><a href="mailto:TheCoffeeLink@gmail.com?subject=webfolw"
-                                    class="footer-contact-us-item-link">TheCoffeeLink@gmail.com</a></div>
-                            <div class="footer-contact-us-item"><a href="tel:+251-901-658"
-                                    class="footer-contact-us-item-link">+251-901-658</a></div>
+                            <div class="footer-contact-us-item">
+                                <a href="tel:+251945353545"
+                                    class="footer-contact-us-item-link">+251-945-353-545</a>
+                            </div>
+                            <div class="footer-contact-us-item">
+                                <a href="https://www.instagram.com/the_coffeelink?igsh=MWs3a3BwN2xvZ29ocg=="
+                                class="footer-contact-us-item-link">Instagram</a>
+                            </div>
                         </div>
                     </div>
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932eba-4a932ea9"
                         data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932eba" class="footer-block logo-center"
                         style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                         <img src="../../static/img/logo_1.jpg" loading="lazy" alt="footer logo" class="footer-logo">
-                        <p class="footer-paragraph">Hot, Cold, Sweet or straight up, we've got the brew for you.</p>
+                        <p class="footer-paragraph">Powering the future of coffee trade.</p>
                     </div>
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932ebe-4a932ea9"
                         data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ebe" class="footer-block last"
                         style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
-                        <h3 class="footer-title">Open Hour</h3>
+                        <h3 class="footer-title">Pages</h3>
                         <ul role="list" class="footer-time-list">
-                            <li class="footer-time-list-item">Monday-Friday: 09:00-20:00</li>
-                            <li class="footer-time-list-item">Saturday: &nbsp;09:00-18:00</li>
-                            <li class="footer-time-list-item last">Sunday: 09:00-18:00</li>
+                            <li class="footer-time-list-item">
+                                <a href="{% url 'about' %}"
+                                class="footer-contact-us-item-link">About-Us</a>
+                            </li>
+                            <li class="footer-time-list-item">
+                                <a href="{% url 'contact' %}"
+                                class="footer-contact-us-item-link">Contact-Us</a>
+                            </li>
+                            <li class="footer-time-list-item">
+                                <a href="{% url 'about' %}"
+                                class="footer-contact-us-item-link">Privacy & Policy</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -373,8 +378,8 @@
         </div>
         <div class="footer-copyright-section"> 
             <div class="container w-container">
-                <p class="footer-copyright-text">© Powered by <a href="https://anwar5promoter.onrender.com/"
-                        target="_blank" class="footer-copyright-link">Anwar5promoter</a> created by <a href="https://bil-portfolio.netlify.app" target="_blank"
+                <p class="footer-copyright-text">© Powered by <a href="#"
+                        target="_blank" class="footer-copyright-link">Asortie</a> developed by <a href="https://bil-portfolio.netlify.app" target="_blank"
                         class="footer-copyright-link">Bilal Nesru</a>.</p>
             </div>
         </div>

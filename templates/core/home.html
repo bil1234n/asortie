@@ -9,11 +9,18 @@
     h1{
         font-size: 2.5rem;
     }
+    .hero-logo_2 {
+        width: 80px;
+        height: 80px;
+    }
     .hero-logo {
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 150px;
+    }
+    .hero-logo_2,
+    .hero-logo {
         object-fit: contain;
-        margin-bottom: 20px;
+        margin-bottom: 0;
         filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
         animation: float 3s ease-in-out infinite;
     }
@@ -80,8 +87,9 @@
     <!-- 1. HERO SECTION -->
     <div class="hero-banner text-center">
         <!-- Logo on Top -->
-        <img src="{% static 'img/logo_1.png' %}" alt="CoffeeCore Logo" class="hero-logo">
-        <h1 class="fw-bold mb-3">Your intelligent coffee trade platform</h1>
+        <img src="{% static 'img/logo_1.png' %}" alt="CoffeeCore Logo" class="hero-logo_2">
+        <img src="{% static 'img/logo_2.png' %}" alt="CoffeeCore Logo" class="hero-logo">
+        <h1 class="fw-bold mb-3">Luxury landing with featured items.</h1>
     </div>
 
 
@@ -94,12 +102,12 @@
                 <div class="icon-circle icon-ai">
                     <i class="fa-solid fa-robot"></i>
                 </div>
-                <h3 class="fw-bold mb-3">AI Smart Agent</h3>
+                <h3 class="fw-bold mb-3">AI Hub</h3>
                 <p class="text-muted small mb-4">
-                    Automated grading and instant support for export regulations and pricing.
+                    Leverage advanced artificial intelligence for real-time market trend analysis, pricing insights, and automated interior design assistance.
                 </p>
-                <a href="{% url 'coming_soon' %}" class="btn btn-outline-secondary rounded-pill px-4 btn-sm">
-                    Coming Soon
+                <a href="{% url 'ai' %}" class="btn btn-outline-secondary rounded-pill px-4 btn-sm">
+                    AI Hub
                 </a>
             </div>
         </div>
@@ -112,26 +120,26 @@
                 </div>
                 <h3 class="fw-bold mb-3">Marketplace</h3>
                 <p class="text-muted small mb-4">
-                    Browse premium green, roasted, and ground coffee directly from verified sellers.
+                    Discover a curated inventory of luxury furniture, décor, and textiles ready for immediate global shipment from verified manufacturers.
                 </p>
-                <a href="{% url 'product_list' %}" class="btn btn-dark rounded-pill px-4 btn-sm" style="background-color: #2C1A11;">
-                    Browse Coffee
+                <a href="{% url 'product_list' %}" class="btn btn-dark rounded-pill px-4 btn-sm" style="background-color: #1B3C59;">
+                    Our Shop
                 </a>
             </div>
         </div>
 
-        <!-- Live Stream Card -->
+        <!-- Contact Us Card -->
         <div class="col-md-4">
             <div class="feature-card">
                 <div class="icon-circle icon-live">
-                    <i class="fa-solid fa-tower-broadcast"></i>
+                    <i class="fa-solid fa-cubes"></i>
                 </div>
-                <h3 class="fw-bold mb-3">Live Auctions</h3>
+                <h3 class="fw-bold mb-3">3D Visualization</h3>
                 <p class="text-muted small mb-4">
-                    Participate in real-time streaming auctions for exclusive harvest lots.
+                    Powerful 3D Visualization experience for our furniture in immersive 3D with real-time color customization and AR placement directly in your space.
                 </p>
-                <a href="{% url 'coming_soon' %}" class="btn btn-outline-secondary rounded-pill px-4 btn-sm">
-                    Coming Soon
+                <a href="{% url 'ar_showroom' %}" class="btn btn-outline-secondary rounded-pill px-4 btn-sm">
+                    3D & AR Visualization
                 </a>
             </div>
         </div>
@@ -141,15 +149,15 @@
     <!-- 3. STATS STRIP (Professional Touch) -->
     <div class="row mt-5 text-center">
         <div class="col-md-4">
+            <h2 class="fw-bold text-primary">100%</h2>
+            <p class="text-muted uppercase small ls-1">Verified Sellers</p>
+        </div>
+        <div class="col-md-4">
             <h2 class="fw-bold text-success">{{ total_products|default:"0" }}+</h2>
             <p class="text-muted uppercase small ls-1">Active Products</p>
         </div>
         <div class="col-md-4">
-            <h2 class="fw-bold text-warning">100%</h2>
-            <p class="text-muted uppercase small ls-1">Verified Sellers</p>
-        </div>
-        <div class="col-md-4">
-            <h2 class="fw-bold text-primary">24/7</h2>
+            <h2 class="fw-bold text-danger">24/7</h2>
             <p class="text-muted uppercase small ls-1">Global Support</p>
         </div>
     </div>

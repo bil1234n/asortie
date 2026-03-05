@@ -16,7 +16,7 @@ def order_notification(sender, instance, created, **kwargs):
             recipient=instance.product.seller,
             sender=instance.buyer,
             notification_type='order',
-            message=f"New Order: {instance.quantity}kg of {instance.product.name}",
+            message=f"New Order: {instance.quantity}set of {instance.product.name}",
             link=reverse('seller_orders')
         )
         print(f"--- NOTIFICATION CREATED FOR SELLER: {instance.product.seller.username} ---") # Debug Line 3

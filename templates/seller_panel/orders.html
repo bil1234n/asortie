@@ -1,230 +1,385 @@
 {% extends 'base.html' %}
 {% block content %}
+    <!-- Professional Luxury UI Styles -->
+    <style>
+        :root {
+            --luxury-blue: #1B3C59;
+            --luxury-gold: #c5a059;
+            --soft-bg: #f8f9fa;
+        }
 
-<!-- Internal CSS for this page's dropdowns -->
-<style>
-    /* Sleek Action Button */
-    .btn-action-trigger {
-        background-color: #fff;
-        border: 1px solid #e0e0e0;
-        color: #555;
-        border-radius: 20px;
-        padding: 5px 15px;
-        font-size: 0.85rem;
-        font-weight: 500;
-        transition: all 0.2s;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-    .btn-action-trigger:hover, .btn-action-trigger:focus {
-        background-color: #f8f9fa;
-        border-color: #ccc;
-        color: #2C1A11;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+        /* Table Styling */
+        .table-responsive {
+            border-radius: 12px;
+            overflow: visible; /* Required for dropdowns to show */
+        }
 
-    /* Professional Dropdown Menu */
-    .custom-dropdown-menu {
-        border: none;
-        border-radius: 8px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        padding: 8px;
-        min-width: 200px;
-    }
+        /* Status-based Row Highlighting */
+        .border-quoted { 
+            border-left: 4px solid var(--luxury-gold) !important; 
+        }
+        
+        /* Sleek Action Button */
+        .btn-action-trigger {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            color: #555;
+            border-radius: 20px;
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
 
-    /* Dropdown Items */
-    .custom-dropdown-item {
-        border-radius: 6px;
-        padding: 8px 12px;
-        font-size: 0.9rem;
-        color: #444;
-        transition: background 0.2s;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        text-align: left;
-        background: none;
-        border: none;
-    }
-    .custom-dropdown-item:hover {
-        background-color: #f4f4f4;
-        color: #000;
-    }
-    
-    /* Icons fixed width for alignment */
-    .custom-dropdown-item i {
-        width: 25px; 
-        text-align: center;
-    }
+        .btn-action-trigger:hover {
+            background-color: var(--soft-bg);
+            border-color: var(--luxury-blue);
+            color: var(--luxury-blue);
+        }
 
-    /* Specific Colors */
-    .item-success:hover { background-color: #d1e7dd; color: #0f5132; }
-    .item-primary:hover { background-color: #cfe2ff; color: #084298; }
-    .item-danger:hover { background-color: #f8d7da; color: #842029; }
-    
-    /* Headers */
-    .dropdown-header-custom {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: #888;
-        padding: 5px 12px;
-        font-weight: 600;
-    }
-</style>
+        /* Custom Badges */
+        .badge-quoted { 
+            background-color: #fffdf5; 
+            color: var(--luxury-gold); 
+            border: 1px solid var(--luxury-gold); 
+            font-weight: 600;
+        }
 
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Manage Orders</h2>
-        <span class="badge bg-primary rounded-pill px-3 py-2">{{ orders.count }} Total</span>
-    </div>
+        /* Professional Dropdown Menu */
+        .custom-dropdown-menu {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 10px;
+            min-width: 220px;
+            z-index: 1050;
+        }
 
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-0 table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="bg-light">
-                    <tr>
-                        <th class="ps-3 text-secondary text-uppercase small">Order ID</th>
-                        <th class="text-secondary text-uppercase small">Product</th>
-                        <th class="text-secondary text-uppercase small">Buyer</th>
-                        <th class="text-secondary text-uppercase small">Amount</th>
-                        <th class="text-secondary text-uppercase small">Status</th>
-                        <th class="text-end pe-4 text-secondary text-uppercase small">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for o in orders %}
-                    <tr>
-                        <td class="ps-3 fw-bold text-muted">#{{ o.id }}</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                {% if o.product.image %}
-                                    <img src="{{ o.product.image.url }}" class="rounded me-2" style="width: 40px; height: 40px; object-fit: contain;">
-                                {% else %}
-                                    <div class="bg-light rounded me-2 d-flex align-items-center justify-content-center border" style="width: 40px; height: 40px;">
-                                        <i class="fa-solid fa-mug-hot text-muted small"></i>
-                                    </div>
-                                {% endif %}
-                                <span class="fw-semibold text-dark">{{ o.product.name }}</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                {{ o.buyer.username }}
-                                <a href="{% url 'chat_room' o.buyer.id %}" class="btn btn-sm btn-light ms-2 text-muted rounded-circle" style="width: 30px; height: 30px; padding: 0; display:flex; align-items:center; justify-content:center;" title="Message Buyer">
-                                    <i class="fa-solid fa-comment-dots"></i>
-                                </a>
-                            </div>
-                        </td>
-                        <td class="fw-bold text-dark">${{ o.total_price }}</td>
-                        <td>
+        .custom-dropdown-item {
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            color: #444;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background: none;
+            border: none;
+            transition: 0.2s;
+        }
+        .custom-dropdown-item:hover {
+            background-color: #f1f1f1;
+            color: var(--luxury-blue);
+        }
+        .custom-dropdown-item i { width: 25px; text-align: center; margin-right: 10px; }
+
+        .item-success:hover { background-color: #d1e7dd; color: #0f5132; }
+        .item-danger:hover { background-color: #f8d7da; color: #842029; }
+
+        .dropdown-header-custom {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+            padding: 8px 15px;
+            font-weight: 700;
+        }
+
+        /* Modal Tweaks */
+        .modal-content { border-radius: 15px; border: none; }
+        .luxury-font { font-family: 'Playfair Display', serif; }
+
+        /* Unique Luxury Modal Styles */
+        .lx-modal-content {
+            border-radius: 7px; /* Luxury sharp edges */
+            border: 1px solid var(--luxury-gold) !important;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3) !important;
+        }
+
+        .lx-modal-header {
+            background-color: var(--luxury-blue) !important;
+            border-bottom: 2px solid var(--luxury-gold) !important;
+            padding: 20px !important;
+        }
+
+        .lx-modal-label {
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 1.5px !important;
+            color: #888 !important;
+            text-transform: uppercase !important;
+        }
+
+        .lx-input-group {
+            border-bottom: 2px solid #eee !important;
+            transition: 0.3s !important;
+        }
+
+        .lx-input-group:focus-within {
+            border-color: var(--luxury-gold) !important;
+        }
+
+        .lx-modal-input {
+            border: none !important;
+            border-radius: 0 !important;
+            font-size: 1.2rem !important;
+            padding: 10px 0 !important;
+            outline: none !important;
+            background: transparent !important;
+        }
+
+        .lx-modal-btn {
+            background-color: var(--luxury-gold) !important;
+            color: #fff !important;
+            border: none !important;
+            border-radius: 0 !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 2px !important;
+            padding: 15px !important;
+            transition: 0.3s !important;
+        }
+
+        .lx-modal-btn:hover {
+            background-color: var(--luxury-blue) !important;
+            color: white !important;
+        }
+    </style>
+
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold luxury-font" style="color: var(--luxury-blue);">Order Logistics</h2>
+                <p class="text-muted mb-0">Manage furniture inquiries and shipping from Asortie to Ethiopia.</p>
+            </div>
+            <span class="badge bg-dark rounded-pill px-4 py-2 shadow-sm">{{ orders.count }} Total Orders</span>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0 table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4 text-secondary text-uppercase small">ID</th>
+                            <th class="text-secondary text-uppercase small">Luxury Item</th>
+                            <th class="text-secondary text-uppercase small">Client Info</th>
+                            <th class="text-secondary text-uppercase small">Quoted Amount</th>
+                            <th class="text-secondary text-uppercase small">Status</th>
+                            <th class="text-end pe-4 text-secondary text-uppercase small">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        {% for o in orders %}
+        <tr class="{% if o.status == 'Quoted' %}border-quoted{% endif %}">
+            <td class="ps-4 fw-bold text-muted">#{{ o.id }}</td>
+            <td>
+                <div class="d-flex align-items-center">
+                    {% if o.product.image %}
+                        <img src="{{ o.product.image.url }}" class="rounded shadow-sm me-3" style="width: 45px; height: 45px; object-fit: cover;">
+                    {% endif %}
+                    <span class="fw-semibold">{{ o.product.name }}</span>
+                </div>
+            </td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <span class="fw-bold text-dark">{{ o.buyer.username }}</span>
+                    <a href="{% url 'chat_room' o.buyer.id %}" class="btn btn-sm btn-light ms-2 text-muted rounded-circle border" title="Negotiate via Chat">
+                        <i class="fa-solid fa-comment-dots"></i>
+                    </a>
+                </div>
+            </td>
+            <td>
+                {% if o.total_price > 0 %}
+                    <span class="fw-bold text-success fs-5">${{ o.total_price }}</span>
+                {% else %}
+                    <span class="text-danger small fw-bold">Waiting for Quote</span>
+                {% endif %}
+            </td>
+            <td>
+                
+                {% if o.status == 'Pending' %}
+                    <span class="badge bg-warning text-dark px-3 py-2"><i class="fa-regular fa-clock me-1"></i> Inquiry</span>
+                {% elif o.status == 'Quoted' %}
+                    <span class="badge badge-quoted px-3 py-2"><i class="fa-solid fa-file-invoice-dollar me-1"></i> Quoted</span>
+                {% elif o.status == 'Paid' or o.status == 'Accepted' %}
+                    <span class="badge bg-info text-dark px-3 py-2"><i class="fa-solid fa-gears me-1"></i> Processing</span>
+                {% elif o.status == 'Shipped' %}
+                    <span class="badge bg-primary px-3 py-2"><i class="fa-solid fa-truck-fast me-1"></i> In Transit</span>
+                {% elif o.status == 'Delivered' %}
+                    <span class="badge bg-success px-3 py-2"><i class="fa-solid fa-check-circle me-1"></i> Delivered</span>
+                {% elif o.status == 'Cancelled' %}
+                    <span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-ban me-1"></i> Cancelled</span>
+                {% elif o.status == 'Declined' %}
+                    <span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-ban me-1"></i> Declined</span>
+                {% endif %}
+            </td>
+            <td class="text-end pe-4">
+                {% if o.status == 'Cancelled' %}
+                    <span class="text-muted small italic">Inquiry Withdrawn</span>
+                {% else %}
+                <div class="dropdown">
+                    <button class="btn btn-action-trigger dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        Manage
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu shadow-lg">
+                        
+                        <!-- SECTION: NEXT LOGICAL STEPS -->
+                        {% if o.status != 'Delivered' and o.status != 'Declined' %}
+                            <li><h6 class="dropdown-header-custom">Next Step</h6></li>
                             {% if o.status == 'Pending' %}
-                                <span class="badge bg-warning text-dark border border-warning-subtle"><i class="fa-regular fa-clock me-1"></i> Pending</span>
-                            {% elif o.status == 'Paid' or o.status == 'Accepted' %}
-                                <span class="badge bg-info text-dark border border-info-subtle"><i class="fa-solid fa-gears me-1"></i> Processing</span>
+                                <li>
+                                    <button type="button" class="custom-dropdown-item fw-bold" style="color: var(--luxury-gold);" data-bs-toggle="modal" data-bs-target="#quoteModal{{ o.id }}">
+                                        <i class="fa-solid fa-tag"></i> Set Final Price
+                                    </button>
+                                </li>
+                            {% elif o.status == 'Quoted' %}
+                                <li>
+                                    <form method="post" class="m-0">{% csrf_token %}
+                                        <input type="hidden" name="order_id" value="{{ o.id }}">
+                                        <button name="action" value="accept" class="custom-dropdown-item item-success fw-bold">
+                                            <i class="fa-solid fa-check"></i> Accept Order
+                                        </button>
+                                    </form>
+                                </li>
+                            {% elif o.status == 'Accepted' or o.status == 'Paid' %}
+                                <li>
+                                    <form method="post" class="m-0">{% csrf_token %}
+                                        <input type="hidden" name="order_id" value="{{ o.id }}">
+                                        <button name="action" value="shipped" class="custom-dropdown-item item-primary fw-bold">
+                                            <i class="fa-solid fa-truck-fast"></i> Start Shipping
+                                        </button>
+                                    </form>
+                                </li>
                             {% elif o.status == 'Shipped' %}
-                                <span class="badge bg-primary border border-primary-subtle"><i class="fa-solid fa-truck-fast me-1"></i> On Shipping</span>
-                            {% elif o.status == 'Delivered' %}
-                                <span class="badge bg-success border border-success-subtle"><i class="fa-solid fa-check-circle me-1"></i> Delivered</span>
-                            {% elif o.status == 'Declined' %}
-                                <span class="badge bg-danger border border-danger-subtle"><i class="fa-solid fa-ban me-1"></i> Declined</span>
+                                <li>
+                                    <form method="post" class="m-0">{% csrf_token %}
+                                        <input type="hidden" name="order_id" value="{{ o.id }}">
+                                        <button name="action" value="delivered" class="custom-dropdown-item item-success fw-bold">
+                                            <i class="fa-solid fa-box-open"></i> Mark Delivered
+                                        </button>
+                                    </form>
+                                </li>
                             {% endif %}
-                        </td>
-                        <td class="text-end pe-3">
+                        {% endif %}
+
+                        <!-- SECTION: CORRECTIONS / REVERSE STATUS -->
+                        {% if o.status != 'Pending' %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header-custom">Corrections</h6></li>
                             
-                            <!-- PROFESSIONAL ACTION DROPDOWN -->
-                            <div class="dropdown">
-                                <button class="btn btn-action-trigger dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                    Manage
-                                </button>
-                                
-                                <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu">
-                                    
-                                    <!-- SECTION 1: NEXT LOGICAL STEP (Workflow) -->
-                                    {% if o.status == 'Pending' %}
-                                        <li><h6 class="dropdown-header-custom">Next Step</h6></li>
-                                        <li>
-                                            <form method="post" class="m-0">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="order_id" value="{{ o.id }}">
-                                                <button name="action" value="accept" class="custom-dropdown-item item-success fw-bold">
-                                                    <i class="fa-solid fa-check text-success"></i> Accept Order
-                                                </button>
-                                            </form>
-                                        </li>
-                                    {% endif %}
+                            {% if o.status == 'Quoted' or o.status == 'Declined' %}
+                                <li>
+                                    <form method="post" class="m-0">{% csrf_token %}
+                                        <input type="hidden" name="order_id" value="{{ o.id }}">
+                                        <button name="action" value="pending" class="custom-dropdown-item">
+                                            <i class="fa-solid fa-rotate-left"></i> {% if o.status == 'Declined' %}Re-open Inquiry{% else %}Reset to Pending{% endif %}
+                                        </button>
+                                    </form>
+                                </li>
+                            {% elif o.status == 'Accepted' %}
+                                <li>
+                                    <form method="post" class="m-0">{% csrf_token %}
+                                        <input type="hidden" name="order_id" value="{{ o.id }}">
+                                        <button name="action" value="quoted_reverse" class="custom-dropdown-item">
+                                            <i class="fa-solid fa-rotate-left"></i> Back to Quote
+                                        </button>
+                                    </form>
+                                </li>
+                            {% elif o.status == 'Shipped' %}
+                                <li>
+                                    <form method="post" class="m-0">{% csrf_token %}
+                                        <input type="hidden" name="order_id" value="{{ o.id }}">
+                                        <button name="action" value="accepted_reverse" class="custom-dropdown-item">
+                                            <i class="fa-solid fa-rotate-left"></i> Return to Warehouse
+                                        </button>
+                                    </form>
+                                </li>
+                            {% elif o.status == 'Delivered' %}
+                                <li>
+                                    <form method="post" class="m-0">{% csrf_token %}
+                                        <input type="hidden" name="order_id" value="{{ o.id }}">
+                                        <button name="action" value="shipped_reverse" class="custom-dropdown-item">
+                                            <i class="fa-solid fa-rotate-left"></i> Reset to Shipping
+                                        </button>
+                                    </form>
+                                </li>
+                            {% endif %}
+                        {% endif %}
 
-                                    {% if o.status == 'Paid' or o.status == 'Accepted' %}
-                                        <li><h6 class="dropdown-header-custom">Next Step</h6></li>
-                                        <li>
-                                            <form method="post" class="m-0">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="order_id" value="{{ o.id }}">
-                                                <button name="action" value="shipped" class="custom-dropdown-item item-primary fw-bold">
-                                                    <i class="fa-solid fa-truck-fast text-primary"></i> Start Shipping
-                                                </button>
-                                            </form>
-                                        </li>
-                                    {% endif %}
+                        <!-- SECTION: DANGER ZONE -->
+                        {% if o.status != 'Declined' and o.status != 'Delivered' %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="post" class="m-0">{% csrf_token %}
+                                    <input type="hidden" name="order_id" value="{{ o.id }}">
+                                    <button name="action" value="decline" class="custom-dropdown-item item-danger">
+                                        <i class="fa-solid fa-ban"></i> Decline Inquiry
+                                    </button>
+                                </form>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+            </td>
+        </tr>
 
-                                    {% if o.status == 'Shipped' %}
-                                        <li><h6 class="dropdown-header-custom">Next Step</h6></li>
-                                        <li>
-                                            <form method="post" class="m-0">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="order_id" value="{{ o.id }}">
-                                                <button name="action" value="delivered" class="custom-dropdown-item item-success fw-bold">
-                                                    <i class="fa-solid fa-box-open text-success"></i> Mark Delivered
-                                                </button>
-                                            </form>
-                                        </li>
-                                    {% endif %}
-
-                                    <!-- SECTION 2: CORRECTIONS -->
-                                    {% if o.status != 'Pending' or o.status != 'Declined' %}
-                                        <li><hr class="dropdown-divider my-1"></li>
-                                        <li><h6 class="dropdown-header-custom">Corrections</h6></li>
-                                    {% endif %}
-
-                                    {% if o.status != 'Pending' %}
-                                    <li>
-                                        <form method="post" class="m-0">
+                        <div class="modal fade lx-unique-modal" id="quoteModal{{ o.id }}" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content lx-modal-content">
+                                        <form method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="order_id" value="{{ o.id }}">
-                                            <button name="action" value="pending" class="custom-dropdown-item">
-                                                <i class="fa-solid fa-rotate-left text-muted"></i> Reset to Pending
-                                            </button>
-                                        </form>
-                                    </li>
-                                    {% endif %}
+                                            <input type="hidden" name="action" value="set_quote">
+                                            
+                                            <div class="modal-header lx-modal-header text-white">
+                                                <h5 class="modal-title luxury-font" style="color: #fff">OFFICIAL QUOTE #{{ o.id }}</h5>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                            </div>
 
-                                    {% if o.status != 'Declined' and o.status != 'Delivered' %}
-                                    <li>
-                                        <form method="post" class="m-0">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="order_id" value="{{ o.id }}">
-                                            <button name="action" value="decline" class="custom-dropdown-item item-danger">
-                                                <i class="fa-solid fa-ban text-danger"></i> Decline Order
-                                            </button>
-                                        </form>
-                                    </li>
-                                    {% endif %}
+                                            <div class="modal-body p-4">
+                                                <div class="mb-4">
+                                                    <label class="lx-modal-label">Final Agreed Price (USD)</label>
+                                                    <div class="lx-input-group d-flex align-items-center">
+                                                        <span class="fs-4 me-2 text-muted">$</span>
+                                                        <input type="number" step="0.01" name="total_price" class="lx-modal-input w-100" placeholder="0.00" required>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                </ul>
+                                            <div class="modal-footer p-0 border-0">
+                                                <button type="submit" class="lx-modal-btn w-100 py-3">Send Quote to Buyer</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="6" class="text-center py-5 text-muted">
-                            <i class="fa-solid fa-clipboard-list fa-2x mb-3 text-light-emphasis"></i>
-                            <p>No orders found.</p>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                            {% endfor %}
+                        </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find all our luxury modals
+            const luxuryModals = document.querySelectorAll('.lx-unique-modal');
+            
+            luxuryModals.forEach(modal => {
+                // Stop click events inside the modal from bubbling up to the dropdown/table
+                modal.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+
+                // Ensure inputs don't trigger any "close" actions from parent containers
+                const inputs = modal.querySelectorAll('input, textarea');
+                inputs.forEach(input => {
+                    input.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                });
+            });
+        });
+    </script>
 {% endblock %}

@@ -4,152 +4,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TheCoffeeLink | Premium Export</title>
+        <title>Asortie | Premium Export</title>
         
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
-
-        <!-- INTERNAL STYLES FOR CHAT WIDGET -->
-        <style>
-            /* Floating Button (Bottom Right) */
-            .chat-btn-float {
-                position: fixed;
-                bottom: 5%;
-                right: 3%; 
-                width: 60px;
-                height: 60px;
-                background-color: #2C1A11; /* Coffee Dark */
-                color: #D4AF37; /* Gold */
-                border-radius: 50%;
-                border: 2px solid #D4AF37;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 24px;
-                cursor: pointer;
-                z-index: 1050;
-                transition: transform 0.3s ease;
-            }
-
-            .chat-btn-float:hover {
-                transform: scale(1.1);
-                background-color: #4E342E;
-            }
-
-            /* Chat Container */
-            .chat-widget-container {
-                position: fixed;
-                bottom: 100px;
-                right: 5%; 
-                width: 350px;
-                height: 450px;
-                background-color: #fff;
-                border-radius: 15px;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-                z-index: 1050;
-                display: none; /* Hidden by default */
-                flex-direction: column;
-                overflow: hidden;
-                border: 1px solid #e0e0e0;
-            }
-
-            /* Show class for JS toggle */
-            .chat-widget-container.active {
-                display: flex;
-                animation: fadeInUps 0.3s ease-in-out;
-            }
-
-            /* Chat Header */
-            .chat-header {
-                background-color: #2C1A11;
-                color: #fff;
-                padding: 15px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .chat-header h5 {
-                margin: 0;
-                font-size: 16px;
-                color: #D4AF37;
-            }
-
-            .close-chat {
-                background: none;
-                border: none;
-                color: #fff;
-                font-size: 20px;
-                cursor: pointer;
-            }
-
-            /* Chat Body */
-            .chat-body {
-                flex: 1;
-                padding: 15px;
-                background-color: #f9f9f9;
-                overflow-y: auto;
-            }
-
-            .msg-system {
-                text-align: center;
-                font-size: 0.8rem;
-                color: #888;
-                margin-bottom: 15px;
-            }
-
-            /* Chat Footer */
-            .chat-footer {
-                padding: 10px;
-                border-top: 1px solid #eee;
-                background-color: #fff;
-                display: flex;
-                gap: 10px;
-            }
-            @keyframes fadeInUps {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            .footer_v{
-                color: rgb(253 253 253 / 75%) !important;
-            }
-            .logo-section {
-                padding: 30px 15px;
-            }
-
-            .logo-section span{
-                width: 30px;
-                border-radius: 5px 0;
-                filter: drop-shadow(0 5px 15px rgba(235, 235, 235, 0.221));
-            }
-            .logo_1{
-                width: 30px;
-                border-radius: 5px 0;
-                filter: drop-shadow(0 5px 15px rgba(235, 235, 235, 0.221));
-            }
-            .btn_coffee{
-                background: var(--secondary-color);
-            }
-            .bg-dark{
-                background: var(--secondary-color) !important;
-            }
-            .btn_sm:hover{
-                color: #fff !important;
-            }
-            .btn-warning{
-                padding: 15px;
-                font-size: 1.2rem;
-            }
-            .cont_or_p th, 
-            .cont_or_p tr, 
-            .cont_or_p td{
-                padding: 0.5rem 1rem !important;
-            }
-        </style>
     </head>
     <body>
 
@@ -235,7 +96,7 @@
                     {% else %}
                         <!-- GUEST BUTTONS -->
                         <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">Login</a>
-                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #3e2723; border: none;">Sign Up</a>
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">Sign Up</a>
                     {% endif %}
                 </div>
             </header>
@@ -269,113 +130,14 @@
         </div>
 
         <!-- ================= CHAT WIDGET ================= -->
+        {% include 'partials/chat_icon.html' %}
         
-        <!-- 1. The Floating Button -->
-        <div class="chat-btn-float" id="chatToggleBtn">
-            <i class="fa-solid fa-comments"></i>
-        </div>
-
-        <!-- 2. The Chat Window -->
-        <div class="chat-widget-container" id="chatWindow">
-            <!-- Header -->
-            <div class="chat-header">
-                <h5 class="mb-0 fs-6"><i class="fa-solid fa-headset me-2"></i> AI Assistant</h5>
-                <button class="close-chat" id="closeChatBtn">&times;</button>
-            </div>
-
-            <!-- Body: Under Development State -->
-            <div class="chat-body d-flex flex-column align-items-center justify-content-center text-center">
-                
-                <!-- Animated/Styled Icon -->
-                <div class="position-relative mb-3 mt-2">
-                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 80px; height: 80px;">
-                        <i class="fa-solid fa-robot fa-2x" style="color: #2C1A11;"></i>
-                    </div>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark border border-white">
-                        SOON
-                    </span>
-                </div>
-
-                <!-- Professional Text -->
-                <h6 class="fw-bold mb-2" style="color: #2C1A11;">AI Agent Training</h6>
-                
-                <p class="small text-muted px-3 mb-4" style="line-height: 1.5;">
-                    Our automated support agent is currently under development. <br>
-                    <span class="fst-italic text-secondary">Live Agent and instant support will be available in v2.0.</span>
-                </p>
-
-                <!-- Redirect to Real Human Chat -->
-                <div class="w-100 px-4">
-                    <p class="small fw-bold mb-2 text-secondary">Need help right now?</p>
-                    <a href="{% url 'contact_admin' %}" class="btn btn-outline-dark btn_sm w-100 py-2" style="border-color: #2C1A11; color: #2C1A11;">
-                        <i class="fa-solid fa-envelope me-2"></i> Message Admin
-                    </a>
-                </div>
-            </div>
-
-            <!-- Footer: Disabled Input -->
-            <div class="chat-footer bg-light">
-                <input type="text" class="form-control form-control-sm" placeholder="AI Chat is currently offline..." disabled style="background-color: #e9ecef;">
-                <button class="btn btn-sm btn-secondary" disabled><i class="fa-solid fa-paper-plane"></i></button>
-            </div>
-
-        </div>
 
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         
         <!-- MAIN JAVASCRIPT LOGIC -->
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                
-                // --- Mobile Sidebar Logic ---
-                const mobileToggle = document.getElementById('mobile-toggle');
-                const sidebar = document.getElementById('sidebar');
-                
-                if(mobileToggle){
-                    mobileToggle.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Stop click from closing it immediately
-                        sidebar.classList.toggle('active');
-                    });
-                }
-
-                // --- Chat Widget Logic ---
-                const chatBtn = document.getElementById('chatToggleBtn');
-                const chatWindow = document.getElementById('chatWindow');
-                const closeChat = document.getElementById('closeChatBtn');
-
-                if(chatBtn) {
-                    // 1. Open Chat
-                    chatBtn.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Stop bubbling
-                        chatWindow.classList.toggle('active');
-                    });
-
-                    // 2. Close with X button
-                    closeChat.addEventListener('click', () => {
-                        chatWindow.classList.remove('active');
-                    });
-
-                    // 3. Global Click Listener (Handles clicking outside)
-                    document.addEventListener('click', (e) => {
-                        // Mobile Sidebar Close Logic
-                        if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
-                            if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
-                                sidebar.classList.remove('active');
-                            }
-                        }
-
-                        // Chat Close Logic
-                        if (chatWindow.classList.contains('active')) {
-                            // If click is NOT inside chat window AND NOT on the toggle button
-                            if (!chatWindow.contains(e.target) && !chatBtn.contains(e.target)) {
-                                chatWindow.classList.remove('active');
-                            }
-                        }
-                    });
-                }
-            });
-        </script>
+         <script src="{% static 'js/script.js' %}"></script>
         
         {% block scripts %}{% endblock %}
 

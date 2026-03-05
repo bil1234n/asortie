@@ -1,116 +1,110 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row">
-    <div class="col-md-12 mb-4">
-        <h2 class="fw-bold">My Products</h2>
-        <p class="text-muted">Manage your inventory and listings.</p>
-    </div>
-
-    <!-- ADD PRODUCT FORM (Only if Verified) -->
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0">
-            <div class="card-header bg-dark text-white">
-                <h5 class="mb-0">Add New Coffee</h5>
-            </div>
-            <div class="card-body">
-                {% if user.is_verified %}
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="hidden" name="action" value="add">
-                        
-                        <div class="mb-3">
-                            <label class="form-label">Product Name</label>
-                            <input type="text" name="name" class="form-control" required placeholder="e.g. Harar Grade 1">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Category</label>
-                            <select name="category" class="form-select">
-                                <option value="Green">Green Beans</option>
-                                <option value="Roasted">Roasted</option>
-                                <option value="Ground">Ground</option>
-                                <option value="Equipment">Equipment</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Price per Kg ($)</label>
-                            <input type="number" step="0.01" name="price" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Description</label>
-                            <textarea name="description" class="form-control" rows="3" required></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Image</label>
-                            <input type="file" name="image" class="form-control" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-success w-100">
-                            <i class="fa-solid fa-plus-circle"></i> List Product
-                        </button>
-                    </form>
-                {% else %}
-                    <!-- BLOCKED STATE -->
-                    <div class="text-center py-4">
-                        <i class="fa-solid fa-lock fa-3x text-secondary mb-3"></i>
-                        <h5 class="text-danger">Account Not Verified</h5>
-                        <p class="small text-muted">
-                            You cannot add products until an Admin approves your documents (License & ID).
-                        </p>
-                        <button class="btn btn-secondary" disabled>Add Product Disabled</button>
-                    </div>
-                {% endif %}
-            </div>
+    <!-- Header Section (Same as before) -->
+    <div class="col-md-12 mb-4 d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold">Furniture Collection</h2>
+            <p class="text-muted">Manage your luxury catalog, AR variants, and galleries.</p>
+        </div>
+        <div>
+            <a href="{% url 'seller_product_add' %}" class="btn btn-success me-2">
+                <i class="fa-solid fa-plus"></i> Add New Piece
+            </a>
+            <a href="{% url 'seller_orders' %}" class="btn btn-dark">
+                <i class="fa-solid fa-envelope-open-text"></i> View Orders
+            </a>
         </div>
     </div>
 
     <!-- PRODUCT LIST -->
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card shadow-sm border-0">
-            <div class="card-header bg-white fw-bold">Active Listings</div>
-            <div class="card-body p-0">
-                <table class="table table-hover mb-0">
+            <div class="card-header bg-white fw-bold">Your Active Showroom</div>
+            <div class="card-body p-0 table-responsive">
+                <table class="table table-hover mb-0 align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th>Image</th>
-                            <th>Name</th>
+                            <th>Preview</th>
+                            <th>Item Name</th>
                             <th>Category</th>
-                            <th>Price</th>
-                            <th>Action</th>
+                            <th>Price Strategy</th>
+                            <th>Gallery</th>
+                            <th>Variants (AR)</th> <!-- Updated Header -->
+                            <th class="text-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for p in products %}
                         <tr>
+                            <!-- Image -->
                             <td>
                                 {% if p.image %}
-                                    <img src="{{ p.image.url }}" style="width: 40px; height: 40px; object-fit: contain; border-radius: 4px;">
+                                    <img src="{{ p.image.url }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
                                 {% else %}
-                                    <div class="bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                        <i class="fa-solid fa-mug-hot text-muted"></i>
-                                    </div>
+                                    <div class="bg-light d-flex align-items-center justify-content-center text-muted small" style="width: 60px; height: 60px; border-radius: 4px;">No Img</div>
                                 {% endif %}
                             </td>
-                            <td>{{ p.name }}</td>
-                            <td><span class="badge bg-secondary">{{ p.category }}</span></td>
-                            <td>${{ p.price }}</td>
+                            
+                            <!-- Name -->
                             <td>
-                                <form method="post" onsubmit="return confirm('Are you sure you want to remove this product?');">
+                                <div class="fw-bold">{{ p.name }}</div>
+                                <small class="text-muted">{{ p.created_at|date:"M d, Y" }}</small>
+                            </td>
+
+                            <!-- Category -->
+                            <td><span class="badge bg-light text-dark border">{{ p.category }}</span></td>
+
+                            <!-- Price -->
+                            <td>
+                                {% if p.price == 0 %}
+                                    <span class="badge bg-info text-dark">Quotation</span>
+                                {% else %}
+                                    <span class="text-success fw-bold">${{ p.price }}</span>
+                                {% endif %}
+                            </td>
+
+                            <!-- Gallery Count -->
+                            <td>
+                                <span class="badge bg-secondary">{{ p.gallery.count }} imgs</span>
+                            </td>
+
+                            <!-- === UPDATED VARIANTS COLUMN === -->
+                            <td>
+                                {% if p.variants.exists %}
+                                    <!-- Button to View in AR -->
+                                    <a href="/ar_3d/?product={{ p.id }}" target="_blank" class="btn btn-sm btn-outline-dark border-0" title="View in 3D Showroom">
+                                        <i class="fa-solid fa-cube fa-lg text-primary"></i> 
+                                        <span class="ms-1 fw-bold">View AR</span>
+                                        <span class="badge bg-dark rounded-pill ms-1">{{ p.variants.count }}</span>
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted small">
+                                        <i class="fa-solid fa-ban"></i> No 3D Models
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <!-- =============================== -->
+
+                            <!-- Actions -->
+                            <td class="text-end">
+                                <a href="{% url 'seller_product_edit' p.id %}" class="btn btn-sm btn-outline-primary border-0 me-1">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </a>
+                                <form action="{% url 'seller_product_delete' p.id %}" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to remove this product?');">
                                     {% csrf_token %}
-                                    <input type="hidden" name="action" value="remove">
-                                    <input type="hidden" name="product_id" value="{{ p.id }}">
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        <i class="fa-solid fa-trash"></i> Remove
+                                    <button type="submit" class="btn btn-sm btn-outline-danger border-0">
+                                        <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="5" class="text-center py-4 text-muted">You have no active products.</td>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-box-open fa-2x mb-3"></i><br>
+                                No products listed yet.
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

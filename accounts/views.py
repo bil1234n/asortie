@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from .models import User
 from .forms import BuyerRegisterForm, SellerRegisterForm, AdminRegisterForm, RoleBasedLoginForm
@@ -9,6 +9,7 @@ from .forms import UserUpdateForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+
 
 # --- HELPER FOR LOGIN ---
 def role_login(request, role, template_name, success_url):
@@ -96,3 +97,62 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
         context = super().get_context_data(**kwargs)
         # Pass user role/data if needed for the sidebar
         return context
+    
+
+
+def unified_register_view(request):
+    """
+    Handles both Buyer and Seller registration in one view.
+    Switches logic based on the 'role_type' radio button from the frontend.
+    """
+    if request.user.is_authenticated:
+        if request.user.role == User.SELLER:
+            return redirect('seller_dashboard')
+        elif request.user.role == User.BUYER:
+            return redirect('home')
+        return redirect('admin_dashboard')
+
+    if request.method == 'POST':
+        role_type = request.POST.get('role_type') # 'buyer' or 'seller'
+        
+        if role_type == 'seller':
+            form = SellerRegisterForm(request.POST, request.FILES)
+        else:
+            # Default to Buyer
+            form = BuyerRegisterForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            # Login automatically
+            login(request, user)
+            
+            # Redirect to specific dashboard
+            if user.role == User.SELLER:
+                return redirect('seller_dashboard')
+            else:
+                return redirect('home')
+    else:
+        # We initialize with the Seller form because it contains the superset of fields
+        # (including file uploads). The template handles hiding them for buyers.
+        form = SellerRegisterForm()
+
+    return render(request, 'accounts/register.html', {'form': form})
+
+
+def unified_login_view(request):
+    if request.method == 'POST':
+        form = RoleBasedLoginForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            
+            if user.role == User.SELLER:
+                return redirect('seller_dashboard')
+            elif user.role == User.BUYER:
+                return redirect('home')
+            elif user.role == User.ADMIN:
+                return redirect('/admin/') # Or custom admin dashboard
+    else:
+        form = RoleBasedLoginForm()
+
+    return render(request, 'accounts/login.html', {'form': form})

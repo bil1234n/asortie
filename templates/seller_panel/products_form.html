@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="fw-bold">{% if edit_mode %}Edit Product{% else %}Add New Product{% endif %}</h3>
+                <a href="{% url 'seller_products' %}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="card shadow-sm border-0">
+                {% csrf_token %}
+                
+                <!-- HIDDEN INPUTS TO STORE DELETED ITEMS IDS -->
+                <input type="hidden" name="delete_gallery_ids" id="delete_gallery_ids" value="">
+                <input type="hidden" name="delete_variant_ids" id="delete_variant_ids" value="">
+
+                <div class="card-body p-4">
+                    
+                    <!-- 1. MAIN INFO -->
+                    <h5 class="text-primary border-bottom pb-2 mb-3">Basic Information</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold">Product Name</label>
+                            <input type="text" name="name" class="form-control" required value="{{ product.name|default:'' }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Category</label>
+                            <select name="category" class="form-select">
+                                <option value="Modern" {% if product.category == 'Modern' %}selected{% endif %}>Modern</option>
+                                <option value="Classic" {% if product.category == 'Classic' %}selected{% endif %}>Classic</option>
+                                <option value="Decoration" {% if product.category == 'Decoration' %}selected{% endif %}>Decoration</option>
+                                <option value="Office" {% if product.category == 'Office' %}selected{% endif %}>Office</option>
+                                <option value="Hotel" {% if product.category == 'Hotel' %}selected{% endif %}>Hotel</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Pricing Strategy</label>
+                            <select id="pricingStrategy" class="form-select">
+                                <option value="negotiated" {% if not product.price or product.price == 0 %}selected{% endif %}>Negotiated (Quote)</option>
+                                <option value="base" {% if product.price and product.price > 0 %}selected{% endif %}>Base Price</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6" id="basePriceContainer" style="display: none;">
+                            <label class="form-label fw-bold">Price ($)</label>
+                            <input type="number" step="0.01" name="price" id="realPriceInput" class="form-control" value="{{ product.price|default:'0' }}">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Description</label>
+                            <textarea name="description" class="form-control" rows="4" required>{{ product.description|default:'' }}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- 2. IMAGES -->
+                    <h5 class="text-primary border-bottom pb-2 mb-3">Imagery</h5>
+                    <div class="row g-3 mb-4">
+                        <!-- Main Image -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Main Image</label>
+                            {% if product.image %}
+                                <div class="mb-2 position-relative">
+                                    <img src="{{ product.image.url }}" class="img-thumbnail" style="height: 150px; width: 100%; object-fit: cover;">
+                                    <span class="badge bg-primary position-absolute top-0 start-0 m-1">Current</span>
+                                </div>
+                            {% endif %}
+                            <input type="file" name="image" class="form-control form-control-sm">
+                            <div class="form-text">Upload to replace current main image.</div>
+                        </div>
+
+                        <!-- Gallery Images -->
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold">Gallery Images</label>
+                            
+                            <!-- Existing Gallery Grid -->
+                            {% if product.gallery.all %}
+                                <div class="row g-2 mb-3">
+                                    {% for img in product.gallery.all %}
+                                        <div class="col-md-3 col-4" id="gallery-item-{{ img.id }}">
+                                            <div class="position-relative border rounded overflow-hidden">
+                                                <img src="{{ img.image.url }}" style="width: 100%; height: 80px; object-fit: cover;">
+                                                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 p-0 px-1" 
+                                                        onclick="markForDelete('gallery', {{ img.id }})" title="Remove">
+                                                    <i class="fa-solid fa-trash small"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <label class="form-label small text-muted">Add New Images:</label>
+                            <input type="file" name="gallery_images" class="form-control form-control-sm" multiple>
+                        </div>
+                    </div>
+
+                    <!-- 3. AR/3D VARIANTS -->
+                    <h5 class="text-primary border-bottom pb-2 mb-3 d-flex justify-content-between align-items-center">
+                        <span>3D Models & Variants</span>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="addVariantRow()">
+                            <i class="fa-solid fa-plus"></i> Add New
+                        </button>
+                    </h5>
+
+                    <!-- Existing Variants List -->
+                    {% if product.variants.all %}
+                        <div class="mb-3">
+                            <label class="fw-bold mb-2 small text-uppercase text-muted">Current Variants</label>
+                            <div class="list-group">
+                                {% for v in product.variants.all %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-center" id="variant-item-{{ v.id }}">
+                                        <div>
+                                            <strong>{{ v.variant_name }}</strong>
+                                            <br>
+                                            <small class="text-muted">
+                                                {% if v.model_3d %}
+                                                    <i class="fa-solid fa-file-arrow-up"></i> File Uploaded
+                                                {% elif v.model_3d_link %}
+                                                    <i class="fa-solid fa-link"></i> External Link
+                                                {% else %}
+                                                    No 3D data
+                                                {% endif %}
+                                            </small>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="markForDelete('variant', {{ v.id }})">
+                                            <i class="fa-solid fa-trash"></i> Delete
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- New Variants Container -->
+                    <div id="variantsContainer"></div>
+
+                    <div class="mt-4 pt-3 border-top">
+                        <button type="submit" class="btn btn-success w-100 py-2 fw-bold">
+                            {% if edit_mode %}Save Changes{% else %}Publish Product{% endif %}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPLATE FOR JAVASCRIPT TO CLONE -->
+<template id="variantRowTemplate">
+    <div class="variant-row border rounded p-3 mb-3 bg-light position-relative fade-in">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-2" onclick="this.closest('.variant-row').remove()"></button>
+        <div class="row g-2">
+            <div class="col-md-4">
+                <input type="text" name="variant_name[]" class="form-control form-control-sm" placeholder="Variant Name (e.g. Blue Velvet)" required>
+            </div>
+            <div class="col-md-4">
+                <input type="file" name="variant_file[]" class="form-control form-control-sm" accept=".glb,.gltf,.usdz">
+            </div>
+            <div class="col-md-4">
+                <input type="url" name="variant_link[]" class="form-control form-control-sm" placeholder="OR Paste URL">
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    // --- Pricing Strategy Logic ---
+    const strategySelect = document.getElementById('pricingStrategy');
+    const priceContainer = document.getElementById('basePriceContainer');
+    const priceInput = document.getElementById('realPriceInput');
+
+    function togglePriceInput() {
+        if (strategySelect.value === 'negotiated') {
+            priceContainer.style.display = 'none';
+            priceInput.value = "0";
+        } else {
+            priceContainer.style.display = 'block';
+        }
+    }
+    strategySelect.addEventListener('change', togglePriceInput);
+    document.addEventListener('DOMContentLoaded', togglePriceInput);
+
+    // --- Dynamic Variant Rows ---
+    function addVariantRow() {
+        const container = document.getElementById('variantsContainer');
+        const template = document.getElementById('variantRowTemplate');
+        const clone = template.content.cloneNode(true);
+        container.appendChild(clone);
+    }
+    
+    // --- Deletion Logic ---
+    // Arrays to store IDs of items to be deleted
+    let deletedGalleryIds = [];
+    let deletedVariantIds = [];
+
+    function markForDelete(type, id) {
+        if (confirm("Are you sure you want to remove this item? (Will be deleted upon Saving)")) {
+            if (type === 'gallery') {
+                // Hide visual element
+                document.getElementById('gallery-item-' + id).style.display = 'none';
+                // Add to array
+                deletedGalleryIds.push(id);
+                // Update Hidden Input
+                document.getElementById('delete_gallery_ids').value = deletedGalleryIds.join(',');
+            } else if (type === 'variant') {
+                document.getElementById('variant-item-' + id).style.display = 'none';
+                deletedVariantIds.push(id);
+                document.getElementById('delete_variant_ids').value = deletedVariantIds.join(',');
+            }
+        }
+    }
+</script>
+
+<style>
+    .fade-in { animation: fadeIn 0.5s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
+
+{% endblock %}

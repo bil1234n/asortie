@@ -4,10 +4,11 @@
 {% block content %}
 
 <!-- Internal CSS for this page only (Move to style.css in production) -->
+<!-- Internal CSS for this page only (Move to style.css in production) -->
 <style>
     :root {
         --coffee-black: #1a1a1a;
-        --coffee-dark: #3e2723;
+        --coffee-dark: #1B3C59;
         --coffee-medium: #6d4c41;
         --coffee-light: #d7ccc8;
         --gold: #d4af37;
@@ -55,7 +56,7 @@
     }
 
     .pricing-card.pro-tier {
-        background: linear-gradient(145deg, #2c1e1a, #000);
+        background: linear-gradient(145deg, #1B3C59, #0F1F2E);
         color: white;
         border: 1px solid var(--gold);
     }
@@ -65,7 +66,7 @@
     }
 
     .pricing-card.premium-tier {
-        border-top: 5px solid var(--coffee-medium);
+        border-top: 5px solid #1B3C59;
     }
 
     .card-title {
@@ -163,14 +164,14 @@
     <div class="container text-center hero-section">
         <div class="row justify-content-center">
             <div class="mb-4">
-                <i class="fa-solid fa-rocket fa-5x" style="color: var(--text-dark);"></i>
+                <i class="fa-solid fa-robot fa-5x" style="color: var(--text-dark);"></i>
             </div>
             <div class="col-lg-8">
-                <h1 class="display-3 fw-bold mb-3">Coming Soon</h1>
-                <span class="badge-soft mb-3">System Upgrade In Progress</span>
+                <h1 class="display-3 fw-bold mb-3"> Coming Soon</h1>
+                <span class="badge-soft mb-3">AI Hub System In Progress</span>
                 <p class="lead text-muted my-4">
-                    We are integrating powerful AI tools and Live Streaming capabilities to revolutionize how you import and export. 
-                    <br>Explore our upcoming tiers below.
+                    Advanced <strong>AI Hub </strong>features are coming soon to elevate your import–export workflow, improve decision-making, and automate daily operations.
+Preview the upcoming plans below.
                 </p>
                 
                 <!-- Progress Bar -->
@@ -185,6 +186,7 @@
             </div>
         </div>
 
+        
         <!-- Pricing Packages -->
         <div class="row g-4 mt-2">
             
@@ -192,16 +194,18 @@
             <div class="col-md-4">
                 <div class="pricing-card basic-tier">
                     <h4 class="card-title text-muted">Basic Starter</h4>
-                    <div class="price-text">$0 <span class="price-period">/mo</span></div>
+                    <div class="price-text">$0 <span class="price-period">/Year</span></div>
                     <p class="text-muted small">Essential access for casual traders.</p>
                     
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check check-icon"></i> Access all Products</li>
-                        <li><i class="fa-solid fa-check check-icon"></i> Standard Purchase & Shipping</li>
-                        <li><i class="fa-solid fa-check check-icon"></i> Order Tracking</li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> No Special Discounts</li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">AI Coffee Agent</span></li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Live Stream Access</span></li>
+                        <li><i class="fa-solid fa-check check-icon"></i>Business Profile</li>
+                        <li><i class="fa-solid fa-check check-icon"></i>Merchant Hub Listing
+</li>
+                        <li><i class="fa-solid fa-check check-icon"></i> Luxury Furniture Listings</li>
+                        <li><i class="fa-solid fa-check check-icon"></i>Private B2B Messaging</li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> No AI Assistant</li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">0 Smart Agents</span></li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Full 3D Visualization</span></li>
                     </ul>
 
                     <button class="btn btn-outline-coffee btn-pricing">Current Plan</button>
@@ -212,16 +216,16 @@
             <div class="col-md-4">
                 <div class="pricing-card premium-tier">
                     <h4 class="card-title" style="color: var(--coffee-dark);">Premium</h4>
-                    <div class="price-text">$29 <span class="price-period">/mo</span></div>
+                    <div class="price-text">$400 <span class="price-period">/Year</span></div>
                     <p class="text-muted small">For serious importers requiring consistency.</p>
                     
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check check-icon"></i> <strong>Priority &nbsp;</strong> Product Access</li>
-                        <li><i class="fa-solid fa-check check-icon"></i> Expedited Shipping Options</li>
-                        <li><i class="fa-solid fa-check check-icon"></i> 5% Bulk Discount</li>
-                        <li><i class="fa-solid fa-check check-icon"></i> Market Trends Newsletter</li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">AI Coffee Agent</span></li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Live Stream Access</span></li>
+                        <li><i class="fa-solid fa-check check-icon"></i>Everything in Free,<strong>&nbsp; Plus+</strong></li>
+                        <li><i class="fa-solid fa-check check-icon"></i>AI Assistant</li>
+                        <li><i class="fa-solid fa-check check-icon"></i>4 Smart Agents</li>
+                        <li><i class="fa-solid fa-check check-icon"></i>Full 3D Visualization</li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Advanced Analytics</span></li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Priority Support</span></li>
                     </ul>
 
                     <button class="btn btn-dark btn-pricing" disabled>Coming Soon</button>
@@ -233,15 +237,14 @@
                 <div class="pricing-card pro-tier">
                     <div class="ribbon">BEST VALUE</div>
                     <h4 class="card-title"><i class="fa-solid fa-crown me-2" style="color: var(--gold);"></i> Professional</h4>
-                    <div class="price-text">$99 <span class="price-period">/mo</span></div>
-                    <p class="text-muted small">Full power of AI and Live Auctions.</p>
+                    <div class="price-text">$800 <span class="price-period">/Year</span></div>
+                    <p class="small">Full power of AI and Live Auctions.</p>
                     
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check gold-icon"></i> <strong>15% VIP Discount</strong></li>
-                        <li><i class="fa-solid fa-check gold-icon"></i> Dedicated Account Manager</li>
-                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">AI Coffee Agent (Beta)</span></li>
-                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">Live Stream Auctions</span></li>
-                        <li><i class="fa-solid fa-check gold-icon"></i> Advanced Market Analytics</li>
+                        <li><i class="fa-solid fa-check gold-icon"></i>Everything in Free,<strong>&nbsp; Plus++</strong></li>
+                        <li><i class="fa-solid fa-check gold-icon"></i>4 Additional Smart Agents (Total 8 Agents)</li>
+                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">Advanced Analytics</span></li>
+                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">Priority Support</span></li>
                     </ul>
 
                     <button class="btn btn-gold btn-pricing">Coming Soon</button>
@@ -249,6 +252,7 @@
             </div>
 
         </div>
+
 
         <div class="mt-5">
             <!-- Back Button -->

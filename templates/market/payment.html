@@ -1,12 +1,240 @@
 {% extends 'base.html' %}
-{% block content %}
-<h2>Checkout</h2>
-<p>Product: {{ order.product.name }}</p>
-<p>Total: ${{ order.product.price }}</p>
+{% load static %}
 
-<form method="post">
-    {% csrf_token %}
-    <div class="alert alert-info">Simulating Secure Payment...</div>
-    <button type="submit" class="btn btn-success btn-lg">Pay Now (Mock)</button>
-</form>
+{% block content %}
+<style>
+    :root {
+        --coffee-dark: #1B3C59;
+        --coffee-light: #5d4037;
+        --gold-accent: #d4af37;
+        --bg-light: #f8f9fa;
+        --border-color: #e9ecef;
+    }
+
+    /* Checkout Card Styling */
+    .checkout-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+
+    .checkout-header {
+        background: linear-gradient(135deg, var(--coffee-dark), var(--coffee-light));
+        color: white;
+        padding: 20px 25px;
+    }
+
+    /* Product Summary */
+    .product-thumb {
+        width: 90px;
+        height: 90px;
+        object-fit: contain;
+        border-radius: 12px;
+        border: 2px solid var(--border-color);
+    }
+
+    .price-tag {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--coffee-dark);
+    }
+
+    /* Custom Payment Radio Buttons */
+    .payment-radio-input {
+        display: none; /* Hide default radio */
+    }
+
+    .payment-option-card {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: white;
+        margin-bottom: 15px;
+    }
+
+    .payment-option-card:hover {
+        border-color: #b0b0b0;
+        transform: translateY(-2px);
+    }
+
+    /* Selected State */
+    .payment-radio-input:checked + .payment-option-card {
+        border-color: var(--gold-accent);
+        background-color: #fffcf2; /* Very light gold tint */
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+    }
+
+    .payment-radio-input:checked + .payment-option-card .check-icon {
+        color: var(--gold-accent);
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .payment-icon {
+        font-size: 1.8rem;
+        width: 50px;
+        text-align: center;
+        color: var(--coffee-light);
+        margin-right: 15px;
+    }
+
+    .check-icon {
+        margin-left: auto;
+        font-size: 1.2rem;
+        opacity: 0;
+        transform: scale(0.5);
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Secure Badge */
+    .secure-badge {
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 8px 15px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            
+            <form method="post" id="payment-form">
+                {% csrf_token %}
+                
+                <!-- MAIN CARD -->
+                <div class="card checkout-card mb-4">
+                    
+                    <!-- Header -->
+                    <div class="checkout-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0 fw-bold"><i class="fa-solid fa-lock me-2"></i>Secure Checkout</h4>
+                        <span class="badge bg-warning text-dark">Step 2 of 2</span>
+                    </div>
+
+                    <div class="card-body p-4">
+                        
+                        <!-- Order Summary Section -->
+                        <h6 class="text-muted text-uppercase small fw-bold mb-3">Order Summary</h6>
+                        <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
+                            {% if order.product.image %}
+                                <img src="{{ order.product.image.url }}" alt="{{ order.product.name }}" class="product-thumb shadow-sm me-3">
+                            {% else %}
+                                <div class="product-thumb bg-light d-flex align-items-center justify-content-center text-muted me-3">
+                                    <i class="fa-solid fa-mug-hot fa-2x"></i>
+                                </div>
+                            {% endif %}
+                            
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1 fw-bold text-dark">{{ order.product.name }}</h5>
+                                <p class="text-muted mb-0 small">
+                                    <i class="fa-solid fa-cubes me-1"></i> Qty: {{ order.quantity }}
+                                </p>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-muted d-block">Total</small>
+                                <span class="price-tag">${{ order.total_price }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Error Message -->
+                        {% if error %}
+                        <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+                            <i class="fa-solid fa-circle-exclamation me-2"></i>
+                            <div>{{ error }}</div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Payment Method Selection -->
+                        <h6 class="text-muted text-uppercase small fw-bold mb-3">Select Payment Method</h6>
+                        
+                        <!-- Option 1: Stripe -->
+                        <div class="mb-2">
+                            <input type="radio" name="payment_method" id="stripe" value="stripe" class="payment-radio-input" checked>
+                            <label for="stripe" class="payment-option-card">
+                                <div class="payment-icon">
+                                    <i class="fa-brands fa-cc-visa"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">International Payment</h6>
+                                    <small class="text-muted">Credit Card, Debit Card (Stripe)</small>
+                                </div>
+                                <i class="fa-solid fa-circle-check check-icon"></i>
+                            </label>
+                        </div>
+
+                        <!-- Option 2: Chapa -->
+                        <div class="mb-2">
+                            <input type="radio" name="payment_method" id="chapa" value="chapa" class="payment-radio-input">
+                            <label for="chapa" class="payment-option-card">
+                                <div class="payment-icon">
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Local Payment (Ethiopia)</h6>
+                                    <small class="text-muted">Telebirr, CBE, Mobile Money (Chapa)</small>
+                                </div>
+                                <i class="fa-solid fa-circle-check check-icon"></i>
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-dark w-100 py-3 mt-3 shadow fw-bold fs-5" style="background-color: var(--coffee-dark); border-color: var(--coffee-dark);">
+                            Pay ${{ order.total_price }} Now <i class="fa-solid fa-arrow-right ms-2"></i>
+                        </button>
+                            
+                            <a class="btn btn-dark w-100 py-3 mt-3 shadow fw-bold fs-5" href="{% url 'cancel_order' order.id %}" style="background-color: red; border-color: red; color: #fff; text-decoration: none;"><i class="fa-solid fa-arrow-left ms-2"></i> Cancel Order</a>
+                        
+
+                        <!-- Footer Security Badge -->
+                        <div class="text-center mt-4">
+                            <div class="secure-badge">
+                                <i class="fa-solid fa-shield-halved"></i> SSL Encrypted Transaction
+                            </div>
+                            <div class="mt-2 text-muted small">
+                                <i class="fa-brands fa-stripe fa-lg mx-1"></i>
+                                <i class="fa-solid fa-lock fa-sm mx-1"></i>
+                                <span class="mx-1">Chapa Verified</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('payment-form').addEventListener('submit', async function(e){
+        e.preventDefault();
+        
+        // Show loading state on button
+        const btn = this.querySelector('button[type="submit"]');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>Processing...';
+        btn.disabled = true;
+
+        const method = document.querySelector('input[name="payment_method"]:checked').value;
+
+        // Small delay to allow UI to update before redirect (optional UX improvement)
+        setTimeout(() => {
+            if(method === 'stripe'){
+                window.location.href = "{% url 'stripe_checkout' order.id %}";
+            } else if(method === 'chapa'){
+                window.location.href = "{% url 'chapa_checkout' order.id %}";
+            }
+        }, 500);
+    });
+</script>
 {% endblock %}

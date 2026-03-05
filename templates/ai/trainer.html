@@ -1,0 +1,503 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asortie Ultimate | AI Training Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --aside-bg: #1B3C59;
+            --aside-text: #ffffff;
+            --top-header-bg: #ffffff;
+            --top-header-text: #000000;
+            --body-bg: #f4f6f8;
+            --border-light: rgba(0,0,0,0.1);
+            --primary-color: #0F1F2E;
+            --secondary-color: #1B3C59;
+            --danger: #e74c3c;
+            --accent-gold: #D4AF37;
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: var(--body-bg); color: #333; }
+
+        /* --- Sidebar Styles (Matching Index) --- */
+        aside { background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: var(--aside-text); }
+        .border_bot { border-bottom: 1px solid #a3a1a1b3; padding-bottom: 2rem; }
+        
+        .history-dropdown-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            border: none;
+            width: 100%;
+            color: white;
+        }
+
+        .session-link { transition: all 0.2s; text-decoration: none; color: rgba(255,255,255,0.8); }
+        .session-link.active { background: rgba(255,255,255,0.2); color: white; }
+
+        /* --- Top Bar (Matching Index) --- */
+       
+        /* --- Top Bar --- */
+ .top-bar_full {
+            background-color: var(--top-header-bg);
+            color: var(--top-header-text);
+            height: 75px;
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+       
+.top-bar {
+    height: 70px;
+    /* background-color: var(--white); */
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    /* box-shadow: 0 2px 15px rgba(0,0,0,0.05); */
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.mobile-toggle {
+    display: none; /* Hidden on desktop */
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    margin-right: 15px;
+}
+
+.top-right-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-img-placeholder {
+    width: 35px;
+    height: 35px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.user-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.logout-btn {
+    background: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logout-btn:hover {
+    background: var(--danger);
+    color: var(--white);
+}
+
+
+        /* --- Trainer Specific Styles --- */
+        .glass-card { background: white; border: 1px solid var(--border-light); border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .btn-action { background-color: var(--aside-bg); color: white; border-radius: 10px; font-weight: 600; transition: 0.2s; }
+        .btn-action:hover { background-color: #244d70; transform: translateY(-1px); }
+        
+        #historyList { display: none; }
+        #historyList.active { display: block !important; }
+        .chevron-rotate.open { transform: rotate(180deg); }
+        /* --- Mobile Responsiveness Logic --- */
+        @media (max-width: 1024px) {
+            aside {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 1000;
+                transform: translateX(-100%); /* Hidden by default */
+            }
+            aside.mobile-open {
+                transform: translateX(0); /* Shown when toggled */
+            }
+            .mobile-toggle {
+                display: block !important;
+            }
+            .top-bar_full {
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+            .header-title {
+                display: none; /* Hide title text on very small screens to save space */
+            }
+        }
+
+        /* Close button inside mobile menu */
+        .mobile-close {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 1.5rem;
+        }
+        @media (max-width: 1024px) { .mobile-close { display: block; } }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <aside id="sidebar" class="w-80 flex flex-col p-6 shrink-0 shadow-xl z-[1001]">
+        <div class="mobile-close" onclick="toggleSidebar()">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+
+        <div class="mb-10 text-center border_bot">
+            <img src="{% static 'img/logo_2.png' %}" style="max-width: 200px; margin: 0 auto;" alt="Asortie">
+            <p class="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1">Interior Intelligence Hub</p>
+        </div>
+
+        <div class="space-y-3 mb-8 overflow-y-auto">
+            <button onclick="location.href='{% url 'admin_dashboard' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
+                <i class="fa-solid fa-house mr-2"></i> Dashboard
+            </button>
+            <button onclick="location.href='{% url 'admin_users' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
+                <i class="fa-solid fa-users mr-2"></i> Manage Users
+            </button>
+            <button onclick="location.href='{% url 'admin_product_analytics' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
+                <i class="fa-solid fa-bag-shopping mr-2"></i> Products Analytics
+            </button>
+            <button onclick="location.href='{% url 'admin_order_analytics' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
+                <i class="fa-solid fa-chart-line mr-2"></i> Order Analytics
+            </button>
+            <button onclick="location.href='{% url 'chat_inbox' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
+                <i class="fa-solid fa-envelope mr-2"></i> Messages
+            </button>
+            <button onclick="location.href='{% url 'ai' %}'" class="w-full py-3 px-4 bg-white text-[#1B3C59] rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-gray-100 transition shadow-lg">
+                <i class="fa-solid fa-robot mr-2"></i> Ai Agent
+            </button>
+
+            
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-full overflow-hidden">
+        
+        <header class="top-bar_full px-8 flex justify-between items-center shrink-0">
+            <div class="flex items-center">
+                <div class="mobile-toggle" id="mobile-toggle" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <h2 class="header-title text-sm font-bold text-gray-500 uppercase tracking-widest mb-0">
+                    <i class="fa-solid fa-screwdriver-wrench mr-2 text-blue-800"></i> AI Training Center
+                </h2>
+            </div>
+
+                <div class="top-right-actions">
+                    
+                    {% if user.is_authenticated %}
+                        <!-- NOTIFICATION BELL -->
+                        <li class="nav-item dropdown me-3" style="list-style: none;">
+                            <a class="nav-link position-relative" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-bell fa-lg text-secondary"></i>
+                                
+                                {% if notification_count > 0 %}
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ notification_count }}
+                                    </span>
+                                {% endif %}
+                            </a>
+                            
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="width: 300px; max-height: 400px; overflow-y: auto;">
+                                <li class="dropdown-header fw-bold">Notifications</li>
+                                <li><hr class="dropdown-divider"></li>
+                                
+                                {% if notifications %}
+                                    {% for n in notifications %}
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-start gap-2 py-2" href="{% url 'mark_read' n.id %}">
+                                            <div class="mt-1">
+                                                {% if n.notification_type == 'order' %}
+                                                    <i class="fa-solid fa-cart-shopping text-success"></i>
+                                                {% elif n.notification_type == 'message' %}
+                                                    <i class="fa-solid fa-comment text-primary"></i>
+                                                {% else %}
+                                                    <i class="fa-solid fa-bell text-warning"></i>
+                                                {% endif %}
+                                            </div>
+                                            <div style="white-space: normal;">
+                                                <p class="mb-0 small fw-bold">{{ n.message }}</p>
+                                                <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} ago</small>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="text-center py-3 small text-muted">No new notifications</li>
+                                {% endif %}
+                                
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">View All History</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        
+                        <!-- CLICKABLE PROFILE LINK -->
+                        <a href="{% url 'profile' %}" style="text-decoration: none; color: inherit; margin-right: 10px;">
+                            <div class="user-profile">
+                                <div class="profile-img-placeholder">
+                                    {{ user.username|first|upper }}
+                                </div>
+                                <span class="user-name">{{ user.username }}</span>
+                            </div>
+                        </a>
+
+                        <!-- LOGOUT BUTTON -->
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn" title="Logout">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </button>
+                        </form>
+
+                    {% else %}
+                        <!-- GUEST BUTTONS -->
+                        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">Login</a>
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">Sign Up</a>
+                    {% endif %}
+                </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8 bg-[#f8fafc]">
+            <div class="max-w-5xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-[#1B3C59]">Knowledge Management</h1>
+                    <p class="text-sm text-gray-500">Inject new facts and visual assets into the Asortie Intelligence core.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div class="glass-card p-8">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-quote-left"></i></div>
+                            <h3 class="text-sm font-bold uppercase tracking-wider">Add Text Fact</h3>
+                        </div>
+                        <form id="train-form" class="space-y-4">
+                            <textarea id="knowledge-text" rows="4" 
+                                placeholder="Example: Our luxury sofa collection is handcrafted in Istanbul..." 
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm outline-none focus:ring-2 focus:ring-blue-100 transition"></textarea>
+                            
+                            <button type="submit" id="train-btn" class="w-full py-3 btn-action text-xs uppercase tracking-widest">
+                                Inject into Memory
+                            </button>
+                        </form>
+                        <div id="status-msg" class="mt-4 text-center text-xs font-bold hidden"></div>
+                    </div>
+
+                    <div class="glass-card p-8">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-2 bg-purple-50 text-purple-600 rounded-lg"><i class="fa-solid fa-image"></i></div>
+                            <h3 class="text-sm font-bold uppercase tracking-wider">Add Visual Asset</h3>
+                        </div>
+                        <form id="visual-train-form" class="space-y-4">
+                            <input type="text" id="visual-label" placeholder="Asset Name (e.g., Diamond Lounge Chair)" 
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm outline-none focus:ring-2 focus:ring-blue-100 transition">
+                            
+                            <input type="file" id="visual-file" accept="image/*"
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-700">
+                            
+                            <button type="submit" id="visual-train-btn" class="w-full py-3 btn-action text-xs uppercase tracking-widest">
+                                Vectorize Image
+                            </button>
+                        </form>
+                        <div id="visual-status-msg" class="mt-4 text-center text-xs font-bold hidden"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Recent System Knowledge</h3>
+                    <div class="space-y-3" id="knowledge-list">
+                        {% for fact in recent_facts %}
+                        <div class="p-4 rounded-xl border border-gray-100 bg-white shadow-sm flex justify-between items-center" id="fact-{{ fact.id }}">
+                            <div class="flex items-center space-x-4 flex-1">
+                                {% if fact.knowledge_image %}
+                                    <img src="{{ fact.knowledge_image }}" class="w-12 h-12 rounded-lg object-cover border" alt="Asset">
+                                {% else %}
+                                    <div class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-400">TXT</div>
+                                {% endif %}
+
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <span class="text-[9px] {% if fact.knowledge_image %}bg-purple-100 text-purple-600{% else %}bg-blue-100 text-blue-600{% endif %} px-2 py-0.5 rounded-full font-bold uppercase">
+                                            {% if fact.knowledge_image %}Visual{% else %}Fact{% endif %}
+                                        </span>
+                                        <span class="text-[10px] text-gray-400">{{ fact.created_at|date:"M d, H:i" }}</span>
+                                    </div>
+                                    <div class="text-sm text-gray-700" id="content-{{ fact.id }}">{{ fact.content }}</div>
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-4">
+                                <button onclick="editFact({{ fact.id }})" class="text-blue-600 hover:underline text-[10px] font-bold uppercase tracking-wider">Edit</button>
+                                <button onclick="deleteFact({{ fact.id }})" class="text-red-500 hover:underline text-[10px] font-bold uppercase tracking-wider">Delete</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle Sidebar on Mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        // Dropdown History Toggle
+        function toggleHistoryMenu() {
+            const list = document.getElementById('historyList');
+            const chevron = document.getElementById('historyChevron');
+            list.classList.toggle('active');
+            chevron.classList.toggle('open');
+        }
+
+        // Optional: Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.getElementById('mobile-toggle');
+            if (window.innerWidth <= 1024 && 
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target) && 
+                sidebar.classList.contains('mobile-open')) {
+                sidebar.classList.remove('mobile-open');
+            }
+        });
+
+        // Logic for Text Training
+        document.getElementById('train-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const text = document.getElementById('knowledge-text').value;
+            if(!text) return;
+            const btn = document.getElementById('train-btn');
+            const status = document.getElementById('status-msg');
+            
+            btn.disabled = true; btn.innerText = "INJECTING...";
+            
+            try {
+                const response = await fetch('/train-text/', { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}'},
+                    body: JSON.stringify({text: text}) 
+                });
+                const data = await response.json();
+                status.innerText = "Fact Memorized Successfully";
+                status.className = "mt-4 text-center text-xs font-bold text-green-600";
+                status.classList.remove('hidden');
+                setTimeout(() => location.reload(), 1000);
+            } catch (err) {
+                status.innerText = "Error Saving Fact";
+                status.className = "mt-4 text-center text-xs font-bold text-red-500";
+                status.classList.remove('hidden');
+            }
+            btn.disabled = false; btn.innerText = "Inject into Memory";
+        };
+
+        // Logic for Visual Training
+        document.getElementById('visual-train-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const label = document.getElementById('visual-label').value;
+            const fileInput = document.getElementById('visual-file');
+            const status = document.getElementById('visual-status-msg');
+            const btn = document.getElementById('visual-train-btn');
+
+            if(!label || !fileInput.files[0]) return;
+
+            btn.disabled = true; btn.innerText = "VECTORIZING...";
+            status.innerText = "Generating CLIP Vectors...";
+            status.className = "mt-4 text-center text-xs font-bold text-blue-500 animate-pulse";
+            status.classList.remove('hidden');
+
+            const formData = new FormData();
+            formData.append('label', label);
+            formData.append('image', fileInput.files[0]);
+
+            try {
+                const response = await fetch('/train-visual/', { 
+                    method: 'POST', 
+                    body: formData,
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'}
+                });
+                const data = await response.json();
+                status.className = "mt-4 text-center text-xs font-bold text-green-600";
+                status.innerText = "Visual Asset Memorized.";
+                setTimeout(() => location.reload(), 1000);
+            } catch {
+                status.className = "mt-4 text-center text-xs font-bold text-red-500";
+                status.innerText = "Error Vectorizing Asset.";
+            }
+            btn.disabled = false; btn.innerText = "Vectorize Image";
+        };
+
+        async function editFact(id) {
+            const contentDiv = document.getElementById(`content-${id}`);
+            const newText = prompt("Edit Knowledge:", contentDiv.innerText);
+            if (newText && newText !== contentDiv.innerText) {
+                const res = await fetch(`/edit-knowledge/${id}/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+                    body: JSON.stringify({ text: newText })
+                });
+                if (res.ok) location.reload();
+            }
+        }
+
+        async function deleteFact(id) {
+            if(confirm("Delete this knowledge permanentely?")) {
+                const res = await fetch(`/delete-knowledge/${id}/`, {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+                });
+                if (res.ok) location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

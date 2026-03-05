@@ -1,8 +1,8 @@
+{% load static %}
 <!-- Sidebar Navigation -->
 <aside class="sidebar" id="sidebar">
     <div class="logo-section">
-        <img src="../../static/img/logo_1.jpg" class="logo_1" alt="">
-        <span>TheCoffeeLink</span>
+        <img src="{% static 'img/logo_2.png' %}" class="logo_1" alt="">
         <br>
         <!-- <small class="text-muted">{{ user.role|title }} Panel</small> -->
     </div>
@@ -25,6 +25,9 @@
              <a href="{% url 'chat_inbox' %}" class="{% if request.resolver_match.url_name == 'chat_inbox' %}active{% endif %}">
                 <i class="fa-solid fa-envelope me-2"></i> Messages
             </a>
+            <a href="{% url 'ai' %}" class="{% if request.resolver_match.url_name == 'ai' %}active{% endif %}">
+                <i class="fa-solid fa-robot me-2"></i> AI Hub
+            </a>
 
         <!-- ================= SELLER MENU ================= -->
         {% elif user.role == 'seller' %}
@@ -39,13 +42,22 @@
             </a>
             <!-- Business Profile -->
             <a href="{% url 'business_profile' %}" class="{% if request.resolver_match.url_name == 'business_profile' %}active{% endif %}">
-                <i class="fa-solid fa-briefcase me-2"></i> Business Profile
+                <i class="fa-solid fa-user me-2"></i> Business Profile
             </a>
             <a href="{% url 'chat_inbox' %}" class="{% if request.resolver_match.url_name == 'chat_inbox' %}active{% endif %}">
                 <i class="fa-solid fa-comments me-2"></i> Buyer Messages
             </a>
-            <a href="{% url 'coming_soon' %}" class="{% if request.resolver_match.url_name == 'coming_soon' %}active{% endif %}">
-                <i class="fa-solid fa-tv me-2"></i> AI & Live Stream
+            <a href="{% url 'business_directory' %}" class="{% if request.resolver_match.url_name == 'business_directory' %}active{% endif %}">
+                <i class="fa-solid fa-address-book me-2"></i> Merchant Hub
+            </a>
+            <a href="{% url 'product_list' %}" class="{% if request.resolver_match.url_name == 'product_list' %}active{% endif %}">
+                <i class="fa-solid fa-shop me-2"></i> Marketplace
+            </a>
+            <a href="{% url 'ar_showroom' %}" class="{% if request.resolver_match.url_name == 'ar_showroom' %}active{% endif %}">
+                <i class="fa-solid fa-cubes me-2"></i> 3D Visualization
+            </a>
+            <a href="{% url 'ai' %}" class="{% if request.resolver_match.url_name == 'ai' %}active{% endif %}">
+                <i class="fa-solid fa-robot me-2"></i> AI Hub
             </a>
         
         <!-- ================= BUYER/GUEST MENU ================= -->
@@ -64,18 +76,25 @@
             <a href="{% url 'chat_inbox' %}" class="{% if request.resolver_match.url_name == 'chat_inbox' %}active{% endif %}">
                 <i class="fa-solid fa-comments me-2"></i> Messages
             </a>
+            <!-- Business Profile -->
+            <a href="{% url 'business_profile' %}" class="{% if request.resolver_match.url_name == 'business_profile' %}active{% endif %}">
+                <i class="fa-solid fa-user me-2"></i> Business Profile
+            </a>
             {% endif %}
             <a href="{% url 'business_directory' %}" class="{% if request.resolver_match.url_name == 'business_directory' %}active{% endif %}">
-                <i class="fa-solid fa-address-book me-2"></i> Business Directory
+                <i class="fa-solid fa-address-book me-2"></i> Merchant Hub
             </a>
-            <a href="{% url 'coming_soon' %}" class="{% if request.resolver_match.url_name == 'coming_soon' %}active{% endif %}">
-                <i class="fa-solid fa-tv me-2"></i> AI & Live Stream
+            <a href="{% url 'ar_showroom' %}" class="{% if request.resolver_match.url_name == 'ar_showroom' %}active{% endif %}">
+                <i class="fa-solid fa-cubes me-2"></i> 3D Visualization
+            </a>
+            <a href="{% url 'ai' %}" class="{% if request.resolver_match.url_name == 'ai' %}active{% endif %}">
+                <i class="fa-solid fa-robot me-2"></i> AI Hub
             </a>
         {% endif %}
     </nav>
 
     <div class="sidebar-footer">
-        <p class="small footer_v">TheCoffeeLink v1.0</p>
+        <p class="small footer_v">Asortie v1.0</p>
     </div>
 </aside>
 

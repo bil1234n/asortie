@@ -16,7 +16,7 @@
 <div class="container py-4">
     <div class="text-center mb-5">
         <h2 class="fw-bold text-dark big_h"><i class="fa-solid fa-shop me-2"></i>Global Marketplace</h2>
-        <p class="text-muted">Browse premium coffee products from verified sellers.</p>
+        <p class="text-muted">Browse premium luxury furniture products from verified sellers.</p>
     </div>
 
     <!-- ========================================== -->
@@ -73,38 +73,58 @@
     </form>
     <div class="row">
         {% for product in products %}
+        
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0">
-                <!-- Image -->
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" class="card-img-top" style="height: 250px; object-fit: contain; padding: 15px 0 5px;">
-                {% else %}
-                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 220px;">
-                        <i class="fa-solid fa-mug-hot fa-3x text-muted"></i>
-                    </div>
-                {% endif %}
+            <a href="{% url 'product_detail' product.id %}" style="text-decoration: none; color: #000000d4;">
+                <div class="card h-100 shadow-sm border-0">
+                    <!-- Image -->
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" style="height: 250px; object-fit: contain; padding: 15px 0 5px;">
+                    {% else %}
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 220px;">
+                            <i class="fa-solid fa-mug-hot fa-3x text-muted"></i>
+                        </div>
+                    {% endif %}
 
-                <!-- Body -->
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold">{{ product.name }}</h5>
-                    <p class="text-muted small mb-2">{{ product.category }}</p>
-                    <h5 class="text-success fw-bold">${{ product.price }} / kg</h5>
-                    
-                    <div class="mt-auto pt-3">
-                        {% if user.is_authenticated %}
-                            <!-- LOGGED IN: Go to Detail Page -->
-                            <a href="{% url 'product_detail' product.id %}" class="btn btn-warning w-100 fw-bold">
-                                Order Now
-                            </a>
-                        {% else %}
-                            <!-- GUEST: Redirect to Login -->
-                            <a href="{% url 'login' %}?next={% url 'product_detail' product.id %}" class="btn btn-outline-dark w-100">
-                                Login to Order
-                            </a>
-                        {% endif %}
+                    <!-- Body -->
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">{{ product.name }}</h5>
+                        <p class="text-muted small mb-2">{{ product.category }}</p>
+                        <h5 class="text-success fw-bold">
+                            {% if product.price == 0 %}
+                                Price on request
+                            {% else %}
+                                ${{ product.price }} <span style="font-size: 1rem; color: rgb(196, 4, 4);">(Base Price)</span>
+                            {% endif %}
+                        </h5>
+                        
+                        <div class="mt-auto pt-3">
+                            {% if user.is_authenticated %}
+                                
+                                <!-- CHECK ROLE -->
+                                {% if user.role == 'seller' %}
+                                    <!-- PRO STYLE: Disabled/Info Button for Sellers -->
+                                    <button class="btn w-100 d-flex align-items-center justify-content-center" disabled 
+                                            style="background-color: #f8f9fa; color: #adb5bd; border: 1px dashed #dee2e6; font-weight: 600; cursor: not-allowed; height: 38px;">
+                                        <i class="fa-solid fa-lock me-2" style="font-size: 0.8rem;"></i> To Order Login By Buyer
+                                    </button>
+                                {% else %}
+                                    <!-- BUYER: Standard Order Button -->
+                                    <a href="{% url 'product_detail' product.id %}" class="btn btn-warning w-100 fw-bold">
+                                        Order Now
+                                    </a>
+                                {% endif %}
+
+                            {% else %}
+                                <!-- GUEST: Redirect to Login -->
+                                <a href="{% url 'login' %}?next={% url 'product_detail' product.id %}" class="btn btn-outline-dark w-100">
+                                    Login to Order
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         {% empty %}
             <div class="col-12 text-center py-5">
