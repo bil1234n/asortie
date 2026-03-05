@@ -84,21 +84,14 @@ ASGI_APPLICATION = 'asortie.asgi.application'
 
 # --- DATABASE ---
 # If DATABASE_URL exists (Render), use it. Otherwise, use local Postgres settings.
-if os.environ.get('DATABASE_URL'):
-    DATABASES = {
-        'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME', 'furniture_db'),
-            'USER': os.environ.get('DB_USER', 'postgres'),
-            'PASSWORD': os.environ.get('DB_PASSWORD', 'Bilal1234'),
-            'HOST': os.environ.get('DB_HOST', 'localhost'),
-            'PORT': os.environ.get('DB_PORT', '5432'),
-        }
-    }
+# --- DATABASE CONFIGURATION ---
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://postgres:Bilal1234@127.0.0.1:5432/AR&3D_db',
+        conn_max_age=600
+    )
+}
+
 
 # --- CHANNELS (REDIS for Chat) ---
 if os.environ.get('REDIS_URL'):
