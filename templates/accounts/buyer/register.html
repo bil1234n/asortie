@@ -1,33 +1,176 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    :root {
+        --gold: #d4af37;
+        --coffee-dark: #3e2723;
+        --coffee-light: #fdfbf7;
+        --border-default: #e0e0e0;
+    }
+
+    /* 1. Hide the default radio circle, but keep it in DOM for functionality */
+    .package-radio-input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* 2. The Card Styling (Default State) */
+    .package-card {
+        display: block; /* Acts as a label */
+        position: relative;
+        border: 2px solid var(--border-default);
+        border-radius: 12px;
+        padding: 20px;
+        cursor: pointer;
+        background: #fff;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .package-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        border-color: #b0b0b0;
+    }
+
+    /* 3. The Selected State (CSS Magic) */
+    /* When input is checked, style the IMMEDIATE SIBLING label (.package-card) */
+    .package-radio-input:checked + .package-card {
+        border: 2px solid var(--gold);
+        background-color: rgba(212, 175, 55, 0.03); /* Very faint gold tint */
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25); /* Gold Glow */
+        transform: translateY(-5px);
+    }
+
+    /* 4. The 'Checkmark Ribbon' in top right corner */
+    .package-radio-input:checked + .package-card::after {
+        content: "\f00c"; /* FontAwesome Check */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: var(--gold);
+        color: #fff;
+        padding: 5px 12px 5px 8px;
+        font-size: 0.9rem;
+        border-bottom-left-radius: 12px;
+        box-shadow: -2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Typography */
+    .pkg-title { font-weight: 700; color: var(--coffee-dark); font-size: 1.1rem; }
+    .pkg-price { font-size: 1.4rem; font-weight: 800; color: #1a1a1a; margin: 8px 0; }
+    .pkg-desc { font-size: 0.85rem; color: #666; line-height: 1.4; }
+    .badge-pro { background: var(--coffee-dark); color: var(--gold); padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; float: right; }
+</style>
+
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-9">
             <div class="card shadow border-0 rounded-4">
                 
-                <div class="card-header text-white text-center py-4" style="background-color: var(--secondary-color); border-radius: 15px 15px 0 0;">
-                    <h3 class="mb-0 fw-bold"><i class="fa-solid fa-mug-hot text-warning me-2"></i>Create Account</h3>
-                    <p class="mb-0 text-white-50">Join the Global Coffee Marketplace</p>
+                <!-- Header -->
+                <div class="card-header text-white py-4 text-center" style="background-color: var(--secondary-color); border-radius: 15px 15px 0 0;">
+                    <h3 class="mb-0 fw-bold"><i class="fa-solid fa-mug-hot text-warning me-2"></i>Create Buyer Account</h3>
                 </div>
 
                 <div class="card-body p-4 bg-white">
+                    <p class="text-muted mb-4 text-center">Join TheCoffeeLink and easily buy your coffee from anywhere.</p>
                     <form method="post">
                         {% csrf_token %}
                         
-                        {% for field in form %}
-                            <div class="mb-3">
-                                <label class="form-label fw-bold text-muted small">{{ field.label }}</label>
-                                {{ field }}
-                                {% for error in field.errors %}
-                                    <div class="text-danger small">{{ error }}</div>
-                                {% endfor %}
+                        <!-- Personal Info Section -->
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">First Name</label>
+                                {{ form.first_name }}
                             </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">Last Name</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">Username</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">Email Address</label>
+                                {{ form.email }}
+                            </div>
+                        </div>
+
+                        <!-- Password & Other Fields (Hidden Loop for remaining fields) -->
+                        {% for field in form %}
+                            {% if field.name not in "username email first_name last_name package_tier" %}
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">{{ field.label }}</label>
+                                {{ field }}
+                                <div class="text-danger small">{{ field.errors }}</div>
+                            </div>
+                            {% endif %}
                         {% endfor %}
 
+                        <!-- Package Selection Section -->
+                        <hr class="my-4">
+                        <h5 class="fw-bold mb-3 text-center" style="color: var(--coffee-dark);">Select Your Membership</h5>
+                        
+                        <div class="row g-3 mb-4">
+                            {% for radio in form.package_tier %}
+                            <div class="col-md-4">
+                                <!-- 1. RENDER THE INPUT MANUALLY (Hidden via CSS class) -->
+                                <input type="radio" 
+                                       name="{{ radio.data.name }}" 
+                                       value="{{ radio.data.value }}" 
+                                       id="{{ radio.id_for_label }}" 
+                                       class="package-radio-input" 
+                                       {% if radio.data.selected %}checked{% endif %} 
+                                       required>
+                                
+                                <!-- 2. RENDER THE LABEL AS THE CARD (Linked by 'for' attribute) -->
+                                <label class="package-card" for="{{ radio.id_for_label }}">
+                                    {% if radio.choice_label == 'Basic' %}
+                                        <div class="pkg-title"><i class="fa-solid fa-seedling text-muted me-1"></i> Basic</div>
+                                        <div class="pkg-price">$0</div>
+                                        <div class="pkg-desc">
+                                            Access all products.<br>
+                                            <span class="text-danger small"><i class="fa-solid fa-xmark"></i> No AI Agent</span> <br>Current Plan
+                                        </div>
+                                    {% elif radio.choice_label == 'Premium' %}
+                                        <div class="pkg-title"><i class="fa-solid fa-star text-warning me-1"></i> Premium</div>
+                                        <div class="pkg-price">$29<small class="fs-6 fw-normal text-muted">/mo</small></div>
+                                        <div class="pkg-desc">Priority Support.<br>5% Bulk Discount. <br>Coming Soon</div>
+                                    {% elif radio.choice_label == 'Professional' %}
+                                        <div class="pkg-title">
+                                            <i class="fa-solid fa-crown me-1" style="color:var(--gold)"></i> Pro
+                                            <span class="badge-pro">VIP</span>
+                                        </div>
+                                        <div class="pkg-price">$99<small class="fs-6 fw-normal text-muted">/mo</small></div>
+                                        <div class="pkg-desc">
+                                            <strong>AI Agent & Live Stream.</strong><br>
+                                            15% VIP Discount. <br>Coming Soon
+                                        </div>
+                                    {% else %}
+                                        <!-- Fallback for safety -->
+                                        <div class="pkg-title">{{ radio.choice_label }}</div>
+                                    {% endif %}
+                                </label>
+                            </div>
+                            {% endfor %}
+                            
+                            <!-- Display Package Errors if any -->
+                            {% if form.package_tier.errors %}
+                                <div class="text-danger small text-center">{{ form.package_tier.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
                         <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-warning w-100 fw-bold">
-                                Register
+                            <button type="submit" class="btn btn-warning fw-bold py-2 shadow-sm">
+                                Complete Registration
                             </button>
                         </div>
                     </form>
@@ -47,10 +190,10 @@
     </div>
 </div>
 
-<!-- Script to style inputs -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var inputs = document.querySelectorAll('input, select');
+        // Only apply form-control to standard inputs, NOT the radio buttons we custom styled
+        var inputs = document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]), select');
         inputs.forEach(function(field) {
             field.classList.add('form-control');
         });

@@ -1761,6 +1761,16 @@ textarea.w-input, textarea.w-select {
 .w-nav-menu {
   float: right;
   position: relative;
+  width: 100%;
+  position: relative;
+}
+.right_nav{
+  position: absolute;
+  right: -100%;
+}
+.right_nav_2{
+  position: absolute;
+  right: -125%;
 }
 
 [data-nav-menu-open] {
@@ -1849,6 +1859,14 @@ textarea.w-input, textarea.w-select {
 }
 
 @media screen and (max-width: 991px) {
+  .right_nav{
+    position: relative;
+    right: 0%;
+  }
+  .right_nav_2{
+    position: relative;
+    right: 0%;
+  }
   .w-nav[data-collapse="medium"] .w-nav-menu {
     display: none;
   }

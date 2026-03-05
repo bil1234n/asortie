@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
+<!-- Chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Custom Styles -->
+<style>
+    :root {
+        --gold: #d4af37;
+        --coffee-dark: #3e2723;
+    }
+
+    /* Certification Badges */
+    .cert-badge {
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid #e0e0e0;
+        background: #fff;
+        font-size: 0.85rem;
+    }
+    .cert-badge:hover {
+        transform: translateY(-2px);
+        border-color: var(--gold);
+        box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+    .verified-icon { margin-left: 8px; font-size: 1rem; }
+
+    /* Revenue Card Borders (From your old code) */
+    .border-left-coffee { border-left: 5px solid #2C1A11 !important; }
+    .border-left-gold { border-left: 5px solid #D4AF37 !important; }
+    .border-left-green { border-left: 5px solid #28a745 !important; }
+</style>
 
 <div class="container py-4">
     
@@ -11,185 +42,370 @@
             <p class="text-muted mb-0">Performance analytics and identity management.</p>
         </div>
         <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-            <i class="fa-solid fa-pen-to-square me-2"></i> Edit Roles
+            <i class="fa-solid fa-pen-to-square me-2"></i> Edit Profile & Roles
         </button>
     </div>
 
-    <!-- 1. IDENTITY BADGES -->
-    <div class="card shadow-sm border-0 mb-4 bg-light">
-        <div class="card-body d-flex align-items-center flex-wrap gap-2">
-            <span class="fw-bold me-2 text-uppercase text-secondary">My Business Roles:</span>
-            
-            {% if profile.is_farmer %}
-                <span class="badge bg-success rounded-pill px-3 py-2"><i class="fa-solid fa-leaf me-1"></i> Farmer</span>
-            {% endif %}
-            
-            {% if profile.is_roaster %}
-                <span class="badge bg-danger rounded-pill px-3 py-2"><i class="fa-solid fa-fire me-1"></i> Roaster</span>
-            {% endif %}
-            
-            {% if profile.is_exporter %}
-                <span class="badge bg-primary rounded-pill px-3 py-2"><i class="fa-solid fa-plane-departure me-1"></i> Exporter</span>
-            {% endif %}
-            
-            {% if profile.is_supplier %}
-                <span class="badge bg-warning text-dark rounded-pill px-3 py-2"><i class="fa-solid fa-truck me-1"></i> Supplier</span>
-            {% endif %}
-
-            {% if not profile.is_farmer and not profile.is_roaster and not profile.is_exporter and not profile.is_supplier %}
-                <span class="text-muted fst-italic">No specific roles defined. Click Edit to add.</span>
-            {% endif %}
-        </div>
-    </div>
-
-    <!-- 2. REVENUE CARDS -->
-    <div class="row g-3 mb-4">
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #2C1A11 !important;">
-                <div class="card-body">
-                    <h6 class="text-muted text-uppercase small fw-bold">Revenue Today</h6>
-                    <h3 class="fw-bold text-dark mb-0">${{ rev_today|floatformat:2 }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #D4AF37 !important;">
-                <div class="card-body">
-                    <h6 class="text-muted text-uppercase small fw-bold">Revenue This Month</h6>
-                    <h3 class="fw-bold text-dark mb-0">${{ rev_month|floatformat:2 }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #28a745 !important;">
-                <div class="card-body">
-                    <h6 class="text-muted text-uppercase small fw-bold">Revenue This Year</h6>
-                    <h3 class="fw-bold text-dark mb-0">${{ rev_year|floatformat:2 }}</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. MAIN ANALYTICS SECTION -->
     <div class="row g-4">
         
-        <!-- CHART -->
-        <div class="col-md-8">
+        <!-- LEFT COLUMN: PUBLIC IDENTITY CARD -->
+        <div class="col-lg-4">
             <div class="card shadow border-0 h-100">
-                <div class="card-header bg-white fw-bold">Revenue Growth</div>
-                <div class="card-body">
-                    <canvas id="revenueChart" height="120"></canvas>
+                <div class="card-body text-center p-4">
+                    
+                    <!-- Logo Display -->
+                    <div class="mb-3 position-relative d-inline-block">
+                        {% if profile.logo %}
+                            <img src="{{ profile.logo.url }}" class="rounded-circle shadow-sm" style="width: 130px; height: 130px; object-fit: cover; border: 4px solid var(--secondary-color);">
+                        {% else %}
+                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto shadow-sm" style="width: 130px; height: 130px; border: 4px solid #eee;">
+                                <i class="fa-solid fa-store fa-3x text-muted"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Company Name & Location -->
+                    <h4 class="fw-bold mb-1">{{ profile.company_name|default:request.user.username }}</h4>
+                    <p class="text-muted small mb-2">
+                        <i class="fa-solid fa-location-dot text-danger me-1"></i> 
+                        {% if profile.city or profile.country %}
+                            {{ profile.city }}, {{ profile.country }}
+                        {% else %}
+                            <span class="fst-italic">Location not set</span>
+                        {% endif %}
+                    </p>
+
+                    <!-- Roles Badges -->
+                    <div class="d-flex justify-content-center flex-wrap gap-1 mb-3">
+                        {% if profile.is_farmer %}<span class="badge bg-success rounded-pill">Farmer</span>{% endif %}
+                        {% if profile.is_roaster %}<span class="badge bg-danger rounded-pill">Roaster</span>{% endif %}
+                        {% if profile.is_exporter %}<span class="badge bg-primary rounded-pill">Exporter</span>{% endif %}
+                        {% if profile.is_supplier %}<span class="badge bg-warning text-dark rounded-pill">Supplier</span>{% endif %}
+                        {% if not profile.is_farmer and not profile.is_roaster and not profile.is_exporter and not profile.is_supplier %}
+                            <span class="badge bg-light text-dark border">No Roles Set</span>
+                        {% endif %}
+                    </div>
+
+                    <hr>
+
+                    <!-- Description -->
+                    <div class="text-start mb-4">
+                        <h6 class="fw-bold text-uppercase small text-muted">About Us</h6>
+                        <p class="small text-muted mb-3">
+                            {{ profile.description|default:"No description added yet. Edit profile to add one."|linebreaksbr }}
+                        </p>
+                        
+                        <h6 class="fw-bold text-uppercase small text-muted">Core Products</h6>
+                        <p class="small mb-0">
+                            {% if profile.core_products %}
+                                <i class="fa-solid fa-mug-hot text-secondary me-2"></i> {{ profile.core_products }}
+                            {% else %}
+                                <span class="text-muted fst-italic">Not specified</span>
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <!-- CERTIFICATIONS SECTION -->
+                    <div class="text-start mt-3">
+                        <h6 class="fw-bold text-uppercase small text-muted mb-2">
+                            <i class="fa-solid fa-award me-1"></i> Verified Certifications
+                        </h6>
+                        
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for cert in profile.certificates.all %}
+                                <!-- Clickable Badge -->
+                                <div class="cert-badge d-flex align-items-center px-3 py-2 rounded-pill" 
+                                     data-bs-toggle="modal" data-bs-target="#viewCertModal{{ cert.id }}">
+                                    
+                                    <!-- Icon Logic -->
+                                    {% if "Organic" in cert.name %}<i class="fa-solid fa-leaf text-success me-2"></i>
+                                    {% elif "Fair" in cert.name %}<i class="fa-solid fa-scale-balanced text-primary me-2"></i>
+                                    {% else %}<i class="fa-solid fa-certificate text-warning me-2"></i>{% endif %}
+                                    
+                                    <strong>{{ cert.name }}</strong>
+
+                                    {% if cert.is_verified %}
+                                        <i class="fa-solid fa-circle-check text-primary verified-icon" title="Verified"></i>
+                                    {% else %}
+                                        <i class="fa-solid fa-clock text-secondary verified-icon" title="Pending"></i>
+                                    {% endif %}
+                                </div>
+
+                                <!-- INDIVIDUAL CERTIFICATE MODAL (View Proof) -->
+                                <div class="modal fade" id="viewCertModal{{ cert.id }}" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h6 class="modal-title fw-bold">{{ cert.name }} Proof</h6>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body text-center bg-light">
+                                                <img src="{{ cert.document_image.url }}" class="img-fluid shadow-sm rounded mb-3" style="max-height: 400px;">
+                                                <div class="text-start small border-top pt-3">
+                                                    <p class="mb-1"><strong>Authority:</strong> {{ cert.authority_name }}</p>
+                                                    <p class="mb-0"><strong>Expires:</strong> {{ cert.expiry_date }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <span class="badge {% if cert.is_verified %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                                                    {% if cert.is_verified %}Verified{% else %}Pending{% endif %}
+                                                </span>
+                                                <a href="{% url 'delete_certificate' cert.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this certificate?');">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="w-100 text-center py-2 border rounded bg-light">
+                                    <small class="text-muted fst-italic">No certifications uploaded.</small>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- RANKING & STATS -->
-        <div class="col-md-4">
-            <!-- Ranking Card -->
-            <div class="card bg-dark text-white border-0 shadow mb-3" style="background: linear-gradient(45deg, #2C1A11, #4E342E);">
-                <div class="card-body text-center py-4">
-                    <i class="fa-solid fa-trophy fa-3x text-warning mb-3"></i>
-                    <h5 class="fw-light">Market Ranking</h5>
-                    <h1 class="display-3 fw-bold">{{ my_rank }} <span class="fs-6 text-white-50">/ {{ total_sellers }}</span></h1>
-                    <p class="small text-white-50 mb-0">Based on total revenue volume</p>
+        <!-- RIGHT COLUMN: ANALYTICS -->
+        <div class="col-lg-8">
+            
+            <!-- 1. REVENUE CARDS (From Old Code) -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 border-left-coffee">
+                        <div class="card-body">
+                            <h6 class="text-muted text-uppercase small fw-bold">Revenue Today</h6>
+                            <h3 class="fw-bold text-dark mb-0">${{ rev_today|floatformat:2 }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 border-left-gold">
+                        <div class="card-body">
+                            <h6 class="text-muted text-uppercase small fw-bold">Revenue This Month</h6>
+                            <h3 class="fw-bold text-dark mb-0">${{ rev_month|floatformat:2 }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100 border-left-green">
+                        <div class="card-body">
+                            <h6 class="text-muted text-uppercase small fw-bold">Revenue This Year</h6>
+                            <h3 class="fw-bold text-dark mb-0">${{ rev_year|floatformat:2 }}</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Inventory Stats -->
-            <div class="card shadow border-0">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-                        <span><i class="fa-solid fa-box text-primary me-2"></i> Active Products</span>
-                        <span class="fw-bold">{{ total_products }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span><i class="fa-solid fa-check-circle text-success me-2"></i> Successful Orders</span>
-                        <span class="fw-bold">{{ total_orders }}</span>
+            <!-- 2. CHART & RANKING (From Old Code) -->
+            <div class="row g-4">
+                
+                <!-- Chart Area -->
+                <div class="col-md-7">
+                    <div class="card shadow border-0 h-100">
+                        <div class="card-header bg-white fw-bold">Revenue Growth</div>
+                        <div class="card-body">
+                            <!-- Canvas ID matches the old script below -->
+                            <canvas id="revenueChart" height="200"></canvas>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Ranking & Stats -->
+                <div class="col-md-5">
+                    
+                    <!-- Market Ranking -->
+                    <div class="card bg-dark text-white border-0 shadow mb-3" style="background: linear-gradient(45deg, #2C1A11, #4E342E);">
+                        <div class="card-body text-center py-4">
+                            <i class="fa-solid fa-trophy fa-3x text-warning mb-3"></i>
+                            <h5 class="fw-light">Market Ranking</h5>
+                            <h1 class="display-3 fw-bold">{{ my_rank }} <span class="fs-6 text-white-50">/ {{ total_sellers }}</span></h1>
+                            <p class="small text-white-50 mb-0">Based on total revenue volume</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Inventory Stats -->
+                    <div class="card shadow border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                                <span><i class="fa-solid fa-box text-primary me-2"></i> Active Products</span>
+                                <span class="fw-bold">{{ total_products }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span><i class="fa-solid fa-check-circle text-success me-2"></i> Successful Orders</span>
+                                <span class="fw-bold">{{ total_orders }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
-
 </div>
 
-<!-- EDIT ROLES MODAL -->
+<!-- ============================================ -->
+<!--       MAIN MODAL: EDIT PROFILE & CERTS       -->
+<!-- ============================================ -->
 <div class="modal fade" id="editProfileModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Business Identity</h5>
+                <h5 class="modal-title fw-bold">Manage Business Identity</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="post">
-                {% csrf_token %}
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Company Name (Optional)</label>
-                        <input type="text" name="company_name" class="form-control" value="{{ profile.company_name }}">
-                    </div>
+            
+            <div class="modal-body">
+                <!-- TABS -->
+                <ul class="nav nav-tabs nav-fill mb-4" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active fw-bold" data-bs-toggle="tab" data-bs-target="#info" type="button">General Info</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#certs" type="button">Certificates</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
                     
-                    <label class="form-label fw-bold mb-2">Select Your Roles:</label>
-                    
-                    <div class="form-check p-3 border rounded mb-2 bg-light">
-                        <input class="form-check-input" type="checkbox" name="is_farmer" id="role1" {% if profile.is_farmer %}checked{% endif %}>
-                        <label class="form-check-label w-100" for="role1">
-                            <i class="fa-solid fa-leaf text-success me-2"></i> Coffee Farmer
-                        </label>
+                    <!-- TAB 1: GENERAL INFO (Includes Roles) -->
+                    <div class="tab-pane fade show active" id="info">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="update_profile" value="1">
+                            
+                            <div class="row g-3">
+                                <!-- Logo Upload -->
+                                <div class="col-12 text-center mb-3">
+                                    <label class="form-label small fw-bold">Update Logo</label>
+                                    <input type="file" name="logo" class="form-control form-control-sm w-50 mx-auto">
+                                </div>
+
+                                <!-- Text Inputs -->
+                                <div class="col-md-12">
+                                    <label class="form-label fw-bold small">Company Name</label>
+                                    <input type="text" name="company_name" class="form-control" value="{{ profile.company_name }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small">Country</label>
+                                    <input type="text" name="country" class="form-control" value="{{ profile.country }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small">City</label>
+                                    <input type="text" name="city" class="form-control" value="{{ profile.city }}">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold small">Short Bio</label>
+                                    <textarea name="description" class="form-control" rows="2">{{ profile.description }}</textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold small">Core Products</label>
+                                    <input type="text" name="core_products" class="form-control" value="{{ profile.core_products }}">
+                                </div>
+
+                                <!-- ROLES SELECTION (Visual style from old code) -->
+                                <div class="col-12 mt-3">
+                                    <label class="form-label fw-bold mb-2">Select Your Roles:</label>
+                                    <div class="row g-2">
+                                        <div class="col-md-6">
+                                            <div class="form-check p-3 border rounded bg-light">
+                                                <input class="form-check-input" type="checkbox" name="is_farmer" id="role1" {% if profile.is_farmer %}checked{% endif %}>
+                                                <label class="form-check-label w-100" for="role1"><i class="fa-solid fa-leaf text-success me-2"></i> Farmer</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check p-3 border rounded bg-light">
+                                                <input class="form-check-input" type="checkbox" name="is_roaster" id="role2" {% if profile.is_roaster %}checked{% endif %}>
+                                                <label class="form-check-label w-100" for="role2"><i class="fa-solid fa-fire text-danger me-2"></i> Roaster</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check p-3 border rounded bg-light">
+                                                <input class="form-check-input" type="checkbox" name="is_exporter" id="role3" {% if profile.is_exporter %}checked{% endif %}>
+                                                <label class="form-check-label w-100" for="role3"><i class="fa-solid fa-plane-departure text-primary me-2"></i> Exporter</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check p-3 border rounded bg-light">
+                                                <input class="form-check-input" type="checkbox" name="is_supplier" id="role4" {% if profile.is_supplier %}checked{% endif %}>
+                                                <label class="form-check-label w-100" for="role4"><i class="fa-solid fa-truck text-warning me-2"></i> Supplier</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 text-end">
+                                <button type="submit" class="btn btn-dark">Save Changes</button>
+                            </div>
+                        </form>
                     </div>
 
-                    <div class="form-check p-3 border rounded mb-2 bg-light">
-                        <input class="form-check-input" type="checkbox" name="is_roaster" id="role2" {% if profile.is_roaster %}checked{% endif %}>
-                        <label class="form-check-label w-100" for="role2">
-                            <i class="fa-solid fa-fire text-danger me-2"></i> Professional Roaster
-                        </label>
+                    <!-- TAB 2: CERTIFICATE UPLOAD FORM -->
+                    <div class="tab-pane fade" id="certs">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="upload_cert" value="1">
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Certification Type</label>
+                                {{ cert_form.name }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Issuing Authority</label>
+                                {{ cert_form.authority_name }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Expiration Date</label>
+                                {{ cert_form.expiry_date }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Document Image (JPG/PNG)</label>
+                                {{ cert_form.document_image }}
+                            </div>
+
+                            <div class="mt-4 text-end">
+                                <button type="submit" class="btn btn-success fw-bold">Upload for Verification</button>
+                            </div>
+                        </form>
                     </div>
 
-                    <div class="form-check p-3 border rounded mb-2 bg-light">
-                        <input class="form-check-input" type="checkbox" name="is_exporter" id="role3" {% if profile.is_exporter %}checked{% endif %}>
-                        <label class="form-check-label w-100" for="role3">
-                            <i class="fa-solid fa-plane-departure text-primary me-2"></i> Licensed Exporter
-                        </label>
-                    </div>
-
-                    <div class="form-check p-3 border rounded mb-2 bg-light">
-                        <input class="form-check-input" type="checkbox" name="is_supplier" id="role4" {% if profile.is_supplier %}checked{% endif %}>
-                        <label class="form-check-label w-100" for="role4">
-                            <i class="fa-solid fa-truck text-warning me-2"></i> Machinery/Equip Supplier
-                        </label>
-                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-dark">Save Changes</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- ======================= -->
+<!--    CHART SCRIPT         -->
+<!-- ======================= -->
 <script>
-    // Chart.js Logic
     const ctx = document.getElementById('revenueChart');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: {{ chart_labels|safe }},
-            datasets: [{
-                label: 'Revenue (USD)',
-                data: {{ chart_data|safe }},
-                backgroundColor: ['#2C1A11', '#D4AF37', '#28a745'],
-                borderRadius: 5,
-                barThickness: 40
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: { beginAtZero: true, grid: { display: false } },
-                x: { grid: { display: false } }
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'bar', // Using Bar Chart from your old code
+            data: {
+                labels: {{ chart_labels|safe }},
+                datasets: [{
+                    label: 'Revenue (USD)',
+                    data: {{ chart_data|safe }},
+                    // Exact colors from your old code
+                    backgroundColor: ['#2C1A11', '#D4AF37', '#28a745'], 
+                    borderRadius: 5,
+                    barThickness: 40
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, grid: { display: false } },
+                    x: { grid: { display: false } }
+                }
             }
-        }
-    });
+        });
+    }
 </script>
+
 {% endblock %}

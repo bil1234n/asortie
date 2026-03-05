@@ -78,13 +78,23 @@ ASGI_APPLICATION = 'coffee_core.asgi.application'
 # --- DATABASE (Auto-Switching) ---
 # If on Render (DATABASE_URL exists), use Neon.
 # If Local, use Local Postgres.
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://postgres:yourlocalpassword@localhost:5432/coffee_db',
+#         conn_max_age=600,
+#         ssl_require='RENDER' in os.environ # Only require SSL on Render
+#     )
+# }
+
 DATABASES = {
-    'default': dj_database_url.config(
-        # CHANGE THIS BELOW TO YOUR LOCAL PASSWORD IF RUNNING ON PC
-        default='postgresql://postgres:yourlocalpassword@localhost:5432/coffee_db',
-        conn_max_age=600,
-        ssl_require='RENDER' in os.environ # Only require SSL on Render
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'coffee_db',
+        'USER': 'postgres',        # Default user
+        'PASSWORD': 'Bilal1234', # <--- PUT YOUR POSTGRES PASSWORD HERE
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 # --- CHANNELS (REDIS for Chat) ---
@@ -147,19 +157,19 @@ STATICFILES_DIRS = [
 # CLOUDINARY MEDIA STORAGE
 # ============================
 CLOUDINARY = {
-    'cloud_name': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'api_key': os.environ.get('CLOUDINARY_API_KEY'),
-    'api_secret': os.environ.get('CLOUDINARY_API_SECRET'),
+    'cloud_name': 'dhfyolanv',
+    'api_key': '399471574245624',
+    'api_secret': 'kFY9tTVdDfUTLT9-oux8SMFuNGQ',
 }
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    'CLOUD_NAME': 'dhfyolanv',
+    'API_KEY': '399471574245624',
+    'API_SECRET': 'kFY9tTVdDfUTLT9-oux8SMFuNGQ',
 }
-CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME')
-CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
-CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET')
+# CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME')
+# CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
+# CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET')
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 

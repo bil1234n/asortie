@@ -12,6 +12,7 @@ import random
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from chat.models import ChatRoom, Message # Ensure these are imported
+from market.models import Product, Order, SellerCertification # <--- Added SellerCertification
 
 User = get_user_model()
 
@@ -138,29 +139,63 @@ def admin_dashboard(request):
 
 @login_required
 def admin_users(request):
-    """Manage Users: Approve/Suspend"""
-    if not request.user.is_staff: return redirect('home')
+    """Manage Users: Approve/Suspend, Identity Verification & Certificate Review"""
+    
+    # 1. Security Check
+    if not request.user.is_staff: 
+        return redirect('home')
 
+    # 2. Handle POST Actions
     if request.method == 'POST':
-        user_id = request.POST.get('user_id')
         action = request.POST.get('action')
-        user_obj = get_object_or_404(User, id=user_id)
+        user_id = request.POST.get('user_id')
         
-        if action == 'approve':
-            user_obj.is_verified = True
-            user_obj.is_active = True
-            messages.success(request, f"Approved {user_obj.username}")
-        elif action == 'suspend':
-            user_obj.is_active = False
-            messages.warning(request, f"Suspended {user_obj.username}")
+        # Get the user object safely
+        target_user = get_object_or_404(User, id=user_id)
+        
+        # --- A. User Account Status ---
+        if action == 'suspend':
+            target_user.is_active = False
+            target_user.save()
+            messages.warning(request, f"User {target_user.username} suspended.")
+            
         elif action == 'unsuspend':
-            user_obj.is_active = True
-            messages.info(request, f"Restored {user_obj.username}")
-        
-        user_obj.save()
+            target_user.is_active = True
+            target_user.save()
+            messages.success(request, f"User {target_user.username} restored.")
+
+        # --- B. Identity Verification (License) ---
+        elif action == 'approve_identity':
+            target_user.is_verified = True
+            target_user.save()
+            messages.success(request, f"Identity verified for {target_user.username}.")
+            
+        elif action == 'revoke_identity':
+            target_user.is_verified = False
+            target_user.save()
+            messages.warning(request, f"Identity verification revoked for {target_user.username}.")
+
+        # --- C. Certificate Verification (Market App) ---
+        elif action == 'verify_cert':
+            cert_id = request.POST.get('cert_id')
+            cert = get_object_or_404(SellerCertification, id=cert_id)
+            cert.is_verified = True
+            cert.save()
+            messages.success(request, f"Certificate '{cert.name}' approved.")
+
+        elif action == 'reject_cert':
+            cert_id = request.POST.get('cert_id')
+            cert = get_object_or_404(SellerCertification, id=cert_id)
+            cert.is_verified = False
+            cert.save()
+            messages.warning(request, f"Certificate '{cert.name}' rejected.")
+
         return redirect('admin_users')
 
-    users = User.objects.all().order_by('-date_joined')
+    # 3. GET Request: Render List
+    # Using select_related/prefetch_related to optimize the database queries for the modal
+    users = User.objects.select_related('seller_profile', 'verification_doc').prefetch_related('seller_profile__certificates').all().order_by('-date_joined')
+    
     return render(request, 'admin_panel/users.html', {'users': users})
 
 @login_required

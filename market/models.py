@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
-from cloudinary.models import CloudinaryField  # <--- Import this
+from cloudinary.models import CloudinaryField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Product(models.Model):
     CATEGORY_CHOICES = [
@@ -14,15 +16,9 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Green')
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    
-    # CHANGED: Use CloudinaryField instead of ImageField
-    # 'folder' organizes images in your Cloudinary dashboard
     image = CloudinaryField('image', folder='products', blank=True, null=True)
-    
     description = models.TextField()
-    
-    # Soft Delete & Active Status
-    is_active = models.BooleanField(default=True) # Seller sets this false to "remove"
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -35,6 +31,7 @@ class Order(models.Model):
         ('Declined', 'Declined'),
         ('Paid', 'Paid'),
         ('Shipped', 'Shipped'),
+        ('Delivered', 'Delivered'), # Added Delivered for revenue logic
     ]
 
     buyer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -47,7 +44,6 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         self.total_price = self.product.price * self.quantity
         super().save(*args, **kwargs)
-        
 
 class SellerProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='seller_profile')
@@ -55,17 +51,44 @@ class SellerProfile(models.Model):
     is_roaster = models.BooleanField(default=False)
     is_exporter = models.BooleanField(default=False)
     is_supplier = models.BooleanField(default=False)
+    
     company_name = models.CharField(max_length=100, blank=True)
+    logo = CloudinaryField('image', folder='seller_logos', blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    description = models.TextField(blank=True, max_length=500)
+    core_products = models.CharField(max_length=255, blank=True)
+    certifications = models.CharField(max_length=255, blank=True)
     
     def __str__(self):
         return f"Profile: {self.user.username}"
 
-# Hook to auto-create this profile when a Seller is created
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+class SellerCertification(models.Model):
+    CERT_CHOICES = [
+        ('Fair Trade', 'Fair Trade International'),
+        ('USDA Organic', 'USDA Organic'),
+        ('Rainforest', 'Rainforest Alliance'),
+        ('UTZ', 'UTZ Certified'),
+        ('Bird Friendly', 'Bird Friendly (Smithsonian)'),
+        ('C.A.F.E.', 'C.A.F.E. Practices (Starbucks)'),
+        ('Other', 'Other / Local Government'),
+    ]
 
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_seller_profile(sender, instance, created, **kwargs):
-    # Only create profile if the user role is 'seller'
-    if created and getattr(instance, 'role', '') == 'seller':
-        SellerProfile.objects.create(user=instance)
+    seller = models.ForeignKey('SellerProfile', on_delete=models.CASCADE, related_name='certificates')
+    name = models.CharField(max_length=50, choices=CERT_CHOICES)
+    document_image = CloudinaryField('image', folder='seller_certs')
+    authority_name = models.CharField(max_length=100)
+    expiry_date = models.DateField(null=True, blank=True)
+    is_verified = models.BooleanField(default=False)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.seller.user.username}"
+
+# # Ensure profile is created automatically
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def create_seller_profile(sender, instance, created, **kwargs):
+#     if created:
+#         SellerProfile.objects.create(user=instance)
+#     instance.seller_profile.save()
+    

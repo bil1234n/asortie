@@ -2,30 +2,255 @@
 {% load static %}
 
 {% block content %}
-<div class="container text-center py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <!-- Icon -->
+
+<!-- Internal CSS for this page only (Move to style.css in production) -->
+<style>
+    :root {
+        --coffee-black: #1a1a1a;
+        --coffee-dark: #3e2723;
+        --coffee-medium: #6d4c41;
+        --coffee-light: #d7ccc8;
+        --gold: #d4af37;
+        --gold-hover: #b89628;
+    }
+
+    .coming-soon-wrapper {
+        min-height: 100vh;
+        color: var(--text-dark);
+        padding-bottom: 5rem;
+    }
+
+    .hero-section {
+        padding-top: 50px;
+        padding-bottom: 60px;
+    }
+
+    .badge-soft {
+        background-color: rgba(212, 175, 55, 0.2);
+        color: var(--gold);
+        border: 1px solid var(--gold);
+        padding: 5px 15px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    /* Pricing Card Styling */
+    .pricing-card {
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--coffee-black);
+        border-radius: 15px;
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        border: 1px solid rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .pricing-card.pro-tier {
+        background: linear-gradient(145deg, #2c1e1a, #000);
+        color: white;
+        border: 1px solid var(--gold);
+    }
+
+    .pricing-card.pro-tier .price-text {
+        color: var(--gold);
+    }
+
+    .pricing-card.premium-tier {
+        border-top: 5px solid var(--coffee-medium);
+    }
+
+    .card-title {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .price-text {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+    }
+
+    .price-period {
+        font-size: 1rem;
+        font-weight: 400;
+        opacity: 0.7;
+    }
+
+    /* Feature Lists */
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 2rem;
+        text-align: left;
+    }
+
+    .feature-list li {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+    }
+
+    .feature-list i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+    }
+
+    .check-icon { color: #28a745; }
+    .cross-icon { color: #dc3545; opacity: 0.6; }
+    .gold-icon { color: var(--gold); }
+
+    /* Button Styling */
+    .btn-pricing {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: all 0.3s;
+    }
+
+    .btn-outline-coffee {
+        border: 2px solid var(--coffee-dark);
+        color: var(--coffee-dark);
+    }
+    .btn-outline-coffee:hover {
+        background: var(--coffee-dark);
+        color: white;
+    }
+
+    .btn-gold {
+        background: var(--gold);
+        color: black;
+        border: none;
+    }
+    .btn-gold:hover {
+        background: var(--gold-hover);
+        color: white;
+    }
+
+    .ribbon {
+        position: absolute;
+        top: 20px;
+        right: -35px;
+        transform: rotate(45deg);
+        background-color: var(--gold);
+        color: #000;
+        padding: 5px 40px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .text-dimmed {
+        opacity: 0.6;
+        text-decoration: line-through;
+    }
+</style>
+
+<div class="coming-soon-wrapper">
+    <div class="container text-center hero-section">
+        <div class="row justify-content-center">
             <div class="mb-4">
-                <i class="fa-solid fa-rocket fa-5x" style="color: var(--gold);"></i>
+                <i class="fa-solid fa-rocket fa-5x" style="color: var(--text-dark);"></i>
             </div>
-            
-            <!-- Heading -->
-            <h1 class="display-4 fw-bold" style="color: var(--coffee-dark);">Coming Soon</h1>
-            
-            <!-- Description -->
-            <p class="lead text-muted my-4">
-                We are currently building this cutting-edge feature. 
-                <br>
-                <strong>AI Coffee Agent</strong> and <strong>Live Stream Stream</strong> will be available in the next update.
-            </p>
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold mb-3">Coming Soon</h1>
+                <span class="badge-soft mb-3">System Upgrade In Progress</span>
+                <p class="lead text-muted my-4">
+                    We are integrating powerful AI tools and Live Streaming capabilities to revolutionize how you import and export. 
+                    <br>Explore our upcoming tiers below.
+                </p>
+                
+                <!-- Progress Bar -->
+                <div class="progress mb-2" style="height: 6px; background-color: rgb(97 95 95 / 20%)">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 85%"></div>
+                </div>
+                <div class="d-flex justify-content-between text-muted small mb-5">
+                    <span>Development</span>
+                    <span>Launch Phase (85%)</span>
+                    <span>Live</span>
+                </div>
+            </div>
+        </div>
 
-            <!-- Progress Bar (Visual decoration) -->
-            <div class="progress mb-4" style="height: 10px;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" 
-                     role="progressbar" style="width: 75%"></div>
+        <!-- Pricing Packages -->
+        <div class="row g-4 mt-2">
+            
+            <!-- 1. BASIC PACKAGE -->
+            <div class="col-md-4">
+                <div class="pricing-card basic-tier">
+                    <h4 class="card-title text-muted">Basic Starter</h4>
+                    <div class="price-text">$0 <span class="price-period">/mo</span></div>
+                    <p class="text-muted small">Essential access for casual traders.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check check-icon"></i> Access all Products</li>
+                        <li><i class="fa-solid fa-check check-icon"></i> Standard Purchase & Shipping</li>
+                        <li><i class="fa-solid fa-check check-icon"></i> Order Tracking</li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> No Special Discounts</li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">AI Coffee Agent</span></li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Live Stream Access</span></li>
+                    </ul>
+
+                    <button class="btn btn-outline-coffee btn-pricing">Current Plan</button>
+                </div>
             </div>
 
+            <!-- 2. PREMIUM PACKAGE -->
+            <div class="col-md-4">
+                <div class="pricing-card premium-tier">
+                    <h4 class="card-title" style="color: var(--coffee-dark);">Premium</h4>
+                    <div class="price-text">$29 <span class="price-period">/mo</span></div>
+                    <p class="text-muted small">For serious importers requiring consistency.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check check-icon"></i> <strong>Priority &nbsp;</strong> Product Access</li>
+                        <li><i class="fa-solid fa-check check-icon"></i> Expedited Shipping Options</li>
+                        <li><i class="fa-solid fa-check check-icon"></i> 5% Bulk Discount</li>
+                        <li><i class="fa-solid fa-check check-icon"></i> Market Trends Newsletter</li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">AI Coffee Agent</span></li>
+                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Live Stream Access</span></li>
+                    </ul>
+
+                    <button class="btn btn-dark btn-pricing" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <!-- 3. PROFESSIONAL PACKAGE -->
+            <div class="col-md-4">
+                <div class="pricing-card pro-tier">
+                    <div class="ribbon">BEST VALUE</div>
+                    <h4 class="card-title"><i class="fa-solid fa-crown me-2" style="color: var(--gold);"></i> Professional</h4>
+                    <div class="price-text">$99 <span class="price-period">/mo</span></div>
+                    <p class="text-muted small">Full power of AI and Live Auctions.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check gold-icon"></i> <strong>15% VIP Discount</strong></li>
+                        <li><i class="fa-solid fa-check gold-icon"></i> Dedicated Account Manager</li>
+                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">AI Coffee Agent (Beta)</span></li>
+                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">Live Stream Auctions</span></li>
+                        <li><i class="fa-solid fa-check gold-icon"></i> Advanced Market Analytics</li>
+                    </ul>
+
+                    <button class="btn btn-gold btn-pricing">Coming Soon</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-5">
             <!-- Back Button -->
             <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5" 
                style="background-color: var(--secondary-color); border: none;">
@@ -34,4 +259,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

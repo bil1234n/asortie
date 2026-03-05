@@ -1,67 +1,157 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<!-- Internal CSS (Same as Buyer) -->
+<style>
+    :root {
+        --gold: #d4af37;
+        --coffee-dark: #3e2723;
+        --border-default: #e0e0e0;
+    }
+    .package-radio-input { position: absolute; opacity: 0; width: 0; height: 0; }
+    
+    .package-card {
+        display: block;
+        position: relative;
+        border: 2px solid var(--border-default);
+        border-radius: 12px;
+        padding: 20px;
+        cursor: pointer;
+        background: #fff;
+        transition: all 0.3s ease;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .package-card:hover { transform: translateY(-3px); border-color: #b0b0b0; }
+    
+    /* SELECTED STATE */
+    .package-radio-input:checked + .package-card {
+        border: 2px solid var(--gold);
+        background-color: rgba(212, 175, 55, 0.03);
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
+        transform: translateY(-5px);
+    }
+    
+    .package-radio-input:checked + .package-card::after {
+        content: "\f00c"; /* FontAwesome Check */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: var(--gold);
+        color: #fff;
+        padding: 5px 12px 5px 8px;
+        border-bottom-left-radius: 12px;
+    }
+
+    .pkg-title { font-weight: 700; color: var(--coffee-dark); font-size: 1.1rem; }
+    .pkg-price { font-size: 1.4rem; font-weight: 800; color: #1a1a1a; margin: 8px 0; }
+    .badge-pro { background: var(--coffee-dark); color: var(--gold); padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; float: right; }
+</style>
+
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-7">
+        <div class="col-md-9">
             <div class="card shadow border-0 rounded-4">
-                <div class="card-header text-white py-3" style="background-color: var(--secondary-color); text-align: center; border-radius: 15px 15px 0 0;">
+                <div class="card-header text-white py-3 text-center" style="background-color: var(--secondary-color); border-radius: 15px 15px 0 0;">
                     <h4 class="mb-3 mt-3"><i class="fa-solid fa-boxes-packing text-warning"></i> Seller Application</h4>
                 </div>
                 <div class="card-body p-4">
-                    <p class="text-muted mb-4">Join CoffeeCore to export your beans globally. Legal verification required.</p>
+                    <p class="text-muted mb-4 text-center">Join TheCoffeeLink to export your beans globally. Legal verification required.</p>
                     
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         
-                        <div class="row">
+                        <!-- Personal Info -->
+                        <div class="row g-3">
                             <div class="col-md-6">
-                                {{ form.username.label_tag }} {{ form.username }}
+                                <label class="form-label fw-bold small">Username</label>
+                                {{ form.username }}
                             </div>
                             <div class="col-md-6">
-                                {{ form.email.label_tag }} {{ form.email }}
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-6">
-                                {{ form.first_name.label_tag }} {{ form.first_name }}
+                                <label class="form-label fw-bold small">Email</label>
+                                {{ form.email }}
                             </div>
                             <div class="col-md-6">
-                                {{ form.last_name.label_tag }} {{ form.last_name }}
+                                <label class="form-label fw-bold small">First Name</label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">Last Name</label>
+                                {{ form.last_name }}
                             </div>
                         </div>
                         
+                        <!-- Documents -->
+                         <br>
+                        <h6 class="fw-bold text-success"><i class="fa-solid fa-file-shield me-2"></i>Verification Documents</h6>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">Import/Export License</label>
+                                {{ form.business_license }}
+                                <div class="form-text small">PDF or Image required.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">National ID Card</label>
+                                {{ form.id_card }}
+                            </div>
+                        </div>
+
+                        <!-- Remaining Fields (Password) -->
+                        <div class="mt-3">
+                            {% for field in form %}
+                                {% if field.name not in "username email first_name last_name business_license id_card package_tier" %}
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold small">{{ field.label }}</label>
+                                    {{ field }}
+                                    <div class="text-danger small">{{ field.errors }}</div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <!-- Package Selection -->
                         <hr class="my-4">
-                        <h6 class="fw-bold text-success">Required Documents</h6>
+                        <h5 class="fw-bold mb-3 text-center" style="color: var(--coffee-dark);">Select Seller Tier</h5>
                         
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Import/Export License</label>
-                            {{ form.business_license }}
-                            <div class="form-text">Must be a valid PDF or Image.</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">National ID Card</label>
-                            {{ form.id_card }}
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Password</label>
-                            {{ form.check_password }} <!-- Just use standard form rendering in real usage -->
-                            <!-- For simplicity using as_p logic below if fields get complex -->
-                        </div>
-                        
-                        <!-- RENDER REMAINING FIELDS (Passwords) -->
-                        {% for field in form %}
-                            {% if field.name not in "username email first_name last_name business_license id_card" %}
-                            <div class="mb-3">
-                                {{ field.label_tag }}
-                                {{ field }}
-                                <div class="text-danger small">{{ field.errors }}</div>
+                        <div class="row g-3 mb-4">
+                            {% for radio in form.package_tier %}
+                            <div class="col-md-4">
+                                <!-- Manual Input Rendering -->
+                                <input type="radio" 
+                                       name="{{ radio.data.name }}" 
+                                       value="{{ radio.data.value }}" 
+                                       id="{{ radio.id_for_label }}" 
+                                       class="package-radio-input" 
+                                       {% if radio.data.selected %}checked{% endif %}>
+                                
+                                <!-- Linked Label -->
+                                <label class="package-card" for="{{ radio.id_for_label }}">
+                                    {% if radio.choice_label == 'Basic' %}
+                                        <div class="pkg-title">Basic Seller</div>
+                                        <div class="pkg-price">$0</div>
+                                        <div class="text-muted small">List all products.<br>Standard Commission. <br>Current Plan</div>
+                                    {% elif radio.choice_label == 'Premium' %}
+                                        <div class="pkg-title">Premium Seller</div>
+                                        <div class="pkg-price">$29<small class="fs-6 fw-normal text-muted">/mo</small></div>
+                                        <div class="text-muted small">Unlimited Listings.<br>Verified Batch Badge. <br>Coming Soon</div>
+                                    {% elif radio.choice_label == 'Professional' %}
+                                        <div class="pkg-title">
+                                            <i class="fa-solid fa-crown text-warning"></i> Pro Exporter
+                                            <span class="badge-pro">VIP</span>
+                                        </div>
+                                        <div class="pkg-price">$99<small class="fs-6 fw-normal text-muted">/mo</small></div>
+                                        <div class="text-muted small"><strong>AI Market Insights.</strong><br>Host Live Auctions. <br>Coming Soon</div>
+                                    {% endif %}
+                                </label>
                             </div>
-                            {% endif %}
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
 
-                        <button class="btn btn-warning w-100 fw-bold">Submit Application</button>
+                        <button class="btn btn-warning w-100 fw-bold mt-3 py-2 shadow-sm">Submit Application</button>
                     </form>
                 </div>
                 <div class="card-footer text-center bg-light py-3 border-0 rounded-bottom-4">
@@ -73,5 +163,9 @@
         </div>
     </div>
 </div>
-<script>document.querySelectorAll('input').forEach(i => i.classList.add('form-control'));</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]), select').forEach(i => i.classList.add('form-control'));
+    });
+</script>
 {% endblock %}

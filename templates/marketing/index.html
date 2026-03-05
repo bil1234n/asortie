@@ -1,9 +1,11 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html data-wf-domain="cafiend.webflow.io" data-wf-page="643cd69e8bc0bc92cdaf13d6"
     data-wf-site="643cd69e8bc0bcf1b4af13d5" lang="en"
-    class="w-mod-js wf-oswald-n5-active wf-oswald-n2-active wf-oswald-n4-active wf-oswald-n7-active wf-oswald-n6-active wf-oswald-n3-active wf-alfaslabone-n4-active wf-inconsolata-n7-active wf-inconsolata-n4-active wf-active w-mod-ix">
-<div id="in-page-channel-node-id" data-channel-name="in_page_channel_GRh_JI"></div>
+    class="w-mod-js wf-inconsolata-n4-active wf-inconsolata-n7-active wf-oswald-n2-active wf-oswald-n3-active wf-oswald-n4-active wf-oswald-n5-active wf-oswald-n6-active wf-oswald-n7-active wf-alfaslabone-n4-active wf-active w-mod-ix"
+    webcrx="">
+<div id="in-page-channel-node-id" data-channel-name="in_page_channel_dN-8YY"></div>
 
 <head>
     <style>
@@ -226,7 +228,7 @@
     </style>
 </head>
 
-<body class="body"> 
+<body class="body">
     <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navbar w-nav">
         <div class="search-block" style="display: none; opacity: 0;">
@@ -249,20 +251,16 @@
         </div>
         <div class="container w-container">
             <div class="navbar-wrap">
-                <nav role="navigation" class="nav-menu w-nav-menu"><a href="{% url 'landing_page' %}" aria-current="page"
-                        class="nav-link first w-nav-link w--current" style="max-width: 1400px;">Home</a>
-                     <a href="{% url 'about' %}" class="nav-link w-nav-link" style="max-width: 1400px;">About Us</a><a href="{% url 'marketing_shop' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Shop</a><a href="{% url 'contact' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Contact-Us</a>
-                </nav><a href="{% url 'landing_page' %}" id="w-node-_8a2c85c8-55c7-6664-7de1-0dc14c633a9f-4c633a72" aria-current="page"
-                    class="brand w-nav-brand w--current"><img
+                <nav role="navigation" class="nav-menu w-nav-menu"><a href="{% url 'landing_page' %}" class="nav-link first w-nav-link"
+                        style="max-width: 1400px;">Home</a>
+                    <a href="{% url 'about' %}" class="nav-link w-nav-link" style="max-width: 1400px;">About Us</a><a href="{% url 'marketing_shop' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Shop</a><a href="{% url 'contact' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Contact-Us</a>
+                        <a href="{% url 'login' %}" class="nav-link w-nav-link right_nav" style="margin-right: 0%;">Login</a>
+                    <a href="{% url 'register' %}" class="nav-link w-nav-link right_nav_2" style="margin-right: 0%;">Register</a>
+                </nav><a href="{% url 'landing_page' %}" id="w-node-_8a2c85c8-55c7-6664-7de1-0dc14c633a9f-4c633a72"
+                    class="brand w-nav-brand"><img
                         src="../../static/img/logo_1.png"
                         loading="lazy" width="183" alt="logo" class="header-logo logo_2"></a>
-                <div class="navbar-right-side">
-                    
-                    <div>
-                        <a href="{% url 'login' %}" class="nav-link w-nav-link" style="margin-right: 0%;">Login</a>
-                    <a href="{% url 'register' %}" class="nav-link w-nav-link" style="margin-right: 0%;">Register</a>
-                    </div>
-                </div>
+                
                 <div class="menu-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button"
                     tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
                     <div class="w-icon-nav-menu"></div>
@@ -280,7 +278,7 @@
                     <h1 class="hero-heading text-white">Revive Your Coffee Love</h1>
                     <p class="text-white">Coffee contains caffeine, a natural stimulant that can help increase alertness
                         and reduce fatigue.It also contains antioxidants and other beneficial compounds.</p><a
-                        href="{% url 'about' %}" class="button-primary white-button margin-top-32 w-button">view more
+                        href="/about-us" class="button-primary white-button margin-top-32 w-button">view more
                         details</a>
                 </div>
                 <div id="w-node-_64da96bd-da4a-6895-2fcb-3edd5570b47d-cdaf13d6"
@@ -300,10 +298,12 @@
             </div>
         </div>
     </div>
+ 
     <div class="section product-section">
         <div class="container w-container">
             <div data-w-id="8aa10b71-aa54-0c33-1596-20c028786770" class="product-detail text-center"
-                style="opacity: 0;">
+                style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+                
                 <div class="section-title-block">
                     <h2 class="section-title">OUR BLENDS DELIVER<br></h2>
                     <p class="section-description">Hot, Cold, Sweet or straight up, we've got the brew for you.</p>
@@ -311,8 +311,9 @@
             </div>
             <div class="product-collection-list-wrapper w-dyn-list">
                 <div data-w-id="6c9ac654-364f-c415-c109-a020c0481cd0" role="list"
-                    class="product-collection-grid w-dyn-items" style="opacity: 0;">
-                        {% for p in products %}
+                    class="product-collection-grid w-dyn-items"
+                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+                    {% for p in products %}
                     <div class="product-collection-list w-dyn-items" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: stretch;">
                         <div role="listitem" class="product-collection-item w-dyn-item" style="display: flex; flex-direction: column;">
                             <div class="product-item" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; width: 100%;">
@@ -357,7 +358,6 @@
                                 <p>No products available at the moment.</p>
                             </div>
                         {% endfor %}
-
                 </div>
             </div>
         </div>
@@ -365,7 +365,7 @@
     <div class="section info-section dark">
         <div class="container w-container">
             <div data-w-id="0f8ca9e6-6c19-3cc5-dc35-f9b414def402" class="info-video-block text-center text-white"
-                style="opacity: 0;">
+                style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                 <div class="section-title-block">
                     <h2 class="section-title ad-title">Caffeine Infused Delight<br></h2>
                     <p class="section-description">Coffee can be enjoyed in a variety of forms, from a simple cup of
@@ -396,7 +396,7 @@
         <div class="container w-container">
             <div class="w-layout-grid menu-grid">
                 <div data-w-id="00938f8a-3cac-2382-059b-98d3d81582de" class="menu-left-side text-white"
-                    style="opacity: 0;">
+                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                     <div class="sticky-detail">
                         <div class="section-title-block">
                             <h2 class="section-title">What makes our coffee best?<br></h2>
@@ -408,7 +408,8 @@
                     </div>
                 </div>
                 <div id="w-node-cbef5095-a6c2-c91e-5d57-6c0771f81c3a-cdaf13d6"
-                    data-w-id="cbef5095-a6c2-c91e-5d57-6c0771f81c3a" class="menu-right-side" style="opacity: 0;">
+                    data-w-id="cbef5095-a6c2-c91e-5d57-6c0771f81c3a" class="menu-right-side"
+                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                     <div class="menu-block">
                         <h3 class="menu-title text-white">Organic Coffee</h3>
                         <ul role="list" class="menu-list">
@@ -443,13 +444,14 @@
     <div class="section testimonial-section">
         <div class="container w-container">
             <div data-w-id="d51c6f6f-ecb9-1e16-dddd-36a60907e31d" class="section-title-block text-center"
-                style="opacity: 0;">
+                style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                 <h2 class="section-title">Our Testimonial</h2>
             </div>
             <div data-delay="4000" data-animation="outin" class="testimonial-slider w-slider" data-autoplay="false"
                 data-easing="ease-in-out" data-hide-arrows="false" data-disable-swipe="false"
                 data-w-id="d51c6f6f-ecb9-1e16-dddd-36a60907e320" data-autoplay-limit="0" data-nav-spacing="5"
-                data-duration="500" data-infinite="true" style="opacity: 0;" role="region" aria-label="carousel">
+                data-duration="500" data-infinite="true" role="region" aria-label="carousel"
+                style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                 <div class="testimonial-mask w-slider-mask" id="w-slider-mask-0">
                     <div class="testimonial-slide w-slide" aria-label="1 of 2" role="group"
                         style="transition: all; transform: translateX(0px); opacity: 1;">
@@ -492,7 +494,7 @@
                     <div class="testimonial-icon"></div>
                 </div>
                 <div class="testimonial-right-arrow w-slider-arrow-right" role="button" tabindex="0"
-                    aria-controls="w-slider-mask-0" aria-label="next slide">
+                    aria-controls="w-slider-mask-0" aria-label="next slide" style="">
                     <div class="testimonial-icon"></div>
                 </div>
                 <div class="slide-nav w-slider-nav w-slider-nav-invert w-round">
@@ -505,17 +507,75 @@
             </div>
         </div>
     </div>
-    <div class="section dark" style="padding-top: 60px; padding-bottom: 60px;">
+    <div class="section dark">
         <div class="container w-container">
             <div data-w-id="e7ae7397-2c3d-fd57-8f20-4b724b303979" class="section-title-block text-center text-white"
-                style="opacity: 0;">
+                style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                 <h2 class="section-title">Our Recent Posts<br></h2>
+            </div>
+            <div class="blog-collection-list-wrapper w-dyn-list">
+                <div data-w-id="e7ae7397-2c3d-fd57-8f20-4b724b30397e" role="list"
+                    class="blog-collection-grid w-dyn-items"
+                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+                    <div role="listitem" class="blog-collection-item w-dyn-item">
+                        <div data-w-id="e7ae7397-2c3d-fd57-8f20-4b724b303980" class="blog-item"><a
+                                href="/post/coffee-fuel-for-productivity-and-focus"
+                                class="blog-image-item-link w-inline-block"><img alt="blog image" loading="lazy"
+                                    style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
+                                    src="https://cdn.prod.website-files.com/643cd7a284ea6a516516b964/6443c2902b1b537f645d07c9_6443ba54668ffdf536cf1eb6_1-p-500%20(8).png"
+                                    class="blog-image"></a>
+                            <div class="home-blog-info-wapperr">
+                                <div class="blog-meta-block">
+                                    <div class="blog-time">Apr 20, 2023</div>
+                                </div><a href="/post/coffee-fuel-for-productivity-and-focus"
+                                    class="home-blog-title-link-block w-inline-block">
+                                    <h3 class="blog-title">Coffee: Fuel for Productivity and focus</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="listitem" class="blog-collection-item w-dyn-item">
+                        <div data-w-id="e7ae7397-2c3d-fd57-8f20-4b724b303980" class="blog-item"><a
+                                href="/post/the-culture-and-history-of-coffee"
+                                class="blog-image-item-link w-inline-block"><img alt="blog image" loading="lazy"
+                                    style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
+                                    src="https://cdn.prod.website-files.com/643cd7a284ea6a516516b964/6443c046ea3c139d2e0e60b8_6443ba54668ffdf536cf1eb6_1-p-500%20(4).png"
+                                    class="blog-image"></a>
+                            <div class="home-blog-info-wapperr">
+                                <div class="blog-meta-block">
+                                    <div class="blog-time">Apr 20, 2023</div>
+                                </div><a href="/post/the-culture-and-history-of-coffee"
+                                    class="home-blog-title-link-block w-inline-block">
+                                    <h3 class="blog-title">The Culture and History of Coffee.</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="listitem" class="blog-collection-item w-dyn-item">
+                        <div data-w-id="e7ae7397-2c3d-fd57-8f20-4b724b303980" class="blog-item"><a
+                                href="/post/coffee-a-stimulant-for-creativity"
+                                class="blog-image-item-link w-inline-block"><img alt="blog image" loading="lazy"
+                                    style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
+                                    src="https://cdn.prod.website-files.com/643cd7a284ea6a516516b964/6443c035f2864aedbfe59c8d_6443ba54668ffdf536cf1eb6_1-p-500%20(3).png"
+                                    class="blog-image"></a>
+                            <div class="home-blog-info-wapperr">
+                                <div class="blog-meta-block">
+                                    <div class="blog-time">Apr 20, 2023</div>
+                                </div><a href="/post/coffee-a-stimulant-for-creativity"
+                                    class="home-blog-title-link-block w-inline-block">
+                                    <h3 class="blog-title">Coffee: A Stimulant for Creativity.</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="section instagram-section">
-        <div data-w-id="0924a943-531a-0cd4-6b47-b6d60551d7e0" class="instagram-block" style="opacity: 0;"><a
-                href="https://www.instagram.com/peacefulqode/" target="_blank"
+        <div data-w-id="0924a943-531a-0cd4-6b47-b6d60551d7e0" class="instagram-block"
+            style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+            <a href="https://www.instagram.com/peacefulqode/" target="_blank"
                 class="instagram-image-link w-inline-block"><img
                     src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe394b643939a28997d_6.webp"
                     loading="lazy"
@@ -565,32 +625,34 @@
                 <div class="instagram-icon"></div>
             </a></div>
     </div>
-    <div data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ea9" class="footer dark" style="opacity: 0;">
+    <div data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ea9" class="footer dark"
+        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
         <div class="footer-top">
             <div class="container w-container">
                 <div class="w-layout-grid footer-grid">
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932ead-4a932ea9"
-                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ead" class="footer-block" style="opacity: 0;">
+                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ead" class="footer-block"
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                         <h3 class="footer-title">Contact Us</h3>
                         <div class="footer-contact-us">
                             <div class="footer-address-item">
-                                <div class="address-block">TheCoffeeLink,shop no.24 ET, Addis Ababa</div>
+                                <div class="address-block">TheCoffeeLink,shop no.24 Fifth,USA</div>
                             </div>
                             <div class="footer-contact-us-item"><a href="mailto:TheCoffeeLink@gmail.com?subject=webfolw"
                                     class="footer-contact-us-item-link">TheCoffeeLink@gmail.com</a></div>
-                            <div class="footer-contact-us-item"><a href="tel:+ 251 900 000 00"
-                                    class="footer-contact-us-item-link">+ 251 900 000 00</a></div>
+                            <div class="footer-contact-us-item"><a href="tel:+251-901-658"
+                                    class="footer-contact-us-item-link">+251-901-658</a></div>
                         </div>
                     </div>
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932eba-4a932ea9"
                         data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932eba" class="footer-block logo-center"
-                        style="opacity: 0;"><img
-                            src="../../static/img/logo_1.jpg"
-                            loading="lazy" alt="footer logo" class="footer-logo">
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+                        <img src="../../static/img/logo_1.jpg" loading="lazy" alt="footer logo" class="footer-logo">
                         <p class="footer-paragraph">Hot, Cold, Sweet or straight up, we've got the brew for you.</p>
                     </div>
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932ebe-4a932ea9"
-                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ebe" class="footer-block last" style="opacity: 0;">
+                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ebe" class="footer-block last"
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                         <h3 class="footer-title">Open Hour</h3>
                         <ul role="list" class="footer-time-list">
                             <li class="footer-time-list-item">Monday-Friday: 09:00-20:00</li>
@@ -609,11 +671,8 @@
             </div>
         </div>
     </div>
-    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=643cd69e8bc0bcf1b4af13d5"
-        type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/js/webflow.2c1658c10.js"
-        type="text/javascript"></script>
+    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=643cd69e8bc0bcf1b4af13d5" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/js/webflow.2c1658c10.js" type="text/javascript"></script>
 </body>
 
 </html>

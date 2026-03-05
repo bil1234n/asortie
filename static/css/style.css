@@ -195,7 +195,10 @@ body {
     padding: 20px 30px;
     margin-top: auto;
 }
-
+.footer_bil{
+    color: #13171cbd;
+    text-decoration: none;
+}
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
     .sidebar {

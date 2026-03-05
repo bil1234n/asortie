@@ -1,7 +1,76 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+    .big_h{
+        font-size: 2.5rem;
+    }
+    .market-filter-bar {
+        background-color: white;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
+</style>
 <div class="container py-4">
-    <h2 class="fw-bold mb-4">Marketplace</h2>
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-dark big_h"><i class="fa-solid fa-shop me-2"></i>Global Marketplace</h2>
+        <p class="text-muted">Browse premium coffee products from verified sellers.</p>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ADVANCED SEARCH FILTER BAR                 -->
+    <!-- ========================================== -->
+    <form method="get" class="market-filter-bar">
+        <div class="row g-3 align-items-end">
+            
+            <!-- 1. Search Keyword -->
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label">Search Products</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>
+                    <input type="text" name="q" class="form-control" placeholder="Arabica, Machine..." value="{{ request.GET.q }}">
+                </div>
+            </div>
+
+            <!-- 2. Category Select -->
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label">Category</label>
+                <select name="category" class="form-select">
+                    <option value="">All Categories</option>
+                    {% for code, name in categories %}
+                        <option value="{{ code }}" {% if request.GET.category == code %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- 3. Price Range -->
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label">Price Range (USD)</label>
+                <div class="input-group">
+                    <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request.GET.min_price }}">
+                    <span class="input-group-text bg-light">-</span>
+                    <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request.GET.max_price }}">
+                </div>
+            </div>
+
+            <!-- 4. Sorting -->
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label">Sort By</label>
+                <select name="sort" class="form-select">
+                    <option value="newest">Newest Listed</option>
+                    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                </select>
+            </div>
+
+            <!-- 5. Submit -->
+            <div class="col-lg-2 col-md-12">
+                <button type="submit" class="btn btn-dark w-100 fw-bold">Filter</button>
+            </div>
+        </div>
+    </form>
     <div class="row">
         {% for product in products %}
         <div class="col-md-4 mb-4">

@@ -1,58 +1,365 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-<h2>User Management</h2>
-<table class="table table-hover bg-white shadow-sm rounded">
-    <thead class="bg-dark text-white">
-        <tr>
-            <th>User</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>License Docs</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for u in users %}
-        <tr>
-            <td>
-                {{ u.username }} <br>
-                <small class="text-muted">{{ u.email }}</small>
-            </td>
-            <td><span class="badge bg-secondary">{{ u.role }}</span></td>
-            <td>
-                {% if u.is_active and u.is_verified %}
-                    <span class="badge bg-success">Active</span>
-                {% elif not u.is_active %}
-                    <span class="badge bg-danger">Suspended</span>
-                {% else %}
-                    <span class="badge bg-warning text-dark">Pending</span>
-                {% endif %}
-            </td>
-            <td>
-                {% if u.is_seller and u.verification_doc %}
-                    <a href="{{ u.verification_doc.business_license.url }}" target="_blank">View License</a>
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-            <td>
-                <form method="post" class="d-flex gap-2">
-                    {% csrf_token %}
-                    <input type="hidden" name="user_id" value="{{ u.id }}">
-                    
-                    {% if not u.is_verified %}
-                        <button name="action" value="approve" class="btn btn-sm btn-success">Approve</button>
-                    {% endif %}
-                    
-                    {% if u.is_active %}
-                        <button name="action" value="suspend" class="btn btn-sm btn-outline-danger">Suspend</button>
-                    {% else %}
-                        <button name="action" value="unsuspend" class="btn btn-sm btn-outline-primary">Restore</button>
-                    {% endif %}
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<!-- Professional Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --bg-light: #f3f4f6;
+        --dark-text: #111827;
+        --muted-text: #6b7280;
+        --border-color: #e5e7eb;
+        --primary-brand: #2C1A11; /* Coffee Dark */
+        --accent-gold: #D4AF37;
+    }
+
+    body { background-color: var(--bg-light); font-family: 'Inter', sans-serif; }
+
+    /* HEADER */
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .page-title { font-size: 1.5rem; font-weight: 700; color: var(--dark-text); margin: 0; }
+    
+    /* TABLE CARD */
+    .admin-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+    }
+    
+    .admin-table th {
+        background: #f9fafb;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted-text);
+        padding: 1rem 1.5rem;
+        font-weight: 600;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .admin-table td {
+        padding: 1rem 1.5rem;
+        vertical-align: middle;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--dark-text);
+    }
+    .admin-table tr:last-child td { border-bottom: none; }
+
+    /* STATUS BADGES */
+    .status-badge {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+    .status-badge.verified { background: #dcfce7; color: #166534; }
+    .status-badge.pending { background: #fef9c3; color: #854d0e; }
+    .status-badge.rejected { background: #fee2e2; color: #991b1b; }
+
+    /* MODAL STYLES */
+    .review-modal .modal-content { border-radius: 12px; overflow: hidden; border: none; }
+    .review-sidebar { background: #f9fafb; border-right: 1px solid var(--border-color); padding: 2rem; }
+    .review-main { padding: 2rem; background: white; overflow-y: auto; max-height: 80vh; }
+    
+    .doc-card {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .doc-header {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #f0f0f0;
+    }
+    .doc-image-box {
+        background: #111;
+        border-radius: 6px;
+        padding: 1rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .doc-image-box img { max-height: 200px; max-width: 100%; object-fit: contain; }
+
+    .btn-action { font-size: 0.85rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 6px; transition: 0.2s; }
+    .btn-action:hover { transform: translateY(-1px); }
+</style>
+
+<div class="container py-5">
+    
+    <!-- 1. HEADER -->
+    <div class="admin-header">
+        <div>
+            <h1 class="page-title">User & Compliance Management</h1>
+            <p class="text-muted mb-0">Review identity documents and verify seller certificates.</p>
+        </div>
+        <div>
+            <span class="badge bg-dark fs-6">{{ users.count }} Users</span>
+        </div>
+    </div>
+
+    <!-- 2. TABLE -->
+    <div class="admin-card">
+        <div class="table-responsive">
+            <table class="table admin-table mb-0">
+                <thead>
+                    <tr>
+                        <th>User Identity</th>
+                        <th>Role</th>
+                        <th>Identity Status</th>
+                        <th>Certificates</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr>
+                        <!-- User -->
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px;">
+                                    {{ u.username|slice:":1"|upper }}
+                                </div>
+                                <div>
+                                    <div class="fw-bold">{{ u.username }}</div>
+                                    <div class="small text-muted">{{ u.email }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        
+                        <!-- Role -->
+                        <td>
+                            <span class="text-capitalize fw-bold">{{ u.role }}</span>
+                            {% if u.role == 'seller' %}
+                                <div class="small text-muted">{{ u.get_package_tier_display }} Tier</div>
+                            {% endif %}
+                        </td>
+
+                        <!-- Identity Status -->
+                        <td>
+                            {% if u.is_verified %}
+                                <span class="status-badge verified"><i class="fa-solid fa-check-circle"></i> Identity Verified</span>
+                            {% elif u.verification_doc %}
+                                <span class="status-badge pending"><i class="fa-solid fa-clock"></i> Docs Submitted</span>
+                            {% else %}
+                                <span class="text-muted small">No Documents</span>
+                            {% endif %}
+                        </td>
+
+                        <!-- Certificate Status -->
+                        <td>
+                            {% if u.role == 'seller' and u.seller_profile %}
+                                {% with cert_count=u.seller_profile.certificates.count %}
+                                    {% if cert_count > 0 %}
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="fw-bold text-dark">{{ cert_count }}</span> Uploaded
+                                            <!-- Red dot if any unverified -->
+                                            {% if u.seller_profile.certificates.filter.is_verified|length != cert_count %}
+                                                <span class="badge bg-warning text-dark rounded-circle p-1" style="width: 10px; height: 10px;"></span>
+                                            {% endif %}
+                                        </div>
+                                    {% else %}
+                                        <span class="text-muted small">-</span>
+                                    {% endif %}
+                                {% endwith %}
+                            {% else %}
+                                <span class="text-muted small">-</span>
+                            {% endif %}
+                        </td>
+
+                        <!-- Action Button -->
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end align-items-center gap-2">
+                                
+                                <!-- 1. Review Modal Button (Only for Sellers) -->
+                                {% if u.role == 'seller' %}
+                                    <button class="btn btn-dark btn-sm rounded-pill px-3 fw-bold" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#modal{{ u.id }}">
+                                        Review
+                                    </button>
+                                {% endif %}
+                                <!-- 2. Quick Suspend/Restore Form -->
+                                <form method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_id" value="{{ u.id }}">
+                                    
+                                    {% if u.is_active %}
+                                        <!-- Suspend Button (Red Icon) -->
+                                        <button name="action" value="suspend" 
+                                                class="btn btn-outline-danger btn-sm rounded-circle d-flex align-items-center justify-content-center" 
+                                                style="width: 34px; height: 34px;" 
+                                                title="Suspend User" 
+                                                onclick="return confirm('Are you sure you want to suspend {{ u.username }}?');">
+                                            <i class="fa-solid fa-ban"></i>
+                                        </button>
+                                    {% else %}
+                                        <!-- Restore Button (Green Icon) -->
+                                        <button name="action" value="unsuspend" 
+                                                class="btn btn-outline-success btn-sm rounded-circle d-flex align-items-center justify-content-center" 
+                                                style="width: 34px; height: 34px;" 
+                                                title="Restore User">
+                                            <i class="fa-solid fa-unlock"></i>
+                                        </button>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- ========================== -->
+                    <!-- COMPLIANCE REVIEW MODAL    -->
+                    <!-- ========================== -->
+                    {% if u.role == 'seller' %}
+                    <div class="modal fade review-modal" id="modal{{ u.id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header border-bottom bg-white py-3">
+                                    <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-shield-halved text-warning me-2"></i> Compliance Center: {{ u.username }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body p-0">
+                                    <div class="row g-0 h-100">
+                                        
+                                        <!-- LEFT: PROFILE INFO -->
+                                        <div class="col-lg-3 review-sidebar">
+                                            <h6 class="text-uppercase text-muted fw-bold small mb-3">Seller Profile</h6>
+                                            
+                                            <div class="mb-3">
+                                                <small class="d-block text-muted fw-bold">Company Name</small>
+                                                <span class="text-dark">{{ u.seller_profile.company_name|default:"Not Set" }}</span>
+                                            </div>
+                                            <div class="mb-3">
+                                                <small class="d-block text-muted fw-bold">Location</small>
+                                                <span class="text-dark">{{ u.seller_profile.city }}, {{ u.seller_profile.country }}</span>
+                                            </div>
+                                            <div class="mb-3">
+                                                <small class="d-block text-muted fw-bold">Roles</small>
+                                                {% if u.seller_profile.is_farmer %}<span class="badge bg-success me-1">Farmer</span>{% endif %}
+                                                {% if u.seller_profile.is_roaster %}<span class="badge bg-danger">Roaster</span>{% endif %}
+                                            </div>
+
+                                            <hr>
+
+                                            <h6 class="text-uppercase text-muted fw-bold small mb-3">Account Actions</h6>
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="user_id" value="{{ u.id }}">
+                                                
+                                                {% if u.is_active %}
+                                                    <button name="action" value="suspend" class="btn btn-outline-danger w-100 btn-sm mb-2 fw-bold">Suspend User</button>
+                                                {% else %}
+                                                    <button name="action" value="unsuspend" class="btn btn-outline-success w-100 btn-sm mb-2 fw-bold">Unsuspend User</button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
+
+                                        <!-- RIGHT: DOCUMENTS -->
+                                        <div class="col-lg-9 review-main">
+                                            
+                                            <!-- SECTION 1: IDENTITY (LICENSE) -->
+                                            <h5 class="fw-bold mb-3 text-dark">1. Identity Verification</h5>
+                                            <div class="doc-card">
+                                                <div class="doc-header">
+                                                    <span class="fw-bold"><i class="fa-solid fa-id-card me-2 text-muted"></i> Business License / ID</span>
+                                                    {% if u.is_verified %}
+                                                        <span class="badge bg-success">Verified</span>
+                                                    {% else %}
+                                                        <span class="badge bg-warning text-dark">Pending</span>
+                                                    {% endif %}
+                                                </div>
+                                                
+                                                <div class="doc-image-box">
+                                                    {% if u.verification_doc.business_license %}
+                                                        <img src="{{ u.verification_doc.business_license.url }}">
+                                                    {% elif u.verification_doc.id_card %}
+                                                        <img src="{{ u.verification_doc.id_card.url }}">
+                                                    {% else %}
+                                                        <span class="text-white-50">No identity documents uploaded.</span>
+                                                    {% endif %}
+                                                </div>
+
+                                                <form method="post" class="text-end">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="user_id" value="{{ u.id }}">
+                                                    
+                                                    {% if not u.is_verified %}
+                                                        <button name="action" value="approve_identity" class="btn btn-success btn-action text-white">
+                                                            <i class="fa-solid fa-check me-1"></i> Approve Identity
+                                                        </button>
+                                                    {% else %}
+                                                        <button name="action" value="revoke_identity" class="btn btn-outline-danger btn-action">
+                                                            Revoke Status
+                                                        </button>
+                                                    {% endif %}
+                                                </form>
+                                            </div>
+
+                                            <!-- SECTION 2: CERTIFICATES -->
+                                            <h5 class="fw-bold mb-3 text-dark mt-5">2. Trade Certificates</h5>
+                                            
+                                            {% for cert in u.seller_profile.certificates.all %}
+                                                <div class="doc-card">
+                                                    <div class="doc-header">
+                                                        <div>
+                                                            <span class="fw-bold text-dark">{{ cert.name }}</span>
+                                                            <small class="text-muted ms-2">({{ cert.authority_name }})</small>
+                                                        </div>
+                                                        {% if cert.is_verified %}
+                                                            <span class="badge bg-success">Valid</span>
+                                                        {% else %}
+                                                            <span class="badge bg-warning text-dark">Review Needed</span>
+                                                        {% endif %}
+                                                    </div>
+
+                                                    <div class="doc-image-box">
+                                                        {% if cert.document_image %}
+                                                            <img src="{{ cert.document_image.url }}">
+                                                        {% else %}
+                                                            <span class="text-white-50">No file image.</span>
+                                                        {% endif %}
+                                                    </div>
+
+                                                    <form method="post" class="d-flex justify-content-between align-items-center">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="user_id" value="{{ u.id }}">
+                                                        <input type="hidden" name="cert_id" value="{{ cert.id }}">
+                                                        
+                                                        <div class="small text-muted">
+                                                            <strong>Expires:</strong> {{ cert.expiry_date|default:"N/A" }}
+                                                        </div>
+
+                                                        <div class="d-flex gap-2">
+                                                            {% if not cert.is_verified %}
+                                                                <button name="action" value="reject_cert" class="btn btn-outline-danger btn-action">Reject</button>
+                                                                <button name="action" value="verify_cert" class="btn btn-success btn-action text-white">Approve Certificate</button>
+                                                            {% else %}
+                                                                <button name="action" value="reject_cert" class="btn btn-outline-secondary btn-action">Revoke Approval</button>
+                                                            {% endif %}
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            {% empty %}
+                                                <div class="alert alert-light border text-center text-muted">
+                                                    No additional certificates (Organic, Fair Trade, etc.) uploaded.
+                                                </div>
+                                            {% endfor %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %} <!-- End Modal Logic -->
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

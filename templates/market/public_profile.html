@@ -1,85 +1,262 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
+<!-- Custom Styles for this Page -->
+<style>
+    :root {
+        --coffee-dark: #2C1A11;
+        --gold: #D4AF37;
+        --cream: #F5F5F5;
+    }
+
+    .profile-header-card {
+        background: linear-gradient(135deg, var(--coffee-dark) 0%, #4e342e 100%);
+        color: white;
+        border: none;
+        border-radius: 15px;
+    }
+
+    .stat-card {
+        border: 1px solid #eee;
+        border-left: 4px solid var(--gold);
+        transition: transform 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); }
+
+    .cert-item {
+        cursor: pointer;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        transition: all 0.2s;
+    }
+    .cert-item:hover {
+        background-color: var(--cream);
+        border-color: var(--gold);
+    }
+
+    .product-card-img {
+        height: 220px;
+        margin: 1rem 0;
+        object-fit: contain;
+    }
+    .card-body{
+        border-top: 3px solid var(--gold);
+    }
+    .btn_2_c {
+        width: 100%;
+        padding: 0.5rem;
+        background: var(--secondary-color);
+        color: #fff;
+    }
+    .btn_2_c:hover {
+        background: transparent;
+        color: #000;
+    }
+    .green_price{
+        color: green;
+    }
+    .role-badge { font-size: 0.8rem; letter-spacing: 0.5px; }
+</style>
+
 <div class="container py-5">
     
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm mb-2">
-                <i class="fa-solid fa-arrow-left"></i> Back
-            </a>
-            <h2 class="fw-bold text-dark">
-                {% if profile.company_name %}
-                    {{ profile.company_name }}
-                {% else %}
-                    {{ seller.username }}'s Business
-                {% endif %}
-            </h2>
-            <p class="text-muted mb-0">Verified Seller Profile</p>
+    <!-- 1. HEADER SECTION (Identity) -->
+    <div class="card profile-header-card shadow-lg mb-5">
+        <div class="card-body p-4 p-md-5">
+            <div class="row align-items-center">
+                <!-- Logo -->
+                <div class="col-md-3 text-center mb-3 mb-md-0">
+                    <div class="position-relative d-inline-block">
+                        {% if profile.logo %}
+                            <img src="{{ profile.logo.url }}" class="rounded-circle border border-4 border-white shadow" style="width: 160px; height: 160px; object-fit: cover;">
+                        {% else %}
+                            <div class="rounded-circle bg-white text-dark d-flex align-items-center justify-content-center mx-auto shadow" style="width: 160px; height: 160px;">
+                                <i class="fa-solid fa-store fa-4x opacity-50"></i>
+                            </div>
+                        {% endif %}
+                        {% if seller.is_verified %}
+                            <span class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle p-2 border border-2 border-white" title="Verified Seller">
+                                <i class="fa-solid fa-check fa-lg"></i>
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Info -->
+                <div class="col-md-9 text-center text-md-start">
+                    <h1 class="fw-bold mb-1">{{ profile.company_name|default:seller.username }}</h1>
+                    <p class="mb-2 opacity-75">
+                        <i class="fa-solid fa-location-dot me-1 text-warning"></i> 
+                        {{ profile.city|default:"City" }}, {{ profile.country|default:"Country" }}
+                    </p>
+                    
+                    <!-- Role Badges -->
+                    <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start mb-3">
+                        {% if profile.is_farmer %}
+                            <span class="badge bg-success role-badge"><i class="fa-solid fa-leaf me-1"></i> Farmer</span>
+                        {% endif %}
+                        {% if profile.is_roaster %}
+                            <span class="badge bg-danger role-badge"><i class="fa-solid fa-fire me-1"></i> Roaster</span>
+                        {% endif %}
+                        {% if profile.is_exporter %}
+                            <span class="badge bg-primary role-badge"><i class="fa-solid fa-plane me-1"></i> Exporter</span>
+                        {% endif %}
+                        {% if profile.is_supplier %}
+                            <span class="badge bg-warning text-dark role-badge"><i class="fa-solid fa-truck me-1"></i> Supplier</span>
+                        {% endif %}
+                    </div>
+
+                    <p class="small opacity-75 mb-0" style="max-width: 700px;">
+                        {{ profile.description|default:"This seller has not added a description yet." }}
+                    </p>
+                </div>
+            </div>
         </div>
-        
-        <!-- Contact Button -->
-        {% if user.is_authenticated and user != seller %}
-            <a href="{% url 'chat_room' seller.id %}" class="btn btn-dark">
-                <i class="fa-solid fa-envelope me-2"></i> Contact Seller
-            </a>
-        {% endif %}
     </div>
 
-    <!-- 1. IDENTITY BADGES -->
-    <div class="card shadow-sm border-0 mb-4 bg-light">
-        <div class="card-body d-flex align-items-center flex-wrap gap-2">
-            <span class="fw-bold me-2 text-uppercase text-secondary">Roles:</span>
-            
-            {% if profile.is_farmer %}
-                <span class="badge bg-success rounded-pill px-3 py-2"><i class="fa-solid fa-leaf me-1"></i> Farmer</span>
-            {% endif %}
-            
-            {% if profile.is_roaster %}
-                <span class="badge bg-danger rounded-pill px-3 py-2"><i class="fa-solid fa-fire me-1"></i> Roaster</span>
-            {% endif %}
-            
-            {% if profile.is_exporter %}
-                <span class="badge bg-primary rounded-pill px-3 py-2"><i class="fa-solid fa-plane-departure me-1"></i> Exporter</span>
-            {% endif %}
-            
-            {% if profile.is_supplier %}
-                <span class="badge bg-warning text-dark rounded-pill px-3 py-2"><i class="fa-solid fa-truck me-1"></i> Supplier</span>
-            {% endif %}
-
-            {% if not profile.is_farmer and not profile.is_roaster and not profile.is_exporter and not profile.is_supplier %}
-                <span class="badge bg-secondary rounded-pill px-3 py-2">General Seller</span>
-            {% endif %}
-        </div>
-    </div>
-
-    <!-- 2. PUBLIC STATS -->
     <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #2C1A11 !important;">
-                <div class="card-body">
-                    <h6 class="text-muted text-uppercase small fw-bold">Member Since</h6>
-                    <h3 class="fw-bold text-dark mb-0">{{ seller.date_joined|date:"M Y" }}</h3>
+        
+        <!-- 2. LEFT SIDEBAR (Stats & Certifications) -->
+        <div class="col-lg-4">
+            
+            <!-- Stats -->
+            <div class="row g-3 mb-4">
+                <div class="col-6">
+                    <div class="card stat-card shadow-sm h-100 py-3 text-center">
+                        <h3 class="fw-bold mb-0 text-dark">{{ successful_orders }}</h3>
+                        <small class="text-muted">Orders Fulfilled</small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card stat-card shadow-sm h-100 py-3 text-center">
+                        <h3 class="fw-bold mb-0 text-dark">{{ product_count }}</h3>
+                        <small class="text-muted">Active Products</small>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #D4AF37 !important;">
-                <div class="card-body">
-                    <h6 class="text-muted text-uppercase small fw-bold">Active Products</h6>
-                    <h3 class="fw-bold text-dark mb-0">{{ active_products }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #28a745 !important;">
-                <div class="card-body">
-                    <h6 class="text-muted text-uppercase small fw-bold">Successful Orders</h6>
-                    <h3 class="fw-bold text-dark mb-0">{{ successful_orders }}</h3>
-                </div>
-            </div>
-        </div>
-    </div>
 
+            <!-- CERTIFICATIONS SECTION -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white fw-bold py-3">
+                    <i class="fa-solid fa-certificate text-warning me-2"></i> Verified Certifications
+                </div>
+                <div class="card-body">
+                    {% if certs %}
+                        <div class="d-flex flex-column gap-3">
+                            {% for cert in certs %}
+                                <!-- Clickable Cert Item -->
+                                <div class="cert-item p-3 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#certModal{{ cert.id }}">
+                                    <div class="me-3">
+                                        {% if "Organic" in cert.name %}
+                                            <i class="fa-solid fa-leaf fa-2x text-success"></i>
+                                        {% elif "Fair" in cert.name %}
+                                            <i class="fa-solid fa-scale-balanced fa-2x text-primary"></i>
+                                        {% elif "Rainforest" in cert.name %}
+                                            <i class="fa-solid fa-tree fa-2x text-success"></i>
+                                        {% else %}
+                                            <i class="fa-solid fa-award fa-2x text-warning"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-0 fw-bold small">{{ cert.name }}</h6>
+                                        <small class="text-muted d-block" style="font-size: 0.75rem;">Issued by: {{ cert.authority_name }}</small>
+                                    </div>
+                                    <div>
+                                        {% if cert.is_verified %}
+                                            <i class="fa-solid fa-circle-check text-primary" title="Verified by Platform"></i>
+                                        {% else %}
+                                            <i class="fa-solid fa-clock text-muted" title="Pending Verification"></i>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <!-- MODAL to View Cert Image -->
+                                <div class="modal fade" id="certModal{{ cert.id }}" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h6 class="modal-title">{{ cert.name }} Proof</h6>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body text-center bg-light">
+                                                {% if cert.document_image %}
+                                                    <img src="{{ cert.document_image.url }}" class="img-fluid rounded shadow-sm">
+                                                {% else %}
+                                                    <p class="text-muted">No image document available.</p>
+                                                {% endif %}
+                                                <div class="mt-3 text-start small">
+                                                    <strong>Expires:</strong> {{ cert.expiry_date|default:"N/A" }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted small text-center mb-0 fst-italic">
+                            No certifications uploaded yet.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Core Products Text -->
+            {% if profile.core_products %}
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="fw-bold small text-uppercase text-muted">Core Specialties</h6>
+                    <p class="mb-0 small"><i class="fa-solid fa-mug-hot text-secondary me-2"></i> {{ profile.core_products }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- 3. RIGHT SIDE: PRODUCTS GRID -->
+        <div class="col-lg-8">
+            <h4 class="fw-bold mb-4 border-bottom pb-2">Available Products</h4>
+            
+            <div class="row g-4">
+                {% for product in products %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <!-- Image -->
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top product-card-img">
+                        {% else %}
+                            <div class="card-img-top product-card-img bg-light d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-coffee fa-3x text-muted opacity-25"></i>
+                            </div>
+                        {% endif %}
+
+                        <!-- Body -->
+                        <div class="card-body">
+                            <h6 class="card-title fw-bold text-truncate">{{ product.name }}</h6>
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="badge bg-secondary ml-2">{{ product.category }}</span>
+                                <span class="fs-5 fw-bold green_price">${{ product.price }}</span>
+                            </div>
+                            <p class="small text-muted mb-3" style="min-height: 40px;">
+                                {{ product.description|truncatechars:50 }}
+                            </p>
+                            
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-dark btn-sm rounded-pill btn_2_c px-3">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <i class="fa-solid fa-box-open fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">No active products listed at the moment.</h5>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
 </div>
 {% endblock %}

@@ -44,6 +44,9 @@
             <a href="{% url 'chat_inbox' %}" class="{% if request.resolver_match.url_name == 'chat_inbox' %}active{% endif %}">
                 <i class="fa-solid fa-comments me-2"></i> Buyer Messages
             </a>
+            <a href="{% url 'coming_soon' %}" class="{% if request.resolver_match.url_name == 'coming_soon' %}active{% endif %}">
+                <i class="fa-solid fa-tv me-2"></i> AI & Live Stream
+            </a>
         
         <!-- ================= BUYER/GUEST MENU ================= -->
         {% else %}
@@ -62,8 +65,11 @@
                 <i class="fa-solid fa-comments me-2"></i> Messages
             </a>
             {% endif %}
+            <a href="{% url 'business_directory' %}" class="{% if request.resolver_match.url_name == 'business_directory' %}active{% endif %}">
+                <i class="fa-solid fa-address-book me-2"></i> Business Directory
+            </a>
             <a href="{% url 'coming_soon' %}" class="{% if request.resolver_match.url_name == 'coming_soon' %}active{% endif %}">
-                <i class="fa-solid fa-tv me-2"></i> Live Stream
+                <i class="fa-solid fa-tv me-2"></i> AI & Live Stream
             </a>
         {% endif %}
     </nav>

@@ -66,7 +66,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body> 
+<body>
     <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navbar w-nav">
         <div class="search-block" style="display: none; opacity: 0;">
@@ -91,18 +91,14 @@
             <div class="navbar-wrap">
                 <nav role="navigation" class="nav-menu w-nav-menu"><a href="{% url 'landing_page' %}" class="nav-link first w-nav-link"
                         style="max-width: 1400px;">Home</a>
-                     <a href="{% url 'about' %}" class="nav-link w-nav-link" style="max-width: 1400px;">About Us</a><a href="{% url 'marketing_shop' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Shop</a><a href="{% url 'contact' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Contact-Us</a>
+                    <a href="{% url 'about' %}" class="nav-link w-nav-link" style="max-width: 1400px;">About Us</a><a href="{% url 'marketing_shop' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Shop</a><a href="{% url 'contact' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Contact-Us</a>
+                        <a href="{% url 'login' %}" class="nav-link w-nav-link right_nav" style="margin-right: 0%;">Login</a>
+                    <a href="{% url 'register' %}" class="nav-link w-nav-link right_nav_2" style="margin-right: 0%;">Register</a>
                 </nav><a href="{% url 'landing_page' %}" id="w-node-_8a2c85c8-55c7-6664-7de1-0dc14c633a9f-4c633a72"
                     class="brand w-nav-brand"><img
                         src="../../static/img/logo_1.png"
                         loading="lazy" width="183" alt="logo" class="header-logo logo_2"></a>
-                <div class="navbar-right-side">
-                    
-                    <div>
-                        <a href="{% url 'login' %}" class="nav-link w-nav-link" style="margin-right: 0%;">Login</a>
-                    <a href="{% url 'register' %}" class="nav-link w-nav-link" style="margin-right: 0%;">Register</a>
-                    </div>
-                </div>
+                
                 <div class="menu-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button"
                     tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
                     <div class="w-icon-nav-menu"></div>
@@ -118,30 +114,30 @@
             </div>
         </div>
     </div>
-    
-{% block content %}
 
-<!-- Display Django Messages (Success/Error) -->
-<!-- Professional SweetAlert2 Toast Logic -->
-{% if messages %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const Toast = Swal.mixin({
-            toast: true,
-            showConfirmButton: false,
-            timer: 4000, // Disappears after 4 seconds
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
+    {% block content %}
 
-        {% for message in messages %}
+    <!-- Display Django Messages (Success/Error) -->
+    <!-- Professional SweetAlert2 Toast Logic -->
+    {% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const Toast = Swal.mixin({
+                toast: true,
+                showConfirmButton: false,
+                timer: 4000, // Disappears after 4 seconds
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
+            {% for message in messages %}
             // Map Django tags to SweetAlert icons
             var type = "{{ message.tags }}";
             var icon = 'info'; // Default
-            
+
             if (type.includes('success')) {
                 icon = 'success';
             } else if (type.includes('error') || type.includes('danger')) {
@@ -154,74 +150,81 @@
                 icon: icon,
                 title: "{{ message|escapejs }}" // Safe handling of text
             });
-        {% endfor %}
-    });
-</script>
-{% endif %}
+            {% endfor %}
+        });
+    </script>
+    {% endif %}
 
-<div class="section contact-form-section">
-    <div class="container-small w-container">
-        
-        <div data-w-id="48a34894-8991-4a32-437e-4bec5beb5263" class="section-title-block text-center" style="opacity: 1;">
-            <h2 class="section-title">Let’s talk :)<br></h2>
-        </div>
-        
-        <div data-w-id="48a34894-8991-4a32-437e-4bec5beb526a" class="form-block w-form" style="opacity: 1;">
-            
-            <!-- CHANGED: method="post" and added action -->
-            <form action="{% url 'contact' %}" method="post" class="contact-form" aria-label="Email Form">
-                
-                <!-- CRITICAL: Added CSRF Token -->
-                {% csrf_token %}
+    <div class="section contact-form-section">
+        <div class="container-small w-container">
 
-                <div class="field-block">
-                    <input class="text-input w-input" maxlength="256" name="name" data-name="Name" placeholder="Full Name" type="text" id="field" required>
-                </div>
-                
-                <div class="field-block">
-                    <input class="text-input w-input" maxlength="256" name="Email" data-name="Email" placeholder="Your Email" type="email" id="Email" required>
-                </div>
-                
-                <div class="field-block">
-                    <input class="text-input w-input" maxlength="256" name="Phone-Number" data-name="Phone Number" placeholder="Phone Number" type="text" id="Phone-Number">
-                </div>
-                
-                <div class="field-block">
-                    <select name="Category-2" id="select" class="form-dropdown w-select" required>
-                        <option value="">Select Country</option>
-                        <option value="Ethiopia">Ethiopia</option>
-                        <option value="UK">UK</option>
-                        <option value="USA">USA</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                
-                <div id="w-node-_59d9f900-a66a-419e-5021-96768359842a-b146eab3" class="field-block">
-                    <textarea placeholder="Enter message here" maxlength="5000" name="field" id="textarea" class="text-input form w-input" required></textarea>
-                    <input type="submit" data-wait="Please wait..." class="button contact-button w-button" value="Get In Touch">
-                </div>
-                
-            </form>
+            <div data-w-id="48a34894-8991-4a32-437e-4bec5beb5263" class="section-title-block text-center"
+                style="opacity: 1;">
+                <h2 class="section-title">Let’s talk :)<br></h2>
+            </div>
 
+            <div data-w-id="48a34894-8991-4a32-437e-4bec5beb526a" class="form-block w-form" style="opacity: 1;">
+
+                <!-- CHANGED: method="post" and added action -->
+                <form action="{% url 'contact' %}" method="post" class="contact-form" aria-label="Email Form">
+
+                    <!-- CRITICAL: Added CSRF Token -->
+                    {% csrf_token %}
+
+                    <div class="field-block">
+                        <input class="text-input w-input" maxlength="256" name="name" data-name="Name"
+                            placeholder="Full Name" type="text" id="field" required>
+                    </div>
+
+                    <div class="field-block">
+                        <input class="text-input w-input" maxlength="256" name="Email" data-name="Email"
+                            placeholder="Your Email" type="email" id="Email" required>
+                    </div>
+
+                    <div class="field-block">
+                        <input class="text-input w-input" maxlength="256" name="Phone-Number" data-name="Phone Number"
+                            placeholder="Phone Number" type="text" id="Phone-Number">
+                    </div>
+
+                    <div class="field-block">
+                        <select name="Category-2" id="select" class="form-dropdown w-select" required>
+                            <option value="">Select Country</option>
+                            <option value="Ethiopia">Ethiopia</option>
+                            <option value="UK">UK</option>
+                            <option value="USA">USA</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div id="w-node-_59d9f900-a66a-419e-5021-96768359842a-b146eab3" class="field-block">
+                        <textarea placeholder="Enter message here" maxlength="5000" name="field" id="textarea"
+                            class="text-input form w-input" required></textarea>
+                        <input type="submit" data-wait="Please wait..." class="button contact-button w-button"
+                            value="Get In Touch">
+                    </div>
+
+                </form>
+
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
 
 
 
     <div class="section dark">
         <div class="container w-container">
             <div class="contact">
-                <div data-w-id="82871070-d5e9-3c37-46b4-42fb604b1b21" class="contact-card" style="opacity: 0;">
+                <div data-w-id="82871070-d5e9-3c37-46b4-42fb604b1b21" class="contact-card"
+                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                     <div class="contact-card-info"><img
                             src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/64410b8b4482b65492f5f315_59f5b840defbd900010137b9_location-icon.webp"
                             loading="lazy" width="64" alt="image" class="location-image">
                         <h3 class="contact-title">Find Easily</h3>
-                        <p>TheCoffeeLink Import & Export, Ethiopia, Addis Ababa Bole</p><a href="#"
-                            class="contact-card-email">TheCoffeeLink@gmail.com</a>
-                        <div class="contact-card-number">+ (251) 1234-567-8900</div>
+                        <p>The Queen's Walk, Bishop's, London SE1 7PB, United Kingdom</p><a href="#"
+                            class="contact-card-email">peacefulqode@gmail.com</a>
+                        <div class="contact-card-number">+ (567) 1234-567-8900</div>
                     </div>
                     <div class="google-map">
                         <div class="w-embed w-iframe"><iframe
@@ -230,7 +233,8 @@
                                 referrerpolicy="no-referrer-when-downgrade"></iframe></div>
                     </div>
                 </div>
-                <div data-w-id="eac37b0b-215f-b847-79af-e09159cfb9d3" class="working-hours" style="opacity: 0;">
+                <div data-w-id="eac37b0b-215f-b847-79af-e09159cfb9d3" class="working-hours"
+                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                     <div class="working-hours-content">
                         <h3 class="opening-hours-title">Opening Hours</h3>
                     </div>
@@ -275,9 +279,11 @@
             </div>
         </div>
     </div>
+    
     <div class="section instagram-section">
-        <div data-w-id="0924a943-531a-0cd4-6b47-b6d60551d7e0" class="instagram-block" style="opacity: 0;"><a
-                href="https://www.instagram.com/peacefulqode/" target="_blank"
+        <div data-w-id="0924a943-531a-0cd4-6b47-b6d60551d7e0" class="instagram-block"
+            style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+            <a href="https://www.instagram.com/peacefulqode/" target="_blank"
                 class="instagram-image-link w-inline-block"><img
                     src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe394b643939a28997d_6.webp"
                     loading="lazy"
@@ -327,32 +333,34 @@
                 <div class="instagram-icon"></div>
             </a></div>
     </div>
-    <div data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ea9" class="footer dark" style="opacity: 0;">
+    <div data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ea9" class="footer dark"
+        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
         <div class="footer-top">
             <div class="container w-container">
                 <div class="w-layout-grid footer-grid">
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932ead-4a932ea9"
-                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ead" class="footer-block" style="opacity: 0;">
+                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ead" class="footer-block"
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                         <h3 class="footer-title">Contact Us</h3>
                         <div class="footer-contact-us">
                             <div class="footer-address-item">
-                                <div class="address-block">TheCoffeeLink,shop no.24 ET, Addis Ababa</div>
+                                <div class="address-block">TheCoffeeLink,shop no.24 Fifth,USA</div>
                             </div>
                             <div class="footer-contact-us-item"><a href="mailto:TheCoffeeLink@gmail.com?subject=webfolw"
                                     class="footer-contact-us-item-link">TheCoffeeLink@gmail.com</a></div>
-                            <div class="footer-contact-us-item"><a href="tel:+ 251 900 000 00"
-                                    class="footer-contact-us-item-link">+ 251 900 000 00</a></div>
+                            <div class="footer-contact-us-item"><a href="tel:+251-901-658"
+                                    class="footer-contact-us-item-link">+251-901-658</a></div>
                         </div>
                     </div>
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932eba-4a932ea9"
                         data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932eba" class="footer-block logo-center"
-                        style="opacity: 0;"><img
-                            src="../../static/img/logo_1.jpg"
-                            loading="lazy" alt="footer logo" class="footer-logo">
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+                        <img src="../../static/img/logo_1.jpg" loading="lazy" alt="footer logo" class="footer-logo">
                         <p class="footer-paragraph">Hot, Cold, Sweet or straight up, we've got the brew for you.</p>
                     </div>
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932ebe-4a932ea9"
-                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ebe" class="footer-block last" style="opacity: 0;">
+                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ebe" class="footer-block last"
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                         <h3 class="footer-title">Open Hour</h3>
                         <ul role="list" class="footer-time-list">
                             <li class="footer-time-list-item">Monday-Friday: 09:00-20:00</li>

@@ -263,18 +263,14 @@
             <div class="navbar-wrap">
                 <nav role="navigation" class="nav-menu w-nav-menu"><a href="{% url 'landing_page' %}" class="nav-link first w-nav-link"
                         style="max-width: 1400px;">Home</a>
-                        <a href="{% url 'about' %}" class="nav-link w-nav-link" style="max-width: 1400px;">About Us</a><a href="{% url 'marketing_shop' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Shop</a><a href="{% url 'contact' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Contact-Us</a>
+                    <a href="{% url 'about' %}" class="nav-link w-nav-link" style="max-width: 1400px;">About Us</a><a href="{% url 'marketing_shop' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Shop</a><a href="{% url 'contact' %}" class="nav-link w-nav-link" style="max-width: 1400px;">Contact-Us</a>
+                        <a href="{% url 'login' %}" class="nav-link w-nav-link right_nav" style="margin-right: 0%;">Login</a>
+                    <a href="{% url 'register' %}" class="nav-link w-nav-link right_nav_2" style="margin-right: 0%;">Register</a>
                 </nav><a href="{% url 'landing_page' %}" id="w-node-_8a2c85c8-55c7-6664-7de1-0dc14c633a9f-4c633a72"
                     class="brand w-nav-brand"><img
                         src="../../static/img/logo_1.png"
                         loading="lazy" width="183" alt="logo" class="header-logo logo_2"></a>
-                <div class="navbar-right-side">
-                    
-                    <div>
-                        <a href="{% url 'login' %}" class="nav-link w-nav-link" style="margin-right: 0%;">Login</a>
-                    <a href="{% url 'register' %}" class="nav-link w-nav-link" style="margin-right: 0%;">Register</a>
-                    </div>
-                </div>
+                
                 <div class="menu-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button"
                     tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
                     <div class="w-icon-nav-menu"></div>
@@ -292,14 +288,19 @@
     </div>
     <div class="section product-section">
         <div class="container w-container">
-            <div data-w-id="c2edb35d-4e22-866e-909d-87e9d183600a" class="section-title-block text-center"
-                style="opacity: 0;">
-                <h2 class="section-title">OUR BLENDS DELIVER<br></h2>
+            <div data-w-id="8aa10b71-aa54-0c33-1596-20c028786770" class="product-detail text-center"
+                style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+                
+                <div class="section-title-block">
+                    <h2 class="section-title">OUR BLENDS DELIVER<br></h2>
+                    <p class="section-description">Hot, Cold, Sweet or straight up, we've got the brew for you.</p>
+                </div><a href="{% url 'marketing_shop' %}" class="button-primary button-outline margin-top-32 w-button">All Product</a>
             </div>
             <div class="product-collection-list-wrapper w-dyn-list">
-                <div data-w-id="c2edb35d-4e22-866e-909d-87e9d1836014" role="list"
-                    class="product-collection-grid w-dyn-items" style="opacity: 0;">
-                        {% for p in products %}
+                <div data-w-id="6c9ac654-364f-c415-c109-a020c0481cd0" role="list"
+                    class="product-collection-grid w-dyn-items"
+                    style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+                    {% for p in products %}
                     <div class="product-collection-list w-dyn-items" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: stretch;">
                         <div role="listitem" class="product-collection-item w-dyn-item" style="display: flex; flex-direction: column;">
                             <div class="product-item" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; width: 100%;">
@@ -344,14 +345,14 @@
                                 <p>No products available at the moment.</p>
                             </div>
                         {% endfor %}
-
                 </div>
             </div>
         </div>
     </div>
     <div class="section instagram-section">
-        <div data-w-id="0924a943-531a-0cd4-6b47-b6d60551d7e0" class="instagram-block" style="opacity: 0;"><a
-                href="https://www.instagram.com/peacefulqode/" target="_blank"
+        <div data-w-id="0924a943-531a-0cd4-6b47-b6d60551d7e0" class="instagram-block"
+            style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+            <a href="https://www.instagram.com/peacefulqode/" target="_blank"
                 class="instagram-image-link w-inline-block"><img
                     src="https://cdn.prod.website-files.com/643cd69e8bc0bcf1b4af13d5/6440dbe394b643939a28997d_6.webp"
                     loading="lazy"
@@ -401,32 +402,34 @@
                 <div class="instagram-icon"></div>
             </a></div>
     </div>
-    <div data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ea9" class="footer dark" style="opacity: 0;">
+    <div data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ea9" class="footer dark"
+        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
         <div class="footer-top">
             <div class="container w-container">
                 <div class="w-layout-grid footer-grid">
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932ead-4a932ea9"
-                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ead" class="footer-block" style="opacity: 0;">
+                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ead" class="footer-block"
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                         <h3 class="footer-title">Contact Us</h3>
                         <div class="footer-contact-us">
                             <div class="footer-address-item">
-                                <div class="address-block">TheCoffeeLink,shop no.24 ET, Addis Ababa</div>
+                                <div class="address-block">TheCoffeeLink,shop no.24 Fifth,USA</div>
                             </div>
                             <div class="footer-contact-us-item"><a href="mailto:TheCoffeeLink@gmail.com?subject=webfolw"
                                     class="footer-contact-us-item-link">TheCoffeeLink@gmail.com</a></div>
-                            <div class="footer-contact-us-item"><a href="tel:+ 251 900 000 00"
-                                    class="footer-contact-us-item-link">+ 251 900 000 00</a></div>
+                            <div class="footer-contact-us-item"><a href="tel:+251-901-658"
+                                    class="footer-contact-us-item-link">+251-901-658</a></div>
                         </div>
                     </div>
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932eba-4a932ea9"
                         data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932eba" class="footer-block logo-center"
-                        style="opacity: 0;"><img
-                            src="../../static/img/logo_1.jpg"
-                            loading="lazy" alt="footer logo" class="footer-logo">
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+                        <img src="../../static/img/logo_1.jpg" loading="lazy" alt="footer logo" class="footer-logo">
                         <p class="footer-paragraph">Hot, Cold, Sweet or straight up, we've got the brew for you.</p>
                     </div>
                     <div id="w-node-_3e6b6826-09d9-f39c-eb00-2abb4a932ebe-4a932ea9"
-                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ebe" class="footer-block last" style="opacity: 0;">
+                        data-w-id="3e6b6826-09d9-f39c-eb00-2abb4a932ebe" class="footer-block last"
+                        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
                         <h3 class="footer-title">Open Hour</h3>
                         <ul role="list" class="footer-time-list">
                             <li class="footer-time-list-item">Monday-Friday: 09:00-20:00</li>
@@ -437,7 +440,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer-copyright-section">
+        <div class="footer-copyright-section"> 
             <div class="container w-container">
                 <p class="footer-copyright-text">© Powered by <a href="https://anwar5promoter.onrender.com/"
                         target="_blank" class="footer-copyright-link">Anwar5promoter</a> created by <a href="https://bil-portfolio.netlify.app" target="_blank"

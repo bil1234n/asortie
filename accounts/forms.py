@@ -7,7 +7,7 @@ from .models import User, VerificationDoc
 class BuyerRegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name')
+        fields = ('username', 'email', 'first_name', 'last_name', 'package_tier')
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -24,7 +24,7 @@ class SellerRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name')
+        fields = ('username', 'email', 'first_name', 'last_name', 'package_tier')
 
     def save(self, commit=True):
         user = super().save(commit=False)

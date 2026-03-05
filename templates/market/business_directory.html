@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    :root {
+        --coffee-dark: #2C1A11;
+        --gold: #D4AF37;
+    }
+    .search-input {
+        border-radius: 50px;
+        padding: 15px 25px;
+        border: 2px solid #eee;
+    }
+    .search-input:focus {
+        border-color: var(--gold);
+        box-shadow: none;
+    }
+    .biz-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        overflow: hidden;
+    }
+    .biz-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+    .role-badge {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+    .btn-gold {
+        background-color: var(--gold);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    .btn-gold:hover {
+        background-color: #bfa030;
+        color: white;
+    }
+    .filter-bar {
+        background-color: white;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
+</style>
+
+<div class="container py-5">
+    
+    <!-- HEADER & SEARCH -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold" style="color: var(--coffee-dark);">Business Directory</h1>
+        <p class="text-muted">Discover verified farmers, roasters, and suppliers.</p>
+        
+        <!-- TOP FILTER BAR (Full Width)  -->
+        <form method="get" class="filter-bar mb-5">
+            <div class="row g-3 align-items-end">
+                
+                <!-- 1. Search Input -->
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label">Search</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>
+                        <input type="text" name="q" class="form-control" placeholder="Company, Product..." value="{{ request.GET.q }}">
+                    </div>
+                </div>
+
+                <!-- 2. Country Select -->
+                <div class="col-lg-2 col-md-6">
+                    <label class="form-label">Location</label>
+                    <select name="country" class="form-select">
+                        <option value="">All Countries</option>
+                        {% for c in countries %}
+                            <option value="{{ c }}" {% if request.GET.country == c %}selected{% endif %}>{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- 3. Sort Select -->
+                <div class="col-lg-2 col-md-6">
+                    <label class="form-label">Sort By</label>
+                    <select name="sort" class="form-select">
+                        <option value="default">Default</option>
+                        <option value="orders_high" {% if request.GET.sort == 'orders_high' %}selected{% endif %}>Highest Success</option>
+                    </select>
+                </div>
+
+                <!-- 4. Checkboxes (Flex Column) -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="d-flex flex-column gap-1">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="verified_seller" id="vsCheck" {% if request.GET.verified_seller %}checked{% endif %}>
+                            <label class="form-check-label small" for="vsCheck">Verified Sellers Only <i class="fa-solid fa-check-circle text-primary"></i></label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="verified_cert" id="vcCheck" {% if request.GET.verified_cert %}checked{% endif %}>
+                            <label class="form-check-label small" for="vcCheck">With Certificates <i class="fa-solid fa-certificate text-warning"></i></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Submit Button -->
+                <div class="col-lg-2 col-md-12">
+                    <button type="submit" class="btn btn-dark w-100 fw-bold">Apply Filters</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- DIRECTORY GRID -->
+    <div class="row g-4">
+        {% for profile in profiles %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card biz-card shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    
+                    <!-- Logo -->
+                    <div class="mb-3">
+                        {% if profile.logo %}
+                            <img src="{{ profile.logo.url }}" class="rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
+                        {% else %}
+                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto" style="width: 100px; height: 100px;">
+                                <i class="fa-solid fa-store fa-2x text-muted"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Company Info -->
+                    <h5 class="fw-bold mb-1">{{ profile.company_name|default:profile.user.username }}</h5>
+                    <p class="small text-muted mb-2">
+                        <i class="fa-solid fa-location-dot text-danger"></i> 
+                        {{ profile.city|default:"City" }}, {{ profile.country|default:"Country" }}
+                    </p>
+
+                    <!-- Roles -->
+                    <div class="d-flex justify-content-center flex-wrap gap-1 mb-3">
+                        {% if profile.is_farmer %}<span class="badge bg-success role-badge">Farmer</span>{% endif %}
+                        {% if profile.is_roaster %}<span class="badge bg-danger role-badge">Roaster</span>{% endif %}
+                        {% if profile.is_exporter %}<span class="badge bg-primary role-badge">Exporter</span>{% endif %}
+                        {% if profile.is_supplier %}<span class="badge bg-warning text-dark role-badge">Supplier</span>{% endif %}
+                        <!-- Certificate Indicator -->
+                        {% if profile.certificates.exists %}
+                        <br>
+                            <div>
+                                <small class="text-warning fw-bold" style="font-size: 0.75rem;">
+                                    <i class="fa-solid fa-certificate"></i> Certified
+                                </small>
+                            </div>
+                        {% else %}
+                            <div style="min-height: 18px;"></div> 
+                        {% endif %}
+                    </div>
+
+                    <!-- Description Truncated -->
+                    <p class="text-muted small mb-4">
+                        {{ profile.description|truncatechars:80|default:"No description provided." }}
+                    </p>
+                    <!-- ACTION BUTTON (View Products) -->
+                    <div class="d-grid">
+                        <a href="{% url 'public_seller_profile' profile.user.id %}" class="btn btn-gold">
+                            <i class="fa-solid fa-box-open me-2"></i> View Products
+                        </a>
+                    </div>
+
+                </div>
+                
+                <!-- Footer Stats -->
+                <div class="card-footer bg-light border-0 py-3 d-flex justify-content-between small text-muted">
+                    <span><i class="fa-solid fa-leaf me-1"></i> {{ profile.core_products|truncatechars:15|default:"General" }}</span>
+                    <span>Verified <i class="fa-solid fa-circle-check text-primary"></i></span>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="fa-regular fa-folder-open fa-3x text-muted mb-3"></i>
+            <h4 class="text-muted">No businesses found matching your search.</h4>
+            <a href="{% url 'business_directory' %}" class="btn btn-outline-dark mt-2">Clear Search</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

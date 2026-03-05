@@ -12,6 +12,7 @@ from chat import views as chat_views
 from core.views import mark_notification_read, all_notifications
 from chat import views as chat_views 
 from accounts.views import ChangePasswordView 
+from market import views
 
 urlpatterns = [
     # --- MARKETING SITE ---
@@ -79,10 +80,13 @@ urlpatterns = [
     # --- Profile ---
     path('profile/', auth_views.profile_view, name='profile'),
     path('profile/change-password/', ChangePasswordView.as_view(), name='change_password'),
+
+    # ... business paths ...
+    path('seller/business-profile/', views.business_profile, name='business_profile'),
+    path('seller/cert/delete/<int:cert_id>/', views.delete_certificate, name='delete_certificate'),
+    path('market/seller/<int:seller_id>/', views.public_seller_profile, name='public_seller_profile'),
     
-    # -- Business Directory
-    path('seller/business-profile/', market_views.business_profile, name='business_profile'),
-    path('market/seller/<int:seller_id>/', market_views.public_seller_profile, name='public_seller_profile'),
+    path('directory/', views.business_directory, name='business_directory'),
 ]
 
 if settings.DEBUG:

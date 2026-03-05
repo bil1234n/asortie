@@ -1,8 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from cloudinary.models import CloudinaryField  # <--- Import this
+from cloudinary.models import CloudinaryField
 
 class User(AbstractUser):
+    # Roles
     BUYER = 'buyer'
     SELLER = 'seller'
     ADMIN = 'admin'
@@ -12,8 +13,20 @@ class User(AbstractUser):
         (SELLER, 'Seller'),
         (ADMIN, 'Admin'),
     ]
+
+    # Packages
+    BASIC = 'basic'
+    PREMIUM = 'premium'
+    PROFESSIONAL = 'professional'
+
+    PACKAGE_CHOICES = [
+        (BASIC, 'Basic'),
+        (PREMIUM, 'Premium'),
+        (PROFESSIONAL, 'Professional'),
+    ]
     
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=BUYER)
+    package_tier = models.CharField(max_length=15, choices=PACKAGE_CHOICES, default=BASIC) # <--- Added
     is_verified = models.BooleanField(default=False)
 
     def is_seller(self):
