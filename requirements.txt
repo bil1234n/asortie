@@ -1,45 +1,33 @@
-# --- CORE WEB SERVER ---
-Django>=5.1.1
+# --- CORE DJANGO & SERVERS ---
+django>=5.1.1
+python-dotenv
+dj-database-url
+psycopg2-binary
+whitenoise
 gunicorn
 daphne
 asgiref
-python-dotenv
-whitenoise
-django-cors-headers
-djangorestframework
 
-# --- DATABASE & STORAGE ---
-dj-database-url
-psycopg2-binary
-pgvector
-cloudinary
-django-cloudinary-storage
-
-# --- REAL-TIME (CHAT) ---
+# --- REAL-TIME & CHAT (CHANNELS) ---
 channels
 channels-redis
 redis
 
-# --- PAYMENTS & APIS ---
-stripe
+# --- DATABASE & VECTORS ---
+pgvector
+sqlparse
+
+# --- IMAGE HANDLING & STORAGE ---
+pillow
+cloudinary
+django-cloudinary-storage
+
+# --- AI & LLM (LIGHTWEIGHT API VERSION) ---
 requests
 groq
-
-# --- UTILITIES ---
-pillow
-qrcode
-sqlparse
-cryptography
-
-# --- AI & MACHINE LEARNING ---
-# Removing strict versions so Pip finds the best match for Python 3.13
-torch
-transformers
-sentence-transformers
-numpy
-scikit-learn
-langchain
-langchain-community
 langchain-groq
-langchain-huggingface
-huggingface_hub
+
+# --- PAYMENTS & UTILITIES ---
+stripe
+qrcode
+cryptography
