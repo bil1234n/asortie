@@ -83,12 +83,11 @@ WSGI_APPLICATION = 'asortie.wsgi.application'
 ASGI_APPLICATION = 'asortie.asgi.application'
 
 # --- DATABASE ---
-# If DATABASE_URL exists (Render), use it. Otherwise, use local Postgres settings.
-# --- DATABASE CONFIGURATION ---
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:Bilal1234@127.0.0.1:5432/AR&3D_db',
-        conn_max_age=600
+        default=os.environ.get('DATABASE_URL', 'postgresql://postgres:Bilal1234@127.0.0.1:5432/asortie_db'),
+        conn_max_age=600,
+        ssl_require=True if os.environ.get('DATABASE_URL') else False
     )
 }
 
