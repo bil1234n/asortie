@@ -420,7 +420,7 @@
 
                 <p class="mb-4 text-muted">{{ product.description|truncatewords:40 }}</p>
 
-                {% if user.is_authenticated %}
+                {% if user.is_authenticated and user.role == 'buyer' %}
                     <form action="{% url 'create_order' product.id %}" method="post">
                         {% csrf_token %}
                         <div class="row g-3 mb-4">
