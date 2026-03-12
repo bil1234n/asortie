@@ -130,7 +130,19 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# --- STORAGE ENGINES (Django 4.2+ & 5.0+ Standard) ---
+STORAGES = {
+    "default": {
+        # Using RawMediaCloudinaryStorage is highly recommended for 3D Models (.glb, .usdz)
+        # so Cloudinary doesn't accidentally try to process them as images and reject them.
+        "BACKEND": "cloudinary_storage.storage.RawMediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 
 # --- CLOUDINARY MEDIA STORAGE ---
 CLOUDINARY_STORAGE = {
@@ -138,7 +150,6 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # --- API KEYS ---
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
@@ -150,3 +161,8 @@ GROQ_KEY_2 = os.environ.get('GROQ_KEY_2')
 GROQ_KEY_3 = os.environ.get('GROQ_KEY_3')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Upload limits for 3D Models and Images
+FILE_UPLOAD_TEMP_DIR = '/tmp'
+FILE_UPLOAD_PERMISSIONS = 0o644
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2097152      # 2MB in bytes (Spool to disk if larger)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 150000000    # ~143MB (Allow large 3D model POST requests)
