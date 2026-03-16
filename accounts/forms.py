@@ -81,7 +81,16 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'email']
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
+
+class VerificationDocForm(forms.ModelForm):
+    class Meta:
+        model = VerificationDoc
+        fields = ['business_license', 'id_card']
+        widgets = {
+            'business_license': forms.FileInput(attrs={'class': 'form-control'}),
+            'id_card': forms.FileInput(attrs={'class': 'form-control'}),
         }
