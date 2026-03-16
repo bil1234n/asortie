@@ -166,3 +166,11 @@ FILE_UPLOAD_TEMP_DIR = '/tmp'
 FILE_UPLOAD_PERMISSIONS = 0o644
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2097152      # 2MB in bytes (Spool to disk if larger)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 150000000    # ~143MB (Allow large 3D model POST requests)
+
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+# This allows the Google popup to "talk" back to your website
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
+# Ensure your session cookies work with the popup redirect
+SESSION_COOKIE_SAMESITE = 'Lax'
