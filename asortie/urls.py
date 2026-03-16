@@ -40,6 +40,7 @@ urlpatterns = [
     
     path('auth/admin/login/', auth_views.admin_login, name='admin_login'),
     path('auth/admin/register/', auth_views.admin_register, name='admin_register'),
+    path('api/google-login/', auth_views.google_login_api, name='google_login_api'),
 
     # --- CORE PAGES ---
     path('home/', core_views.home, name='home'),
