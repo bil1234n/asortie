@@ -31,3 +31,7 @@ langchain-groq
 stripe
 qrcode
 cryptography
+
+# --- GOOGLE LOGIN ---
+google-auth
+google-auth-oauthlib
