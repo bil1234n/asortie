@@ -66,7 +66,7 @@
                     <h5 class="mb-0 fw-bold"><i class="fa-solid fa-user-pen me-2"></i> Edit Profile</h5>
                 </div>
                 <div class="card-body p-4">
-                    <form method="post">
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         
                         <div class="row mb-3">
@@ -92,7 +92,37 @@
                             <div class="form-text">Username cannot be changed.</div>
                         </div>
 
-                        <hr class="my-4">
+                        {% if user.role == 'seller' %}
+                            <hr class="my-4">
+                            <div class="p-3 rounded-3 mb-4" style="background-color: #f8f9fa; border: 1px dashed var(--gold);">
+                                <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-file-shield me-2"></i>Business Documents</h6>
+                                <div class="row g-3">
+                                    
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold small">Import/Export License</label>
+                                        {% if user.verification_doc.business_license %}
+                                            <div class="mb-2">
+                                                <a href="{{ user.verification_doc.business_license.url }}" target="_blank" class="badge bg-primary text-decoration-none">
+                                                    <i class="fa-solid fa-eye"></i> View Current License
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                        {{ doc_form.business_license }} </div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold small">National ID Card</label>
+                                        {% if user.verification_doc.id_card %}
+                                            <div class="mb-2">
+                                                <a href="{{ user.verification_doc.id_card.url }}" target="_blank" class="badge bg-primary text-decoration-none">
+                                                    <i class="fa-solid fa-eye"></i> View Current ID
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                        {{ doc_form.id_card }} </div>
+
+                                </div>
+                            </div>
+                        {% endif %}
 
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- Password Change Link (Optional) -->
