@@ -25,23 +25,29 @@
         transition: 0.3s;
         z-index: 2;
     }
-    /* Active State */
     .role-login-opt:checked + .role-login-label {
         color: white;
         background-color: var(--coffee-dark);
         box-shadow: 0 4px 10px rgba(62,39,35,0.2);
     }
+    /* Google Button Wrapper */
+    .google-btn-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
 </style>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <div class="container py-5" style="min-height: 80vh; display: flex; align-items: center;">
     <div class="row justify-content-center w-100">
         <div class="col-md-5">
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-body p-5">
-                    <img src="../../static/img/logo_1.png" alt="" width="50px" style="margin: 0 auto; display: flex;"> 
+                    <img src="../../static/img/logo_1.png" alt="Logo" width="50px" style="margin: 0 auto 20px; display: flex;"> 
                     <h3 class="fw-bold text-center mb-4" style="color: var(--coffee-dark);">Welcome Back</h3>
 
-                    <!-- Visual Role Switcher (Top of form as requested) -->
                     <div class="role-switcher-login">
                         <input type="radio" name="login_role" id="lr_buyer" class="role-login-opt" checked>
                         <label for="lr_buyer" class="role-login-label">
@@ -57,7 +63,6 @@
                     <form method="post">
                         {% csrf_token %}
                         
-                        <!-- Show Non-Field Errors -->
                         {% if form.non_field_errors %}
                         <div class="alert alert-danger small">
                             {{ form.non_field_errors }}
@@ -79,6 +84,31 @@
                         </button>
                     </form>
 
+                    <div class="d-flex align-items-center mb-4 mt-4">
+                        <hr class="flex-grow-1">
+                        <span class="mx-3 text-muted small fw-bold">OR</span>
+                        <hr class="flex-grow-1">
+                    </div>
+
+                    <div id="g_id_onload"
+                        data-client_id="{{ google_client_id }}" 
+                        data-context="signin"
+                        data-ux_mode="popup"
+                        data-callback="handleGoogleLogin"
+                        data-auto_prompt="false">
+                    </div>
+
+                    <div class="google-btn-container">
+                        <div class="g_id_signin"
+                            data-type="standard"
+                            data-shape="pill"
+                            data-theme="outline"
+                            data-text="continue_with"
+                            data-size="large"
+                            data-logo_alignment="left">
+                        </div>
+                    </div>
+
                     <div class="text-center mt-4">
                         <p class="small text-muted">Don't have an account? 
                             <a href="{% url 'register' %}" class="fw-bold text-decoration-none" style="color: var(--coffee-dark);">Register Now</a>
@@ -91,8 +121,34 @@
 </div>
 
 <script>
+    // Handle the Google Token verification
+    function handleGoogleLogin(response) {
+        const credential = response.credential;
+        
+        fetch('{% url "google_login_api" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ credential: credential })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success') {
+                window.location.href = data.redirect_url;
+            } else {
+                alert('Google Sign-In failed: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Apply Bootstrap styling to manual inputs
     document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll('input:not([type="radio"])').forEach(i => i.classList.add('form-control', 'form-control-lg', 'bg-light', 'border-0'));
+        document.querySelectorAll('input:not([type="radio"])').forEach(i => {
+            i.classList.add('form-control', 'form-control-lg', 'bg-light', 'border-0');
+        });
     });
 </script>
 {% endblock %}
