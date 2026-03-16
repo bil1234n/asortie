@@ -194,7 +194,36 @@
                             Complete Registration
                         </button>
                     </form>
+                    <div class="" id="buyer_login" style="display: none;">
+                        <div class="d-flex align-items-center mb-4 mt-4">
+                            <hr class="flex-grow-1">
+                            <span class="mx-3 text-muted small fw-bold">OR</span>
+                            <hr class="flex-grow-1">
+                        </div>
+                                            
+                        <div id="g_id_onload"
+                            data-client_id="{{ google_client_id }}" 
+                            data-context="signin"
+                            data-ux_mode="popup"
+                            data-callback="handleGoogleLogin"
+                            data-auto_prompt="false">
+                        </div>
+    
+                        <div class="g_id_signin mb-4"
+                            data-type="standard"
+                            data-shape="pill"
+                            data-theme="outline"
+                            data-text="continue_with"
+                            data-size="large"
+                            data-logo_alignment="left"
+                            style="display: flex; justify-content: center;">
+                        </div>
+                    </div>
+                    
                 </div>
+
+                <script src="https://accounts.google.com/gsi/client" async defer></script>
+
                 <div class="card-footer text-center bg-light py-3 border-0 rounded-bottom-4">
                     <small class="text-muted">Already have an account? 
                         <a href="{% url 'login' %}" class="fw-bold text-decoration-none" style="color: var(--secondary-color);">Login Here</a> 
@@ -217,22 +246,50 @@
     function toggleFormFields() {
         const isSeller = document.getElementById('role_seller').checked;
         const sellerFields = document.getElementById('seller_specific_fields');
+        const buyerLogin = document.getElementById('buyer_login');
         const licenseInput = document.getElementById('id_business_license');
         const idInput = document.getElementById('id_id_card');
 
         if (isSeller) {
             // Show fields
             sellerFields.style.display = 'block';
+            buyerLogin.style.display = 'none';
             // Make files required
             if(licenseInput) licenseInput.required = true;
             if(idInput) idInput.required = true;
         } else {
             // Hide fields
             sellerFields.style.display = 'none';
+            buyerLogin.style.display = 'block';
             // Remove required attribute so form submits for Buyer
             if(licenseInput) licenseInput.required = false;
             if(idInput) idInput.required = false;
         }
+    }
+    
+    function handleGoogleLogin(response) {
+        // This is the secure token Google gives us after the user selects their account
+        const credential = response.credential;
+        
+        // Send it to our Django backend
+        fetch('{% url "google_login_api" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}' // Standard Django Security
+            },
+            body: JSON.stringify({ credential: credential })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success') {
+                // Instantly redirect the user on success
+                window.location.href = data.redirect_url;
+            } else {
+                alert('Google Sign-In failed: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
     }
 </script>
 {% endblock %}
