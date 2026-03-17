@@ -2,142 +2,190 @@
 
 {% block content %}
 <style>
-    /* Chat Container Styles */
+    :root {
+        --wa-bg: #efeae2;
+        --wa-card-bg: #f0f2f5;
+        --wa-incoming: #ffffff;
+        --wa-outgoing: #d9fdd3;
+        --wa-text: #111b21;
+        --wa-muted: #667781;
+        --wa-blue: #53bdeb;
+        --sys-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body { font-family: var(--sys-font); color: var(--wa-text); }
+
     .chat-card {
-        height: 85vh;
+        height: 88vh;
         display: flex;
         flex-direction: column;
-        border-radius: 15px;
+        border-radius: 12px;
         overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.08);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
-    /* Message Bubbles */
+    #chat-history::-webkit-scrollbar { width: 6px; }
+    #chat-history::-webkit-scrollbar-track { background: transparent; }
+    #chat-history::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
+    #chat-history::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
+
+    #chat-history {
+        background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+        background-repeat: repeat;
+        background-color: var(--wa-bg);
+        background-blend-mode: multiply;
+        opacity: 0.95;
+    }
+
     .message-bubble {
         position: relative;
-        min-width: 150px;
+        min-width: 90px;
         max-width: 75%;
-        padding: 12px 16px;
-        border-radius: 15px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        padding: 8px 10px 4px 12px;
+        box-shadow: 0 1px 2px rgba(11,20,26,.1);
         font-size: 0.95rem;
-        line-height: 1.5;
-        word-wrap: break-word;
+        line-height: 1.4;
     }
+
     .msg-dropdown {
         position: absolute;
-        top: 5px;
-        right: 10px;
+        top: 4px;
+        right: 8px;
         opacity: 0;
-        transition: opacity 0.2s;
-        cursor: pointer;
+        transition: opacity 0.2s ease-in-out;
+        z-index: 10;
+        background: inherit;
+        padding-left: 10px;
+        border-radius: 4px;
     }
-    .message-bubble:hover .msg-dropdown { 
-        opacity: 1; 
-    }
+    .message-bubble:hover .msg-dropdown { opacity: 1; }
+    
+    /* Reveal reaction button on hover */
+    .message-bubble:hover .reaction-btn { opacity: 1 !important; }
 
-    /* Specific User Styles */
-    .msg-me {
-        background-color: #1B3C59; /* Coffee Dark */
-        color: #fff;
-        border-bottom-right-radius: 2px;
-    }
-    .msg-other {
-        background-color: #ffffff;
-        color: #333;
-        border: 1px solid #f0f0f0;
-        border-bottom-left-radius: 2px;
-    }
-
-    /* Meta text (Time, Edited) */
     .msg-meta {
-        font-size: 0.7rem;
-        margin-top: 4px;
-        text-align: right;
-        opacity: 0.7;
+        font-size: 0.68rem;
+        color: var(--wa-muted);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
+        margin-top: 3px;
+        user-select: none;
     }
-    .msg-edited-tag {
-        font-size: 0.65rem;
-        font-style: italic;
-        opacity: 0.6;
-        margin-left: 5px;
-    }
-    .deleted-text {
-        font-style: italic;
-        color: #999;
-    }
+
+    .deleted-text { font-style: italic; color: var(--wa-muted); font-size: 0.9rem; }
+
+    .chat-footer { background-color: var(--wa-card-bg); padding: 12px 16px; border-top: 1px solid rgba(0,0,0,0.05); }
+
     #msg-input {
-        width: 100%;
-        font-size: 0.95rem;
-        resize: none;      
-        padding: 10px 15px;
         border-radius: 20px;
-        field-sizing: content;
-        max-height: 20vh; 
-        overflow-y: auto; 
+        border: 1px solid rgba(0,0,0,0.08) !important;
+        padding: 10px 16px;
+        font-size: 0.95rem;
+        resize: none;
+        background-color: #ffffff;
+    }
+    #msg-input:focus { box-shadow: 0 0 0 2px rgba(83, 189, 235, 0.2); }
+    
+    .pulse-animation { animation: pulse 1.5s infinite; }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    .chat_head_a .text-muted{
+        color: #ffffff !important;
     }
 </style>
 
-<div class="container py-4">
+<div class="container py-3">
     <div class="row justify-content-center">
-        <div class="col-md-9"> <!-- Made slightly wider for better desktop view -->
-            <div class="card chat-card shadow-lg border-0">
+        <div class="col-md-10">
+            <div class="card chat-card shadow-sm">
                 
-                <!-- 1. CHAT HEADER -->
-                <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                <div class="card-header border-0 py-2 d-flex justify-content-between align-items-center chat_head_a" style="background: linear-gradient(180deg, #182f44 0%, var(--secondary-color) 100% 100%); color: #fff;">
                     <div class="d-flex align-items-center">
-                        <a href="{% url 'chat_inbox' %}" class="btn btn-sm btn-light rounded-circle me-3 border">
+                        <a href="{% url 'chat_inbox' %}" class="text-muted me-3">
                             <i class="fa-solid fa-arrow-left"></i>
                         </a>
-                        
-                        <!-- User Avatar -->
-                        <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center me-3 shadow-sm" 
-                             style="width: 45px; height: 45px; font-weight: bold; font-size: 1.2rem;">
-                            {{ other_user.username|first|upper }}
-                        </div>
-                        
+                        <img src="https://ui-avatars.com/api/?name={{ other_user.username }}&background=random" 
+                             class="rounded-circle me-3" width="40" height="40">
                         <div>
-                            <h5 class="mb-0 fw-bold">{{ other_user.username }}</h5>
-                            <small class="text-success"><i class="fa-solid fa-circle" style="font-size: 8px;"></i> Online</small>
+                            <h6 class="mb-0 fw-bold">{{ other_user.username }}</h6>
+                            <small class="text-muted">Online</small>
                         </div>
                     </div>
 
-                    <!-- Clear Chat Menu -->
                     <div class="dropdown">
-                        <button class="btn btn-light btn-sm rounded-circle" data-bs-toggle="dropdown">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        <button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-ellipsis-vertical fs-5"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                            <li>
-                                <button class="dropdown-item text-danger" onclick="clearChat()">
-                                    <i class="fa-solid fa-trash-can me-2"></i> Clear Chat History
-                                </button>
-                            </li>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2">
+                            <li><button class="dropdown-item py-2" onclick="clearChat()"><i class="fa-solid fa-trash-can me-2 text-danger"></i> Clear Chat</button></li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- 2. CHAT HISTORY AREA -->
-                <div class="card-body bg-light overflow-auto" id="chat-history">
-                    <div class="d-flex flex-column gap-3" id="msg-container">
-                        <!-- Messages load here via Server Template + JS -->
+                <div class="card-body overflow-auto px-4" id="chat-history">
+                    <div class="d-flex flex-column gap-1 py-3" id="msg-container">
                         {% for message in chat_messages %}
                             {% include 'chat/single_message.html' %}
                         {% endfor %}
                     </div>
                 </div>
 
-                <!-- 3. INPUT AREA -->
-                <div class="card-footer bg-white border-top p-3">
-                    <form id="chat-form" class="d-flex align-items-center gap-2">
-                        <!-- Changed input to textarea -->
-                        <textarea id="msg-input" class="form-control border-0 bg-light" 
-                                placeholder="Type your message..." required autocomplete="off" rows="1"></textarea>
+                <div class="chat-footer position-relative">
+                    <form id="chat-form" class="d-flex align-items-center gap-2 w-100">
+                        <button type="button" class="btn btn-link text-muted p-1" id="emoji-trigger">
+                            <i class="fa-regular fa-face-smile fs-4"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-link text-muted p-1" id="attachment-btn" onclick="document.getElementById('file-input').click()">
+                            <i class="fa-solid fa-paperclip fs-4"></i>
+                        </button>
+                        <input type="file" id="file-input" class="d-none" onchange="uploadFile(this)">
+
+                        <textarea id="msg-input" class="form-control" placeholder="Type a message" rows="1"></textarea>
                         
-                        <button type="submit" class="btn btn-warning text-dark rounded-circle shadow-sm" 
-                                style="width: 45px; height: 45px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
-                            <i class="fa-solid fa-paper-plane"></i>
+                        <div id="recording-status" class="d-none align-items-center flex-grow-1 px-3 py-2 bg-white rounded-pill border">
+                            <i class="fa-solid fa-microphone text-danger pulse-animation me-3 fs-5"></i>
+                            <span id="recording-timer" class="fw-bold text-danger flex-grow-1">00:00</span>
+                            <span class="text-muted small">Recording...</span>
+                        </div>
+
+                        <button type="button" class="btn btn-link p-1 text-muted" id="mic-btn">
+                            <i class="fa-solid fa-microphone fs-4"></i>
+                        </button>
+
+                        <button type="submit" class="btn btn-link p-0" id="send-btn">
+                            <i class="fa-solid fa-circle-right text-success fs-2"></i>
                         </button>
                     </form>
+                    
+                    <div id="audio-preview-container" class="w-100 d-none align-items-center gap-3 bg-white border rounded-pill px-3 py-1">
+                        <i class="fa-solid fa-microphone-lines text-danger pulse-animation" id="recording-indicator" style="display:none;"></i>
+                        <audio id="audio-preview-player" controls class="flex-grow-1" style="height: 35px; outline: none;"></audio>
+                        <button type="button" class="btn btn-light rounded-circle text-danger" id="cancel-audio-btn" title="Delete">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                        <button type="button" class="btn btn-success rounded-circle" id="send-audio-btn" title="Send">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+
+                    <div id="reaction-picker" class="shadow border rounded bg-white p-2 position-fixed" style="display: none; z-index: 1050; gap: 10px;">
+                        <span class="cursor-pointer fs-5" style="cursor: pointer;" onclick="sendReaction('')">🚫</span>
+                        <span class="cursor-pointer fs-5" style="cursor: pointer;" onclick="sendReaction('👍')">👍</span>
+                        <span class="cursor-pointer fs-5" style="cursor: pointer;" onclick="sendReaction('❤️')">❤️</span>
+                        <span class="cursor-pointer fs-5" style="cursor: pointer;" onclick="sendReaction('😂')">😂</span>
+                        <span class="cursor-pointer fs-5" style="cursor: pointer;" onclick="sendReaction('😮')">😮</span>
+                        <span class="cursor-pointer fs-5" style="cursor: pointer;" onclick="sendReaction('😢')">😢</span>
+                        <span class="cursor-pointer fs-5" style="cursor: pointer;" onclick="sendReaction('🙏')">🙏</span>
+                    </div>
+
+                    <div id="emoji-picker-container" style="position: absolute; bottom: 80px; left: 20px; z-index: 1000; display: none;"></div>
                 </div>
 
             </div>
@@ -145,208 +193,425 @@
     </div>
 </div>
 
-<!-- 4. EDIT MESSAGE MODAL -->
-<div class="modal fade" id="editModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title fw-bold">Edit Message</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                
-                <textarea class="form-control border-0 bg-light" required autocomplete="off" rows="1" id="edit-input" style="height: 60px;"></textarea>
-                <!-- <input type="text" id="edit-input" class="form-control"> -->
-                <input type="hidden" id="edit-msg-id">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark btn-sm" onclick="submitEdit()">Save Changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- JAVASCRIPT LOGIC -->
 <script>
     const roomId = "{{ room.id }}";
     const currentUserId = "{{ user.id }}";
     const chatHistory = document.getElementById("chat-history");
-    
-    // Set last check time (Current time in seconds)
     let lastCheckTime = Math.floor(Date.now() / 1000); 
 
-    // Scroll to bottom on load
     function scrollToBottom() {
         chatHistory.scrollTop = chatHistory.scrollHeight;
     }
-    scrollToBottom();
+    window.onload = scrollToBottom;
 
-    // --- 1. SEND MESSAGE ---
-    document.getElementById('chat-form').addEventListener('submit', function(e) {
+    // --- EMOJI PICKER ---
+    if(typeof EmojiMart !== 'undefined') {
+        const pickerOptions = { 
+            onEmojiSelect: (emoji) => {
+                const input = document.getElementById('msg-input');
+                input.value += emoji.native;
+                input.focus();
+            } 
+        }
+        const picker = new EmojiMart.Picker(pickerOptions);
+        document.getElementById('emoji-picker-container').appendChild(picker);
+    }
+
+    document.getElementById('emoji-trigger').addEventListener('click', (e) => {
+        const container = document.getElementById('emoji-picker-container');
+        container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        document.getElementById('reaction-picker').style.display = 'none';
+    });
+
+    document.addEventListener('click', (e) => {
+        const emojiContainer = document.getElementById('emoji-picker-container');
+        const trigger = document.getElementById('emoji-trigger');
+        const reactionPicker = document.getElementById('reaction-picker');
+        
+        if (emojiContainer && emojiContainer.style.display !== 'none' && !emojiContainer.contains(e.target) && !trigger.contains(e.target)) {
+            emojiContainer.style.display = 'none';
+        }
+        
+        if (reactionPicker && reactionPicker.style.display !== 'none' && !e.target.closest('.reaction-btn') && !reactionPicker.contains(e.target)) {
+            reactionPicker.style.display = 'none';
+        }
+    });
+
+    // --- FIXED VOICE RECORDING LOGIC ---
+    let mediaRecorder;
+    let audioChunks = [];
+    let pendingAudioBlob = null;
+    
+    // Timer Variables
+    let recordTimerInterval;
+    let recordSeconds = 0;
+    
+    const micBtn = document.getElementById('mic-btn');
+    const chatForm = document.getElementById('chat-form');
+    const audioPreviewContainer = document.getElementById('audio-preview-container');
+    const audioPlayer = document.getElementById('audio-preview-player');
+    const cancelAudioBtn = document.getElementById('cancel-audio-btn');
+    const sendAudioBtn = document.getElementById('send-audio-btn');
+
+    // Helper to format seconds into MM:SS
+    function formatTime(seconds) {
+        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    }
+
+    // Helper to restore the normal text input UI
+    function resetInputUI() {
+        document.getElementById('msg-input').classList.remove('d-none');
+        document.getElementById('emoji-trigger').classList.remove('d-none');
+        document.getElementById('attachment-btn').classList.remove('d-none');
+        document.getElementById('send-btn').classList.remove('d-none');
+        
+        document.getElementById('recording-status').classList.remove('d-flex');
+        document.getElementById('recording-status').classList.add('d-none');
+        
+        micBtn.innerHTML = '<i class="fa-solid fa-microphone fs-4"></i>';
+        micBtn.classList.remove('text-danger', 'pulse-animation');
+    }
+
+    micBtn.addEventListener('click', async () => {
+        if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    clearInterval(recordTimerInterval);
+                    
+                    pendingAudioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(pendingAudioBlob);
+                    
+                    // Show Preview UI, Hide normal input/recording status completely
+                    chatForm.classList.add('d-none');
+                    audioPreviewContainer.classList.remove('d-none');
+                    audioPreviewContainer.classList.add('d-flex');
+                    audioPlayer.src = audioUrl;
+                    
+                    stream.getTracks().forEach(track => track.stop()); // Free mic
+                    resetInputUI(); // Reset the background UI so it's normal when preview is closed
+                };
+
+                mediaRecorder.start();
+                
+                // Change UI to active recording mode
+                document.getElementById('msg-input').classList.add('d-none');
+                document.getElementById('emoji-trigger').classList.add('d-none');
+                document.getElementById('attachment-btn').classList.add('d-none');
+                document.getElementById('send-btn').classList.add('d-none');
+                
+                document.getElementById('recording-status').classList.remove('d-none');
+                document.getElementById('recording-status').classList.add('d-flex');
+
+                micBtn.innerHTML = '<i class="fa-solid fa-stop fs-4 text-danger"></i>';
+                micBtn.classList.add('text-danger');
+
+                // Start Timer
+                recordSeconds = 0;
+                document.getElementById('recording-timer').innerText = "00:00";
+                recordTimerInterval = setInterval(() => {
+                    recordSeconds++;
+                    document.getElementById('recording-timer').innerText = formatTime(recordSeconds);
+                }, 1000);
+
+            } catch (err) {
+                alert("Microphone access denied or unavailable.");
+            }
+        } else {
+            mediaRecorder.stop();
+        }
+    });
+
+    // Discard Audio
+    cancelAudioBtn.addEventListener('click', () => {
+        pendingAudioBlob = null;
+        audioPlayer.src = "";
+        audioPreviewContainer.classList.add('d-none');
+        audioPreviewContainer.classList.remove('d-flex');
+        chatForm.classList.remove('d-none');
+    });
+
+    // Send Audio
+    sendAudioBtn.addEventListener('click', () => {
+        if(pendingAudioBlob) {
+            const audioFile = new File([pendingAudioBlob], "voice_note.webm", { type: 'audio/webm' });
+            const formData = new FormData();
+            formData.append('file', audioFile);
+            formData.append('content', ""); 
+            
+            sendData(formData);
+            
+            // Reset UI
+            cancelAudioBtn.click();
+        }
+    });
+
+    // --- REACTIONS LOGIC ---
+    let activeReactionMessageId = null;
+    
+    window.showReactionPicker = function(msgId, event) {
+        event.stopPropagation();
+        activeReactionMessageId = msgId;
+        const picker = document.getElementById('reaction-picker');
+        
+        picker.style.top = (event.clientY - 50) + 'px';
+        picker.style.left = (event.clientX - 100) + 'px';
+        picker.style.display = 'flex';
+        
+        document.getElementById('emoji-picker-container').style.display = 'none';
+    }
+
+    window.sendReaction = function(emoji) {
+        if (!activeReactionMessageId) return;
+
+        fetch("{% url 'api_manage_message' %}", {
+            method: 'POST',
+            headers: {'X-CSRFToken': '{{ csrf_token }}', 'Content-Type': 'application/json'},
+            body: JSON.stringify({'action': 'react', 'message_id': activeReactionMessageId, 'emoji': emoji})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'reacted') {
+                updateReactionsUI(activeReactionMessageId, data.reactions);
+            }
+        });
+        document.getElementById('reaction-picker').style.display = 'none';
+    }
+
+    function updateReactionsUI(msgId, reactionsMap) {
+        const container = document.getElementById(`reactions-${msgId}`);
+        if (!container) return;
+        
+        container.innerHTML = '';
+        for (const [userId, emoji] of Object.entries(reactionsMap)) {
+            const badge = `<span class="badge bg-light text-dark border shadow-sm rounded-pill" style="font-size: 0.75rem; padding: 3px 6px;">${emoji}</span>`;
+            container.insertAdjacentHTML('beforeend', badge);
+        }
+    }
+
+    // --- SUBMIT TEXT FORM ---
+    chatForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const input = document.getElementById('msg-input');
-        const content = input.value.trim();
-        if(!content) return;
+        if(input.value.trim() === '') return;
+        
+        const formData = new FormData();
+        formData.append('content', input.value);
+        sendData(formData);
+        input.value = '';
+    });
 
+    function uploadFile(input) {
+        if (input.files && input.files[0]) {
+            const formData = new FormData();
+            formData.append('file', input.files[0]);
+            sendData(formData);
+            input.value = ''; // reset
+        }
+    }
+
+    function sendData(formData) {
         fetch(`{% url 'api_send_message' room.id %}`, {
             method: 'POST',
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            body: JSON.stringify({'content': content})
+            body: formData
         })
         .then(res => res.json())
         .then(data => {
             if(data.status === 'success') {
-                input.value = '';
-                // Append message locally immediately
-                appendMessage(data.message_id, content, data.time, true, false, false);
+                appendMessage(data.message_id, data.content, data.time, true, false, false, false, data.msg_type, data.file_url, {});
             }
         });
-    });
+    }
 
-    // --- 2. POLL FOR UPDATES (Every 2 Seconds) ---
+    // --- APPEND MESSAGE ---
+    function appendMessage(id, content, time, isMe, isDeleted, isEdited, isRead, msgType = 'text', fileUrl = null, reactions = {}) {
+        if (document.getElementById(`msg-row-${id}`)) return;
+
+        const alignClass = isMe ? 'justify-content-end' : 'justify-content-start';
+        const bubbleStyle = isMe ? 'background-color: var(--wa-outgoing); border-top-right-radius: 0;' : 'background-color: var(--wa-incoming); border-top-left-radius: 0;';
+        
+        let contentDisplay = '';
+        if (isDeleted) {
+            contentDisplay = `<span class="deleted-text"><i class="fa-solid fa-ban me-1"></i> This message was deleted.</span>`;
+        } else {
+            if (msgType === 'image' && fileUrl) {
+                contentDisplay += `<img src="${fileUrl}" class="img-fluid rounded-2 mb-1" style="max-height: 300px; cursor: pointer;" onclick="window.open(this.src)">`;
+            } else if (msgType === 'video' && fileUrl) {
+                contentDisplay += `<video controls class="img-fluid rounded-2 mb-1" style="max-height: 300px;"><source src="${fileUrl}" type="video/mp4"></video>`;
+            } else if (msgType === 'audio' && fileUrl) {
+                contentDisplay += `<audio controls class="mb-1" style="max-width: 250px; height: 40px;"><source src="${fileUrl}" type="audio/webm"></audio>`;
+            } else if (msgType === 'file' && fileUrl) {
+                contentDisplay += `<div class="p-2 border rounded bg-light d-flex align-items-center mb-1"><i class="fa-solid fa-file-lines me-2 fs-4"></i><a href="${fileUrl}" target="_blank" class="text-decoration-none text-dark small text-truncate">Download Attachment</a></div>`;
+            }
+            if (content) {
+                let editedTag = isEdited ? ` <small class="text-muted fst-italic" style="font-size:0.6rem">(edited)</small>` : '';
+                contentDisplay += `<p class="mb-1">${content}${editedTag}</p>`;
+            }
+        }
+
+        let dropdownHTML = '';
+        if(isMe && !isDeleted) {
+            const safeContent = content ? content.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+            dropdownHTML = `
+                <div class="dropdown msg-dropdown">
+                    <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem; cursor: pointer;" data-bs-toggle="dropdown"></i>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 small">
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="openEdit(${id}, '${safeContent}')"><i class="fa-solid fa-edit me-3 text-primary"></i>Edit</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="#" onclick="deleteMsg(${id}, 'everyone')"><i class="fa-solid fa-trash-can me-3 text-danger"></i>Delete for everyone</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="deleteMsg(${id}, 'me')"><i class="fa-solid fa-eye-slash me-3 text-danger"></i>Delete for me</a>
+                        </li>
+                    </ul>
+                </div>`;
+        }
+
+        const reactionBtn = isDeleted ? '' : `
+            <button class="btn btn-sm btn-light position-absolute top-50 translate-middle-y shadow-sm reaction-btn" 
+                    style="${isMe ? 'left: -40px;' : 'right: -40px;'} opacity: 0; transition: opacity 0.2s; border-radius: 50%; padding: 4px 8px; z-index: 10;"
+                    onclick="showReactionPicker(${id}, event)">
+                <i class="fa-regular fa-face-smile text-muted"></i>
+            </button>`;
+
+        const html = `
+            <div class="d-flex w-100 ${alignClass} mb-2" id="msg-row-${id}">
+                <div class="position-relative p-2 px-3 shadow-sm message-bubble group" style="${bubbleStyle} border-radius: 8px;">
+                    ${reactionBtn}
+                    ${dropdownHTML}
+                    <div class="text-break" id="msg-content-${id}">${contentDisplay}</div>
+                    <div class="msg-meta">
+                        ${time}
+                        ${isMe ? `<i class="fa-solid fa-check-double" style="color: ${isRead ? 'var(--wa-blue)' : '#8696a0'}"></i>` : ''}
+                    </div>
+                    <div class="reactions-container position-absolute" id="reactions-${id}" 
+                         style="bottom: -15px; ${isMe ? 'right: 10px;' : 'left: 10px;'} display: flex; gap: 2px; z-index: 5;">
+                    </div>
+                </div>
+            </div>`;
+        
+        document.getElementById('msg-container').insertAdjacentHTML('beforeend', html);
+        updateReactionsUI(id, reactions); 
+        scrollToBottom();
+    }
+
+    // --- POLLING ---
     setInterval(() => {
         fetch(`{% url 'api_get_updates' room.id %}?last_check=${lastCheckTime}`)
         .then(res => res.json())
         .then(data => {
             if(data.server_time) lastCheckTime = data.server_time;
 
-            // A. Add NEW Messages
             if(data.new_messages.length > 0) {
                 data.new_messages.forEach(msg => {
-                    // CRITICAL FIX: Only add if ID doesn't exist AND it's not from me (I already added mine)
                     if (!document.getElementById(`msg-row-${msg.id}`)) {
                         if (msg.sender_id != currentUserId) {
-                            appendMessage(msg.id, msg.content, msg.time, false, msg.is_deleted, false);
+                            appendMessage(msg.id, msg.content, msg.time, false, msg.is_deleted, false, false, msg.msg_type, msg.file_url, msg.reactions);
                         }
                     }
                 });
             }
 
-            // B. Update EDITED/DELETED Messages
             if(data.updated_messages.length > 0) {
                 data.updated_messages.forEach(msg => {
                     const contentEl = document.getElementById(`msg-content-${msg.id}`);
                     if(contentEl) {
                         if(msg.is_deleted) {
                             contentEl.innerHTML = `<span class="deleted-text"><i class="fa-solid fa-ban me-1"></i> This message was deleted.</span>`;
-                        } else {
-                            let newHTML = msg.content;
-                            if(msg.is_edited) newHTML += `<span class="msg-edited-tag">(edited)</span>`;
-                            contentEl.innerHTML = newHTML;
+                        } else if(msg.is_edited && msg.content) {
+                            contentEl.innerHTML = msg.content + ` <small class="text-muted fst-italic" style="font-size:0.6rem">(edited)</small>`;
                         }
+                    }
+                    if (msg.reactions) {
+                        updateReactionsUI(msg.id, msg.reactions);
                     }
                 });
             }
         });
     }, 2000);
 
-    // --- 3. APPEND MESSAGE HELPER ---
-    function appendMessage(id, content, time, isMe, isDeleted, isEdited) {
-        // FAILSAFE: If ID exists, stop immediately (Prevents Duplication)
-        if (document.getElementById(`msg-row-${id}`)) return;
-
-        const alignClass = isMe ? 'justify-content-end' : 'justify-content-start';
-        const bubbleClass = isMe ? 'msg-me' : 'msg-other';
-        
-        // Handling Content Display (Deleted vs Normal)
-        let contentDisplay = isDeleted ? 
-            `<span class="deleted-text"><i class="fa-solid fa-ban me-1"></i> This message was deleted.</span>` : 
-            content;
-        
-        if(isEdited && !isDeleted) contentDisplay += `<span class="msg-edited-tag">(edited)</span>`;
-
-        // Action Dropdown (Only for Me and Active messages)
-        let dropdownHTML = '';
-        if(isMe && !isDeleted) {
-            // Safe quotes escaping for JS function call
-            const safeContent = content.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            dropdownHTML = `
-                <div class="dropdown msg-dropdown-trigger">
-                    <i class="fa-solid fa-ellipsis-vertical text-white-50" data-bs-toggle="dropdown"></i>
-                    <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                        <li><a class="dropdown-item small" href="#" onclick="openEdit(${id}, '${safeContent}')"><i class="fa-solid fa-pen me-2"></i> Edit</a></li>
-                        <li><a class="dropdown-item small text-danger" href="#" onclick="deleteMsg(${id}, 'everyone')"><i class="fa-solid fa-trash me-2"></i> Delete from Everyone</a></li>
-                        <li><a class="dropdown-item small" href="#" onclick="deleteMsg(${id}, 'me')"><i class="fa-solid fa-eye-slash me-2"></i> Delete from Me</a></li>
-                    </ul>
-                </div>
-            `;
-        }
-
-        const html = `
-            <div class="d-flex ${alignClass}" id="msg-row-${id}">
-                <div class="message-bubble ${bubbleClass}">
-                    ${dropdownHTML}
-                    <span id="msg-content-${id}">${contentDisplay}</span>
-                    <div class="msg-meta">
-                        ${time}
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        document.getElementById('msg-container').insertAdjacentHTML('beforeend', html);
-        scrollToBottom();
-    }
-
-    // --- 4. ACTIONS (Delete/Edit/Clear) ---
-    
-    function deleteMsg(id, scope) {
-        if(!confirm("Are you sure?")) return;
-        
+    // Edit and Delete stubs
+    function deleteMsg(id, type) {
         fetch("{% url 'api_manage_message' %}", {
             method: 'POST',
-            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            body: JSON.stringify({'action': scope === 'me' ? 'delete_me' : 'delete_everyone', 'message_id': id})
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'hidden') {
-                document.getElementById(`msg-row-${id}`).remove();
-            } else if (data.status === 'deleted') {
-                document.getElementById(`msg-content-${id}`).innerHTML = `<span class="deleted-text"><i class="fa-solid fa-ban me-1"></i> This message was deleted.</span>`;
-            }
+            headers: {'X-CSRFToken': '{{ csrf_token }}', 'Content-Type': 'application/json'},
+            body: JSON.stringify({'action': type === 'me' ? 'delete_me' : 'delete_everyone', 'message_id': id})
+        }).then(res => res.json()).then(data => {
+            if(type === 'me') document.getElementById(`msg-row-${id}`).remove();
         });
     }
 
-    function openEdit(id, content) {
-        document.getElementById('edit-msg-id').value = id;
-        document.getElementById('edit-input').value = content;
-        new bootstrap.Modal(document.getElementById('editModal')).show();
-    }
-
-    function submitEdit() {
-        const id = document.getElementById('edit-msg-id').value;
-        const newContent = document.getElementById('edit-input').value;
-        
-        fetch("{% url 'api_manage_message' %}", {
-            method: 'POST',
-            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            body: JSON.stringify({'action': 'edit', 'message_id': id, 'new_content': newContent})
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'edited') {
-                // Update UI immediately
-                const el = document.getElementById(`msg-content-${id}`);
-                el.innerText = data.new_content;
-                el.innerHTML += `<span class="msg-edited-tag">(edited)</span>`;
-                bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
-            }
-        });
-    }
-
+    // --- CLEAR CHAT LOGIC ---
     function clearChat() {
-        if(!confirm("Clear chat history? This only hides it for you.")) return;
-        fetch(`{% url 'api_clear_chat' room.id %}`, {
-            method: 'POST',
-            headers: {'X-CSRFToken': '{{ csrf_token }}'}
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'cleared') {
-                document.getElementById('msg-container').innerHTML = '';
-            }
-        });
+        if (confirm("Are you sure you want to clear the chat history? This cannot be undone.")) {
+            // FIXED: Changed 'clear_chat_history' to 'api_clear_chat'
+            fetch(`{% url 'api_clear_chat' room.id %}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'cleared') {
+                    // Clear the chat container on the frontend
+                    document.getElementById('msg-container').innerHTML = '';
+                } else {
+                    alert("Failed to clear chat. You might not have permission.");
+                }
+            })
+            .catch(error => console.error('Error clearing chat:', error));
+        }
     }
+
+        // --- EDIT MESSAGE LOGIC ---
+    window.openEdit = function(id, currentContent) {
+        // Open a prompt pre-filled with the current message
+        const newContent = prompt("Edit your message:", currentContent);
+        
+        // Check if the user pressed cancel, left it blank, or didn't change anything
+        if (newContent !== null && newContent.trim() !== "" && newContent !== currentContent) {
+            
+            fetch("{% url 'api_manage_message' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}', 
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'action': 'edit', 
+                    'message_id': id, 
+                    'new_content': newContent
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'edited') {
+                    // Update the message content dynamically on the screen
+                    const contentEl = document.getElementById(`msg-content-${id}`);
+                    if (contentEl) {
+                        contentEl.innerHTML = `<p class="mb-1">${data.new_content} <small class="text-muted fst-italic" style="font-size:0.6rem">(edited)</small></p>`;
+                    }
+                } else {
+                    alert("Failed to edit message.");
+                }
+            })
+            .catch(error => console.error('Error editing message:', error));
+        }
+    };
+
 </script>
 {% endblock %}
