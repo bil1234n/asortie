@@ -1,39 +1,91 @@
-<div class="d-flex {% if message.sender == user %}justify-content-end{% else %}justify-content-start{% endif %} mb-2" id="msg-row-{{ message.id }}">
-    <div class="p-3 rounded-3 shadow-sm message-bubble" 
-         style="max-width: 75%; 
+<div class="d-flex w-100 {% if message.sender == user %}justify-content-end{% else %}justify-content-start{% endif %} mb-2" id="msg-row-{{ message.id }}">
+    
+    <div class="position-relative p-2 px-3 shadow-sm message-bubble group" 
+         style="max-width: 80%; border-radius: 8px;
                 {% if message.sender == user %}
-                    background-color: #1B3C59; color: #fff; border-bottom-right-radius: 0 !important;
+                    background-color: var(--wa-outgoing); border-top-right-radius: 0 !important;
                 {% else %}
-                    background-color: #fff; color: #333; border-bottom-left-radius: 0 !important;
+                    background-color: var(--wa-incoming); border-top-left-radius: 0 !important;
                 {% endif %}">
 
-        <!-- Dropdown for Sender -->
-        {% if message.sender == user and not message.is_deleted_everyone %}
+        {% if not message.is_deleted_everyone %}
+        <button class="btn btn-sm btn-light position-absolute top-50 translate-middle-y shadow-sm reaction-btn" 
+                style="{% if message.sender == user %}left: -40px;{% else %}right: -40px;{% endif %} opacity: 0; transition: opacity 0.2s; border-radius: 50%; padding: 4px 8px; z-index: 10;"
+                onclick="showReactionPicker({{ message.id }}, event)">
+            <i class="fa-regular fa-face-smile text-muted"></i>
+        </button>
+        {% endif %}
+
+        {% if not message.is_deleted_everyone %}
         <div class="dropdown msg-dropdown">
-            <i class="fa-solid fa-ellipsis-vertical text-white-50" data-bs-toggle="dropdown"></i>
-            <ul class="dropdown-menu dropdown-menu-end shadow">
-                <li><a class="dropdown-item small" href="#" onclick="openEdit({{ message.id }}, '{{ message.content|escapejs }}')"><i class="fa-solid fa-pen me-2"></i> Edit</a></li>
-                <li><a class="dropdown-item small text-danger" href="#" onclick="deleteMsg({{ message.id }}, 'everyone')"><i class="fa-solid fa-trash me-2"></i> Delete from Everyone</a></li>
-                <li><a class="dropdown-item small" href="#" onclick="deleteMsg({{ message.id }}, 'me')"><i class="fa-solid fa-eye-slash me-2"></i> Delete from Me</a></li>
+            <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem; cursor: pointer;" data-bs-toggle="dropdown"></i>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 small">
+                {% if message.sender == user %}
+                <li>
+                    <a class="dropdown-item" href="#" onclick="openEdit({{ message.id }}, '{{ message.content|escapejs }}')"><i class="fa-solid fa-edit me-3 text-primary"></i>Edit</a>
+                </li>
+                <li>
+                    <a class="dropdown-item text-danger" href="#" onclick="deleteMsg({{ message.id }}, 'everyone')"><i class="fa-solid fa-trash-can me-3 text-danger"></i>Delete for everyone</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a class="dropdown-item" href="#" onclick="deleteMsg({{ message.id }}, 'me')"><i class="fa-solid fa-eye-slash me-3 text-danger"></i>Delete for me</a>
+                </li>
             </ul>
         </div>
         {% endif %}
 
-        <!-- Content -->
-        <span id="msg-content-{{ message.id }}">
+        <div class="text-break" id="msg-content-{{ message.id }}">
             {% if message.is_deleted_everyone %}
-                <span class="deleted-msg"><i class="fa-solid fa-ban me-1"></i> This message was deleted.</span>
+                <span class="deleted-text"><i class="fa-solid fa-ban me-1"></i> This message was deleted.</span>
             {% else %}
-                {{ message.content }} {% if message.is_edited %}<small class="opacity-50">(edited)</small>{% endif %}
-            {% endif %}
-        </span>
-        
-        <!-- Time -->
-        <div class="text-end mt-1" style="font-size: 0.7rem; opacity: 0.7;">
-            {{ message.timestamp|date:"H:i" }}
-            {% if message.is_read and message.sender == user %}
-                <i class="fa-solid fa-check-double ms-1 text-info"></i>
+                
+                {% if message.file %}
+                    {% if message.message_type == 'image' %}
+                        <img src="{{ message.file.url }}" class="img-fluid rounded-2 mb-1" style="max-height: 300px; cursor: pointer;" onclick="window.open(this.src)">
+                    {% elif message.message_type == 'video' %}
+                        <video controls class="img-fluid rounded-2 mb-1" style="max-height: 300px;">
+                            <source src="{{ message.file.url }}" type="video/mp4">
+                        </video>
+                    {% elif message.message_type == 'audio' %}
+                        <audio controls class="mb-1" style="max-width: 250px; height: 40px;">
+                            <source src="{{ message.file.url }}" type="audio/webm">
+                        </audio>
+                    {% else %}
+                        <div class="p-2 border rounded bg-light d-flex align-items-center mb-1">
+                            <i class="fa-solid fa-file-lines me-2 fs-4"></i>
+                            <a href="{{ message.file.url }}" target="_blank" class="text-decoration-none text-dark small text-truncate">Download Attachment</a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                {% if message.content %}
+                    <p class="mb-1">
+                        {{ message.content }}
+                        {% if message.is_edited %}
+                            <small class="text-muted fst-italic" style="font-size:0.6rem">(edited)</small>
+                        {% endif %}
+                    </p>
+                {% endif %}
+
             {% endif %}
         </div>
+
+        <div class="msg-meta">
+            {{ message.timestamp|date:"H:i" }}
+            {% if message.sender == user %}
+                <i class="fa-solid fa-check-double" style="color: {% if message.is_read %}var(--wa-blue){% else %}#8696a0{% endif %}"></i>
+            {% endif %}
+        </div>
+
+        <div class="reactions-container position-absolute" id="reactions-{{ message.id }}" 
+             style="bottom: -15px; {% if message.sender == user %}right: 10px;{% else %}left: 10px;{% endif %} display: flex; gap: 2px; z-index: 5;">
+            {% if message.reactions %}
+                {% for user_id, emoji in message.reactions.items %}
+                    <span class="badge bg-light text-dark border shadow-sm rounded-pill" style="font-size: 0.75rem; padding: 3px 6px;">{{ emoji }}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+
     </div>
 </div>
