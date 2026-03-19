@@ -1,6 +1,6 @@
-{% load static %}
+{% load static i18n %} 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -179,7 +180,8 @@
         @media (max-width: 1024px) { .mobile-close { display: block; } }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<body dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="flex h-screen overflow-hidden">
 
     <aside id="sidebar" class="w-80 flex flex-col p-6 shrink-0 shadow-xl z-[1001]">
         <div class="mobile-close" onclick="toggleSidebar()">
@@ -188,27 +190,27 @@
 
         <div class="mb-10 text-center border_bot">
             <img src="{% static 'img/logo_2.png' %}" style="max-width: 200px; margin: 0 auto;" alt="Asortie">
-            <p class="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1">Interior Intelligence Hub</p>
+            <p class="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1">{% trans "Interior Intelligence Hub" %}</p>
         </div>
 
         <div class="space-y-3 mb-8 overflow-y-auto">
             <button onclick="location.href='{% url 'admin_dashboard' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
-                <i class="fa-solid fa-house mr-2"></i> Dashboard
+                <i class="fa-solid fa-house mr-2"></i> {% trans "Dashboard" %}
             </button>
             <button onclick="location.href='{% url 'admin_users' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
-                <i class="fa-solid fa-users mr-2"></i> Manage Users
+                <i class="fa-solid fa-users mr-2"></i> {% trans "Manage Users" %}
             </button>
             <button onclick="location.href='{% url 'admin_product_analytics' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
-                <i class="fa-solid fa-bag-shopping mr-2"></i> Products Analytics
+                <i class="fa-solid fa-bag-shopping mr-2"></i> {% trans "Products Analytics" %}
             </button>
             <button onclick="location.href='{% url 'admin_order_analytics' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
-                <i class="fa-solid fa-chart-line mr-2"></i> Order Analytics
+                <i class="fa-solid fa-chart-line mr-2"></i> {% trans "Order Analytics" %}
             </button>
             <button onclick="location.href='{% url 'chat_inbox' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
-                <i class="fa-solid fa-envelope mr-2"></i> Messages
+                <i class="fa-solid fa-envelope mr-2"></i> {% trans "Messages" %}
             </button>
             <button onclick="location.href='{% url 'ai' %}'" class="w-full py-3 px-4 bg-white text-[#1B3C59] rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-gray-100 transition shadow-lg">
-                <i class="fa-solid fa-robot mr-2"></i> Ai Agent
+                <i class="fa-solid fa-robot mr-2"></i> {% trans "Ai Agent" %}
             </button>
 
             
@@ -223,11 +225,53 @@
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <h2 class="header-title text-sm font-bold text-gray-500 uppercase tracking-widest mb-0">
-                    <i class="fa-solid fa-screwdriver-wrench mr-2 text-blue-800"></i> AI Training Center
+                    <i class="fa-solid fa-screwdriver-wrench mr-2 text-blue-800"></i> {% trans "AI Training Center" %}
                 </h2>
             </div>
 
                 <div class="top-right-actions">
+                    
+                    
+                    <form action="{% url 'set_language' %}" method="post" id="language-form" class="me-3 mb-0">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                        
+                        {% get_current_language as CURRENT_LANG %}
+                        <input type="hidden" name="language" id="selected-language" value="{{ CURRENT_LANG }}">
+
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light border-0 fw-medium dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-globe me-2"></i> Select Language
+                            </button>
+                            
+                            <ul class="dropdown-menu shadow border-0">
+                                {% get_available_languages as ALL_LANGS %}
+                                {% get_language_info_list for ALL_LANGS as languages %}
+                                {% for lang in languages %}
+                                    <li>
+                                        <button type="button" class="dropdown-item {% if lang.code == CURRENT_LANG %}active{% endif %}" 
+                                                onclick="document.getElementById('selected-language').value='{{ lang.code }}'; document.getElementById('language-form').submit();">
+                                            
+                                            {% if lang.code == 'en' %}
+                                                <img src="{% static 'img/usa.png' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'am' %}
+                                                <img src="{% static 'img/eth.gif' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'tr' %}
+                                                <img src="{% static 'img/tur.jpg' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'fr' %}
+                                                <img src="{% static 'img/fra.webp' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'ar' %}
+                                                <img src="{% static 'img/arb.webp' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'ru' %}
+                                                <img src="{% static 'img/rus.webp' %}" alt="" width="20" class="me-2">
+                                            {% endif %}
+                                            {{ lang.name_local|title }}
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </form>
                     
                     {% if user.is_authenticated %}
                         <!-- NOTIFICATION BELL -->
@@ -243,7 +287,7 @@
                             </a>
                             
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="width: 300px; max-height: 400px; overflow-y: auto;">
-                                <li class="dropdown-header fw-bold">Notifications</li>
+                                <li class="dropdown-header fw-bold">{% trans "Notifications" %}</li>
                                 <li><hr class="dropdown-divider"></li>
                                 
                                 {% if notifications %}
@@ -261,17 +305,17 @@
                                             </div>
                                             <div style="white-space: normal;">
                                                 <p class="mb-0 small fw-bold">{{ n.message }}</p>
-                                                <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} ago</small>
+                                                <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} {% trans "ago" %}</small>
                                             </div>
                                         </a>
                                     </li>
                                     {% endfor %}
                                 {% else %}
-                                    <li class="text-center py-3 small text-muted">No new notifications</li>
+                                    <li class="text-center py-3 small text-muted">{% trans "No new notifications" %}</li>
                                 {% endif %}
                                 
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">View All History</a></li>
+                                <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">{% trans "View All History" %}</a></li>
                             </ul>
                         </li>
                     {% endif %}
@@ -297,8 +341,8 @@
 
                     {% else %}
                         <!-- GUEST BUTTONS -->
-                        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">Login</a>
-                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">Sign Up</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">{% trans "Login" %}</a>
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">{% trans "Sign Up" %}</a>
                     {% endif %}
                 </div>
         </header>
@@ -306,15 +350,15 @@
         <div class="flex-1 overflow-y-auto p-8 bg-[#f8fafc]">
             <div class="max-w-5xl mx-auto">
                 <div class="mb-8">
-                    <h1 class="text-2xl font-bold text-[#1B3C59]">Knowledge Management</h1>
-                    <p class="text-sm text-gray-500">Inject new facts and visual assets into the Asortie Intelligence core.</p>
+                    <h1 class="text-2xl font-bold text-[#1B3C59]">{% trans "Knowledge Management" %}</h1>
+                    <p class="text-sm text-gray-500">{% trans "Inject new facts and visual assets into the Asortie Intelligence core." %}</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                     <div class="glass-card p-8">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="p-2 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-quote-left"></i></div>
-                            <h3 class="text-sm font-bold uppercase tracking-wider">Add Text Fact</h3>
+                            <h3 class="text-sm font-bold uppercase tracking-wider">{% trans "Add Text Fact" %}</h3>
                         </div>
                         <form id="train-form" class="space-y-4">
                             <textarea id="knowledge-text" rows="4" 
@@ -322,7 +366,7 @@
                                 class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm outline-none focus:ring-2 focus:ring-blue-100 transition"></textarea>
                             
                             <button type="submit" id="train-btn" class="w-full py-3 btn-action text-xs uppercase tracking-widest">
-                                Inject into Memory
+                                {% trans "Inject into Memory" %}
                             </button>
                         </form>
                         <div id="status-msg" class="mt-4 text-center text-xs font-bold hidden"></div>
@@ -331,7 +375,7 @@
                     <div class="glass-card p-8">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="p-2 bg-purple-50 text-purple-600 rounded-lg"><i class="fa-solid fa-image"></i></div>
-                            <h3 class="text-sm font-bold uppercase tracking-wider">Add Visual Asset</h3>
+                            <h3 class="text-sm font-bold uppercase tracking-wider">{% trans "Add Visual Asset" %}</h3>
                         </div>
                         <form id="visual-train-form" class="space-y-4">
                             <input type="text" id="visual-label" placeholder="Asset Name (e.g., Diamond Lounge Chair)" 
@@ -341,7 +385,7 @@
                                 class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-700">
                             
                             <button type="submit" id="visual-train-btn" class="w-full py-3 btn-action text-xs uppercase tracking-widest">
-                                Vectorize Image
+                                {% trans "Vectorize Image" %}
                             </button>
                         </form>
                         <div id="visual-status-msg" class="mt-4 text-center text-xs font-bold hidden"></div>
@@ -349,7 +393,7 @@
                 </div>
 
                 <div>
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Recent System Knowledge</h3>
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">{% trans "Recent System Knowledge" %}</h3>
                     <div class="space-y-3" id="knowledge-list">
                         {% for fact in recent_facts %}
                         <div class="p-4 rounded-xl border border-gray-100 bg-white shadow-sm flex justify-between items-center" id="fact-{{ fact.id }}">
@@ -363,7 +407,7 @@
                                 <div class="flex-1">
                                     <div class="flex items-center space-x-2 mb-1">
                                         <span class="text-[9px] {% if fact.knowledge_image %}bg-purple-100 text-purple-600{% else %}bg-blue-100 text-blue-600{% endif %} px-2 py-0.5 rounded-full font-bold uppercase">
-                                            {% if fact.knowledge_image %}Visual{% else %}Fact{% endif %}
+                                            {% if fact.knowledge_image %}{% trans "Visual" %}{% else %}{% trans "Fact" %}{% endif %}
                                         </span>
                                         <span class="text-[10px] text-gray-400">{{ fact.created_at|date:"M d, H:i" }}</span>
                                     </div>
@@ -372,8 +416,8 @@
                             </div>
 
                             <div class="flex space-x-4">
-                                <button onclick="editFact({{ fact.id }})" class="text-blue-600 hover:underline text-[10px] font-bold uppercase tracking-wider">Edit</button>
-                                <button onclick="deleteFact({{ fact.id }})" class="text-red-500 hover:underline text-[10px] font-bold uppercase tracking-wider">Delete</button>
+                                <button onclick="editFact({{ fact.id }})" class="text-blue-600 hover:underline text-[10px] font-bold uppercase tracking-wider">{% trans "Edit" %}</button>
+                                <button onclick="deleteFact({{ fact.id }})" class="text-red-500 hover:underline text-[10px] font-bold uppercase tracking-wider">{% trans "Delete" %}</button>
                             </div>
                         </div>
                         {% endfor %}
