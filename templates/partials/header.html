@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %} 
 <!-- Sidebar Navigation -->
 <aside class="sidebar" id="sidebar">
     <div class="logo-section">
@@ -11,90 +11,90 @@
         <!-- ================= ADMIN MENU ================= -->
         {% if user.role == 'admin' or user.is_superuser %}
             <a href="{% url 'admin_dashboard' %}" class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
-                <i class="fa-solid fa-gauge me-2"></i> Dashboard
+                <i class="fa-solid fa-gauge me-2"></i>{% trans "Dashboard" %}
             </a>
             <a href="{% url 'admin_users' %}" class="{% if request.resolver_match.url_name == 'admin_users' %}active{% endif %}">
-                <i class="fa-solid fa-users me-2"></i> Manage Users
+                <i class="fa-solid fa-users me-2"></i> {% trans "Manage Users" %}
             </a>
             <a href="{% url 'admin_product_analytics' %}" class="{% if request.resolver_match.url_name == 'admin_product_analytics' %}active{% endif %}">
-                <i class="fa-solid fa-box me-2"></i> Products Analytics
+                <i class="fa-solid fa-box me-2"></i> {% trans "Products Analytics" %}
             </a>
             <a href="{% url 'admin_order_analytics' %}" class="{% if request.resolver_match.url_name == 'admin_order_analytics' %}active{% endif %}">
-                <i class="fa-solid fa-chart-line me-2"></i> Order Analytics
+                <i class="fa-solid fa-chart-line me-2"></i> {% trans "Order Analytics" %}
             </a>
              <a href="{% url 'chat_inbox' %}" class="{% if request.resolver_match.url_name == 'chat_inbox' %}active{% endif %}">
-                <i class="fa-solid fa-envelope me-2"></i> Messages
+                <i class="fa-solid fa-envelope me-2"></i> {% trans "Messages" %}
             </a>
-            <a href="{% url 'ai' %}" class="{% if request.resolver_match.url_name == 'ai' %}active{% endif %}">
-                <i class="fa-solid fa-robot me-2"></i> AI Hub
+            <a href="{% url 'coming_soon' %}" class="{% if request.resolver_match.url_name == 'ai' %}active{% endif %}">
+                <i class="fa-solid fa-robot me-2"></i> {% trans "AI Hub" %}
             </a>
 
         <!-- ================= SELLER MENU ================= -->
         {% elif user.role == 'seller' %}
             <a href="{% url 'seller_dashboard' %}" class="{% if request.resolver_match.url_name == 'seller_dashboard' %}active{% endif %}">
-                <i class="fa-solid fa-gauge me-2"></i> Dashboard
+                <i class="fa-solid fa-gauge me-2"></i>{% trans "Dashboard" %}
             </a>
             <a href="{% url 'seller_products' %}" class="{% if request.resolver_match.url_name == 'seller_products' %}active{% endif %}">
-                <i class="fa-solid fa-boxes-packing me-2"></i> My Products
+                <i class="fa-solid fa-boxes-packing me-2"></i> {% trans "My Products" %}
             </a>
             <a href="{% url 'seller_orders' %}" class="{% if request.resolver_match.url_name == 'seller_orders' %}active{% endif %}">
-                <i class="fa-solid fa-clipboard-list me-2"></i> Manage Orders
+                <i class="fa-solid fa-clipboard-list me-2"></i> {% trans "Manage Orders" %}
             </a>
             <!-- Business Profile -->
             <a href="{% url 'business_profile' %}" class="{% if request.resolver_match.url_name == 'business_profile' %}active{% endif %}">
-                <i class="fa-solid fa-user me-2"></i> Business Profile
+                <i class="fa-solid fa-user me-2"></i> {% trans "Business Profile" %}
             </a>
             <a href="{% url 'chat_inbox' %}" class="{% if request.resolver_match.url_name == 'chat_inbox' %}active{% endif %}">
-                <i class="fa-solid fa-comments me-2"></i> Buyer Messages
+                <i class="fa-solid fa-comments me-2"></i> {% trans "Buyer Messages" %}
             </a>
             <a href="{% url 'business_directory' %}" class="{% if request.resolver_match.url_name == 'business_directory' %}active{% endif %}">
-                <i class="fa-solid fa-address-book me-2"></i> Merchant Hub
+                <i class="fa-solid fa-address-book me-2"></i> {% trans "Merchant Hub" %}
             </a>
             <a href="{% url 'product_list' %}" class="{% if request.resolver_match.url_name == 'product_list' %}active{% endif %}">
-                <i class="fa-solid fa-shop me-2"></i> Marketplace
+                <i class="fa-solid fa-shop me-2"></i> {% trans "Marketplace" %}
             </a>
             <a href="{% url 'ar_showroom' %}" class="{% if request.resolver_match.url_name == 'ar_showroom' %}active{% endif %}">
-                <i class="fa-solid fa-cubes me-2"></i> 3D Visualization
+                <i class="fa-solid fa-cubes me-2"></i> {% trans "3D Visualization" %}
             </a>
-            <a href="{% url 'ai' %}" class="{% if request.resolver_match.url_name == 'ai' %}active{% endif %}">
-                <i class="fa-solid fa-robot me-2"></i> AI Hub
+            <a href="{% url 'coming_soon' %}" class="{% if request.resolver_match.url_name == 'ai' %}active{% endif %}">
+                <i class="fa-solid fa-robot me-2"></i> {% trans "AI Hub" %}
             </a>
         
         <!-- ================= BUYER/GUEST MENU ================= -->
         {% else %}
             <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-                <i class="fa-solid fa-home me-2"></i> Dashboard
+                <i class="fa-solid fa-home me-2"></i>{% trans "Dashboard" %}
             </a>
             <a href="{% url 'product_list' %}" class="{% if request.resolver_match.url_name == 'product_list' %}active{% endif %}">
-                <i class="fa-solid fa-shop me-2"></i> Marketplace
+                <i class="fa-solid fa-shop me-2"></i> {% trans "Marketplace" %}
             </a>
             
             {% if user.is_authenticated %}
             <a href="{% url 'buyer_orders' %}" class="{% if request.resolver_match.url_name == 'buyer_orders' %}active{% endif %}">
-                <i class="fa-solid fa-bag-shopping me-2"></i> My Orders
+                <i class="fa-solid fa-bag-shopping me-2"></i> {% trans "My Orders" %}
             </a>
             <a href="{% url 'chat_inbox' %}" class="{% if request.resolver_match.url_name == 'chat_inbox' %}active{% endif %}">
-                <i class="fa-solid fa-comments me-2"></i> Messages
+                <i class="fa-solid fa-comments me-2"></i> {% trans "Messages" %}
             </a>
             <!-- Business Profile -->
             <a href="{% url 'business_profile' %}" class="{% if request.resolver_match.url_name == 'business_profile' %}active{% endif %}">
-                <i class="fa-solid fa-user me-2"></i> Business Profile
+                <i class="fa-solid fa-user me-2"></i> {% trans "Business Profile" %}
             </a>
             {% endif %}
             <a href="{% url 'business_directory' %}" class="{% if request.resolver_match.url_name == 'business_directory' %}active{% endif %}">
-                <i class="fa-solid fa-address-book me-2"></i> Merchant Hub
+                <i class="fa-solid fa-address-book me-2"></i> {% trans "Merchant Hub" %}
             </a>
             <a href="{% url 'ar_showroom' %}" class="{% if request.resolver_match.url_name == 'ar_showroom' %}active{% endif %}">
-                <i class="fa-solid fa-cubes me-2"></i> 3D Visualization
+                <i class="fa-solid fa-cubes me-2"></i> {% trans "3D Visualization" %}
             </a>
-            <a href="{% url 'ai' %}" class="{% if request.resolver_match.url_name == 'ai' %}active{% endif %}">
-                <i class="fa-solid fa-robot me-2"></i> AI Hub
+            <a href="{% url 'coming_soon' %}" class="{% if request.resolver_match.url_name == 'ai' %}active{% endif %}">
+                <i class="fa-solid fa-robot me-2"></i> {% trans "AI Hub" %}
             </a>
         {% endif %}
     </nav>
 
     <div class="sidebar-footer">
-        <p class="small footer_v">Asortie v1.0</p>
+        <p class="small footer_v">{% trans "Asortie" %} v1.0</p>
     </div>
 </aside>
 
