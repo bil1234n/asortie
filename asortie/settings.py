@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 import dj_database_url
+from django.utils.translation import gettext_lazy as _
+import django.conf.locale
+from django.conf import global_settings
 from dotenv import load_dotenv
 
 # Load .env file
