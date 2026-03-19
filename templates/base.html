@@ -1,10 +1,10 @@
-{% load static %}
+{% load static i18n %} 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Asortie | Premium Export</title>
+        <title>{% trans "Asortie | Premium Export" %}</title>
         
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,8 +13,10 @@
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/data"></script>
         <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     </head>
-    <body>
+    {% get_current_language_bidi as LANGUAGE_BIDI %}
+    <body dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
 
         <!-- 1. Sidebar -->
         {% include 'partials/header.html' %}
@@ -28,6 +30,47 @@
                 </div>
                 
                 <div class="top-right-actions ms-auto">
+
+                    <form action="{% url 'set_language' %}" method="post" id="language-form" class="me-3 mb-0">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                        
+                        {% get_current_language as CURRENT_LANG %}
+                        <input type="hidden" name="language" id="selected-language" value="{{ CURRENT_LANG }}">
+
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light border-0 fw-medium dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-globe me-2"></i> Select Language
+                            </button>
+                            
+                            <ul class="dropdown-menu shadow border-0">
+                                {% get_available_languages as ALL_LANGS %}
+                                {% get_language_info_list for ALL_LANGS as languages %}
+                                {% for lang in languages %}
+                                    <li>
+                                        <button type="button" class="dropdown-item {% if lang.code == CURRENT_LANG %}active{% endif %}" 
+                                                onclick="document.getElementById('selected-language').value='{{ lang.code }}'; document.getElementById('language-form').submit();">
+                                            
+                                            {% if lang.code == 'en' %}
+                                                <img src="{% static 'img/usa.png' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'am' %}
+                                                <img src="{% static 'img/eth.gif' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'tr' %}
+                                                <img src="{% static 'img/tur.jpg' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'fr' %}
+                                                <img src="{% static 'img/fra.webp' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'ar' %}
+                                                <img src="{% static 'img/arb.webp' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'ru' %}
+                                                <img src="{% static 'img/rus.webp' %}" alt="" width="20" class="me-2">
+                                            {% endif %}
+                                            {{ lang.name_local|title }}
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </form>
                     
                     {% if user.is_authenticated %}
                         <!-- NOTIFICATION BELL -->
@@ -43,7 +86,7 @@
                             </a>
                             
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="width: 300px; max-height: 400px; overflow-y: auto;">
-                                <li class="dropdown-header fw-bold">Notifications</li>
+                                <li class="dropdown-header fw-bold">{% trans "Notifications" %}</li>
                                 <li><hr class="dropdown-divider"></li>
                                 
                                 {% if notifications %}
@@ -61,17 +104,17 @@
                                             </div>
                                             <div style="white-space: normal;">
                                                 <p class="mb-0 small fw-bold">{{ n.message }}</p>
-                                                <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} ago</small>
+                                                <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} {% trans "ago" %}</small>
                                             </div>
                                         </a>
                                     </li>
                                     {% endfor %}
                                 {% else %}
-                                    <li class="text-center py-3 small text-muted">No new notifications</li>
+                                    <li class="text-center py-3 small text-muted">{% trans "No new notifications" %}</li>
                                 {% endif %}
                                 
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">View All History</a></li>
+                                <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">{% trans "View All History" %}</a></li>
                             </ul>
                         </li>
                     {% endif %}
@@ -97,8 +140,8 @@
 
                     {% else %}
                         <!-- GUEST BUTTONS -->
-                        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">Login</a>
-                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">Sign Up</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">{% trans "Login" %}</a>
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">{% trans "Sign Up" %}</a>
                     {% endif %}
                 </div>
             </header>
