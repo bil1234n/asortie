@@ -1,9 +1,11 @@
+{% load static i18n %} 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Successful</title>
+    <title>{% trans "Payment Successful" %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #f4f6f8;
@@ -75,22 +77,24 @@
         }
     </style>
 </head>
-<body>
+
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<body dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
 
     <div class="success-card">
         <div class="checkmark-circle">
             <span class="checkmark">✓</span>
         </div>
         
-        <h1>Payment Successful!</h1>
-        <p>Thank you for your order. We are processing it and will send you a confirmation email shortly.</p>
+        <h1>{% trans "Payment Successful!" %}</h1>
+        <p>{% trans "Thank you for your order. We are processing it and will send you a confirmation email shortly." %}</p>
         
         <p class="timer-text">
-            Redirecting to home page in <span id="countdown">10</span> seconds...
+            {% trans "Redirecting to home page in" %} <span id="countdown">10</span> {% trans "seconds..." %}
         </p>
 
         <!-- Replace '/' with {% url 'home' %} if you have a home url name -->
-        <a href="{% url 'home' %}" class="btn-home">Return to Home Now</a>
+        <a href="{% url 'home' %}" class="btn-home">{% trans "Return to Home Now" %}</a>
     </div>
 
     <script>
