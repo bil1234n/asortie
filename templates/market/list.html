@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 <style>
     .big_h{
@@ -15,8 +16,8 @@
 </style>
 <div class="container py-4">
     <div class="text-center mb-5">
-        <h2 class="fw-bold text-dark big_h"><i class="fa-solid fa-shop me-2"></i>Global Marketplace</h2>
-        <p class="text-muted">Browse premium luxury furniture products from verified sellers.</p>
+        <h2 class="fw-bold text-dark big_h"><i class="fa-solid fa-shop me-2"></i>{% trans "Global Marketplace" %}</h2>
+        <p class="text-muted">{% trans "Browse premium luxury furniture products from verified sellers." %}</p>
     </div>
 
     <!-- ========================================== -->
@@ -27,7 +28,7 @@
             
             <!-- 1. Search Keyword -->
             <div class="col-lg-3 col-md-6">
-                <label class="form-label">Search Products</label>
+                <label class="form-label">{% trans "Search Products" %}</label>
                 <div class="input-group">
                     <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>
                     <input type="text" name="q" class="form-control" placeholder="Arabica, Machine..." value="{{ request.GET.q }}">
@@ -36,9 +37,9 @@
 
             <!-- 2. Category Select -->
             <div class="col-lg-2 col-md-6">
-                <label class="form-label">Category</label>
+                <label class="form-label">{% trans "Category" %}</label>
                 <select name="category" class="form-select">
-                    <option value="">All Categories</option>
+                    <option value="">{% trans "All Categories" %}</option>
                     {% for code, name in categories %}
                         <option value="{{ code }}" {% if request.GET.category == code %}selected{% endif %}>{{ name }}</option>
                     {% endfor %}
@@ -47,7 +48,7 @@
 
             <!-- 3. Price Range -->
             <div class="col-lg-3 col-md-6">
-                <label class="form-label">Price Range (USD)</label>
+                <label class="form-label">{% trans "Price Range (USD)" %}</label>
                 <div class="input-group">
                     <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request.GET.min_price }}">
                     <span class="input-group-text bg-light">-</span>
@@ -57,17 +58,17 @@
 
             <!-- 4. Sorting -->
             <div class="col-lg-2 col-md-6">
-                <label class="form-label">Sort By</label>
+                <label class="form-label">{% trans "Sort By" %}</label>
                 <select name="sort" class="form-select">
-                    <option value="newest">Newest Listed</option>
-                    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
-                    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                    <option value="newest">{% trans "Newest Listed" %}</option>
+                    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>{% trans "Price: Low to High" %}</option>
+                    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>{% trans "Price: High to Low" %}</option>
                 </select>
             </div>
 
             <!-- 5. Submit -->
             <div class="col-lg-2 col-md-12">
-                <button type="submit" class="btn btn-dark w-100 fw-bold">Filter</button>
+                <button type="submit" class="btn btn-dark w-100 fw-bold">{% trans "Filter" %}</button>
             </div>
         </div>
     </form>
@@ -92,9 +93,9 @@
                         <p class="text-muted small mb-2">{{ product.category }}</p>
                         <h5 class="text-success fw-bold">
                             {% if product.price == 0 %}
-                                Price on request
+                                {% trans "Price on request" %}
                             {% else %}
-                                ${{ product.price }} <span style="font-size: 1rem; color: rgb(196, 4, 4);">(Base Price)</span>
+                                ${{ product.price }} <span style="font-size: 1rem; color: rgb(196, 4, 4);">{% trans "(Base Price)" %}</span>
                             {% endif %}
                         </h5>
                         
@@ -106,19 +107,19 @@
                                     <!-- PRO STYLE: Disabled/Info Button for Sellers -->
                                     <button class="btn w-100 d-flex align-items-center justify-content-center" disabled 
                                             style="background-color: #f8f9fa; color: #adb5bd; border: 1px dashed #dee2e6; font-weight: 600; cursor: not-allowed; height: 38px;">
-                                        <i class="fa-solid fa-lock me-2" style="font-size: 0.8rem;"></i> To Order Login By Buyer
+                                        <i class="fa-solid fa-lock me-2" style="font-size: 0.8rem;"></i> {% trans "To Order Login By Buyer" %}
                                     </button>
                                 {% else %}
                                     <!-- BUYER: Standard Order Button -->
                                     <a href="{% url 'product_detail' product.id %}" class="btn btn-warning w-100 fw-bold">
-                                        Order Now
+                                        {% trans "Order Now" %}
                                     </a>
                                 {% endif %}
 
                             {% else %}
                                 <!-- GUEST: Redirect to Login -->
                                 <a href="{% url 'login' %}?next={% url 'product_detail' product.id %}" class="btn btn-outline-dark w-100">
-                                    Login to Order
+                                    {% trans "Login to Order" %}
                                 </a>
                             {% endif %}
                         </div>
@@ -128,7 +129,7 @@
         </div>
         {% empty %}
             <div class="col-12 text-center py-5">
-                <h3>No products available right now.</h3>
+                <h3>{% trans "No products available right now." %}</h3>
             </div>
         {% endfor %}
     </div>
