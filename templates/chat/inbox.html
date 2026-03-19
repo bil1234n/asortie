@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-
+{% load static i18n %} 
 {% block content %}
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fa-solid fa-envelope me-2"></i> Messages</h5>
-                    <span class="badge bg-warning text-dark">{{ rooms.count }} Conversations</span>
+                    <h5 class="mb-0"><i class="fa-solid fa-envelope me-2"></i> {% trans "Messages" %}</h5>
+                    <span class="badge bg-warning text-dark">{{ rooms.count }} {% trans "Conversations" %}</span>
                 </div>
                 
                 <div class="list-group list-group-flush">
@@ -22,7 +22,7 @@
                                 </div>
                                 <div>
                                     <h6 class="mb-1 fw-bold">{{ room.participant_2.username }}</h6>
-                                    <small class="text-muted">Click to open chat</small>
+                                    <small class="text-muted">{% trans "Click to open chat" %}</small>
                                 </div>
                                 <small class="text-muted ms-auto">{{ room.updated_at|date:"M d, H:i" }}</small>
                             </a>
@@ -35,7 +35,7 @@
                                 </div>
                                 <div>
                                     <h6 class="mb-1 fw-bold">{{ room.participant_1.username }}</h6>
-                                    <small class="text-muted">Click to open chat</small>
+                                    <small class="text-muted">{% trans "Click to open chat" %}</small>
                                 </div>
                                 <small class="text-muted ms-auto">{{ room.updated_at|date:"M d, H:i" }}</small>
                             </a>
@@ -44,9 +44,9 @@
                     {% empty %}
                         <div class="text-center py-5">
                             <i class="fa-regular fa-comments fa-3x text-muted mb-3"></i>
-                            <h5 class="text-muted">No messages yet.</h5>
-                            <p class="small text-muted">Contact a seller from the marketplace to start a chat.</p>
-                            <a href="{% url 'product_list' %}" class="btn btn-sm btn-outline-dark">Go to Market</a>
+                            <h5 class="text-muted">{% trans "No messages yet." %}</h5>
+                            <p class="small text-muted">{% trans "Contact a seller from the marketplace to start a chat." %}</p>
+                            <a href="{% url 'product_list' %}" class="btn btn-sm btn-outline-dark">{% trans "Go to Market" %}</a>
                         </div>
                     {% endfor %}
                 </div>
