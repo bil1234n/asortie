@@ -1,3 +1,4 @@
+{% load static i18n %} 
 <div class="d-flex w-100 {% if message.sender == user %}justify-content-end{% else %}justify-content-start{% endif %} mb-2" id="msg-row-{{ message.id }}">
     
     <div class="position-relative p-2 px-3 shadow-sm message-bubble group" 
@@ -22,14 +23,14 @@
             <ul class="dropdown-menu dropdown-menu-end shadow border-0 small">
                 {% if message.sender == user %}
                 <li>
-                    <a class="dropdown-item" href="#" onclick="openEdit({{ message.id }}, '{{ message.content|escapejs }}')"><i class="fa-solid fa-edit me-3 text-primary"></i>Edit</a>
+                    <a class="dropdown-item" href="#" onclick="openEdit({{ message.id }}, '{{ message.content|escapejs }}')"><i class="fa-solid fa-edit me-3 text-primary"></i>{% trans "Edit" %}</a>
                 </li>
                 <li>
-                    <a class="dropdown-item text-danger" href="#" onclick="deleteMsg({{ message.id }}, 'everyone')"><i class="fa-solid fa-trash-can me-3 text-danger"></i>Delete for everyone</a>
+                    <a class="dropdown-item text-danger" href="#" onclick="deleteMsg({{ message.id }}, 'everyone')"><i class="fa-solid fa-trash-can me-3 text-danger"></i>{% trans "Delete for everyone" %}</a>
                 </li>
                 {% endif %}
                 <li>
-                    <a class="dropdown-item" href="#" onclick="deleteMsg({{ message.id }}, 'me')"><i class="fa-solid fa-eye-slash me-3 text-danger"></i>Delete for me</a>
+                    <a class="dropdown-item" href="#" onclick="deleteMsg({{ message.id }}, 'me')"><i class="fa-solid fa-eye-slash me-3 text-danger"></i>{% trans "Delete for me" %}</a>
                 </li>
             </ul>
         </div>
@@ -37,7 +38,7 @@
 
         <div class="text-break" id="msg-content-{{ message.id }}">
             {% if message.is_deleted_everyone %}
-                <span class="deleted-text"><i class="fa-solid fa-ban me-1"></i> This message was deleted.</span>
+                <span class="deleted-text"><i class="fa-solid fa-ban me-1"></i> {% trans "This message was deleted." %}</span>
             {% else %}
                 
                 {% if message.file %}
@@ -54,7 +55,7 @@
                     {% else %}
                         <div class="p-2 border rounded bg-light d-flex align-items-center mb-1">
                             <i class="fa-solid fa-file-lines me-2 fs-4"></i>
-                            <a href="{{ message.file.url }}" target="_blank" class="text-decoration-none text-dark small text-truncate">Download Attachment</a>
+                            <a href="{{ message.file.url }}" target="_blank" class="text-decoration-none text-dark small text-truncate">{% trans "Download Attachment" %}</a>
                         </div>
                     {% endif %}
                 {% endif %}
@@ -63,7 +64,7 @@
                     <p class="mb-1">
                         {{ message.content }}
                         {% if message.is_edited %}
-                            <small class="text-muted fst-italic" style="font-size:0.6rem">(edited)</small>
+                            <small class="text-muted fst-italic" style="font-size:0.6rem">{% trans "(edited)" %}</small>
                         {% endif %}
                     </p>
                 {% endif %}
