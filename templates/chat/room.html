@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static i18n %} 
 {% block content %}
 <style>
     :root {
@@ -114,7 +114,7 @@
                              class="rounded-circle me-3" width="40" height="40">
                         <div>
                             <h6 class="mb-0 fw-bold">{{ other_user.username }}</h6>
-                            <small class="text-muted">Online</small>
+                            <small class="text-muted">{% trans "Online" %}</small>
                         </div>
                     </div>
 
@@ -123,7 +123,7 @@
                             <i class="fa-solid fa-ellipsis-vertical fs-5"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2">
-                            <li><button class="dropdown-item py-2" onclick="clearChat()"><i class="fa-solid fa-trash-can me-2 text-danger"></i> Clear Chat</button></li>
+                            <li><button class="dropdown-item py-2" onclick="clearChat()"><i class="fa-solid fa-trash-can me-2 text-danger"></i> {% trans "Clear Chat" %}</button></li>
                         </ul>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                         <div id="recording-status" class="d-none align-items-center flex-grow-1 px-3 py-2 bg-white rounded-pill border">
                             <i class="fa-solid fa-microphone text-danger pulse-animation me-3 fs-5"></i>
                             <span id="recording-timer" class="fw-bold text-danger flex-grow-1">00:00</span>
-                            <span class="text-muted small">Recording...</span>
+                            <span class="text-muted small">{% trans "Recording..." %}</span>
                         </div>
 
                         <button type="button" class="btn btn-link p-1 text-muted" id="mic-btn">
