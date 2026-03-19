@@ -1,21 +1,22 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card border-danger border-2 shadow">
                 <div class="card-header bg-danger text-white">
-                    <h5 class="mb-3 mt-3">Secure Admin Registration</h5>
+                    <h5 class="mb-3 mt-3">{% trans "Secure Admin Registration" %}</h5>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-warning small">
                         <i class="fa-solid fa-triangle-exclamation"></i> 
-                        Strictly for authorized personnel. Requires Master Passcode.
+                        {% trans "Strictly for authorized personnel. Requires Master Passcode." %}
                     </div>
                     <form method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button class="btn btn-danger w-100">Create Admin Account</button>
+                        <button class="btn btn-danger w-100">{% trans "Create Admin Account" %}</button>
                     </form>
                 </div>
             </div>
