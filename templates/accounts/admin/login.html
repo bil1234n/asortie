@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card shadow border-0 rounded-4">
                 <div class="card-header text-white text-center py-4" style="background-color: var(--secondary-color); text-align: center; border-radius: 15px 15px 0 0;">
-                    <h4 class="mb-0"><i class="fa-solid fa-lock text-danger"></i> Administration</h4>
+                    <h4 class="mb-0"><i class="fa-solid fa-lock text-danger"></i>{% trans "Administration" %} </h4>
                 </div>
                 <div class="card-body p-4 bg-light">
                     <form method="post">
                         {% csrf_token %}
                         {% if form.errors %}
-                             <div class="alert alert-danger">Access Denied. Check credentials.</div>
+                             <div class="alert alert-danger">{% trans "Access Denied. Check credentials." %}</div>
                         {% endif %}
                         
                         {% for field in form %}
@@ -21,7 +22,7 @@
                         </div>
                         {% endfor %}
                         
-                        <button class="btn btn-dark w-100 py-3 fw-bold" style="background-color: var(--secondary-color);">Authenticate</button>
+                        <button class="btn btn-dark w-100 py-3 fw-bold" style="background-color: var(--secondary-color);">{% trans "Authenticate" %}</button>
                     </form>
                 </div>
                 <div class="card-footer text-center bg-light py-3 border-0 rounded-bottom-4">
