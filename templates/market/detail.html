@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 
 <style>
@@ -352,7 +353,7 @@
 
 <div class="container py-5">
     <nav class="breadcrumb-nav">
-        <a href="{% url 'product_list' %}">Collection</a>
+        <a href="{% url 'product_list' %}">{% trans "Collection" %}</a>
         <span class="mx-2">/</span>
         <a href="#">{{ product.category }}</a>
         <span class="mx-2">/</span>
@@ -368,13 +369,13 @@
                     {% else %}
                         <div class="text-center text-muted">
                             <i class="fa-solid fa-image fa-4x mb-3"></i>
-                            <p>No Image Available</p>
+                            <p>{% trans "No Image Available" %}</p>
                         </div>
                     {% endif %}
 
                     {% if product.variants.exists %}
                         <a href="/ar_3d/?product={{ product.id }}" target="_blank" class="ar-badge" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-cube me-1"></i> View in 3D
+                            <i class="fa-solid fa-cube me-1"></i> {% trans "View in 3D" %}
                         </a>
                     {% endif %}
                 </div>
@@ -399,22 +400,22 @@
                 
                 
                 <div class="d-flex align-items-center mb-1">
-                    <p class="text-muted small mb-0 me-2">Seller: {{ product.seller.username }}</p>
+                    <p class="text-muted small mb-0 me-2">{% trans "Seller:" %} {{ product.seller.username }}</p>
                     <a href="{% url 'public_business_profile' product.seller.id %}" class="btn btn-sm btn-link p-0 text-decoration-none" style="font-size: 0.8rem;">
-                        <i class="fa-solid fa-store me-1"></i> Visit Showroom
+                        <i class="fa-solid fa-store me-1"></i> {% trans "Visit Showroom" %}
                     </a>
                     &nbsp; &nbsp; 
                     <a href="{% url 'public_business_profile' product.seller.id %}" class="btn p-0 text-decoration-none" style="color: rgb(0, 112, 0); font-size: 0.8rem; font-weight: bold;">
-                        <i class="fa-solid fa-comments me-2"></i>Chat
+                        <i class="fa-solid fa-comments me-2"></i>{% trans "Chat" %}
                     </a>
                 </div>
 
                 <div class="price-area">
                     {% if product.price == 0 %}
-                        <span class="current-price">Price On Request</span>
+                        <span class="current-price">{% trans "Price On Request" %}</span>
                     {% else %}
                         <span class="current-price">${{ product.price|floatformat:2 }}</span>
-                        <span class="price-unit">/ set</span>
+                        <span class="price-unit">{% trans "/ set" %}</span>
                     {% endif %}
                 </div>
 
@@ -425,13 +426,13 @@
                         {% csrf_token %}
                         <div class="row g-3 mb-4">
                             <div class="col-6">
-                                <label class="small fw-bold text-muted mb-2 d-block text-uppercase">Quantity</label>
+                                <label class="small fw-bold text-muted mb-2 d-block text-uppercase">{% trans "Quantity" %}</label>
                                 <div class="qty-input-group">
                                     <input type="number" name="quantity" class="form-control" value="1" min="1" id="qtyInput">
                                 </div>
                             </div>
                             <div class="col-6">
-                                <label class="small fw-bold text-muted mb-2 d-block text-uppercase">Total Estimate</label>
+                                <label class="small fw-bold text-muted mb-2 d-block text-uppercase">{% trans "Total Estimate" %}</label>
                                 <div class="h-100 d-flex fw-bold fs-4 text-dark" id="totalPrice">
                                     ${{ product.price|floatformat:2 }}
                                 </div>
@@ -439,29 +440,29 @@
                         </div>
                         
                         <button type="submit" class="btn btn-action-primary shadow-sm">
-                            <i class="fa-solid fa-file-invoice me-2"></i> Create Inquiry
+                            <i class="fa-solid fa-file-invoice me-2"></i> {% trans "Create Inquiry" %}
                         </button>
                     </form>
                 {% else %}
                     <div class="alert alert-secondary border-0 p-4 rounded-3 text-center">
                         <i class="fa-solid fa-lock fa-2x text-muted mb-3"></i><br>
-                        <strong>Buyer Account Required</strong><br>
-                        <span class="text-muted small">Please <a href="{% url 'login' %}?next={{ request.path }}" class="text-dark fw-bold text-decoration-underline">Login</a> to view shipping rates and place orders.</span>
+                        <strong>{% trans "Buyer Account Required" %}</strong><br>
+                        <span class="text-muted small">{% trans "Please" %} <a href="{% url 'login' %}?next={{ request.path }}" class="text-dark fw-bold text-decoration-underline">{% trans "Login" %}</a> {% trans "to view shipping rates and place orders." %}</span>
                     </div>
                 {% endif %}
 
                 <div class="trust-icons">
                     <div class="trust-item">
                         <i class="fa-solid fa-truck-fast"></i>
-                        <span>Fast Shipping</span>
+                        <span>{% trans "Fast Shipping" %}</span>
                     </div>
                     <div class="trust-item">
                         <i class="fa-solid fa-shield-halved"></i>
-                        <span>Buyer Protection</span>
+                        <span>{% trans "Buyer Protection" %}</span>
                     </div>
                     <div class="trust-item">
                         <i class="fa-solid fa-headset"></i>
-                        <span>24/7 Support</span>
+                        <span>{% trans "24/7 Support" %}</span>
                     </div>
                 </div>
             </div>
@@ -474,31 +475,31 @@
         <div class="col-12">
             <ul class="nav nav-tabs" id="productTabs" role="tablist">
                 <li class="nav-item">
-                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#desc" type="button">Description</button>
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#desc" type="button">{% trans "Description" %}</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#specs" type="button">Specifications</button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#specs" type="button">{% trans "Specifications" %}</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#shipping" type="button">Shipping & Returns</button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#shipping" type="button">{% trans "Shipping & Returns" %}</button>
                 </li>
             </ul>
             <div class="tab-content bg-white border border-top-0 p-4 rounded-bottom">
                 <div class="tab-pane fade show active" id="desc">
-                    <h5 class="fw-bold mb-3">Product Overview</h5>
+                    <h5 class="fw-bold mb-3">{% trans "Product Overview" %}</h5>
                     {{ product.description|linebreaks }}
                 </div>
                 <div class="tab-pane fade" id="specs">
-                    <h5 class="fw-bold mb-3">Technical Details</h5>
+                    <h5 class="fw-bold mb-3">{% trans "Technical Details" %}</h5>
                     <table class="table table-striped table-sm w-50">
-                        <tr><td>Category</td><td>{{ product.category }}</td></tr>
+                        <tr><td>{% trans "Category" %}</td><td>{{ product.category }}</td></tr>
                         <tr><td>SKU</td><td>#{{ product.id }}8839</td></tr>
-                        <tr><td>Material</td><td>Premium Source</td></tr>
+                        <tr><td>{% trans "Material" %}</td><td>{% trans "Premium Source" %}</td></tr>
                     </table>
                 </div>
                 <div class="tab-pane fade" id="shipping">
-                    <h5 class="fw-bold mb-3">Delivery Information</h5>
-                    <p>Standard delivery times for this item vary by location. Please create an inquiry to receive a custom logistics quote for deliveries to Addis Ababa and surrounding regions.</p>
+                    <h5 class="fw-bold mb-3">{% trans "Delivery Information" %}</h5>
+                    <p>{% trans "Standard delivery times for this item vary by location. Please create an inquiry to receive a custom logistics quote for deliveries to Addis Ababa and surrounding regions." %}</p>
                 </div>
             </div>
         </div>
