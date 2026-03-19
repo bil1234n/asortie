@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 <div class="container py-4">
     
     <!-- Header with Action Buttons -->
     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
         <h3 class="fw-bold mb-0">
-            <i class="fa-solid fa-bell me-2 text-warning"></i> Notification History
+            <i class="fa-solid fa-bell me-2 text-warning"></i> {% trans "Notification History" %}
         </h3>
         
         {% if all_notifs %}
@@ -14,7 +15,7 @@
             <form action="{% url 'mark_all_read' %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-outline-primary btn-sm">
-                    <i class="fa-solid fa-check-double me-1"></i> Read All
+                    <i class="fa-solid fa-check-double me-1"></i> {% trans "Read All" %}
                 </button>
             </form>
 
@@ -22,7 +23,7 @@
             <form action="{% url 'delete_all_notifications' %}" method="post" onsubmit="return confirm('Are you sure you want to delete ALL notifications? This cannot be undone.');">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-outline-danger btn-sm">
-                    <i class="fa-solid fa-trash me-1"></i> Clear All
+                    <i class="fa-solid fa-trash me-1"></i> {% trans "Clear All" %}
                 </button>
             </form>
         </div>
@@ -56,7 +57,7 @@
                 
                 <!-- Status Badge (Optional visual) -->
                 {% if not n.is_read %}
-                    <span class="badge bg-warning text-dark rounded-pill ms-2" style="font-size: 0.7rem;">New</span>
+                    <span class="badge bg-warning text-dark rounded-pill ms-2" style="font-size: 0.7rem;">{% trans "New" %}</span>
                 {% endif %}
             </div>
             
@@ -66,8 +67,8 @@
         {% empty %}
         <div class="text-center py-5 bg-white rounded border">
             <i class="fa-regular fa-bell-slash fa-3x text-muted mb-3"></i>
-            <h5 class="text-muted">You have no notifications.</h5>
-            <p class="small text-muted">We will notify you when important events happen.</p>
+            <h5 class="text-muted">{% trans "You have no notifications." %}</h5>
+            <p class="small text-muted">{% trans "We will notify you when important events happen." %}</p>
         </div>
         {% endfor %}
     </div>
