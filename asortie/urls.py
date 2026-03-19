@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as django_auth_views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -19,6 +19,7 @@ from AR_3D import views as ar_3d_views
 
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
     # --- MARKETING SITE ---
     # Access this at http://127.0.0.1:8000/welcome_home/
     path('', core_views.marketing_home, name='landing_page'), 
@@ -122,6 +123,7 @@ urlpatterns = [
     path('train-ai/', ai_views.train_ai_endpoint, name='train_ai_endpoint'),
     
         # --- ADD THESE THREE LINES ---
+    path('train-text/', ai_views.train_ai_endpoint, name='train_ai_endpoint'),
     path('train-visual/', ai_views.train_visual_endpoint, name='train_visual_endpoint'),
     path('edit-knowledge/<int:knowledge_id>/', ai_views.edit_knowledge_endpoint, name='edit_knowledge_endpoint'),
     path('delete-knowledge/<int:knowledge_id>/', ai_views.delete_knowledge_endpoint, name='delete_knowledge_endpoint'),
