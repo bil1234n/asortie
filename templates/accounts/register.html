@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 
 <style>
@@ -89,7 +90,7 @@
             <div class="card shadow border-0 rounded-4">
                 <div class="card-header text-white py-4 text-center" style="background-color: var(--secondary-color); border-radius: 15px 15px 0 0;">
                     <h3 class="mb-0 fw-bold">
-                        <img src="../../static/img/logo_1.png" alt="" width="50px"> Create Account</h3>
+                        <img src="../../static/img/logo_1.png" alt="" width="50px"> {% trans "Create Account" %}</h3>
                 </div>
                 
                 <div class="card-body p-4 p-md-5">
@@ -99,17 +100,17 @@
                         
                         <!-- 1. Role Selection (Top) -->
                         <div class="text-center mb-4">
-                            <p class="text-muted mb-3">Select your account type to get started</p>
+                            <p class="text-muted mb-3">{% trans "Select your account type to get started" %}</p>
                             <div class="role-switcher">
                                 <!-- Default Checked: Buyer -->
                                 <input type="radio" name="role_type" value="buyer" id="role_buyer" class="role-option" checked onchange="toggleFormFields()">
                                 <label for="role_buyer" class="role-label">
-                                    <i class="fa-solid fa-basket-shopping me-2"></i>Buyer
+                                    <i class="fa-solid fa-basket-shopping me-2"></i>{% trans "Buyer" %}
                                 </label>
                                 
                                 <input type="radio" name="role_type" value="seller" id="role_seller" class="role-option" onchange="toggleFormFields()">
                                 <label for="role_seller" class="role-label">
-                                    <i class="fa-solid fa-boxes-packing me-2"></i>Seller
+                                    <i class="fa-solid fa-boxes-packing me-2"></i>{% trans "Seller" %}
                                 </label>
                             </div>
                         </div>
@@ -117,19 +118,19 @@
                         <!-- 2. Personal Info (Common) -->
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label fw-bold small">Username</label>
+                                <label class="form-label fw-bold small">{% trans "Username" %}</label>
                                 {{ form.username }}
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-bold small">Email</label>
+                                <label class="form-label fw-bold small">{% trans "Email" %}</label>
                                 {{ form.email }}
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-bold small">First Name</label>
+                                <label class="form-label fw-bold small">{% trans "First Name" %}</label>
                                 {{ form.first_name }}
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-bold small">Last Name</label>
+                                <label class="form-label fw-bold small">{% trans "Last Name" %}</label>
                                 {{ form.last_name }}
                             </div>
                         </div>
@@ -138,15 +139,15 @@
                         <div id="seller_specific_fields" style="display: none;">
                             <br>
                             <div class="p-3 rounded-3" style="background-color: #f8f9fa; border: 1px dashed var(--gold);">
-                                <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-file-shield me-2"></i>Seller Verification Required</h6>
+                                <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-file-shield me-2"></i>{% trans "Seller Verification Required" %}</h6>
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                        <label class="form-label fw-bold small">Import/Export License</label>
+                                        <label class="form-label fw-bold small">{% trans "Import/Export License" %}</label>
                                         {{ form.business_license }}
-                                        <div class="form-text small">PDF or Image required.</div>
+                                        <div class="form-text small">{% trans "PDF or Image required." %}</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label fw-bold small">National ID Card</label>
+                                        <label class="form-label fw-bold small">{% trans "National ID Card" %}</label>
                                         {{ form.id_card }}
                                     </div>
                                 </div>
@@ -168,7 +169,7 @@
 
                         <!-- 5. Package Selection -->
                         <hr class="my-4">
-                        <h5 class="fw-bold mb-3 text-center" style="color: var(--coffee-dark);">Select Plan</h5>
+                        <h5 class="fw-bold mb-3 text-center" style="color: var(--coffee-dark);">{% trans "Select Plan" %}</h5>
                         
                         <div class="row g-3 mb-4">
                             {% for radio in form.package_tier %}
@@ -183,20 +184,20 @@
                                 <label class="package-card" for="{{ radio.id_for_label }}">
                                     <!-- Dynamic text handled loosely here, specific to tiers -->
                                     {% if radio.choice_label == 'Basic' %}
-                                        <div class="pkg-title">Basic</div>
+                                        <div class="pkg-title">{% trans "Basic" %}</div>
                                         <div class="pkg-price">$0</div>
-                                        <div class="text-muted small">Business Profile.<br>Luxury Furniture Listings.</div>
+                                        <div class="text-muted small">{% trans "Business Profile." %}<br>{% trans "Luxury Furniture Listings." %}</div>
                                     {% elif radio.choice_label == 'Premium' %}
-                                        <div class="pkg-title">Premium</div>
+                                        <div class="pkg-title">{% trans "Premium" %}</div>
                                         <div class="pkg-price">$400<small class="fs-6 fw-normal text-muted">/year</small></div>
-                                        <div class="text-muted small">4 Smart Agents.<br>Full 3D Visualization.</div>
+                                        <div class="text-muted small">{% trans "4 Smart Agents." %}<br>{% trans "Full 3D Visualization." %}</div>
                                     {% elif radio.choice_label == 'Professional' %}
                                         <div class="pkg-title">
-                                            <i class="fa-solid fa-crown text-warning"></i> Professional
-                                            <span class="badge-pro">VIP</span>
+                                            <i class="fa-solid fa-crown text-warning"></i> {% trans "Professional" %}
+                                            <span class="badge-pro">{% trans "VIP" %}</span>
                                         </div>
-                                        <div class="pkg-price">$800<small class="fs-6 fw-normal text-muted">/year</small></div>
-                                        <div class="text-muted small"><strong>8 Smart Agents.</strong><br>Advanced Analytics.</div>
+                                        <div class="pkg-price">$800<small class="fs-6 fw-normal text-muted">{% trans "/year" %}</small></div>
+                                        <div class="text-muted small"><strong>{% trans "8 Smart Agents." %}</strong><br>{% trans "Advanced Analytics." %}</div>
                                     {% endif %}
                                 </label>
                             </div>
@@ -204,13 +205,13 @@
                         </div>
 
                         <button class="btn btn-warning w-100 fw-bold mt-3 py-3 shadow-sm text-uppercase" style="background-color: var(--gold); border: none; color: white;">
-                            Complete Registration
+                            {% trans "Complete Registration" %}
                         </button>
                     </form>
                     <div class="" id="buyer_login" style="display: none;">
                         <div class="d-flex align-items-center mb-4 mt-4">
                             <hr class="flex-grow-1">
-                            <span class="mx-3 text-muted small fw-bold">OR</span>
+                            <span class="mx-3 text-muted small fw-bold">{% trans "OR" %}</span>
                             <hr class="flex-grow-1">
                         </div>
                                             
@@ -238,8 +239,8 @@
                 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
                 <div class="card-footer text-center bg-light py-3 border-0 rounded-bottom-4">
-                    <small class="text-muted">Already have an account? 
-                        <a href="{% url 'login' %}" class="fw-bold text-decoration-none" style="color: var(--secondary-color);">Login Here</a> 
+                    <small class="text-muted">{% trans "Already have an account?" %} 
+                        <a href="{% url 'login' %}" class="fw-bold text-decoration-none" style="color: var(--secondary-color);">{% trans "Login Here" %}</a> 
                     </small>
                 </div>
             </div>
