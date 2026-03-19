@@ -376,9 +376,14 @@
         <h2 class="gallery-title">{% trans "Development Progress" %}</h2>
         
         <div class="video-wrapper">
-            <video autoplay loop muted playsinline class="lightbox-trigger" style="width: 100%;">
-                <source src="{% static 'video/chat.mp4' %}" type="video/mp4">
-            </video>
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                <iframe 
+                    src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
 
         <div class="gallery-container">
@@ -401,6 +406,7 @@
     <div id="mediaModal" class="modal">
         <span class="modal-close">&times;</span>
         <img class="modal-content" id="modalImg" style="display: none;">
+        <iframe class="modal-content" id="modalYoutube" style="display: none; width: 80%; height: 60%;" frameborder="0" allowfullscreen></iframe>
         <video class="modal-content" id="modalVideo" controls autoplay style="display: none;"></video>
     </div>
 
@@ -443,11 +449,12 @@
                         modalImg.src = this.src;
                     } else if (this.tagName === "VIDEO") {
                         modalImg.style.display = "none";
-                        modalVideo.style.display = "block";
-                        // Get the source from the nested <source> tag
-                        const source = this.querySelector('source').src;
-                        modalVideo.src = source;
-                        modalVideo.play();
+                        modalVideo.style.display = "none"; // Hide standard video
+                        const modalYoutube = document.getElementById("modalYoutube");
+                        
+                        modalYoutube.style.display = "block";
+                        // Convert watch link to embed link for the modal
+                        modalYoutube.src = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
                     }
                 });
             });
