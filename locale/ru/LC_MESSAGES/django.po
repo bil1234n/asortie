@@ -1,0 +1,1944 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-17 23:49+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\templates\AR_3D\index.html:183
+msgid "Asorite 3D Hub"
+msgstr "Асорит 3D Хаб"
+
+#: .\templates\AR_3D\index.html:188 .\templates\ai\index.html:271
+#: .\templates\ai\trainer.html:198 .\templates\partials\header.html:14
+#: .\templates\partials\header.html:35 .\templates\partials\header.html:66
+msgid "Dashboard"
+msgstr "Панель управления"
+
+#: .\templates\AR_3D\index.html:192 .\templates\ai\index.html:276
+msgid "Train Ai"
+msgstr "Поезд Ай"
+
+#: .\templates\AR_3D\index.html:198
+msgid "All"
+msgstr "Все"
+
+#: .\templates\AR_3D\index.html:211
+msgid "Loading..."
+msgstr "Загрузка..."
+
+#: .\templates\AR_3D\index.html:250 .\templates\ai\index.html:353
+#: .\templates\ai\trainer.html:267 .\templates\base.html:89
+msgid "Notifications"
+msgstr "Уведомления"
+
+#: .\templates\AR_3D\index.html:268 .\templates\ai\index.html:371
+#: .\templates\ai\trainer.html:285 .\templates\base.html:107
+msgid "ago"
+msgstr "назад"
+
+#: .\templates\AR_3D\index.html:274 .\templates\ai\index.html:377
+#: .\templates\ai\trainer.html:291 .\templates\base.html:113
+msgid "No new notifications"
+msgstr "Нет новых уведомлений"
+
+#: .\templates\AR_3D\index.html:278 .\templates\ai\index.html:381
+#: .\templates\ai\trainer.html:295 .\templates\base.html:117
+msgid "View All History"
+msgstr "Просмотреть всю историю"
+
+#: .\templates\AR_3D\index.html:304 .\templates\ai\index.html:407
+#: .\templates\ai\trainer.html:321 .\templates\base.html:143
+#: .\templates\market\detail.html:450
+msgid "Login"
+msgstr "Авторизоваться"
+
+#: .\templates\AR_3D\index.html:305 .\templates\ai\index.html:408
+#: .\templates\ai\trainer.html:322 .\templates\base.html:144
+msgid "Sign Up"
+msgstr "Зарегистрироваться"
+
+#: .\templates\AR_3D\index.html:346
+msgid "Color & Type Options"
+msgstr "Варианты цвета и типа"
+
+#: .\templates\AR_3D\index.html:350
+msgid "OPEN IN AR"
+msgstr "ОТКРЫТЬ В AR"
+
+#: .\templates\accounts\admin\login.html:9
+msgid "Administration"
+msgstr "Администрация"
+
+#: .\templates\accounts\admin\login.html:15
+msgid "Access Denied. Check credentials."
+msgstr "Доступ запрещен. Проверьте учетные данные."
+
+#: .\templates\accounts\admin\login.html:25
+msgid "Authenticate"
+msgstr "Аутентификация"
+
+#: .\templates\accounts\admin\register.html:9
+msgid "Secure Admin Registration"
+msgstr "Безопасная регистрация администратора"
+
+#: .\templates\accounts\admin\register.html:14
+msgid "Strictly for authorized personnel. Requires Master Passcode."
+msgstr "Строго для уполномоченного персонала. Требуется мастер-пароль."
+
+#: .\templates\accounts\admin\register.html:19
+msgid "Create Admin Account"
+msgstr "Создать учетную запись администратора"
+
+#: .\templates\accounts\change_password.html:10
+msgid "Security Settings"
+msgstr "Настройки безопасности"
+
+#: .\templates\accounts\change_password.html:15
+msgid "Please enter your current password and your new password below."
+msgstr "Пожалуйста, введите свой текущий пароль и новый пароль ниже."
+
+#: .\templates\accounts\change_password.html:37
+msgid "Update Password"
+msgstr "Обновить пароль"
+
+#: .\templates\accounts\change_password.html:40
+msgid "Cancel"
+msgstr "Отмена"
+
+#: .\templates\accounts\login.html:53
+msgid "Welcome Back"
+msgstr "Добро пожаловать"
+
+#: .\templates\accounts\login.html:58 .\templates\accounts\register.html:108
+#: .\templates\admin_panel\orders.html:53
+msgid "Buyer"
+msgstr "Покупатель"
+
+#: .\templates\accounts\login.html:63 .\templates\accounts\register.html:113
+#: .\templates\admin_panel\products.html:32
+msgid "Seller"
+msgstr "Продавец"
+
+#: .\templates\accounts\login.html:77 .\templates\accounts\profile.html:91
+#: .\templates\accounts\register.html:121
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: .\templates\accounts\login.html:82
+msgid "Password"
+msgstr "Пароль"
+
+#: .\templates\accounts\login.html:87
+msgid "LOGIN"
+msgstr "АВТОРИЗОВАТЬСЯ"
+
+#: .\templates\accounts\login.html:93 .\templates\accounts\register.html:214
+msgid "OR"
+msgstr "ИЛИ"
+
+#: .\templates\accounts\login.html:117
+msgid "Don't have an account?"
+msgstr "У вас нет учетной записи?"
+
+#: .\templates\accounts\login.html:118
+msgid "Register Now"
+msgstr "Зарегистрируйтесь сейчас"
+
+#: .\templates\accounts\profile.html:23
+msgid "ADMINISTRATOR"
+msgstr "АДМИНИСТРАТОР"
+
+#: .\templates\accounts\profile.html:25
+msgid "VERIFIED SELLER"
+msgstr "ПРОВЕРЕННЫЙ ПРОДАВЕЦ"
+
+#: .\templates\accounts\profile.html:27
+msgid "BUYER"
+msgstr "ПОКУПАТЕЛЬ"
+
+#: .\templates\accounts\profile.html:36
+msgid "Account Status"
+msgstr "Статус аккаунта"
+
+#: .\templates\accounts\profile.html:38
+#: .\templates\admin_panel\products.html:46
+msgid "Active"
+msgstr "Активный"
+
+#: .\templates\accounts\profile.html:42
+msgid "Date Joined"
+msgstr "Дата присоединения"
+
+#: .\templates\accounts\profile.html:47
+msgid "Verification"
+msgstr "Проверка"
+
+#: .\templates\accounts\profile.html:50 .\templates\admin_panel\users.html:267
+#: .\templates\market\business_directory.html:177
+msgid "Verified"
+msgstr "Проверено"
+
+#: .\templates\accounts\profile.html:52 .\templates\admin_panel\orders.html:27
+#: .\templates\admin_panel\users.html:269
+msgid "Pending"
+msgstr "В ожидании"
+
+#: .\templates\accounts\profile.html:67
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: .\templates\accounts\profile.html:75 .\templates\accounts\register.html:129
+msgid "First Name"
+msgstr "Имя"
+
+#: .\templates\accounts\profile.html:79 .\templates\accounts\register.html:133
+msgid "Last Name"
+msgstr "Фамилия"
+
+#: .\templates\accounts\profile.html:85 .\templates\chat\guest_contact.html:86
+msgid "Email Address"
+msgstr "Адрес электронной почты"
+
+#: .\templates\accounts\profile.html:87
+msgid "We'll never share your email with anyone else."
+msgstr "Мы никогда не передадим ваш адрес электронной почты кому-либо еще."
+
+#: .\templates\accounts\profile.html:93
+msgid "Username cannot be changed."
+msgstr "Имя пользователя не может быть изменено."
+
+#: .\templates\accounts\profile.html:99
+msgid "Business Documents"
+msgstr "Деловые документы"
+
+#: .\templates\accounts\profile.html:103
+#: .\templates\accounts\register.html:145
+msgid "Import/Export License"
+msgstr "Лицензия на импорт/экспорт"
+
+#: .\templates\accounts\profile.html:107
+msgid "View Current License"
+msgstr "Посмотреть текущую лицензию"
+
+#: .\templates\accounts\profile.html:114
+#: .\templates\accounts\register.html:150
+msgid "National ID Card"
+msgstr "Национальное удостоверение личности"
+
+#: .\templates\accounts\profile.html:118
+msgid "View Current ID"
+msgstr "Посмотреть текущий идентификатор"
+
+#: .\templates\accounts\profile.html:132
+msgid "Change Password"
+msgstr "Изменить пароль"
+
+#: .\templates\accounts\profile.html:136
+#: .\templates\market\business_profile.html:349
+#: .\templates\seller_panel\business_profile.html:340
+#: .\templates\seller_panel\products_form.html:142
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: .\templates\accounts\register.html:93
+msgid "Create Account"
+msgstr "Зарегистрироваться"
+
+#: .\templates\accounts\register.html:103
+msgid "Select your account type to get started"
+msgstr "Выберите тип учетной записи, чтобы начать"
+
+#: .\templates\accounts\register.html:125
+msgid "Email"
+msgstr "Электронная почта"
+
+#: .\templates\accounts\register.html:142
+msgid "Seller Verification Required"
+msgstr "Требуется проверка продавца"
+
+#: .\templates\accounts\register.html:147
+msgid "PDF or Image required."
+msgstr "Требуется PDF или изображение."
+
+#: .\templates\accounts\register.html:172
+msgid "Select Plan"
+msgstr "Выберите план"
+
+#: .\templates\accounts\register.html:187
+msgid "Basic"
+msgstr "Базовый"
+
+#: .\templates\accounts\register.html:189
+msgid "Business Profile."
+msgstr "Бизнес-профиль."
+
+#: .\templates\accounts\register.html:189
+msgid "Luxury Furniture Listings."
+msgstr "Объявления о элитной мебели."
+
+#: .\templates\accounts\register.html:191
+msgid "Premium"
+msgstr "Премиум"
+
+#: .\templates\accounts\register.html:193
+msgid "4 Smart Agents."
+msgstr "4 умных агента."
+
+#: .\templates\accounts\register.html:193
+msgid "Full 3D Visualization."
+msgstr "Полная 3D визуализация."
+
+#: .\templates\accounts\register.html:196
+msgid "Professional"
+msgstr "Профессиональный"
+
+#: .\templates\accounts\register.html:197
+msgid "VIP"
+msgstr "VIP"
+
+#: .\templates\accounts\register.html:199
+msgid "/year"
+msgstr "/год"
+
+#: .\templates\accounts\register.html:200
+msgid "8 Smart Agents."
+msgstr "8 умных агентов."
+
+#: .\templates\accounts\register.html:200
+msgid "Advanced Analytics."
+msgstr "Расширенная аналитика."
+
+#: .\templates\accounts\register.html:208
+msgid "Complete Registration"
+msgstr "Завершить регистрацию"
+
+#: .\templates\accounts\register.html:242
+#: .\templates\chat\guest_contact.html:110
+msgid "Already have an account?"
+msgstr "У вас уже есть аккаунт?"
+
+#: .\templates\accounts\register.html:243
+msgid "Login Here"
+msgstr "Войти здесь"
+
+#: .\templates\admin_panel\dashboard.html:6
+msgid "Admin Dashboard"
+msgstr "Панель администратора"
+
+#: .\templates\admin_panel\dashboard.html:13
+msgid "Total Users"
+msgstr "Всего пользователей"
+
+#: .\templates\admin_panel\dashboard.html:21
+msgid "Total Revenue"
+msgstr "Общий доход"
+
+#: .\templates\admin_panel\dashboard.html:29
+msgid "User Distribution"
+msgstr "Распределение пользователей"
+
+#: .\templates\admin_panel\orders.html:7 .\templates\ai\trainer.html:207
+#: .\templates\partials\header.html:23
+msgid "Order Analytics"
+msgstr "Заказать аналитику"
+
+#: .\templates\admin_panel\orders.html:8
+#: .\templates\seller_panel\dashboard.html:17
+#: .\templates\seller_panel\orders.html:156
+msgid "Total Orders"
+msgstr "Всего заказов"
+
+#: .\templates\admin_panel\orders.html:15
+msgid "Order Status Overview"
+msgstr "Обзор статуса заказа"
+
+#: .\templates\admin_panel\orders.html:39
+msgid "Revenue"
+msgstr "Доход"
+
+#: .\templates\admin_panel\orders.html:47
+msgid "Recent Transactions"
+msgstr "Недавние транзакции"
+
+#: .\templates\admin_panel\orders.html:52
+#: .\templates\seller_panel\orders.html:164
+msgid "ID"
+msgstr "ИДЕНТИФИКАТОР"
+
+#: .\templates\admin_panel\orders.html:54 .\templates\market\payment.html:144
+msgid "Total"
+msgstr "Общий"
+
+#: .\templates\admin_panel\orders.html:55
+#: .\templates\admin_panel\products.html:34
+#: .\templates\market\buyer_orders.html:32
+#: .\templates\seller_panel\orders.html:168
+msgid "Status"
+msgstr "Статус"
+
+#: .\templates\admin_panel\orders.html:71
+msgid "No orders yet."
+msgstr "Заказов пока нет."
+
+#: .\templates\admin_panel\products.html:7
+msgid "Product Analytics"
+msgstr "Аналитика продукта"
+
+#: .\templates\admin_panel\products.html:8
+msgid "Total Products"
+msgstr "Всего продуктов"
+
+#: .\templates\admin_panel\products.html:15
+msgid "Categories Distribution"
+msgstr "Категории Распространение"
+
+#: .\templates\admin_panel\products.html:25
+msgid "All Products"
+msgstr "Все продукты"
+
+#: .\templates\admin_panel\products.html:30
+msgid "Name"
+msgstr "Имя"
+
+#: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:495
+#: .\templates\market\list.html:40 .\templates\seller_panel\products.html:31
+#: .\templates\seller_panel\products_form.html:30
+msgid "Category"
+msgstr "Категория"
+
+#: .\templates\admin_panel\products.html:33
+msgid "Price"
+msgstr "Цена"
+
+#: .\templates\admin_panel\products.html:48
+msgid "Hidden"
+msgstr "Скрытый"
+
+#: .\templates\admin_panel\products.html:54
+msgid "No products found."
+msgstr "Товары не найдены."
+
+#: .\templates\admin_panel\users.html:97
+msgid "User & Compliance Management"
+msgstr "Управление пользователями и соблюдением требований"
+
+#: .\templates\admin_panel\users.html:98
+msgid "Review identity documents and verify seller certificates."
+msgstr ""
+"Проверьте документы, удостоверяющие личность, и проверьте сертификаты "
+"продавца."
+
+#: .\templates\admin_panel\users.html:101
+msgid "Users"
+msgstr "Пользователи"
+
+#: .\templates\admin_panel\users.html:111
+msgid "User Identity"
+msgstr "Идентификация пользователя"
+
+#: .\templates\admin_panel\users.html:112
+msgid "Role"
+msgstr "Роль"
+
+#: .\templates\admin_panel\users.html:113
+msgid "Identity Status"
+msgstr "Статус личности"
+
+#: .\templates\admin_panel\users.html:114
+#: .\templates\market\business_profile.html:275
+#: .\templates\seller_panel\business_profile.html:266
+msgid "Certificates"
+msgstr "Сертификаты"
+
+#: .\templates\admin_panel\users.html:115
+#: .\templates\seller_panel\orders.html:169
+#: .\templates\seller_panel\products.html:35
+msgid "Actions"
+msgstr "Действия"
+
+#: .\templates\admin_panel\users.html:138
+msgid "Tier"
+msgstr "Уровень"
+
+#: .\templates\admin_panel\users.html:145
+msgid "Identity Verified"
+msgstr "Личность подтверждена"
+
+#: .\templates\admin_panel\users.html:147
+msgid "Docs Submitted"
+msgstr "Документы отправлены"
+
+#: .\templates\admin_panel\users.html:149
+msgid "No Documents"
+msgstr "Нет документов"
+
+#: .\templates\admin_panel\users.html:159
+msgid "Uploaded"
+msgstr "Загружено"
+
+#: .\templates\admin_panel\users.html:182
+msgid "Review"
+msgstr "Обзор"
+
+#: .\templates\admin_panel\users.html:219
+msgid "Compliance Center:"
+msgstr "Центр соответствия:"
+
+#: .\templates\admin_panel\users.html:227
+msgid "Seller Profile"
+msgstr "Профиль продавца"
+
+#: .\templates\admin_panel\users.html:230
+#: .\templates\market\business_profile.html:296
+#: .\templates\seller_panel\business_profile.html:287
+msgid "Company Name"
+msgstr "Название компании"
+
+#: .\templates\admin_panel\users.html:234
+#: .\templates\market\business_directory.html:77
+msgid "Location"
+msgstr "Расположение"
+
+#: .\templates\admin_panel\users.html:238
+msgid "Roles"
+msgstr "Роли"
+
+#: .\templates\admin_panel\users.html:239
+#: .\templates\market\business_directory.html:144
+#: .\templates\market\business_profile.html:83
+#: .\templates\market\business_profile.html:323
+#: .\templates\market\public_profile.html:100
+msgid "Farmer"
+msgstr "Фермер"
+
+#: .\templates\admin_panel\users.html:240
+#: .\templates\market\business_directory.html:145
+#: .\templates\market\business_profile.html:84
+#: .\templates\market\business_profile.html:329
+#: .\templates\market\public_profile.html:103
+msgid "Roaster"
+msgstr "Ростер"
+
+#: .\templates\admin_panel\users.html:245
+msgid "Account Actions"
+msgstr "Действия с учетной записью"
+
+#: .\templates\admin_panel\users.html:251
+msgid "Suspend User"
+msgstr "Заблокировать пользователя"
+
+#: .\templates\admin_panel\users.html:253
+msgid "Unsuspend User"
+msgstr "Разблокировать пользователя"
+
+#: .\templates\admin_panel\users.html:262
+msgid "1. Identity Verification"
+msgstr "1. Проверка личности"
+
+#: .\templates\admin_panel\users.html:265
+msgid "Business License / ID"
+msgstr "Бизнес-лицензия/удостоверение личности"
+
+#: .\templates\admin_panel\users.html:279
+msgid "No identity documents uploaded."
+msgstr "Документы, удостоверяющие личность, не загружены."
+
+#: .\templates\admin_panel\users.html:289
+msgid "Approve Identity"
+msgstr "Утвердить личность"
+
+#: .\templates\admin_panel\users.html:293
+msgid "Revoke Status"
+msgstr "Отозвать статус"
+
+#: .\templates\admin_panel\users.html:300
+msgid "2. Trade Certificates"
+msgstr "2. Торговые сертификаты"
+
+#: .\templates\admin_panel\users.html:310
+msgid "Valid"
+msgstr "Действительный"
+
+#: .\templates\admin_panel\users.html:312
+msgid "Review Needed"
+msgstr "Требуется обзор"
+
+#: .\templates\admin_panel\users.html:320
+msgid "No file image."
+msgstr "Нет изображения файла."
+
+#: .\templates\admin_panel\users.html:330
+#: .\templates\market\business_profile.html:149
+#: .\templates\market\public_profile.html:191
+#: .\templates\seller_panel\business_profile.html:146
+msgid "Expires:"
+msgstr "Срок действия истекает:"
+
+#: .\templates\admin_panel\users.html:335
+msgid "Reject"
+msgstr "Отклонять"
+
+#: .\templates\admin_panel\users.html:336
+msgid "Approve Certificate"
+msgstr "Утвердить сертификат"
+
+#: .\templates\admin_panel\users.html:338
+msgid "Revoke Approval"
+msgstr "Отозвать одобрение"
+
+#: .\templates\admin_panel\users.html:345
+msgid "No additional certificates (Organic, Fair Trade, etc.) uploaded."
+msgstr ""
+"Никаких дополнительных сертификатов (органических, справедливой торговли и "
+"т. д.) не загружается."
+
+#: .\templates\ai\index.html:266 .\templates\ai\trainer.html:193
+msgid "Interior Intelligence Hub"
+msgstr "Центр внутренней разведки"
+
+#: .\templates\ai\index.html:280
+msgid "+ New Inquiry"
+msgstr "+ Новый запрос"
+
+#: .\templates\ai\index.html:285
+msgid "History"
+msgstr "История"
+
+#: .\templates\ai\index.html:424
+msgid "Client Inquiry"
+msgstr "Запрос клиента"
+
+#: .\templates\ai\index.html:424
+msgid "Asortie Consultant"
+msgstr "Консультант по ассортименту"
+
+#: .\templates\ai\index.html:457
+msgid "INQUIRE"
+msgstr "ЗАПРОСИТЬ"
+
+#: .\templates\ai\trainer.html:201 .\templates\partials\header.html:17
+msgid "Manage Users"
+msgstr "Управление пользователями"
+
+#: .\templates\ai\trainer.html:204 .\templates\partials\header.html:20
+msgid "Products Analytics"
+msgstr "Аналитика продуктов"
+
+#: .\templates\ai\trainer.html:210 .\templates\chat\inbox.html:9
+#: .\templates\partials\header.html:26 .\templates\partials\header.html:77
+msgid "Messages"
+msgstr "Сообщения"
+
+#: .\templates\ai\trainer.html:213
+msgid "Ai Agent"
+msgstr "ИИ-агент"
+
+#: .\templates\ai\trainer.html:228
+msgid "AI Training Center"
+msgstr "Учебный центр искусственного интеллекта"
+
+#: .\templates\ai\trainer.html:330
+msgid "Knowledge Management"
+msgstr "Управление знаниями"
+
+#: .\templates\ai\trainer.html:331
+msgid "Inject new facts and visual assets into the Asortie Intelligence core."
+msgstr ""
+"Добавляйте новые факты и визуальные материалы в ядро ​​Asortie Intelligence."
+
+#: .\templates\ai\trainer.html:338
+msgid "Add Text Fact"
+msgstr "Добавить текстовый факт"
+
+#: .\templates\ai\trainer.html:346
+msgid "Inject into Memory"
+msgstr "Внедрить в память"
+
+#: .\templates\ai\trainer.html:355
+msgid "Add Visual Asset"
+msgstr "Добавить визуальный актив"
+
+#: .\templates\ai\trainer.html:365
+msgid "Vectorize Image"
+msgstr "Векторизовать изображение"
+
+#: .\templates\ai\trainer.html:373
+msgid "Recent System Knowledge"
+msgstr "Недавние системные знания"
+
+#: .\templates\ai\trainer.html:387
+msgid "Visual"
+msgstr "Визуальный"
+
+#: .\templates\ai\trainer.html:387
+msgid "Fact"
+msgstr "Факт"
+
+#: .\templates\ai\trainer.html:396 .\templates\chat\single_message.html:26
+#: .\templates\seller_panel\products.html:93
+msgid "Edit"
+msgstr "Редактировать"
+
+#: .\templates\ai\trainer.html:397
+#: .\templates\market\business_profile.html:156
+#: .\templates\seller_panel\business_profile.html:153
+#: .\templates\seller_panel\products_form.html:129
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\templates\base.html:7
+msgid "Asortie | Premium Export"
+msgstr "Ассорти | Премиум экспорт"
+
+#: .\templates\chat\guest_contact.html:57
+msgid "Get in Touch"
+msgstr "Свяжитесь с нами"
+
+#: .\templates\chat\guest_contact.html:59
+msgid ""
+"We are here to help. Please fill out the form below and an agent will "
+"contact you shortly."
+msgstr ""
+"Мы здесь, чтобы помочь. Пожалуйста, заполните форму ниже, и агент свяжется с"
+" вами в ближайшее время."
+
+#: .\templates\chat\guest_contact.html:80
+msgid "Full Name"
+msgstr "Полное имя"
+
+#: .\templates\chat\guest_contact.html:92
+msgid "Phone Number (Optional)"
+msgstr "Номер телефона (необязательно)"
+
+#: .\templates\chat\guest_contact.html:98
+msgid "How can we help you?"
+msgstr "Как мы можем вам помочь?"
+
+#: .\templates\chat\guest_contact.html:103
+msgid "Send Message"
+msgstr "Отправить сообщение"
+
+#: .\templates\chat\guest_contact.html:112
+msgid "Login here"
+msgstr "Войти здесь"
+
+#: .\templates\chat\inbox.html:10
+msgid "Conversations"
+msgstr "Разговоры"
+
+#: .\templates\chat\inbox.html:25 .\templates\chat\inbox.html:38
+msgid "Click to open chat"
+msgstr "Нажмите, чтобы открыть чат"
+
+#: .\templates\chat\inbox.html:47
+msgid "No messages yet."
+msgstr "Сообщений пока нет."
+
+#: .\templates\chat\inbox.html:48
+msgid "Contact a seller from the marketplace to start a chat."
+msgstr "Свяжитесь с продавцом на торговой площадке, чтобы начать чат."
+
+#: .\templates\chat\inbox.html:49
+msgid "Go to Market"
+msgstr "Перейти на рынок"
+
+#: .\templates\chat\room.html:117
+msgid "Online"
+msgstr "Онлайн"
+
+#: .\templates\chat\room.html:126
+msgid "Clear Chat"
+msgstr "Очистить чат"
+
+#: .\templates\chat\room.html:155
+msgid "Recording..."
+msgstr "Запись..."
+
+#: .\templates\chat\single_message.html:29
+msgid "Delete for everyone"
+msgstr "Удалить для всех"
+
+#: .\templates\chat\single_message.html:33
+msgid "Delete for me"
+msgstr "Удалить для меня"
+
+#: .\templates\chat\single_message.html:41
+msgid "This message was deleted."
+msgstr "Это сообщение было удалено."
+
+#: .\templates\chat\single_message.html:58
+msgid "Download Attachment"
+msgstr "Скачать вложение"
+
+#: .\templates\chat\single_message.html:67
+msgid "(edited)"
+msgstr "(отредактировано)"
+
+#: .\templates\core\coming_soon.html:314
+msgid "Asortie AI"
+msgstr "Асорти ИИ"
+
+#: .\templates\core\coming_soon.html:315 .\templates\core\home.html:110
+msgid "Coming Soon"
+msgstr "Вскоре"
+
+#: .\templates\core\coming_soon.html:319
+msgid "Intelligence is the New Luxury"
+msgstr "Интеллект – это новая роскошь"
+
+#: .\templates\core\coming_soon.html:320
+msgid ""
+"Our bespoke AI Concierge is currently learning the nuances of classical "
+"craftsmanship and modern logistics. We are perfecting the visual recognition"
+" of your world."
+msgstr ""
+"Наш индивидуальный AI-консьерж в настоящее время изучает нюансы "
+"классического мастерства и современной логистики. Мы совершенствуем "
+"визуальное распознавание вашего мира."
+
+#: .\templates\core\coming_soon.html:325
+msgid "Deployment in Progress"
+msgstr "Развертывание выполняется"
+
+#: .\templates\core\coming_soon.html:332
+msgid ""
+"Current Phase: Validating 3D Showroom Assets & Groq Llama-4 Integration"
+msgstr ""
+"Текущий этап: проверка 3D-активов выставочного зала и интеграция Groq "
+"Llama-4"
+
+#: .\templates\core\coming_soon.html:344
+msgid "Vision Intelligence"
+msgstr "Видение Интеллект"
+
+#: .\templates\core\coming_soon.html:345
+msgid ""
+"Recognizing brand assets and furniture styles through sophisticated CLIP-"
+"based vector matching."
+msgstr ""
+"Распознавание активов бренда и стилей мебели с помощью сложного векторного "
+"сопоставления на основе CLIP."
+
+#: .\templates\core\coming_soon.html:353
+msgid "SQL Reasoning"
+msgstr "SQL-рассуждения"
+
+#: .\templates\core\coming_soon.html:354
+msgid ""
+"Direct database communication to provide real-time stock and bespoke pricing"
+" negotiation data."
+msgstr ""
+"Прямая связь с базой данных для предоставления данных о наличии товара в "
+"режиме реального времени и индивидуальных данных для переговоров о ценах."
+
+#: .\templates\core\coming_soon.html:362
+msgid "AR Showroom"
+msgstr "АР Шоурум"
+
+#: .\templates\core\coming_soon.html:363
+msgid ""
+"Bridging the gap between inquiry and experience with fully immersive 3D "
+"furniture visualization."
+msgstr ""
+"Преодоление разрыва между запросами и опытом с помощью полностью "
+"захватывающей 3D-визуализации мебели."
+
+#: .\templates\core\coming_soon.html:371
+msgid "Bespoke Valuation"
+msgstr "Индивидуальная оценка"
+
+#: .\templates\core\coming_soon.html:372
+msgid ""
+"AI-driven logistics pricing that accounts for white-glove handling, duty "
+"optimization, and localized transit insurance for high-value assets."
+msgstr ""
+"Логистическое ценообразование, основанное на искусственном интеллекте, "
+"учитывающее бережное обращение, оптимизацию пошлин и локализованное "
+"транзитное страхование для дорогостоящих активов."
+
+#: .\templates\core\coming_soon.html:376
+msgid "Development Progress"
+msgstr "Прогресс развития"
+
+#: .\templates\core\home.html:92
+msgid "Luxury landing with featured items."
+msgstr "Роскошный лендинг с избранными товарами."
+
+#: .\templates\core\home.html:105 .\templates\partials\header.html:29
+#: .\templates\partials\header.html:60 .\templates\partials\header.html:91
+msgid "AI Hub"
+msgstr "Центр искусственного интеллекта"
+
+#: .\templates\core\home.html:107
+msgid ""
+"Leverage advanced artificial intelligence for real-time market trend "
+"analysis, pricing insights, and automated interior design assistance."
+msgstr ""
+"Используйте передовой искусственный интеллект для анализа рыночных тенденций"
+" в режиме реального времени, ценовой информации и автоматизированной помощи "
+"в дизайне интерьера."
+
+#: .\templates\core\home.html:121 .\templates\partials\header.html:54
+#: .\templates\partials\header.html:69
+msgid "Marketplace"
+msgstr "Торговая площадка"
+
+#: .\templates\core\home.html:123
+msgid ""
+"Discover a curated inventory of luxury furniture, décor, and textiles ready "
+"for immediate global shipment from verified manufacturers."
+msgstr ""
+"Откройте для себя тщательно подобранный ассортимент роскошной мебели, декора"
+" и текстиля, готовый к немедленной доставке по всему миру от проверенных "
+"производителей."
+
+#: .\templates\core\home.html:126
+msgid "Our Shop"
+msgstr "Наш магазин"
+
+#: .\templates\core\home.html:137 .\templates\partials\header.html:57
+#: .\templates\partials\header.html:88
+msgid "3D Visualization"
+msgstr "3D-визуализация"
+
+#: .\templates\core\home.html:139
+msgid ""
+"Powerful 3D Visualization experience for our furniture in immersive 3D with "
+"real-time color customization and AR placement directly in your space."
+msgstr ""
+"Мощные возможности 3D-визуализации нашей мебели в захватывающем 3D с "
+"настройкой цвета в реальном времени и размещением AR прямо в вашем "
+"пространстве."
+
+#: .\templates\core\home.html:142
+msgid "3D & AR Visualization"
+msgstr "3D и AR-визуализация"
+
+#: .\templates\core\home.html:152
+msgid "100"
+msgstr "100"
+
+#: .\templates\core\home.html:153
+msgid "Verified Sellers"
+msgstr "Проверенные продавцы"
+
+#: .\templates\core\home.html:157 .\templates\market\public_profile.html:136
+#: .\templates\seller_panel\business_profile.html:231
+msgid "Active Products"
+msgstr "Активные продукты"
+
+#: .\templates\core\home.html:160
+msgid "24/7"
+msgstr "24/7"
+
+#: .\templates\core\home.html:161
+msgid "Global Support"
+msgstr "Глобальная поддержка"
+
+#: .\templates\core\notifications.html:9
+msgid "Notification History"
+msgstr "История уведомлений"
+
+#: .\templates\core\notifications.html:18
+msgid "Read All"
+msgstr "Читать все"
+
+#: .\templates\core\notifications.html:26
+msgid "Clear All"
+msgstr "Очистить все"
+
+#: .\templates\core\notifications.html:60
+msgid "New"
+msgstr "Новый"
+
+#: .\templates\core\notifications.html:70
+msgid "You have no notifications."
+msgstr "У вас нет уведомлений."
+
+#: .\templates\core\notifications.html:71
+msgid "We will notify you when important events happen."
+msgstr "Мы сообщим вам, когда произойдут важные события."
+
+#: .\templates\market\business_directory.html:59
+#: .\templates\partials\header.html:51 .\templates\partials\header.html:85
+msgid "Merchant Hub"
+msgstr "Торговый центр"
+
+#: .\templates\market\business_directory.html:60
+msgid ""
+"Access deep insights into seller performance, business credentials, and live"
+" product catalogs."
+msgstr ""
+"Получите доступ к глубокой информации о работе продавцов, бизнес-репутациям "
+"и актуальным каталогам продуктов."
+
+#: .\templates\market\business_directory.html:68
+msgid "Search"
+msgstr "Поиск"
+
+#: .\templates\market\business_directory.html:79
+msgid "All Countries"
+msgstr "Все страны"
+
+#: .\templates\market\business_directory.html:88
+#: .\templates\market\list.html:61
+msgid "Sort By"
+msgstr "Сортировать по"
+
+#: .\templates\market\business_directory.html:90
+msgid "Default"
+msgstr "По умолчанию"
+
+#: .\templates\market\business_directory.html:91
+msgid "Highest Success"
+msgstr "Высший успех"
+
+#: .\templates\market\business_directory.html:100
+msgid "Verified Sellers Only"
+msgstr "Только проверенные продавцы"
+
+#: .\templates\market\business_directory.html:104
+msgid "With Certificates"
+msgstr "С сертификатами"
+
+#: .\templates\market\business_directory.html:111
+msgid "Apply Filters"
+msgstr "Применить фильтры"
+
+#: .\templates\market\business_directory.html:146
+#: .\templates\market\business_profile.html:85
+#: .\templates\market\business_profile.html:335
+#: .\templates\market\public_profile.html:106
+msgid "Exporter"
+msgstr "Экспортер"
+
+#: .\templates\market\business_directory.html:147
+#: .\templates\market\business_profile.html:86
+#: .\templates\market\business_profile.html:341
+#: .\templates\market\public_profile.html:109
+msgid "Supplier"
+msgstr "Поставщик"
+
+#: .\templates\market\business_directory.html:153
+msgid "Certified"
+msgstr "Проверенный"
+
+#: .\templates\market\business_directory.html:168
+msgid "View Products"
+msgstr "Посмотреть продукты"
+
+#: .\templates\market\business_directory.html:184
+msgid "No businesses found matching your search."
+msgstr "Не найдено ни одной компании, соответствующей вашему запросу."
+
+#: .\templates\market\business_directory.html:185
+msgid "Clear Search"
+msgstr "Очистить поиск"
+
+#: .\templates\market\business_profile.html:41
+#: .\templates\seller_panel\business_profile.html:41
+msgid "Business Intelligence"
+msgstr "Бизнес-аналитика"
+
+#: .\templates\market\business_profile.html:42
+#: .\templates\seller_panel\business_profile.html:42
+msgid "Performance analytics and identity management."
+msgstr "Аналитика производительности и управление идентификацией."
+
+#: .\templates\market\business_profile.html:46
+#: .\templates\seller_panel\business_profile.html:45
+msgid "Edit Profile & Roles"
+msgstr "Редактировать профиль и роли"
+
+#: .\templates\market\business_profile.html:77
+#: .\templates\seller_panel\business_profile.html:74
+msgid "Location not set"
+msgstr "Местоположение не установлено"
+
+#: .\templates\market\business_profile.html:89
+msgid "No Roles Set"
+msgstr "Роли не заданы"
+
+#: .\templates\market\business_profile.html:97
+#: .\templates\seller_panel\business_profile.html:93
+msgid "About Us"
+msgstr "О нас"
+
+#: .\templates\market\business_profile.html:102
+#: .\templates\market\business_profile.html:312
+#: .\templates\seller_panel\business_profile.html:98
+#: .\templates\seller_panel\business_profile.html:303
+msgid "Core Products"
+msgstr "Основные продукты"
+
+#: .\templates\market\business_profile.html:107
+#: .\templates\seller_panel\business_profile.html:103
+msgid "Not specified"
+msgstr "Не указан"
+
+#: .\templates\market\business_profile.html:115
+#: .\templates\market\public_profile.html:144
+#: .\templates\seller_panel\business_profile.html:111
+msgid "Verified Certifications"
+msgstr "Проверенные сертификаты"
+
+#: .\templates\market\business_profile.html:142
+#: .\templates\market\public_profile.html:181
+#: .\templates\seller_panel\business_profile.html:139
+msgid "Proof"
+msgstr "Доказательство"
+
+#: .\templates\market\business_profile.html:148
+#: .\templates\seller_panel\business_profile.html:145
+msgid "Authority:"
+msgstr "Власть:"
+
+#: .\templates\market\business_profile.html:163
+#: .\templates\seller_panel\business_profile.html:160
+msgid "No certifications uploaded."
+msgstr "Сертификаты не загружены."
+
+#: .\templates\market\business_profile.html:188
+msgid "This Month"
+msgstr "В этом месяце"
+
+#: .\templates\market\business_profile.html:196
+msgid "This Year"
+msgstr "В этом году"
+
+#: .\templates\market\business_profile.html:209
+msgid "Financial Growth"
+msgstr "Финансовый рост"
+
+#: .\templates\market\business_profile.html:225
+#: .\templates\seller_panel\business_profile.html:221
+msgid "Market Ranking"
+msgstr "Рыночный рейтинг"
+
+#: .\templates\market\business_profile.html:227
+msgid "Based on total revenue"
+msgstr "На основе общего дохода"
+
+#: .\templates\market\business_profile.html:264
+#: .\templates\seller_panel\business_profile.html:255
+msgid "Manage Business Identity"
+msgstr "Управление бизнес-идентичностью"
+
+#: .\templates\market\business_profile.html:272
+#: .\templates\seller_panel\business_profile.html:263
+msgid "General Info"
+msgstr "Общая информация"
+
+#: .\templates\market\business_profile.html:290
+#: .\templates\seller_panel\business_profile.html:281
+msgid "Update Logo"
+msgstr "Обновить логотип"
+
+#: .\templates\market\business_profile.html:300
+#: .\templates\seller_panel\business_profile.html:291
+msgid "Country"
+msgstr "Страна"
+
+#: .\templates\market\business_profile.html:304
+#: .\templates\seller_panel\business_profile.html:295
+msgid "City"
+msgstr "Город"
+
+#: .\templates\market\business_profile.html:308
+#: .\templates\seller_panel\business_profile.html:299
+msgid "Short Bio"
+msgstr "Краткая биография"
+
+#: .\templates\market\business_profile.html:318
+#: .\templates\seller_panel\business_profile.html:309
+msgid "Select Your Roles:"
+msgstr "Выберите свои роли:"
+
+#: .\templates\market\business_profile.html:361
+#: .\templates\seller_panel\business_profile.html:352
+msgid "Certification Type"
+msgstr "Тип сертификации"
+
+#: .\templates\market\business_profile.html:365
+#: .\templates\seller_panel\business_profile.html:356
+msgid "Issuing Authority"
+msgstr "Орган, выдавший документ"
+
+#: .\templates\market\business_profile.html:369
+#: .\templates\seller_panel\business_profile.html:360
+msgid "Expiration Date"
+msgstr "Дата окончания срока"
+
+#: .\templates\market\business_profile.html:373
+#: .\templates\seller_panel\business_profile.html:364
+msgid "Document Image (JPG/PNG)"
+msgstr "Изображение документа (JPG/PNG)"
+
+#: .\templates\market\business_profile.html:378
+#: .\templates\seller_panel\business_profile.html:369
+msgid "Upload for Verification"
+msgstr "Загрузить для проверки"
+
+#: .\templates\market\buyer_orders.html:10 .\templates\partials\header.html:74
+msgid "My Orders"
+msgstr "Мои заказы"
+
+#: .\templates\market\buyer_orders.html:11
+msgid "Manage your purchases and track shipments."
+msgstr "Управляйте своими покупками и отслеживайте поставки."
+
+#: .\templates\market\buyer_orders.html:16
+msgid "Total Spent"
+msgstr "Всего потрачено"
+
+#: .\templates\market\buyer_orders.html:30
+msgid "Item"
+msgstr "Элемент"
+
+#: .\templates\market\buyer_orders.html:31
+msgid "Order Date"
+msgstr "Дата заказа"
+
+#: .\templates\market\buyer_orders.html:33
+msgid "Amount"
+msgstr "Количество"
+
+#: .\templates\market\buyer_orders.html:34
+msgid "Action"
+msgstr "Действие"
+
+#: .\templates\market\buyer_orders.html:73
+msgid "Price Pending"
+msgstr "Цена в ожидании"
+
+#: .\templates\market\buyer_orders.html:75
+msgid "Paid"
+msgstr "Оплаченный"
+
+#: .\templates\market\buyer_orders.html:77
+#: .\templates\seller_panel\orders.html:206
+msgid "Processing"
+msgstr "Обработка"
+
+#: .\templates\market\buyer_orders.html:79
+msgid "On the way"
+msgstr "В пути"
+
+#: .\templates\market\buyer_orders.html:81
+#: .\templates\seller_panel\orders.html:210
+msgid "Delivered"
+msgstr "Доставленный"
+
+#: .\templates\market\buyer_orders.html:98
+msgid "Pay Now"
+msgstr "Оплатить сейчас"
+
+#: .\templates\market\buyer_orders.html:107 .\templates\market\detail.html:409
+#: .\templates\market\public_profile.html:94
+msgid "Chat"
+msgstr "Чат"
+
+#: .\templates\market\buyer_orders.html:117
+msgid "No orders found"
+msgstr "Заказы не найдены"
+
+#: .\templates\market\buyer_orders.html:118
+msgid "You haven't placed any orders yet."
+msgstr "Вы еще не разместили заказов."
+
+#: .\templates\market\buyer_orders.html:119
+msgid "Browse Products"
+msgstr "Просмотр продуктов"
+
+#: .\templates\market\detail.html:356
+msgid "Collection"
+msgstr "Коллекция"
+
+#: .\templates\market\detail.html:372
+msgid "No Image Available"
+msgstr "Нет доступных изображений"
+
+#: .\templates\market\detail.html:378
+msgid "View in 3D"
+msgstr "Посмотреть в 3D"
+
+#: .\templates\market\detail.html:403
+msgid "Seller:"
+msgstr "Продавец:"
+
+#: .\templates\market\detail.html:405
+msgid "Visit Showroom"
+msgstr "Посетите выставочный зал"
+
+#: .\templates\market\detail.html:415
+msgid "Price On Request"
+msgstr "Цена по запросу"
+
+#: .\templates\market\detail.html:418
+msgid "/ set"
+msgstr "/ набор"
+
+#: .\templates\market\detail.html:429
+msgid "Quantity"
+msgstr "Количество"
+
+#: .\templates\market\detail.html:435
+msgid "Total Estimate"
+msgstr "Общая оценка"
+
+#: .\templates\market\detail.html:443
+msgid "Create Inquiry"
+msgstr "Создать запрос"
+
+#: .\templates\market\detail.html:449
+msgid "Buyer Account Required"
+msgstr "Требуется учетная запись покупателя"
+
+#: .\templates\market\detail.html:450
+msgid "Please"
+msgstr "Пожалуйста"
+
+#: .\templates\market\detail.html:450
+msgid "to view shipping rates and place orders."
+msgstr "просматривать стоимость доставки и размещать заказы."
+
+#: .\templates\market\detail.html:457
+msgid "Fast Shipping"
+msgstr "Быстрая доставка"
+
+#: .\templates\market\detail.html:461
+msgid "Buyer Protection"
+msgstr "Защита покупателя"
+
+#: .\templates\market\detail.html:465
+msgid "24/7 Support"
+msgstr "Круглосуточная поддержка"
+
+#: .\templates\market\detail.html:478
+#: .\templates\seller_panel\products_form.html:53
+msgid "Description"
+msgstr "Описание"
+
+#: .\templates\market\detail.html:481
+msgid "Specifications"
+msgstr "Технические характеристики"
+
+#: .\templates\market\detail.html:484
+msgid "Shipping & Returns"
+msgstr "Доставка и возврат"
+
+#: .\templates\market\detail.html:489
+msgid "Product Overview"
+msgstr "Обзор продукта"
+
+#: .\templates\market\detail.html:493
+msgid "Technical Details"
+msgstr "Технические детали"
+
+#: .\templates\market\detail.html:497
+msgid "Material"
+msgstr "Материал"
+
+#: .\templates\market\detail.html:497
+msgid "Premium Source"
+msgstr "Премиум-источник"
+
+#: .\templates\market\detail.html:501
+msgid "Delivery Information"
+msgstr "Информация о доставке"
+
+#: .\templates\market\detail.html:502
+msgid ""
+"Standard delivery times for this item vary by location. Please create an "
+"inquiry to receive a custom logistics quote for deliveries to Addis Ababa "
+"and surrounding regions."
+msgstr ""
+"Стандартные сроки доставки этого товара зависят от местоположения. "
+"Пожалуйста, создайте запрос, чтобы получить индивидуальное предложение по "
+"логистике для доставки в Аддис-Абебу и близлежащие регионы."
+
+#: .\templates\market\list.html:19
+msgid "Global Marketplace"
+msgstr "Глобальный рынок"
+
+#: .\templates\market\list.html:20
+msgid "Browse premium luxury furniture products from verified sellers."
+msgstr "Выбирайте роскошную мебель премиум-класса от проверенных продавцов."
+
+#: .\templates\market\list.html:31
+msgid "Search Products"
+msgstr "Поиск продуктов"
+
+#: .\templates\market\list.html:42
+msgid "All Categories"
+msgstr "Все категории"
+
+#: .\templates\market\list.html:51
+msgid "Price Range (USD)"
+msgstr "Ценовой диапазон (долл. США)"
+
+#: .\templates\market\list.html:63
+msgid "Newest Listed"
+msgstr "Новейшие в списке"
+
+#: .\templates\market\list.html:64
+msgid "Price: Low to High"
+msgstr "Цена: от низкой до высокой"
+
+#: .\templates\market\list.html:65
+msgid "Price: High to Low"
+msgstr "Цена: от высокой к низкой"
+
+#: .\templates\market\list.html:71
+msgid "Filter"
+msgstr "Фильтр"
+
+#: .\templates\market\list.html:96
+msgid "Price on request"
+msgstr "Цена по запросу"
+
+#: .\templates\market\list.html:98
+msgid "(Base Price)"
+msgstr "(Базовая цена)"
+
+#: .\templates\market\list.html:110 .\templates\market\public_profile.html:252
+msgid "To Order Login By Buyer"
+msgstr "Для заказа Войти Покупатель"
+
+#: .\templates\market\list.html:115
+msgid "Order Now"
+msgstr "Заказать сейчас"
+
+#: .\templates\market\list.html:122
+msgid "Login to Order"
+msgstr "Войдите, чтобы заказать"
+
+#: .\templates\market\list.html:132
+msgid "No products available right now."
+msgstr "На данный момент нет доступных продуктов."
+
+#: .\templates\market\payment.html:120
+msgid "Secure Checkout"
+msgstr "Безопасная оплата"
+
+#: .\templates\market\payment.html:121
+msgid "Step 2 of 2"
+msgstr "Шаг 2 из 2"
+
+#: .\templates\market\payment.html:127
+msgid "Order Summary"
+msgstr "Сводка заказа"
+
+#: .\templates\market\payment.html:140
+msgid "Qty:"
+msgstr "Кол-во:"
+
+#: .\templates\market\payment.html:158
+msgid "Select Payment Method"
+msgstr "Выберите способ оплаты"
+
+#: .\templates\market\payment.html:168
+msgid "International Payment"
+msgstr "Международный платеж"
+
+#: .\templates\market\payment.html:169
+msgid "Credit Card, Debit Card (Stripe)"
+msgstr "Кредитная карта, дебетовая карта (полоса)"
+
+#: .\templates\market\payment.html:183
+msgid "Local Payment (Ethiopia)"
+msgstr "Местный платеж (Эфиопия)"
+
+#: .\templates\market\payment.html:184
+msgid "Telebirr, CBE, Mobile Money (Chapa)"
+msgstr "Telebirr, CBE, Мобильные деньги (Чапа)"
+
+#: .\templates\market\payment.html:192
+msgid "Pay"
+msgstr "Платить"
+
+#: .\templates\market\payment.html:192
+msgid "Now"
+msgstr "Сейчас"
+
+#: .\templates\market\payment.html:195
+msgid "Cancel Order"
+msgstr "Отменить заказ"
+
+#: .\templates\market\payment.html:201
+msgid "SSL Encrypted Transaction"
+msgstr "SSL-шифрованная транзакция"
+
+#: .\templates\market\payment.html:206
+msgid "Chapa Verified"
+msgstr "Чапа проверено"
+
+#: .\templates\market\payment_success.html:7
+msgid "Payment Successful"
+msgstr "Платеж успешен"
+
+#: .\templates\market\payment_success.html:89
+msgid "Payment Successful!"
+msgstr "Платеж успешен!"
+
+#: .\templates\market\payment_success.html:90
+msgid ""
+"Thank you for your order. We are processing it and will send you a "
+"confirmation email shortly."
+msgstr ""
+"Спасибо за ваш заказ. Мы обрабатываем его и в ближайшее время отправим вам "
+"электронное письмо с подтверждением."
+
+#: .\templates\market\payment_success.html:93
+msgid "Redirecting to home page in"
+msgstr "Перенаправление на домашнюю страницу в"
+
+#: .\templates\market\payment_success.html:93
+msgid "seconds..."
+msgstr "секунды..."
+
+#: .\templates\market\payment_success.html:97
+msgid "Return to Home Now"
+msgstr "Вернуться домой сейчас"
+
+#: .\templates\market\public_profile.html:130
+msgid "Orders Fulfilled"
+msgstr "Заказы выполнены"
+
+#: .\templates\market\public_profile.html:165
+msgid "Issued by:"
+msgstr "Выдан:"
+
+#: .\templates\market\public_profile.html:188
+msgid "No image document available."
+msgstr "Нет документа с изображением."
+
+#: .\templates\market\public_profile.html:201
+msgid "No certifications uploaded yet."
+msgstr "Сертификаты пока не загружены."
+
+#: .\templates\market\public_profile.html:211
+msgid "Core Specialties"
+msgstr "Основные специальности"
+
+#: .\templates\market\public_profile.html:220
+msgid "Available Products"
+msgstr "Доступные продукты"
+
+#: .\templates\market\public_profile.html:257
+msgid "View Details"
+msgstr "Посмотреть детали"
+
+#: .\templates\market\public_profile.html:267
+msgid "No active products listed at the moment."
+msgstr "На данный момент в списке нет активных продуктов."
+
+#: .\templates\partials\chat_icon.html:11
+msgid "AI Assistant"
+msgstr "ИИ-помощник"
+
+#: .\templates\partials\chat_icon.html:29
+msgid "Super AI Agent"
+msgstr "Супер ИИ-агент"
+
+#: .\templates\partials\chat_icon.html:32
+msgid "Elite automated interior guidance;"
+msgstr "Элитное автоматизированное внутреннее наведение;"
+
+#: .\templates\partials\chat_icon.html:33
+msgid "live agent support in"
+msgstr "поддержка живых агентов в"
+
+#: .\templates\partials\chat_icon.html:38
+msgid "AI Agent"
+msgstr "ИИ-агент"
+
+#: .\templates\partials\chat_icon.html:43
+msgid "Reach our private concierge?"
+msgstr "Связаться с нашим частным консьержем?"
+
+#: .\templates\partials\chat_icon.html:45
+msgid "Message Specialist"
+msgstr "Специалист по сообщениям"
+
+#: .\templates\partials\footer.html:7
+msgid "2026"
+msgstr "2026 год"
+
+#: .\templates\partials\footer.html:7 .\templates\partials\header.html:97
+msgid "Asortie"
+msgstr "Ассорти"
+
+#: .\templates\partials\footer.html:8
+msgid "Addis Ababa, Ethiopia. Developer"
+msgstr "Аддис-Абеба, Эфиопия. Разработчик"
+
+#: .\templates\partials\footer.html:8
+msgid "Bilal Nesru"
+msgstr "Билал Несру"
+
+#: .\templates\partials\footer.html:9
+msgid "Powered By"
+msgstr "Питаться от"
+
+#: .\templates\partials\footer.html:9
+msgid "Anwar5Promoter"
+msgstr "Anwar5Промоутер"
+
+#: .\templates\partials\footer.html:10
+msgid "Privacy"
+msgstr "Конфиденциальность"
+
+#: .\templates\partials\footer.html:11
+msgid "Terms"
+msgstr "Условия"
+
+#: .\templates\partials\header.html:38
+msgid "My Products"
+msgstr "Мои продукты"
+
+#: .\templates\partials\header.html:41
+msgid "Manage Orders"
+msgstr "Управление заказами"
+
+#: .\templates\partials\header.html:45 .\templates\partials\header.html:81
+msgid "Business Profile"
+msgstr "Бизнес-профиль"
+
+#: .\templates\partials\header.html:48
+msgid "Buyer Messages"
+msgstr "Сообщения покупателя"
+
+#: .\templates\seller_panel\business_profile.html:177
+msgid "Revenue Today"
+msgstr "Доход сегодня"
+
+#: .\templates\seller_panel\business_profile.html:185
+msgid "Revenue This Month"
+msgstr "Доход в этом месяце"
+
+#: .\templates\seller_panel\business_profile.html:193
+msgid "Revenue This Year"
+msgstr "Выручка в этом году"
+
+#: .\templates\seller_panel\business_profile.html:206
+msgid "Revenue Growth"
+msgstr "Рост доходов"
+
+#: .\templates\seller_panel\business_profile.html:223
+msgid "Based on total revenue volume"
+msgstr "По общему объему выручки"
+
+#: .\templates\seller_panel\business_profile.html:235
+msgid "Successful Orders"
+msgstr "Успешные заказы"
+
+#: .\templates\seller_panel\dashboard.html:6
+msgid "Seller Dashboard"
+msgstr "Панель управления продавца"
+
+#: .\templates\seller_panel\dashboard.html:11
+msgid "Total Sales"
+msgstr "Общий объем продаж"
+
+#: .\templates\seller_panel\dashboard.html:23
+msgid "Order Status Analytics"
+msgstr "Аналитика статуса заказа"
+
+#: .\templates\seller_panel\orders.html:153
+msgid "Order Logistics"
+msgstr "Заказать логистику"
+
+#: .\templates\seller_panel\orders.html:154
+msgid "Manage furniture inquiries and shipping from Asortie to Ethiopia."
+msgstr "Управляйте запросами на мебель и доставкой из Асорти в Эфиопию."
+
+#: .\templates\seller_panel\orders.html:165
+msgid "Luxury Item"
+msgstr "Роскошный предмет"
+
+#: .\templates\seller_panel\orders.html:166
+msgid "Client Info"
+msgstr "Информация о клиенте"
+
+#: .\templates\seller_panel\orders.html:167
+msgid "Quoted Amount"
+msgstr "Заявленная сумма"
+
+#: .\templates\seller_panel\orders.html:196
+msgid "Waiting for Quote"
+msgstr "Ожидание цитаты"
+
+#: .\templates\seller_panel\orders.html:202
+msgid "Inquiry"
+msgstr "Расследование"
+
+#: .\templates\seller_panel\orders.html:204
+msgid "Quoted"
+msgstr "Цитируется"
+
+#: .\templates\seller_panel\orders.html:208
+msgid "In Transit"
+msgstr "В пути"
+
+#: .\templates\seller_panel\orders.html:212
+msgid "Cancelled"
+msgstr "Отменено"
+
+#: .\templates\seller_panel\orders.html:214
+msgid "Declined"
+msgstr "Отклоненный"
+
+#: .\templates\seller_panel\orders.html:219
+msgid "Inquiry Withdrawn"
+msgstr "Запрос отозван"
+
+#: .\templates\seller_panel\orders.html:223
+msgid "Manage"
+msgstr "Управлять"
+
+#: .\templates\seller_panel\orders.html:229
+msgid "Next Step"
+msgstr "Следующий шаг"
+
+#: .\templates\seller_panel\orders.html:233
+msgid "Set Final Price"
+msgstr "Установить окончательную цену"
+
+#: .\templates\seller_panel\orders.html:241
+msgid "Accept Order"
+msgstr "Принять заказ"
+
+#: .\templates\seller_panel\orders.html:250
+msgid "Start Shipping"
+msgstr "Начать доставку"
+
+#: .\templates\seller_panel\orders.html:259
+msgid "Mark Delivered"
+msgstr "Отметить доставленное"
+
+#: .\templates\seller_panel\orders.html:269
+msgid "Corrections"
+msgstr "Исправления"
+
+#: .\templates\seller_panel\orders.html:276
+msgid "Re-open Inquiry"
+msgstr "Повторно открыть запрос"
+
+#: .\templates\seller_panel\orders.html:276
+msgid "Reset to Pending"
+msgstr "Сбросить до состояния ожидания"
+
+#: .\templates\seller_panel\orders.html:285
+msgid "Back to Quote"
+msgstr "Вернуться к цитате"
+
+#: .\templates\seller_panel\orders.html:294
+msgid "Return to Warehouse"
+msgstr "Вернуться на склад"
+
+#: .\templates\seller_panel\orders.html:303
+msgid "Reset to Shipping"
+msgstr "Сбросить настройки доставки"
+
+#: .\templates\seller_panel\orders.html:317
+msgid "Decline Inquiry"
+msgstr "Отклонить запрос"
+
+#: .\templates\seller_panel\orders.html:337
+msgid "OFFICIAL QUOTE"
+msgstr "ОФИЦИАЛЬНАЯ ЦИТАТА"
+
+#: .\templates\seller_panel\orders.html:343
+msgid "Final Agreed Price (USD)"
+msgstr "Окончательная согласованная цена (долл. США)"
+
+#: .\templates\seller_panel\orders.html:352
+msgid "Send Quote to Buyer"
+msgstr "Отправить предложение покупателю"
+
+#: .\templates\seller_panel\products.html:8
+msgid "Furniture Collection"
+msgstr "Коллекция мебели"
+
+#: .\templates\seller_panel\products.html:9
+msgid "Manage your luxury catalog, AR variants, and galleries."
+msgstr "Управляйте своим роскошным каталогом, вариантами AR и галереями."
+
+#: .\templates\seller_panel\products.html:13
+msgid "Add New Piece"
+msgstr "Добавить новый кусок"
+
+#: .\templates\seller_panel\products.html:16
+msgid "View Orders"
+msgstr "Просмотр заказов"
+
+#: .\templates\seller_panel\products.html:24
+msgid "Your Active Showroom"
+msgstr "Ваш активный выставочный зал"
+
+#: .\templates\seller_panel\products.html:29
+msgid "Preview"
+msgstr "Предварительный просмотр"
+
+#: .\templates\seller_panel\products.html:30
+msgid "Item Name"
+msgstr "Название предмета"
+
+#: .\templates\seller_panel\products.html:32
+msgid "Price Strategy"
+msgstr "Ценовая стратегия"
+
+#: .\templates\seller_panel\products.html:33
+msgid "Gallery"
+msgstr "Галерея"
+
+#: .\templates\seller_panel\products.html:34
+msgid "Variants (AR)"
+msgstr "Варианты (АР)"
+
+#: .\templates\seller_panel\products.html:46
+msgid "No Img"
+msgstr "Нет изображения"
+
+#: .\templates\seller_panel\products.html:62
+msgid "Quotation"
+msgstr "Цитата"
+
+#: .\templates\seller_panel\products.html:70
+msgid "imgs"
+msgstr "изображения"
+
+#: .\templates\seller_panel\products.html:79
+msgid "View AR"
+msgstr "Посмотреть AR"
+
+#: .\templates\seller_panel\products.html:84
+msgid "No 3D Models"
+msgstr "Нет 3D-моделей"
+
+#: .\templates\seller_panel\products.html:107
+msgid "No products listed yet."
+msgstr "Товаров пока нет."
+
+#: .\templates\seller_panel\products_form.html:9
+msgid "Edit Product"
+msgstr "Редактировать продукт"
+
+#: .\templates\seller_panel\products_form.html:9
+msgid "Add New Product"
+msgstr "Добавить новый продукт"
+
+#: .\templates\seller_panel\products_form.html:23
+msgid "Basic Information"
+msgstr "Основная информация"
+
+#: .\templates\seller_panel\products_form.html:26
+msgid "Product Name"
+msgstr "Название продукта"
+
+#: .\templates\seller_panel\products_form.html:32
+msgid "Modern"
+msgstr "Современный"
+
+#: .\templates\seller_panel\products_form.html:33
+msgid "Classic"
+msgstr "Классический"
+
+#: .\templates\seller_panel\products_form.html:34
+msgid "Decoration"
+msgstr "Украшение"
+
+#: .\templates\seller_panel\products_form.html:35
+msgid "Office"
+msgstr "Офис"
+
+#: .\templates\seller_panel\products_form.html:36
+msgid "Hotel"
+msgstr "Отель"
+
+#: .\templates\seller_panel\products_form.html:41
+msgid "Pricing Strategy"
+msgstr "Ценовая стратегия"
+
+#: .\templates\seller_panel\products_form.html:43
+msgid "Negotiated (Quote)"
+msgstr "Договорная (Цитата)"
+
+#: .\templates\seller_panel\products_form.html:44
+msgid "selected"
+msgstr "выбрано"
+
+#: .\templates\seller_panel\products_form.html:44
+msgid "Base Price"
+msgstr "Базовая цена"
+
+#: .\templates\seller_panel\products_form.html:48
+msgid "Price ($)"
+msgstr "Цена ($)"
+
+#: .\templates\seller_panel\products_form.html:59
+msgid "Imagery"
+msgstr "Образы"
+
+#: .\templates\seller_panel\products_form.html:63
+msgid "Main Image"
+msgstr "Основное изображение"
+
+#: .\templates\seller_panel\products_form.html:67
+msgid "Current"
+msgstr "Текущий"
+
+#: .\templates\seller_panel\products_form.html:71
+msgid "Upload to replace current main image."
+msgstr "Загрузите, чтобы заменить текущее основное изображение."
+
+#: .\templates\seller_panel\products_form.html:76
+msgid "Gallery Images"
+msgstr "Галерея изображений"
+
+#: .\templates\seller_panel\products_form.html:95
+msgid "Add New Images:"
+msgstr "Добавить новые изображения:"
+
+#: .\templates\seller_panel\products_form.html:102
+msgid "3D Models & Variants"
+msgstr "3D-модели и варианты"
+
+#: .\templates\seller_panel\products_form.html:104
+msgid "Add New"
+msgstr "Добавить новый"
+
+#: .\templates\seller_panel\products_form.html:111
+msgid "Current Variants"
+msgstr "Текущие варианты"
+
+#: .\templates\seller_panel\products_form.html:120
+msgid "File Uploaded"
+msgstr "Файл загружен"
+
+#: .\templates\seller_panel\products_form.html:122
+msgid "External Link"
+msgstr "Внешняя ссылка"
+
+#: .\templates\seller_panel\products_form.html:124
+msgid "No 3D data"
+msgstr "Нет 3D-данных"
+
+#: .\templates\seller_panel\products_form.html:142
+msgid "Publish Product"
+msgstr "Опубликовать продукт"
