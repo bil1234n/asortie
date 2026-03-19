@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 <div class="row">
     <!-- Header Section (Same as before) -->
     <div class="col-md-12 mb-4 d-flex justify-content-between align-items-center">
         <div>
-            <h2 class="fw-bold">Furniture Collection</h2>
-            <p class="text-muted">Manage your luxury catalog, AR variants, and galleries.</p>
+            <h2 class="fw-bold">{% trans "Furniture Collection" %}</h2>
+            <p class="text-muted">{% trans "Manage your luxury catalog, AR variants, and galleries." %}</p>
         </div>
         <div>
             <a href="{% url 'seller_product_add' %}" class="btn btn-success me-2">
-                <i class="fa-solid fa-plus"></i> Add New Piece
+                <i class="fa-solid fa-plus"></i> {% trans "Add New Piece" %}
             </a>
             <a href="{% url 'seller_orders' %}" class="btn btn-dark">
-                <i class="fa-solid fa-envelope-open-text"></i> View Orders
+                <i class="fa-solid fa-envelope-open-text"></i> {% trans "View Orders" %}
             </a>
         </div>
     </div>
@@ -20,18 +21,18 @@
     <!-- PRODUCT LIST -->
     <div class="col-md-12">
         <div class="card shadow-sm border-0">
-            <div class="card-header bg-white fw-bold">Your Active Showroom</div>
+            <div class="card-header bg-white fw-bold">{% trans "Your Active Showroom" %}</div>
             <div class="card-body p-0 table-responsive">
                 <table class="table table-hover mb-0 align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th>Preview</th>
-                            <th>Item Name</th>
-                            <th>Category</th>
-                            <th>Price Strategy</th>
-                            <th>Gallery</th>
-                            <th>Variants (AR)</th> <!-- Updated Header -->
-                            <th class="text-end">Actions</th>
+                            <th>{% trans "Preview" %}</th>
+                            <th>{% trans "Item Name" %}</th>
+                            <th>{% trans "Category" %}</th>
+                            <th>{% trans "Price Strategy" %}</th>
+                            <th>{% trans "Gallery" %}</th>
+                            <th>{% trans "Variants (AR)" %}</th> <!-- Updated Header -->
+                            <th class="text-end">{% trans "Actions" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +43,7 @@
                                 {% if p.image %}
                                     <img src="{{ p.image.url }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
                                 {% else %}
-                                    <div class="bg-light d-flex align-items-center justify-content-center text-muted small" style="width: 60px; height: 60px; border-radius: 4px;">No Img</div>
+                                    <div class="bg-light d-flex align-items-center justify-content-center text-muted small" style="width: 60px; height: 60px; border-radius: 4px;">{% trans "No Img" %}</div>
                                 {% endif %}
                             </td>
                             
@@ -58,7 +59,7 @@
                             <!-- Price -->
                             <td>
                                 {% if p.price == 0 %}
-                                    <span class="badge bg-info text-dark">Quotation</span>
+                                    <span class="badge bg-info text-dark">{% trans "Quotation" %}</span>
                                 {% else %}
                                     <span class="text-success fw-bold">${{ p.price }}</span>
                                 {% endif %}
@@ -66,7 +67,7 @@
 
                             <!-- Gallery Count -->
                             <td>
-                                <span class="badge bg-secondary">{{ p.gallery.count }} imgs</span>
+                                <span class="badge bg-secondary">{{ p.gallery.count }} {% trans "imgs" %}</span>
                             </td>
 
                             <!-- === UPDATED VARIANTS COLUMN === -->
@@ -75,12 +76,12 @@
                                     <!-- Button to View in AR -->
                                     <a href="/ar_3d/?product={{ p.id }}" target="_blank" class="btn btn-sm btn-outline-dark border-0" title="View in 3D Showroom">
                                         <i class="fa-solid fa-cube fa-lg text-primary"></i> 
-                                        <span class="ms-1 fw-bold">View AR</span>
+                                        <span class="ms-1 fw-bold">{% trans "View AR" %}</span>
                                         <span class="badge bg-dark rounded-pill ms-1">{{ p.variants.count }}</span>
                                     </a>
                                 {% else %}
                                     <span class="text-muted small">
-                                        <i class="fa-solid fa-ban"></i> No 3D Models
+                                        <i class="fa-solid fa-ban"></i> {% trans "No 3D Models" %}
                                     </span>
                                 {% endif %}
                             </td>
@@ -89,7 +90,7 @@
                             <!-- Actions -->
                             <td class="text-end">
                                 <a href="{% url 'seller_product_edit' p.id %}" class="btn btn-sm btn-outline-primary border-0 me-1">
-                                    <i class="fa-solid fa-pen"></i> Edit
+                                    <i class="fa-solid fa-pen"></i> {% trans "Edit" %}
                                 </a>
                                 <form action="{% url 'seller_product_delete' p.id %}" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to remove this product?');">
                                     {% csrf_token %}
@@ -103,7 +104,7 @@
                         <tr>
                             <td colspan="7" class="text-center py-5 text-muted">
                                 <i class="fa-solid fa-box-open fa-2x mb-3"></i><br>
-                                No products listed yet.
+                                {% trans "No products listed yet." %}
                             </td>
                         </tr>
                         {% endfor %}
