@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">Product Analytics</h2>
-    <span class="badge bg-primary fs-5">{{ products.count }} Total Products</span>
+    <h2 class="fw-bold">{% trans "Product Analytics" %}</h2>
+    <span class="badge bg-primary fs-5">{{ products.count }} {% trans "Total Products" %}</span>
 </div>
 
 <div class="row">
     <!-- CHART SECTION -->
     <div class="col-md-5 mb-4">
         <div class="card shadow border-0">
-            <div class="card-header bg-white fw-bold">Categories Distribution</div>
+            <div class="card-header bg-white fw-bold">{% trans "Categories Distribution" %}</div>
             <div class="card-body">
                 <canvas id="productChart"></canvas>
             </div>
@@ -21,16 +22,16 @@
     <!-- TABLE SECTION -->
     <div class="col-md-7">
         <div class="card shadow-sm border-0">
-            <div class="card-header bg-dark text-white">All Products</div>
+            <div class="card-header bg-dark text-white">{% trans "All Products" %}</div>
             <div class="card-body p-0 table-responsive" style="max-height: 400px; overflow-y: auto;">
                 <table class="table table-striped mb-0 cont_or_p">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Seller</th>
-                            <th>Price</th>
-                            <th>Status</th>
+                            <th>{% trans "Name" %}</th>
+                            <th>{% trans "Category" %}</th>
+                            <th>{% trans "Seller" %}</th>
+                            <th>{% trans "Price" %}</th>
+                            <th>{% trans "Status" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,15 +43,15 @@
                             <td>${{ p.price }}</td>
                             <td>
                                 {% if p.is_active %}
-                                    <span class="badge bg-success">Active</span>
+                                    <span class="badge bg-success">{% trans "Active" %}</span>
                                 {% else %}
-                                    <span class="badge bg-secondary">Hidden</span>
+                                    <span class="badge bg-secondary">{% trans "Hidden" %}</span>
                                 {% endif %}
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="5" class="text-center py-3">No products found.</td>
+                            <td colspan="5" class="text-center py-3">{% trans "No products found." %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
