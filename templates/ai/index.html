@@ -1,6 +1,6 @@
-{% load static %}
+{% load static i18n %} 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -253,8 +254,8 @@
         @media (max-width: 1024px) { .mobile-close { display: block; } }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
-
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<body dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="flex h-screen overflow-hidden">
     
     <aside id="sidebar" class="w-80 flex flex-col p-6 shrink-0 shadow-xl z-[1001]">
         <div class="mobile-close" onclick="toggleSidebar()">
@@ -262,26 +263,26 @@
         </div>
         <div class="mb-10 text-center border_bot">
             <img src="{% static 'img/logo_2.png' %}" style="max-width: 230px; margin: 0 auto;" alt="">
-            <p class="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1">Interior Intelligence Hub</p>
+            <p class="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1">{% trans "Interior Intelligence Hub" %}</p>
         </div>
 
         <div class="space-y-3 mb-8">
             <button onclick="location.href='{% url 'home' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
-                <i class="fa-solid fa-house mr-2"></i> Dashboard
+                <i class="fa-solid fa-house mr-2"></i> {% trans "Dashboard" %}
             </button>
             <!-- ================= ADMIN MENU ================= -->
             {% if user.role == 'admin' or user.is_superuser %}
                 <button onclick="location.href='{% url 'trainer' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
-                    <i class="fa-solid fa-robot mr-2"></i> Train Ai
+                    <i class="fa-solid fa-robot mr-2"></i> {% trans "Train Ai" %}
                 </button>
             {% endif %}
             <button onclick="location.href='{% url 'new_ai_chat' %}'" class="w-full py-3 px-4 bg-white text-[#1B3C59] rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-gray-100 transition shadow-lg">
-                + New Inquiry
+                {% trans "+ New Inquiry" %}
             </button>
         </div>
         <div class="flex-1 flex flex-col overflow-hidden">
             <button class="history-dropdown-header" onclick="toggleHistoryMenu()">
-                <span><i class="fa-solid fa-clock-rotate-left mr-2"></i> History</span>
+                <span><i class="fa-solid fa-clock-rotate-left mr-2"></i> {% trans "History" %}</span>
                 <i id="historyChevron" class="fa-solid fa-chevron-down text-[10px] chevron-rotate open"></i>
             </button>
             
@@ -316,6 +317,48 @@
 
                 <div class="top-right-actions">
                     
+                    
+                    <form action="{% url 'set_language' %}" method="post" id="language-form" class="me-3 mb-0">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                        
+                        {% get_current_language as CURRENT_LANG %}
+                        <input type="hidden" name="language" id="selected-language" value="{{ CURRENT_LANG }}">
+
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light border-0 fw-medium dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-globe me-2"></i> Select Language
+                            </button>
+                            
+                            <ul class="dropdown-menu shadow border-0">
+                                {% get_available_languages as ALL_LANGS %}
+                                {% get_language_info_list for ALL_LANGS as languages %}
+                                {% for lang in languages %}
+                                    <li>
+                                        <button type="button" class="dropdown-item {% if lang.code == CURRENT_LANG %}active{% endif %}" 
+                                                onclick="document.getElementById('selected-language').value='{{ lang.code }}'; document.getElementById('language-form').submit();">
+                                            
+                                            {% if lang.code == 'en' %}
+                                                <img src="{% static 'img/usa.png' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'am' %}
+                                                <img src="{% static 'img/eth.gif' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'tr' %}
+                                                <img src="{% static 'img/tur.jpg' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'fr' %}
+                                                <img src="{% static 'img/fra.webp' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'ar' %}
+                                                <img src="{% static 'img/arb.webp' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'ru' %}
+                                                <img src="{% static 'img/rus.webp' %}" alt="" width="20" class="me-2">
+                                            {% endif %}
+                                            {{ lang.name_local|title }}
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </form>
+                    
                     {% if user.is_authenticated %}
                         <!-- NOTIFICATION BELL -->
                         <li class="nav-item dropdown me-3" style="list-style: none;">
@@ -330,7 +373,7 @@
                             </a>
                             
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="width: 300px; max-height: 400px; overflow-y: auto;">
-                                <li class="dropdown-header fw-bold">Notifications</li>
+                                <li class="dropdown-header fw-bold">{% trans "Notifications" %}</li>
                                 <li><hr class="dropdown-divider"></li>
                                 
                                 {% if notifications %}
@@ -348,17 +391,17 @@
                                             </div>
                                             <div style="white-space: normal;">
                                                 <p class="mb-0 small fw-bold">{{ n.message }}</p>
-                                                <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} ago</small>
+                                                <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} {% trans "ago" %}</small>
                                             </div>
                                         </a>
                                     </li>
                                     {% endfor %}
                                 {% else %}
-                                    <li class="text-center py-3 small text-muted">No new notifications</li>
+                                    <li class="text-center py-3 small text-muted">{% trans "No new notifications" %}</li>
                                 {% endif %}
                                 
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">View All History</a></li>
+                                <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">{% trans "View All History" %}</a></li>
                             </ul>
                         </li>
                     {% endif %}
@@ -384,8 +427,8 @@
 
                     {% else %}
                         <!-- GUEST BUTTONS -->
-                        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">Login</a>
-                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">Sign Up</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">{% trans "Login" %}</a>
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">{% trans "Sign Up" %}</a>
                     {% endif %}
                 </div>
         </header>
@@ -401,7 +444,7 @@
 
                 <div class="max-w-[75%] md:max-w-[65%]">
                     <span class="text-[9px] text-gray-400 block mb-1 uppercase font-bold tracking-tighter">
-                        {% if msg.role == 'user' %}Client Inquiry{% else %}Asortie Consultant{% endif %}
+                        {% if msg.role == 'user' %}{% trans "Client Inquiry" %}{% else %}{% trans "Asortie Consultant" %}{% endif %}
                     </span>
                     <div class="p-4 {% if msg.role == 'user' %}msg-user{% else %}msg-ai{% endif %}">
                         <div class="ai-content">
@@ -434,7 +477,7 @@
                     <textarea id="user-input" rows="1" placeholder="Inquire about luxury collections..." onkeydown="handleKeyPress(event)" 
                         class="flex-1 bg-transparent p-2 outline-none text-sm resize-none text-black"></textarea>
                     <button onclick="sendMessage()" class="btn-inquire">
-                        INQUIRE
+                        {% trans "INQUIRE" %}
                     </button>
                 </div>
             </div>
