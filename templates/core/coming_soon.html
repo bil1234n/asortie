@@ -1,267 +1,502 @@
 {% extends 'base.html' %}
-{% load static %}
-
+{% load static i18n %} 
 {% block content %}
 
-<!-- Internal CSS for this page only (Move to style.css in production) -->
-<!-- Internal CSS for this page only (Move to style.css in production) -->
-<style>
-    :root {
-        --coffee-black: #1a1a1a;
-        --coffee-dark: #1B3C59;
-        --coffee-medium: #6d4c41;
-        --coffee-light: #d7ccc8;
-        --gold: #d4af37;
-        --gold-hover: #b89628;
-    }
+    <style>
+        :root {
+            --primary-gold: #b39359;
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --bg-white: #ffffff;
+            --accent-gray: #f8f9fa;
+            --border: #eeeeee;
+        }
 
-    .coming-soon-wrapper {
-        min-height: 100vh;
-        color: var(--text-dark);
-        padding-bottom: 5rem;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    .hero-section {
-        padding-top: 50px;
-        padding-bottom: 60px;
-    }
+        body {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .badge-soft {
-        background-color: rgba(212, 175, 55, 0.2);
-        color: var(--gold);
-        border: 1px solid var(--gold);
-        padding: 5px 15px;
-        border-radius: 50px;
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        letter-spacing: 1px;
-    }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+        }
 
-    /* Pricing Card Styling */
-    .pricing-card {
-        background: rgba(255, 255, 255, 0.95);
-        color: var(--coffee-black);
-        border-radius: 15px;
-        padding: 2rem;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        height: 100%;
-        border: 1px solid rgba(0,0,0,0.1);
-        position: relative;
-        overflow: hidden;
-    }
+        /* --- Navigation / Logo --- */
+        nav {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
 
-    .pricing-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            padding-bottom: 0;
+        }
+        .logo-text_2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            padding-bottom: 5px;
+            border-top: 2px solid var(--primary-gold);
+        }
 
-    .pricing-card.pro-tier {
-        background: linear-gradient(145deg, #1B3C59, #0F1F2E);
-        color: white;
-        border: 1px solid var(--gold);
-    }
+        /* --- Hero Section --- */
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem auto;
+        }
 
-    .pricing-card.pro-tier .price-text {
-        color: var(--gold);
-    }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
 
-    .pricing-card.premium-tier {
-        border-top: 5px solid #1B3C59;
-    }
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            font-weight: 300;
+        }
 
-    .card-title {
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        margin-bottom: 1rem;
-    }
+        /* --- Progress Bar --- */
+        .progress-wrapper {
+            background: var(--accent-gray);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-bottom: 6rem;
+            border: 1px solid var(--border);
+        }
 
-    .price-text {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 1.5rem;
-    }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1rem;
+        }
 
-    .price-period {
-        font-size: 1rem;
-        font-weight: 400;
-        opacity: 0.7;
-    }
+        .status-tag {
+            background: var(--primary-gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    /* Feature Lists */
-    .feature-list {
-        list-style: none;
-        padding: 0;
-        margin-top: 2rem;
-        text-align: left;
-    }
+        .percentage {
+            font-size: 2.5rem;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+        }
 
-    .feature-list li {
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-    }
+        .bar-container {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-    .feature-list i {
-        margin-right: 10px;
-        width: 20px;
-        text-align: center;
-    }
+        .bar-fill {
+            height: 100%;
+            background: var(--primary-gold);
+            width: 0%;
+            transition: width 3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-    .check-icon { color: #28a745; }
-    .cross-icon { color: #dc3545; opacity: 0.6; }
-    .gold-icon { color: var(--gold); }
+        /* --- Features & Icons --- */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-bottom: 6rem;
+        }
 
-    /* Button Styling */
-    .btn-pricing {
-        width: 100%;
-        padding: 12px;
-        border-radius: 8px;
-        font-weight: 600;
-        margin-top: 20px;
-        transition: all 0.3s;
-    }
+        .feature-item {
+            text-align: center;
+        }
 
-    .btn-outline-coffee {
-        border: 2px solid var(--coffee-dark);
-        color: var(--coffee-dark);
-    }
-    .btn-outline-coffee:hover {
-        background: var(--coffee-dark);
-        color: white;
-    }
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem auto;
+            color: var(--primary-gold);
+        }
 
-    .btn-gold {
-        background: var(--gold);
-        color: black;
-        border: none;
-    }
-    .btn-gold:hover {
-        background: var(--gold-hover);
-        color: white;
-    }
+        .feature-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
 
-    .ribbon {
-        position: absolute;
-        top: 20px;
-        right: -35px;
-        transform: rotate(45deg);
-        background-color: var(--gold);
-        color: #000;
-        padding: 5px 40px;
-        font-weight: bold;
-        font-size: 0.8rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
+        .feature-item p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
 
-    .text-dimmed {
-        opacity: 0.6;
-        text-decoration: line-through;
-    }
-</style>
+        /* --- Media Showcase --- */
+        .video-wrapper {
+            background: #000;
+            border: 2px solid #b8965a;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 5rem;
+            cursor: pointer; /* Added cursor pointer */
+        }
 
-<div class="coming-soon-wrapper">
-    <div class="container text-center hero-section">
-        <div class="row justify-content-center">
-            <div class="mb-4">
-                <i class="fa-solid fa-robot fa-5x" style="color: var(--text-dark);"></i>
-            </div>
-            <div class="col-lg-8">
-                <h1 class="display-3 fw-bold mb-3"> Coming Soon</h1>
-                <span class="badge-soft mb-3">AI Hub System In Progress</span>
-                <p class="lead text-muted my-4">
-                    Advanced <strong>AI Hub </strong>features are coming soon to elevate your import–export workflow, improve decision-making, and automate daily operations.
-Preview the upcoming plans below.
-                </p>
-                
-                <!-- Progress Bar -->
-                <div class="progress mb-2" style="height: 6px; background-color: rgb(97 95 95 / 20%)">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 85%"></div>
-                </div>
-                <div class="d-flex justify-content-between text-muted small mb-5">
-                    <span>Development</span>
-                    <span>Launch Phase (85%)</span>
-                    <span>Live</span>
-                </div>
-            </div>
-        </div>
+        /* --- Media Showcase / Carousel --- */
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
 
-        
-        <!-- Pricing Packages -->
-        <div class="row g-4 mt-2">
+        .gallery-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            max-width: 100%;
+        }
+
+        .gallery {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 1rem 0; /* Gives space for the hover scale effect */
+            width: 100%;
             
-            <!-- 1. BASIC PACKAGE -->
-            <div class="col-md-4">
-                <div class="pricing-card basic-tier">
-                    <h4 class="card-title text-muted">Basic Starter</h4>
-                    <div class="price-text">$0 <span class="price-period">/Year</span></div>
-                    <p class="text-muted small">Essential access for casual traders.</p>
-                    
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-check check-icon"></i>Business Profile</li>
-                        <li><i class="fa-solid fa-check check-icon"></i>Merchant Hub Listing
-</li>
-                        <li><i class="fa-solid fa-check check-icon"></i> Luxury Furniture Listings</li>
-                        <li><i class="fa-solid fa-check check-icon"></i>Private B2B Messaging</li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> No AI Assistant</li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">0 Smart Agents</span></li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Full 3D Visualization</span></li>
-                    </ul>
+            /* Hide scrollbar for a cleaner look */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
 
-                    <button class="btn btn-outline-coffee btn-pricing">Current Plan</button>
-                </div>
+        .gallery::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+
+        .gallery-img {
+            min-width: 300px; /* Forces images to stay wide instead of shrinking */
+            height: 350px;
+            padding: 2rem;
+            border: 1px solid #b8965a;
+            object-fit: cover;
+            border-radius: 15px;
+            filter: grayscale(20%);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            flex-shrink: 0; /* Prevents the flex container from crushing the images */
+        }
+
+        .gallery-img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+
+        /* Scroll Button Styles */
+        .gallery-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-white);
+            border: 2px solid var(--primary-gold);
+            color: var(--primary-gold);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .gallery-btn:hover {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        .left-btn { left: -25px; }
+        .right-btn { right: -25px; }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            .left-btn { left: -10px; }
+            .right-btn { right: -10px; }
+            .gallery-img { min-width: 260px;  height: 265px; } /* Slightly smaller on phones */
+        }
+
+        /* =========================================
+           NEW LIGHTBOX / MODAL CSS
+           ========================================= */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 9999; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.9); /* Black w/ opacity */
+            backdrop-filter: blur(8px); /* Modern blur effect */
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(184, 150, 90, 0.3); /* Subtle gold glow */
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10000;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-gold);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .percentage { font-size: 1.8rem; }
+            .modal-close { top: 15px; right: 20px; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <div class="container">
+        <nav>
+            <div class="logo_a" style="font-size: 2.5rem; color: #b8965a;">
+                <i class="fa-solid fa-microchip"></i>
             </div>
+            <div class="logo-text">{% trans "Asortie AI" %}</div>
+            <div class="logo-text_2">{% trans "Coming Soon" %}</div>
+        </nav>
 
-            <!-- 2. PREMIUM PACKAGE -->
-            <div class="col-md-4">
-                <div class="pricing-card premium-tier">
-                    <h4 class="card-title" style="color: var(--coffee-dark);">Premium</h4>
-                    <div class="price-text">$400 <span class="price-period">/Year</span></div>
-                    <p class="text-muted small">For serious importers requiring consistency.</p>
-                    
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-check check-icon"></i>Everything in Free,<strong>&nbsp; Plus+</strong></li>
-                        <li><i class="fa-solid fa-check check-icon"></i>AI Assistant</li>
-                        <li><i class="fa-solid fa-check check-icon"></i>4 Smart Agents</li>
-                        <li><i class="fa-solid fa-check check-icon"></i>Full 3D Visualization</li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Advanced Analytics</span></li>
-                        <li class="text-muted"><i class="fa-solid fa-xmark cross-icon"></i> <span class="text-dimmed">Priority Support</span></li>
-                    </ul>
+        <section class="hero">
+            <h1>{% trans "Intelligence is the New Luxury" %}</h1>
+            <p>{% trans "Our bespoke AI Concierge is currently learning the nuances of classical craftsmanship and modern logistics. We are perfecting the visual recognition of your world." %}</p>
+        </section>
 
-                    <button class="btn btn-dark btn-pricing" disabled>Coming Soon</button>
-                </div>
+        <section class="progress-wrapper">
+            <div class="progress-header">
+                <span class="status-tag">{% trans "Deployment in Progress" %}</span>
+                <span class="percentage" id="pct">0%</span>
             </div>
-
-            <!-- 3. PROFESSIONAL PACKAGE -->
-            <div class="col-md-4">
-                <div class="pricing-card pro-tier">
-                    <div class="ribbon">BEST VALUE</div>
-                    <h4 class="card-title"><i class="fa-solid fa-crown me-2" style="color: var(--gold);"></i> Professional</h4>
-                    <div class="price-text">$800 <span class="price-period">/Year</span></div>
-                    <p class="small">Full power of AI and Live Auctions.</p>
-                    
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-check gold-icon"></i>Everything in Free,<strong>&nbsp; Plus++</strong></li>
-                        <li><i class="fa-solid fa-check gold-icon"></i>4 Additional Smart Agents (Total 8 Agents)</li>
-                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">Advanced Analytics</span></li>
-                        <li><i class="fa-solid fa-check gold-icon"></i> <span style="color:white; font-weight:bold;">Priority Support</span></li>
-                    </ul>
-
-                    <button class="btn btn-gold btn-pricing">Coming Soon</button>
-                </div>
+            <div class="bar-container">
+                <div class="bar-fill" id="bar"></div>
             </div>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-light);">
+                {% trans "Current Phase: Validating 3D Showroom Assets & Groq Llama-4 Integration" %}
+            </p>
+        </section>
 
+        <section class="features">
+            <div class="feature-item">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+                <h3>{% trans "Vision Intelligence" %}</h3>
+                <p>{% trans "Recognizing brand assets and furniture styles through sophisticated CLIP-based vector matching." %}</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                    </svg>
+                </div>
+                <h3>{% trans "SQL Reasoning" %}</h3>
+                <p>{% trans "Direct database communication to provide real-time stock and bespoke pricing negotiation data." %}</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                    </svg>
+                </div>
+                <h3>{% trans "AR Showroom" %}</h3>
+                <p>{% trans "Bridging the gap between inquiry and experience with fully immersive 3D furniture visualization." %}</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3>{% trans "Bespoke Valuation" %}</h3>
+                <p>{% trans "AI-driven logistics pricing that accounts for white-glove handling, duty optimization, and localized transit insurance for high-value assets." %}</p>
+            </div>
+        </section>
+
+        <h2 class="gallery-title">{% trans "Development Progress" %}</h2>
+        
+        <div class="video-wrapper">
+            <video autoplay loop muted playsinline class="lightbox-trigger" style="width: 100%;">
+                <source src="{% static 'video/chat.mp4' %}" type="video/mp4">
+            </video>
         </div>
 
+        <div class="gallery-container">
+            <button class="gallery-btn left-btn" id="scrollLeft">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            
+            <div class="gallery" id="scrollGallery">
+                <img src="{% static 'img/training.png' %}" class="gallery-img lightbox-trigger" alt="Phase 1">
+                <img src="{% static 'img/training_2.png' %}" class="gallery-img lightbox-trigger" alt="Phase 2">
+                <img src="{% static 'img/chat.png' %}" class="gallery-img lightbox-trigger" alt="Phase 3">
+                </div>
 
-        <div class="mt-5">
-            <!-- Back Button -->
-            <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5" 
-               style="background-color: var(--secondary-color); border: none;">
-                <i class="fa-solid fa-arrow-left me-2"></i> Back to Home
-            </a>
+            <button class="gallery-btn right-btn" id="scrollRight">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
         </div>
     </div>
-</div>
+
+    <div id="mediaModal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImg" style="display: none;">
+        <video class="modal-content" id="modalVideo" controls autoplay style="display: none;"></video>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- Progress Bar Logic ---
+            const bar = document.getElementById('bar');
+            const pctText = document.getElementById('pct');
+            const target = 85;
+
+            setTimeout(() => {
+                bar.style.width = target + '%';
+                let count = 0;
+                const interval = setInterval(() => {
+                    count++;
+                    pctText.innerText = count + '%';
+                    if (count >= target) clearInterval(interval);
+                }, 25);
+            }, 500);
+
+            // =========================================
+            // NEW LIGHTBOX / MODAL JAVASCRIPT
+            // =========================================
+            const modal = document.getElementById("mediaModal");
+            const modalImg = document.getElementById("modalImg");
+            const modalVideo = document.getElementById("modalVideo");
+            const closeBtn = document.querySelector(".modal-close");
+            const triggers = document.querySelectorAll(".lightbox-trigger");
+
+            // Open Modal
+            triggers.forEach(trigger => {
+                trigger.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    modal.classList.add("show");
+
+                    // Check if it's an image or a video
+                    if (this.tagName === "IMG") {
+                        modalVideo.style.display = "none";
+                        modalImg.style.display = "block";
+                        modalImg.src = this.src;
+                    } else if (this.tagName === "VIDEO") {
+                        modalImg.style.display = "none";
+                        modalVideo.style.display = "block";
+                        // Get the source from the nested <source> tag
+                        const source = this.querySelector('source').src;
+                        modalVideo.src = source;
+                        modalVideo.play();
+                    }
+                });
+            });
+
+            // Close Modal Function
+            const closeModal = () => {
+                modal.classList.remove("show");
+                setTimeout(() => {
+                    modalImg.src = "";
+                    modalVideo.pause();
+                    modalVideo.src = "";
+                }, 300); // Wait for transition to finish before clearing sources
+            };
+
+            // Close when clicking the 'X'
+            closeBtn.addEventListener("click", closeModal);
+
+            // Close when clicking outside the image/video
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Close on 'Escape' key press
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && modal.classList.contains("show")) {
+                    closeModal();
+                }
+            });
+        });
+
+        // --- Carousel Scroll Logic ---
+        const scrollGallery = document.getElementById('scrollGallery');
+        const scrollLeftBtn = document.getElementById('scrollLeft');
+        const scrollRightBtn = document.getElementById('scrollRight');
+
+        if (scrollGallery && scrollLeftBtn && scrollRightBtn) {
+            const scrollAmount = 320; // Matches image min-width + gap
+
+            scrollLeftBtn.addEventListener('click', () => {
+                scrollGallery.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+
+            scrollRightBtn.addEventListener('click', () => {
+                scrollGallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+        }
+    </script>
+
 
 {% endblock %}
