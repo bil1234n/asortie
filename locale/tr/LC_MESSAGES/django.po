@@ -1,0 +1,1938 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-17 23:49+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\templates\AR_3D\index.html:183
+msgid "Asorite 3D Hub"
+msgstr "Asorit 3D Merkezi"
+
+#: .\templates\AR_3D\index.html:188 .\templates\ai\index.html:271
+#: .\templates\ai\trainer.html:198 .\templates\partials\header.html:14
+#: .\templates\partials\header.html:35 .\templates\partials\header.html:66
+msgid "Dashboard"
+msgstr "Kontrol Paneli"
+
+#: .\templates\AR_3D\index.html:192 .\templates\ai\index.html:276
+msgid "Train Ai"
+msgstr "Ai'yi trenle"
+
+#: .\templates\AR_3D\index.html:198
+msgid "All"
+msgstr "Tüm"
+
+#: .\templates\AR_3D\index.html:211
+msgid "Loading..."
+msgstr "Yükleniyor..."
+
+#: .\templates\AR_3D\index.html:250 .\templates\ai\index.html:353
+#: .\templates\ai\trainer.html:267 .\templates\base.html:89
+msgid "Notifications"
+msgstr "Bildirimler"
+
+#: .\templates\AR_3D\index.html:268 .\templates\ai\index.html:371
+#: .\templates\ai\trainer.html:285 .\templates\base.html:107
+msgid "ago"
+msgstr "evvel"
+
+#: .\templates\AR_3D\index.html:274 .\templates\ai\index.html:377
+#: .\templates\ai\trainer.html:291 .\templates\base.html:113
+msgid "No new notifications"
+msgstr "Yeni bildirim yok"
+
+#: .\templates\AR_3D\index.html:278 .\templates\ai\index.html:381
+#: .\templates\ai\trainer.html:295 .\templates\base.html:117
+msgid "View All History"
+msgstr "Tüm Geçmişi Görüntüle"
+
+#: .\templates\AR_3D\index.html:304 .\templates\ai\index.html:407
+#: .\templates\ai\trainer.html:321 .\templates\base.html:143
+#: .\templates\market\detail.html:450
+msgid "Login"
+msgstr "Giriş yapmak"
+
+#: .\templates\AR_3D\index.html:305 .\templates\ai\index.html:408
+#: .\templates\ai\trainer.html:322 .\templates\base.html:144
+msgid "Sign Up"
+msgstr "Üye olmak"
+
+#: .\templates\AR_3D\index.html:346
+msgid "Color & Type Options"
+msgstr "Renk & Tip Seçenekleri"
+
+#: .\templates\AR_3D\index.html:350
+msgid "OPEN IN AR"
+msgstr "AR'DA AÇ"
+
+#: .\templates\accounts\admin\login.html:9
+msgid "Administration"
+msgstr "Yönetim"
+
+#: .\templates\accounts\admin\login.html:15
+msgid "Access Denied. Check credentials."
+msgstr "Erişim engellendi. Kimlik bilgilerini kontrol edin."
+
+#: .\templates\accounts\admin\login.html:25
+msgid "Authenticate"
+msgstr "Kimlik doğrulama"
+
+#: .\templates\accounts\admin\register.html:9
+msgid "Secure Admin Registration"
+msgstr "Güvenli Yönetici Kaydı"
+
+#: .\templates\accounts\admin\register.html:14
+msgid "Strictly for authorized personnel. Requires Master Passcode."
+msgstr "Kesinlikle yetkili personel için. Ana Şifre gerektirir."
+
+#: .\templates\accounts\admin\register.html:19
+msgid "Create Admin Account"
+msgstr "Yönetici Hesabı Oluştur"
+
+#: .\templates\accounts\change_password.html:10
+msgid "Security Settings"
+msgstr "Güvenlik Ayarları"
+
+#: .\templates\accounts\change_password.html:15
+msgid "Please enter your current password and your new password below."
+msgstr "Lütfen mevcut şifrenizi ve yeni şifrenizi aşağıya giriniz."
+
+#: .\templates\accounts\change_password.html:37
+msgid "Update Password"
+msgstr "Şifreyi Güncelle"
+
+#: .\templates\accounts\change_password.html:40
+msgid "Cancel"
+msgstr "İptal etmek"
+
+#: .\templates\accounts\login.html:53
+msgid "Welcome Back"
+msgstr "Tekrar hoşgeldiniz"
+
+#: .\templates\accounts\login.html:58 .\templates\accounts\register.html:108
+#: .\templates\admin_panel\orders.html:53
+msgid "Buyer"
+msgstr "Alıcı"
+
+#: .\templates\accounts\login.html:63 .\templates\accounts\register.html:113
+#: .\templates\admin_panel\products.html:32
+msgid "Seller"
+msgstr "Satıcı"
+
+#: .\templates\accounts\login.html:77 .\templates\accounts\profile.html:91
+#: .\templates\accounts\register.html:121
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+#: .\templates\accounts\login.html:82
+msgid "Password"
+msgstr "Şifre"
+
+#: .\templates\accounts\login.html:87
+msgid "LOGIN"
+msgstr "GİRİŞ YAPMAK"
+
+#: .\templates\accounts\login.html:93 .\templates\accounts\register.html:214
+msgid "OR"
+msgstr "VEYA"
+
+#: .\templates\accounts\login.html:117
+msgid "Don't have an account?"
+msgstr "Hesabınız yok mu?"
+
+#: .\templates\accounts\login.html:118
+msgid "Register Now"
+msgstr "Şimdi Kayıt Ol"
+
+#: .\templates\accounts\profile.html:23
+msgid "ADMINISTRATOR"
+msgstr "YÖNETİCİ"
+
+#: .\templates\accounts\profile.html:25
+msgid "VERIFIED SELLER"
+msgstr "DOĞRULANMIŞ SATICI"
+
+#: .\templates\accounts\profile.html:27
+msgid "BUYER"
+msgstr "ALICI"
+
+#: .\templates\accounts\profile.html:36
+msgid "Account Status"
+msgstr "Hesap Durumu"
+
+#: .\templates\accounts\profile.html:38
+#: .\templates\admin_panel\products.html:46
+msgid "Active"
+msgstr "Aktif"
+
+#: .\templates\accounts\profile.html:42
+msgid "Date Joined"
+msgstr "Katılma Tarihi"
+
+#: .\templates\accounts\profile.html:47
+msgid "Verification"
+msgstr "Doğrulama"
+
+#: .\templates\accounts\profile.html:50 .\templates\admin_panel\users.html:267
+#: .\templates\market\business_directory.html:177
+msgid "Verified"
+msgstr "Doğrulandı"
+
+#: .\templates\accounts\profile.html:52 .\templates\admin_panel\orders.html:27
+#: .\templates\admin_panel\users.html:269
+msgid "Pending"
+msgstr "Askıda olması"
+
+#: .\templates\accounts\profile.html:67
+msgid "Edit Profile"
+msgstr "Profili Düzenle"
+
+#: .\templates\accounts\profile.html:75 .\templates\accounts\register.html:129
+msgid "First Name"
+msgstr "İlk adı"
+
+#: .\templates\accounts\profile.html:79 .\templates\accounts\register.html:133
+msgid "Last Name"
+msgstr "Soy isim"
+
+#: .\templates\accounts\profile.html:85 .\templates\chat\guest_contact.html:86
+msgid "Email Address"
+msgstr "E-posta Adresi"
+
+#: .\templates\accounts\profile.html:87
+msgid "We'll never share your email with anyone else."
+msgstr "E-postanızı asla başkasıyla paylaşmayacağız."
+
+#: .\templates\accounts\profile.html:93
+msgid "Username cannot be changed."
+msgstr "Kullanıcı adı değiştirilemez."
+
+#: .\templates\accounts\profile.html:99
+msgid "Business Documents"
+msgstr "İşletme Belgeleri"
+
+#: .\templates\accounts\profile.html:103
+#: .\templates\accounts\register.html:145
+msgid "Import/Export License"
+msgstr "İthalat/İhracat Lisansı"
+
+#: .\templates\accounts\profile.html:107
+msgid "View Current License"
+msgstr "Mevcut Lisansı Görüntüle"
+
+#: .\templates\accounts\profile.html:114
+#: .\templates\accounts\register.html:150
+msgid "National ID Card"
+msgstr "Ulusal Kimlik Kartı"
+
+#: .\templates\accounts\profile.html:118
+msgid "View Current ID"
+msgstr "Mevcut Kimliği Görüntüle"
+
+#: .\templates\accounts\profile.html:132
+msgid "Change Password"
+msgstr "Şifre değiştir"
+
+#: .\templates\accounts\profile.html:136
+#: .\templates\market\business_profile.html:349
+#: .\templates\seller_panel\business_profile.html:340
+#: .\templates\seller_panel\products_form.html:142
+msgid "Save Changes"
+msgstr "Değişiklikleri Kaydet"
+
+#: .\templates\accounts\register.html:93
+msgid "Create Account"
+msgstr "Hesap oluşturmak"
+
+#: .\templates\accounts\register.html:103
+msgid "Select your account type to get started"
+msgstr "Başlamak için hesap türünüzü seçin"
+
+#: .\templates\accounts\register.html:125
+msgid "Email"
+msgstr "E-posta"
+
+#: .\templates\accounts\register.html:142
+msgid "Seller Verification Required"
+msgstr "Satıcı Doğrulaması Gerekli"
+
+#: .\templates\accounts\register.html:147
+msgid "PDF or Image required."
+msgstr "PDF veya Resim gereklidir."
+
+#: .\templates\accounts\register.html:172
+msgid "Select Plan"
+msgstr "Planı Seçin"
+
+#: .\templates\accounts\register.html:187
+msgid "Basic"
+msgstr "Temel"
+
+#: .\templates\accounts\register.html:189
+msgid "Business Profile."
+msgstr "İşletme Profili."
+
+#: .\templates\accounts\register.html:189
+msgid "Luxury Furniture Listings."
+msgstr "Lüks Mobilya İlanları."
+
+#: .\templates\accounts\register.html:191
+msgid "Premium"
+msgstr "prim"
+
+#: .\templates\accounts\register.html:193
+msgid "4 Smart Agents."
+msgstr "4 Akıllı Aracı."
+
+#: .\templates\accounts\register.html:193
+msgid "Full 3D Visualization."
+msgstr "Tam 3D Görselleştirme."
+
+#: .\templates\accounts\register.html:196
+msgid "Professional"
+msgstr "Profesyonel"
+
+#: .\templates\accounts\register.html:197
+msgid "VIP"
+msgstr "vip"
+
+#: .\templates\accounts\register.html:199
+msgid "/year"
+msgstr "/yıl"
+
+#: .\templates\accounts\register.html:200
+msgid "8 Smart Agents."
+msgstr "8 Akıllı Ajan."
+
+#: .\templates\accounts\register.html:200
+msgid "Advanced Analytics."
+msgstr "Gelişmiş Analitik."
+
+#: .\templates\accounts\register.html:208
+msgid "Complete Registration"
+msgstr "Kaydı Tamamla"
+
+#: .\templates\accounts\register.html:242
+#: .\templates\chat\guest_contact.html:110
+msgid "Already have an account?"
+msgstr "Zaten bir hesabınız var mı?"
+
+#: .\templates\accounts\register.html:243
+msgid "Login Here"
+msgstr "Buradan Giriş Yapın"
+
+#: .\templates\admin_panel\dashboard.html:6
+msgid "Admin Dashboard"
+msgstr "Yönetici Kontrol Paneli"
+
+#: .\templates\admin_panel\dashboard.html:13
+msgid "Total Users"
+msgstr "Toplam Kullanıcı Sayısı"
+
+#: .\templates\admin_panel\dashboard.html:21
+msgid "Total Revenue"
+msgstr "Toplam Gelir"
+
+#: .\templates\admin_panel\dashboard.html:29
+msgid "User Distribution"
+msgstr "Kullanıcı Dağıtımı"
+
+#: .\templates\admin_panel\orders.html:7 .\templates\ai\trainer.html:207
+#: .\templates\partials\header.html:23
+msgid "Order Analytics"
+msgstr "Sipariş Analizi"
+
+#: .\templates\admin_panel\orders.html:8
+#: .\templates\seller_panel\dashboard.html:17
+#: .\templates\seller_panel\orders.html:156
+msgid "Total Orders"
+msgstr "Toplam Siparişler"
+
+#: .\templates\admin_panel\orders.html:15
+msgid "Order Status Overview"
+msgstr "Sipariş Durumuna Genel Bakış"
+
+#: .\templates\admin_panel\orders.html:39
+msgid "Revenue"
+msgstr "Hasılat"
+
+#: .\templates\admin_panel\orders.html:47
+msgid "Recent Transactions"
+msgstr "Son İşlemler"
+
+#: .\templates\admin_panel\orders.html:52
+#: .\templates\seller_panel\orders.html:164
+msgid "ID"
+msgstr "İD"
+
+#: .\templates\admin_panel\orders.html:54 .\templates\market\payment.html:144
+msgid "Total"
+msgstr "Toplam"
+
+#: .\templates\admin_panel\orders.html:55
+#: .\templates\admin_panel\products.html:34
+#: .\templates\market\buyer_orders.html:32
+#: .\templates\seller_panel\orders.html:168
+msgid "Status"
+msgstr "Durum"
+
+#: .\templates\admin_panel\orders.html:71
+msgid "No orders yet."
+msgstr "Henüz sipariş yok."
+
+#: .\templates\admin_panel\products.html:7
+msgid "Product Analytics"
+msgstr "Ürün Analitiği"
+
+#: .\templates\admin_panel\products.html:8
+msgid "Total Products"
+msgstr "Toplam Ürünler"
+
+#: .\templates\admin_panel\products.html:15
+msgid "Categories Distribution"
+msgstr "Kategori Dağılımı"
+
+#: .\templates\admin_panel\products.html:25
+msgid "All Products"
+msgstr "Tüm Ürünler"
+
+#: .\templates\admin_panel\products.html:30
+msgid "Name"
+msgstr "İsim"
+
+#: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:495
+#: .\templates\market\list.html:40 .\templates\seller_panel\products.html:31
+#: .\templates\seller_panel\products_form.html:30
+msgid "Category"
+msgstr "Kategori"
+
+#: .\templates\admin_panel\products.html:33
+msgid "Price"
+msgstr "Fiyat"
+
+#: .\templates\admin_panel\products.html:48
+msgid "Hidden"
+msgstr "Gizlenmiş"
+
+#: .\templates\admin_panel\products.html:54
+msgid "No products found."
+msgstr "Ürün bulunamadı."
+
+#: .\templates\admin_panel\users.html:97
+msgid "User & Compliance Management"
+msgstr "Kullanıcı ve Uyumluluk Yönetimi"
+
+#: .\templates\admin_panel\users.html:98
+msgid "Review identity documents and verify seller certificates."
+msgstr "Kimlik belgelerini inceleyin ve satıcı sertifikalarını doğrulayın."
+
+#: .\templates\admin_panel\users.html:101
+msgid "Users"
+msgstr "Kullanıcılar"
+
+#: .\templates\admin_panel\users.html:111
+msgid "User Identity"
+msgstr "Kullanıcı Kimliği"
+
+#: .\templates\admin_panel\users.html:112
+msgid "Role"
+msgstr "Rol"
+
+#: .\templates\admin_panel\users.html:113
+msgid "Identity Status"
+msgstr "Kimlik Durumu"
+
+#: .\templates\admin_panel\users.html:114
+#: .\templates\market\business_profile.html:275
+#: .\templates\seller_panel\business_profile.html:266
+msgid "Certificates"
+msgstr "Sertifikalar"
+
+#: .\templates\admin_panel\users.html:115
+#: .\templates\seller_panel\orders.html:169
+#: .\templates\seller_panel\products.html:35
+msgid "Actions"
+msgstr "Eylemler"
+
+#: .\templates\admin_panel\users.html:138
+msgid "Tier"
+msgstr "Aşama"
+
+#: .\templates\admin_panel\users.html:145
+msgid "Identity Verified"
+msgstr "Kimlik Doğrulandı"
+
+#: .\templates\admin_panel\users.html:147
+msgid "Docs Submitted"
+msgstr "Gönderilen Dokümanlar"
+
+#: .\templates\admin_panel\users.html:149
+msgid "No Documents"
+msgstr "Belge Yok"
+
+#: .\templates\admin_panel\users.html:159
+msgid "Uploaded"
+msgstr "Yüklendi"
+
+#: .\templates\admin_panel\users.html:182
+msgid "Review"
+msgstr "Gözden geçirmek"
+
+#: .\templates\admin_panel\users.html:219
+msgid "Compliance Center:"
+msgstr "Uyum Merkezi:"
+
+#: .\templates\admin_panel\users.html:227
+msgid "Seller Profile"
+msgstr "Satıcı Profili"
+
+#: .\templates\admin_panel\users.html:230
+#: .\templates\market\business_profile.html:296
+#: .\templates\seller_panel\business_profile.html:287
+msgid "Company Name"
+msgstr "Firma Adı"
+
+#: .\templates\admin_panel\users.html:234
+#: .\templates\market\business_directory.html:77
+msgid "Location"
+msgstr "Konum"
+
+#: .\templates\admin_panel\users.html:238
+msgid "Roles"
+msgstr "Roller"
+
+#: .\templates\admin_panel\users.html:239
+#: .\templates\market\business_directory.html:144
+#: .\templates\market\business_profile.html:83
+#: .\templates\market\business_profile.html:323
+#: .\templates\market\public_profile.html:100
+msgid "Farmer"
+msgstr "Çiftçi"
+
+#: .\templates\admin_panel\users.html:240
+#: .\templates\market\business_directory.html:145
+#: .\templates\market\business_profile.html:84
+#: .\templates\market\business_profile.html:329
+#: .\templates\market\public_profile.html:103
+msgid "Roaster"
+msgstr "Kavurma makinesi"
+
+#: .\templates\admin_panel\users.html:245
+msgid "Account Actions"
+msgstr "Hesap İşlemleri"
+
+#: .\templates\admin_panel\users.html:251
+msgid "Suspend User"
+msgstr "Kullanıcıyı Askıya Al"
+
+#: .\templates\admin_panel\users.html:253
+msgid "Unsuspend User"
+msgstr "Kullanıcının Askıya Alınmasını Kaldır"
+
+#: .\templates\admin_panel\users.html:262
+msgid "1. Identity Verification"
+msgstr "1. Kimlik Doğrulaması"
+
+#: .\templates\admin_panel\users.html:265
+msgid "Business License / ID"
+msgstr "İşletme Lisansı / Kimliği"
+
+#: .\templates\admin_panel\users.html:279
+msgid "No identity documents uploaded."
+msgstr "Kimlik belgesi yüklenmedi."
+
+#: .\templates\admin_panel\users.html:289
+msgid "Approve Identity"
+msgstr "Kimliği Onayla"
+
+#: .\templates\admin_panel\users.html:293
+msgid "Revoke Status"
+msgstr "Durumu İptal Et"
+
+#: .\templates\admin_panel\users.html:300
+msgid "2. Trade Certificates"
+msgstr "2. Ticari Sertifikalar"
+
+#: .\templates\admin_panel\users.html:310
+msgid "Valid"
+msgstr "Geçerli"
+
+#: .\templates\admin_panel\users.html:312
+msgid "Review Needed"
+msgstr "İnceleme Gerekli"
+
+#: .\templates\admin_panel\users.html:320
+msgid "No file image."
+msgstr "Dosya resmi yok."
+
+#: .\templates\admin_panel\users.html:330
+#: .\templates\market\business_profile.html:149
+#: .\templates\market\public_profile.html:191
+#: .\templates\seller_panel\business_profile.html:146
+msgid "Expires:"
+msgstr "Sona erme tarihi:"
+
+#: .\templates\admin_panel\users.html:335
+msgid "Reject"
+msgstr "Reddetmek"
+
+#: .\templates\admin_panel\users.html:336
+msgid "Approve Certificate"
+msgstr "Sertifikayı Onayla"
+
+#: .\templates\admin_panel\users.html:338
+msgid "Revoke Approval"
+msgstr "Onayı İptal Et"
+
+#: .\templates\admin_panel\users.html:345
+msgid "No additional certificates (Organic, Fair Trade, etc.) uploaded."
+msgstr "Hiçbir ek sertifika (Organik, Adil Ticaret vb.) yüklenmedi."
+
+#: .\templates\ai\index.html:266 .\templates\ai\trainer.html:193
+msgid "Interior Intelligence Hub"
+msgstr "İç İstihbarat Merkezi"
+
+#: .\templates\ai\index.html:280
+msgid "+ New Inquiry"
+msgstr "+ Yeni Sorgulama"
+
+#: .\templates\ai\index.html:285
+msgid "History"
+msgstr "Tarih"
+
+#: .\templates\ai\index.html:424
+msgid "Client Inquiry"
+msgstr "Müşteri Sorgulama"
+
+#: .\templates\ai\index.html:424
+msgid "Asortie Consultant"
+msgstr "Asortie Danışmanı"
+
+#: .\templates\ai\index.html:457
+msgid "INQUIRE"
+msgstr "SORUŞTUR"
+
+#: .\templates\ai\trainer.html:201 .\templates\partials\header.html:17
+msgid "Manage Users"
+msgstr "Kullanıcıları Yönet"
+
+#: .\templates\ai\trainer.html:204 .\templates\partials\header.html:20
+msgid "Products Analytics"
+msgstr "Ürün Analitiği"
+
+#: .\templates\ai\trainer.html:210 .\templates\chat\inbox.html:9
+#: .\templates\partials\header.html:26 .\templates\partials\header.html:77
+msgid "Messages"
+msgstr "Mesajlar"
+
+#: .\templates\ai\trainer.html:213
+msgid "Ai Agent"
+msgstr "Yapay Zeka Temsilcisi"
+
+#: .\templates\ai\trainer.html:228
+msgid "AI Training Center"
+msgstr "Yapay Zeka Eğitim Merkezi"
+
+#: .\templates\ai\trainer.html:330
+msgid "Knowledge Management"
+msgstr "Bilgi Yönetimi"
+
+#: .\templates\ai\trainer.html:331
+msgid "Inject new facts and visual assets into the Asortie Intelligence core."
+msgstr ""
+"Asortie Intelligence'ın çekirdeğine yeni gerçekler ve görsel varlıklar "
+"ekleyin."
+
+#: .\templates\ai\trainer.html:338
+msgid "Add Text Fact"
+msgstr "Metin Bilgisi Ekle"
+
+#: .\templates\ai\trainer.html:346
+msgid "Inject into Memory"
+msgstr "Belleğe Enjekte Et"
+
+#: .\templates\ai\trainer.html:355
+msgid "Add Visual Asset"
+msgstr "Görsel Varlık Ekle"
+
+#: .\templates\ai\trainer.html:365
+msgid "Vectorize Image"
+msgstr "Resmi Vektörleştir"
+
+#: .\templates\ai\trainer.html:373
+msgid "Recent System Knowledge"
+msgstr "Güncel Sistem Bilgisi"
+
+#: .\templates\ai\trainer.html:387
+msgid "Visual"
+msgstr "Görsel"
+
+#: .\templates\ai\trainer.html:387
+msgid "Fact"
+msgstr "Hakikat"
+
+#: .\templates\ai\trainer.html:396 .\templates\chat\single_message.html:26
+#: .\templates\seller_panel\products.html:93
+msgid "Edit"
+msgstr "Düzenlemek"
+
+#: .\templates\ai\trainer.html:397
+#: .\templates\market\business_profile.html:156
+#: .\templates\seller_panel\business_profile.html:153
+#: .\templates\seller_panel\products_form.html:129
+msgid "Delete"
+msgstr "Silmek"
+
+#: .\templates\base.html:7
+msgid "Asortie | Premium Export"
+msgstr "Çeşitli | Premium İhracat"
+
+#: .\templates\chat\guest_contact.html:57
+msgid "Get in Touch"
+msgstr "İletişime Geçin"
+
+#: .\templates\chat\guest_contact.html:59
+msgid ""
+"We are here to help. Please fill out the form below and an agent will "
+"contact you shortly."
+msgstr ""
+"Yardım etmek için buradayız. Lütfen aşağıdaki formu doldurun; bir temsilci "
+"kısa süre içinde sizinle iletişime geçecektir."
+
+#: .\templates\chat\guest_contact.html:80
+msgid "Full Name"
+msgstr "Ad Soyad"
+
+#: .\templates\chat\guest_contact.html:92
+msgid "Phone Number (Optional)"
+msgstr "Telefon Numarası (İsteğe bağlı)"
+
+#: .\templates\chat\guest_contact.html:98
+msgid "How can we help you?"
+msgstr "Size nasıl yardımcı olabiliriz?"
+
+#: .\templates\chat\guest_contact.html:103
+msgid "Send Message"
+msgstr "Mesaj Gönder"
+
+#: .\templates\chat\guest_contact.html:112
+msgid "Login here"
+msgstr "Buradan giriş yapın"
+
+#: .\templates\chat\inbox.html:10
+msgid "Conversations"
+msgstr "Konuşmalar"
+
+#: .\templates\chat\inbox.html:25 .\templates\chat\inbox.html:38
+msgid "Click to open chat"
+msgstr "Sohbeti açmak için tıklayın"
+
+#: .\templates\chat\inbox.html:47
+msgid "No messages yet."
+msgstr "Henüz mesaj yok."
+
+#: .\templates\chat\inbox.html:48
+msgid "Contact a seller from the marketplace to start a chat."
+msgstr "Sohbet başlatmak için pazardaki bir satıcıyla iletişime geçin."
+
+#: .\templates\chat\inbox.html:49
+msgid "Go to Market"
+msgstr "Markete Git"
+
+#: .\templates\chat\room.html:117
+msgid "Online"
+msgstr "Çevrimiçi"
+
+#: .\templates\chat\room.html:126
+msgid "Clear Chat"
+msgstr "Sohbeti Temizle"
+
+#: .\templates\chat\room.html:155
+msgid "Recording..."
+msgstr "Kayıt..."
+
+#: .\templates\chat\single_message.html:29
+msgid "Delete for everyone"
+msgstr "Herkes için sil"
+
+#: .\templates\chat\single_message.html:33
+msgid "Delete for me"
+msgstr "Benim için sil"
+
+#: .\templates\chat\single_message.html:41
+msgid "This message was deleted."
+msgstr "Bu mesaj silindi."
+
+#: .\templates\chat\single_message.html:58
+msgid "Download Attachment"
+msgstr "Eki İndir"
+
+#: .\templates\chat\single_message.html:67
+msgid "(edited)"
+msgstr "(düzenlendi)"
+
+#: .\templates\core\coming_soon.html:314
+msgid "Asortie AI"
+msgstr "Yapay Zeka Çeşitleri"
+
+#: .\templates\core\coming_soon.html:315 .\templates\core\home.html:110
+msgid "Coming Soon"
+msgstr "Yakında gelecek"
+
+#: .\templates\core\coming_soon.html:319
+msgid "Intelligence is the New Luxury"
+msgstr "Zeka Yeni Lüksdür"
+
+#: .\templates\core\coming_soon.html:320
+msgid ""
+"Our bespoke AI Concierge is currently learning the nuances of classical "
+"craftsmanship and modern logistics. We are perfecting the visual recognition"
+" of your world."
+msgstr ""
+"Ismarlama AI Concierge'imiz şu anda klasik zanaatkarlığın ve modern "
+"lojistiğin nüanslarını öğreniyor. Dünyanızın görsel tanınırlığını "
+"mükemmelleştiriyoruz."
+
+#: .\templates\core\coming_soon.html:325
+msgid "Deployment in Progress"
+msgstr "Dağıtım Devam Ediyor"
+
+#: .\templates\core\coming_soon.html:332
+msgid ""
+"Current Phase: Validating 3D Showroom Assets & Groq Llama-4 Integration"
+msgstr ""
+"Mevcut Aşama: 3D Showroom Varlıklarının Doğrulanması ve Groq Llama-4 "
+"Entegrasyonu"
+
+#: .\templates\core\coming_soon.html:344
+msgid "Vision Intelligence"
+msgstr "Vizyon Zekası"
+
+#: .\templates\core\coming_soon.html:345
+msgid ""
+"Recognizing brand assets and furniture styles through sophisticated CLIP-"
+"based vector matching."
+msgstr ""
+"Gelişmiş CLIP tabanlı vektör eşleştirme yoluyla marka varlıklarını ve "
+"mobilya stillerini tanıma."
+
+#: .\templates\core\coming_soon.html:353
+msgid "SQL Reasoning"
+msgstr "SQL Muhakeme"
+
+#: .\templates\core\coming_soon.html:354
+msgid ""
+"Direct database communication to provide real-time stock and bespoke pricing"
+" negotiation data."
+msgstr ""
+"Gerçek zamanlı stok ve özel fiyatlandırma müzakere verileri sağlamak için "
+"doğrudan veritabanı iletişimi."
+
+#: .\templates\core\coming_soon.html:362
+msgid "AR Showroom"
+msgstr "AR Showroom'u"
+
+#: .\templates\core\coming_soon.html:363
+msgid ""
+"Bridging the gap between inquiry and experience with fully immersive 3D "
+"furniture visualization."
+msgstr ""
+"Tamamen sürükleyici 3D mobilya görselleştirmesi ile araştırma ve deneyim "
+"arasındaki boşluğu dolduruyor."
+
+#: .\templates\core\coming_soon.html:371
+msgid "Bespoke Valuation"
+msgstr "Ismarlama Değerleme"
+
+#: .\templates\core\coming_soon.html:372
+msgid ""
+"AI-driven logistics pricing that accounts for white-glove handling, duty "
+"optimization, and localized transit insurance for high-value assets."
+msgstr ""
+"Yüksek değerli varlıklar için beyaz eldiven elleçleme, görev optimizasyonu "
+"ve yerelleştirilmiş transit sigortasını hesaba katan yapay zeka odaklı "
+"lojistik fiyatlandırması."
+
+#: .\templates\core\coming_soon.html:376
+msgid "Development Progress"
+msgstr "Geliştirme İlerlemesi"
+
+#: .\templates\core\home.html:92
+msgid "Luxury landing with featured items."
+msgstr "Öne çıkan öğelerle lüks iniş."
+
+#: .\templates\core\home.html:105 .\templates\partials\header.html:29
+#: .\templates\partials\header.html:60 .\templates\partials\header.html:91
+msgid "AI Hub"
+msgstr "Yapay Zeka Merkezi"
+
+#: .\templates\core\home.html:107
+msgid ""
+"Leverage advanced artificial intelligence for real-time market trend "
+"analysis, pricing insights, and automated interior design assistance."
+msgstr ""
+"Gerçek zamanlı pazar trendi analizi, fiyatlandırma öngörüleri ve otomatik iç"
+" tasarım yardımı için gelişmiş yapay zekadan yararlanın."
+
+#: .\templates\core\home.html:121 .\templates\partials\header.html:54
+#: .\templates\partials\header.html:69
+msgid "Marketplace"
+msgstr "Pazar yeri"
+
+#: .\templates\core\home.html:123
+msgid ""
+"Discover a curated inventory of luxury furniture, décor, and textiles ready "
+"for immediate global shipment from verified manufacturers."
+msgstr ""
+"Doğrulanmış üreticilerden anında dünya çapında sevkiyata hazır lüks mobilya,"
+" dekor ve tekstillerden oluşan özenle seçilmiş bir envanteri keşfedin."
+
+#: .\templates\core\home.html:126
+msgid "Our Shop"
+msgstr "Mağazamız"
+
+#: .\templates\core\home.html:137 .\templates\partials\header.html:57
+#: .\templates\partials\header.html:88
+msgid "3D Visualization"
+msgstr "3D Görselleştirme"
+
+#: .\templates\core\home.html:139
+msgid ""
+"Powerful 3D Visualization experience for our furniture in immersive 3D with "
+"real-time color customization and AR placement directly in your space."
+msgstr ""
+"Mobilyalarımız için gerçek zamanlı renk özelleştirme ve doğrudan alanınıza "
+"AR yerleştirme ile sürükleyici 3D'de güçlü 3D Görselleştirme deneyimi."
+
+#: .\templates\core\home.html:142
+msgid "3D & AR Visualization"
+msgstr "3D ve AR Görselleştirme"
+
+#: .\templates\core\home.html:152
+msgid "100"
+msgstr "100"
+
+#: .\templates\core\home.html:153
+msgid "Verified Sellers"
+msgstr "Doğrulanmış Satıcılar"
+
+#: .\templates\core\home.html:157 .\templates\market\public_profile.html:136
+#: .\templates\seller_panel\business_profile.html:231
+msgid "Active Products"
+msgstr "Aktif Ürünler"
+
+#: .\templates\core\home.html:160
+msgid "24/7"
+msgstr "7/24"
+
+#: .\templates\core\home.html:161
+msgid "Global Support"
+msgstr "Küresel Destek"
+
+#: .\templates\core\notifications.html:9
+msgid "Notification History"
+msgstr "Bildirim Geçmişi"
+
+#: .\templates\core\notifications.html:18
+msgid "Read All"
+msgstr "Tümünü Oku"
+
+#: .\templates\core\notifications.html:26
+msgid "Clear All"
+msgstr "Tümünü Temizle"
+
+#: .\templates\core\notifications.html:60
+msgid "New"
+msgstr "Yeni"
+
+#: .\templates\core\notifications.html:70
+msgid "You have no notifications."
+msgstr "Hiçbir bildiriminiz yok."
+
+#: .\templates\core\notifications.html:71
+msgid "We will notify you when important events happen."
+msgstr "Önemli olaylar gerçekleştiğinde sizi bilgilendireceğiz."
+
+#: .\templates\market\business_directory.html:59
+#: .\templates\partials\header.html:51 .\templates\partials\header.html:85
+msgid "Merchant Hub"
+msgstr "Tüccar Merkezi"
+
+#: .\templates\market\business_directory.html:60
+msgid ""
+"Access deep insights into seller performance, business credentials, and live"
+" product catalogs."
+msgstr ""
+"Satıcı performansına, işletme kimlik bilgilerine ve canlı ürün kataloglarına"
+" ilişkin ayrıntılı bilgilere erişin."
+
+#: .\templates\market\business_directory.html:68
+msgid "Search"
+msgstr "Aramak"
+
+#: .\templates\market\business_directory.html:79
+msgid "All Countries"
+msgstr "Tüm Ülkeler"
+
+#: .\templates\market\business_directory.html:88
+#: .\templates\market\list.html:61
+msgid "Sort By"
+msgstr "Göre sırala"
+
+#: .\templates\market\business_directory.html:90
+msgid "Default"
+msgstr "Varsayılan"
+
+#: .\templates\market\business_directory.html:91
+msgid "Highest Success"
+msgstr "En Yüksek Başarı"
+
+#: .\templates\market\business_directory.html:100
+msgid "Verified Sellers Only"
+msgstr "Yalnızca Doğrulanmış Satıcılar"
+
+#: .\templates\market\business_directory.html:104
+msgid "With Certificates"
+msgstr "Sertifikalı"
+
+#: .\templates\market\business_directory.html:111
+msgid "Apply Filters"
+msgstr "Filtreleri Uygula"
+
+#: .\templates\market\business_directory.html:146
+#: .\templates\market\business_profile.html:85
+#: .\templates\market\business_profile.html:335
+#: .\templates\market\public_profile.html:106
+msgid "Exporter"
+msgstr "İhracatçı"
+
+#: .\templates\market\business_directory.html:147
+#: .\templates\market\business_profile.html:86
+#: .\templates\market\business_profile.html:341
+#: .\templates\market\public_profile.html:109
+msgid "Supplier"
+msgstr "Tedarikçi"
+
+#: .\templates\market\business_directory.html:153
+msgid "Certified"
+msgstr "Sertifikalı"
+
+#: .\templates\market\business_directory.html:168
+msgid "View Products"
+msgstr "Ürünleri Görüntüle"
+
+#: .\templates\market\business_directory.html:184
+msgid "No businesses found matching your search."
+msgstr "Aramanızla eşleşen işletme bulunamadı."
+
+#: .\templates\market\business_directory.html:185
+msgid "Clear Search"
+msgstr "Aramayı Temizle"
+
+#: .\templates\market\business_profile.html:41
+#: .\templates\seller_panel\business_profile.html:41
+msgid "Business Intelligence"
+msgstr "İş Zekası"
+
+#: .\templates\market\business_profile.html:42
+#: .\templates\seller_panel\business_profile.html:42
+msgid "Performance analytics and identity management."
+msgstr "Performans analitiği ve kimlik yönetimi."
+
+#: .\templates\market\business_profile.html:46
+#: .\templates\seller_panel\business_profile.html:45
+msgid "Edit Profile & Roles"
+msgstr "Profili ve Rolleri Düzenle"
+
+#: .\templates\market\business_profile.html:77
+#: .\templates\seller_panel\business_profile.html:74
+msgid "Location not set"
+msgstr "Konum ayarlanmadı"
+
+#: .\templates\market\business_profile.html:89
+msgid "No Roles Set"
+msgstr "Roller Belirlenmedi"
+
+#: .\templates\market\business_profile.html:97
+#: .\templates\seller_panel\business_profile.html:93
+msgid "About Us"
+msgstr "Hakkımızda"
+
+#: .\templates\market\business_profile.html:102
+#: .\templates\market\business_profile.html:312
+#: .\templates\seller_panel\business_profile.html:98
+#: .\templates\seller_panel\business_profile.html:303
+msgid "Core Products"
+msgstr "Temel Ürünler"
+
+#: .\templates\market\business_profile.html:107
+#: .\templates\seller_panel\business_profile.html:103
+msgid "Not specified"
+msgstr "Belirtilmedi"
+
+#: .\templates\market\business_profile.html:115
+#: .\templates\market\public_profile.html:144
+#: .\templates\seller_panel\business_profile.html:111
+msgid "Verified Certifications"
+msgstr "Doğrulanmış Sertifikalar"
+
+#: .\templates\market\business_profile.html:142
+#: .\templates\market\public_profile.html:181
+#: .\templates\seller_panel\business_profile.html:139
+msgid "Proof"
+msgstr "Kanıt"
+
+#: .\templates\market\business_profile.html:148
+#: .\templates\seller_panel\business_profile.html:145
+msgid "Authority:"
+msgstr "Yetki:"
+
+#: .\templates\market\business_profile.html:163
+#: .\templates\seller_panel\business_profile.html:160
+msgid "No certifications uploaded."
+msgstr "Hiçbir sertifika yüklenmedi."
+
+#: .\templates\market\business_profile.html:188
+msgid "This Month"
+msgstr "Bu Ay"
+
+#: .\templates\market\business_profile.html:196
+msgid "This Year"
+msgstr "Bu yıl"
+
+#: .\templates\market\business_profile.html:209
+msgid "Financial Growth"
+msgstr "Finansal Büyüme"
+
+#: .\templates\market\business_profile.html:225
+#: .\templates\seller_panel\business_profile.html:221
+msgid "Market Ranking"
+msgstr "Pazar Sıralaması"
+
+#: .\templates\market\business_profile.html:227
+msgid "Based on total revenue"
+msgstr "Toplam gelire göre"
+
+#: .\templates\market\business_profile.html:264
+#: .\templates\seller_panel\business_profile.html:255
+msgid "Manage Business Identity"
+msgstr "İşletme Kimliğini Yönetin"
+
+#: .\templates\market\business_profile.html:272
+#: .\templates\seller_panel\business_profile.html:263
+msgid "General Info"
+msgstr "Genel Bilgi"
+
+#: .\templates\market\business_profile.html:290
+#: .\templates\seller_panel\business_profile.html:281
+msgid "Update Logo"
+msgstr "Logoyu Güncelle"
+
+#: .\templates\market\business_profile.html:300
+#: .\templates\seller_panel\business_profile.html:291
+msgid "Country"
+msgstr "Ülke"
+
+#: .\templates\market\business_profile.html:304
+#: .\templates\seller_panel\business_profile.html:295
+msgid "City"
+msgstr "Şehir"
+
+#: .\templates\market\business_profile.html:308
+#: .\templates\seller_panel\business_profile.html:299
+msgid "Short Bio"
+msgstr "Kısa Biyografi"
+
+#: .\templates\market\business_profile.html:318
+#: .\templates\seller_panel\business_profile.html:309
+msgid "Select Your Roles:"
+msgstr "Rollerinizi Seçin:"
+
+#: .\templates\market\business_profile.html:361
+#: .\templates\seller_panel\business_profile.html:352
+msgid "Certification Type"
+msgstr "Sertifika Türü"
+
+#: .\templates\market\business_profile.html:365
+#: .\templates\seller_panel\business_profile.html:356
+msgid "Issuing Authority"
+msgstr "Düzenleyen yetkili makam"
+
+#: .\templates\market\business_profile.html:369
+#: .\templates\seller_panel\business_profile.html:360
+msgid "Expiration Date"
+msgstr "Son kullanma tarihi"
+
+#: .\templates\market\business_profile.html:373
+#: .\templates\seller_panel\business_profile.html:364
+msgid "Document Image (JPG/PNG)"
+msgstr "Belge Resmi (JPG/PNG)"
+
+#: .\templates\market\business_profile.html:378
+#: .\templates\seller_panel\business_profile.html:369
+msgid "Upload for Verification"
+msgstr "Doğrulama için Yükle"
+
+#: .\templates\market\buyer_orders.html:10 .\templates\partials\header.html:74
+msgid "My Orders"
+msgstr "Siparişlerim"
+
+#: .\templates\market\buyer_orders.html:11
+msgid "Manage your purchases and track shipments."
+msgstr "Satın alma işlemlerinizi yönetin ve gönderileri takip edin."
+
+#: .\templates\market\buyer_orders.html:16
+msgid "Total Spent"
+msgstr "Toplam Harcanan"
+
+#: .\templates\market\buyer_orders.html:30
+msgid "Item"
+msgstr "Öğe"
+
+#: .\templates\market\buyer_orders.html:31
+msgid "Order Date"
+msgstr "Sipariş Tarihi"
+
+#: .\templates\market\buyer_orders.html:33
+msgid "Amount"
+msgstr "Miktar"
+
+#: .\templates\market\buyer_orders.html:34
+msgid "Action"
+msgstr "Aksiyon"
+
+#: .\templates\market\buyer_orders.html:73
+msgid "Price Pending"
+msgstr "Fiyat Bekleniyor"
+
+#: .\templates\market\buyer_orders.html:75
+msgid "Paid"
+msgstr "Paralı"
+
+#: .\templates\market\buyer_orders.html:77
+#: .\templates\seller_panel\orders.html:206
+msgid "Processing"
+msgstr "İşleme"
+
+#: .\templates\market\buyer_orders.html:79
+msgid "On the way"
+msgstr "yolda"
+
+#: .\templates\market\buyer_orders.html:81
+#: .\templates\seller_panel\orders.html:210
+msgid "Delivered"
+msgstr "Teslim edilmiş"
+
+#: .\templates\market\buyer_orders.html:98
+msgid "Pay Now"
+msgstr "Şimdi Öde"
+
+#: .\templates\market\buyer_orders.html:107 .\templates\market\detail.html:409
+#: .\templates\market\public_profile.html:94
+msgid "Chat"
+msgstr "Sohbet"
+
+#: .\templates\market\buyer_orders.html:117
+msgid "No orders found"
+msgstr "Sipariş bulunamadı"
+
+#: .\templates\market\buyer_orders.html:118
+msgid "You haven't placed any orders yet."
+msgstr "Henüz sipariş vermediniz."
+
+#: .\templates\market\buyer_orders.html:119
+msgid "Browse Products"
+msgstr "Ürünlere Göz Atın"
+
+#: .\templates\market\detail.html:356
+msgid "Collection"
+msgstr "Koleksiyon"
+
+#: .\templates\market\detail.html:372
+msgid "No Image Available"
+msgstr "Resim Mevcut Değil"
+
+#: .\templates\market\detail.html:378
+msgid "View in 3D"
+msgstr "3D olarak görüntüle"
+
+#: .\templates\market\detail.html:403
+msgid "Seller:"
+msgstr "Satıcı:"
+
+#: .\templates\market\detail.html:405
+msgid "Visit Showroom"
+msgstr "Showroom'u ziyaret edin"
+
+#: .\templates\market\detail.html:415
+msgid "Price On Request"
+msgstr "Talep Üzerine Fiyat"
+
+#: .\templates\market\detail.html:418
+msgid "/ set"
+msgstr "/ ayarlamak"
+
+#: .\templates\market\detail.html:429
+msgid "Quantity"
+msgstr "Miktar"
+
+#: .\templates\market\detail.html:435
+msgid "Total Estimate"
+msgstr "Toplam Tahmin"
+
+#: .\templates\market\detail.html:443
+msgid "Create Inquiry"
+msgstr "Talep Oluştur"
+
+#: .\templates\market\detail.html:449
+msgid "Buyer Account Required"
+msgstr "Alıcı Hesabı Gerekli"
+
+#: .\templates\market\detail.html:450
+msgid "Please"
+msgstr "Lütfen"
+
+#: .\templates\market\detail.html:450
+msgid "to view shipping rates and place orders."
+msgstr "Gönderim ücretlerini görüntülemek ve sipariş vermek için."
+
+#: .\templates\market\detail.html:457
+msgid "Fast Shipping"
+msgstr "Hızlı Kargo"
+
+#: .\templates\market\detail.html:461
+msgid "Buyer Protection"
+msgstr "Alıcı Koruması"
+
+#: .\templates\market\detail.html:465
+msgid "24/7 Support"
+msgstr "7/24 Destek"
+
+#: .\templates\market\detail.html:478
+#: .\templates\seller_panel\products_form.html:53
+msgid "Description"
+msgstr "Tanım"
+
+#: .\templates\market\detail.html:481
+msgid "Specifications"
+msgstr "Özellikler"
+
+#: .\templates\market\detail.html:484
+msgid "Shipping & Returns"
+msgstr "Nakliye ve İade"
+
+#: .\templates\market\detail.html:489
+msgid "Product Overview"
+msgstr "Ürüne Genel Bakış"
+
+#: .\templates\market\detail.html:493
+msgid "Technical Details"
+msgstr "Teknik Detaylar"
+
+#: .\templates\market\detail.html:497
+msgid "Material"
+msgstr "Malzeme"
+
+#: .\templates\market\detail.html:497
+msgid "Premium Source"
+msgstr "Premium Kaynak"
+
+#: .\templates\market\detail.html:501
+msgid "Delivery Information"
+msgstr "Teslimat Bilgileri"
+
+#: .\templates\market\detail.html:502
+msgid ""
+"Standard delivery times for this item vary by location. Please create an "
+"inquiry to receive a custom logistics quote for deliveries to Addis Ababa "
+"and surrounding regions."
+msgstr ""
+"Bu ürünün standart teslimat süreleri konuma göre değişir. Addis Ababa ve "
+"çevre bölgelere teslimatlar için özel lojistik teklifi almak için lütfen bir"
+" soruşturma oluşturun."
+
+#: .\templates\market\list.html:19
+msgid "Global Marketplace"
+msgstr "Küresel Pazaryeri"
+
+#: .\templates\market\list.html:20
+msgid "Browse premium luxury furniture products from verified sellers."
+msgstr "Doğrulanmış satıcıların premium lüks mobilya ürünlerine göz atın."
+
+#: .\templates\market\list.html:31
+msgid "Search Products"
+msgstr "Ürün Ara"
+
+#: .\templates\market\list.html:42
+msgid "All Categories"
+msgstr "Tüm Kategoriler"
+
+#: .\templates\market\list.html:51
+msgid "Price Range (USD)"
+msgstr "Fiyat Aralığı (USD)"
+
+#: .\templates\market\list.html:63
+msgid "Newest Listed"
+msgstr "En Yeni Listelenen"
+
+#: .\templates\market\list.html:64
+msgid "Price: Low to High"
+msgstr "Fiyat: Düşükten Yükseğe"
+
+#: .\templates\market\list.html:65
+msgid "Price: High to Low"
+msgstr "Fiyat: Yüksekten Düşüğe"
+
+#: .\templates\market\list.html:71
+msgid "Filter"
+msgstr "Filtre"
+
+#: .\templates\market\list.html:96
+msgid "Price on request"
+msgstr "Talep üzerine fiyat"
+
+#: .\templates\market\list.html:98
+msgid "(Base Price)"
+msgstr "(Taban Fiyat)"
+
+#: .\templates\market\list.html:110 .\templates\market\public_profile.html:252
+msgid "To Order Login By Buyer"
+msgstr "Sipariş Vermek İçin Alıcı Tarafından Giriş Yapın"
+
+#: .\templates\market\list.html:115
+msgid "Order Now"
+msgstr "Şimdi Sipariş Ver"
+
+#: .\templates\market\list.html:122
+msgid "Login to Order"
+msgstr "Sipariş için Giriş Yapın"
+
+#: .\templates\market\list.html:132
+msgid "No products available right now."
+msgstr "Şu anda mevcut ürün yok."
+
+#: .\templates\market\payment.html:120
+msgid "Secure Checkout"
+msgstr "Güvenli Ödeme"
+
+#: .\templates\market\payment.html:121
+msgid "Step 2 of 2"
+msgstr "Adım 2/2"
+
+#: .\templates\market\payment.html:127
+msgid "Order Summary"
+msgstr "Sipariş Özeti"
+
+#: .\templates\market\payment.html:140
+msgid "Qty:"
+msgstr "Adet:"
+
+#: .\templates\market\payment.html:158
+msgid "Select Payment Method"
+msgstr "Ödeme Yöntemini Seçin"
+
+#: .\templates\market\payment.html:168
+msgid "International Payment"
+msgstr "Uluslararası Ödeme"
+
+#: .\templates\market\payment.html:169
+msgid "Credit Card, Debit Card (Stripe)"
+msgstr "Kredi Kartı, Banka Kartı (Şeritli)"
+
+#: .\templates\market\payment.html:183
+msgid "Local Payment (Ethiopia)"
+msgstr "Yerel Ödeme (Etiyopya)"
+
+#: .\templates\market\payment.html:184
+msgid "Telebirr, CBE, Mobile Money (Chapa)"
+msgstr "Telebirr, CBE, Mobil Para (Chapa)"
+
+#: .\templates\market\payment.html:192
+msgid "Pay"
+msgstr "Ödemek"
+
+#: .\templates\market\payment.html:192
+msgid "Now"
+msgstr "Şimdi"
+
+#: .\templates\market\payment.html:195
+msgid "Cancel Order"
+msgstr "Siparişi İptal Et"
+
+#: .\templates\market\payment.html:201
+msgid "SSL Encrypted Transaction"
+msgstr "SSL Şifreli İşlem"
+
+#: .\templates\market\payment.html:206
+msgid "Chapa Verified"
+msgstr "Chapa Doğrulandı"
+
+#: .\templates\market\payment_success.html:7
+msgid "Payment Successful"
+msgstr "Ödeme Başarılı"
+
+#: .\templates\market\payment_success.html:89
+msgid "Payment Successful!"
+msgstr "Ödeme Başarılı!"
+
+#: .\templates\market\payment_success.html:90
+msgid ""
+"Thank you for your order. We are processing it and will send you a "
+"confirmation email shortly."
+msgstr ""
+"Siparişiniz için teşekkür ederiz. İşleme alıyoruz ve kısa süre içinde size "
+"bir onay e-postası göndereceğiz."
+
+#: .\templates\market\payment_success.html:93
+msgid "Redirecting to home page in"
+msgstr "Ana sayfaya yönlendiriliyor"
+
+#: .\templates\market\payment_success.html:93
+msgid "seconds..."
+msgstr "saniye..."
+
+#: .\templates\market\payment_success.html:97
+msgid "Return to Home Now"
+msgstr "Şimdi Eve Dön"
+
+#: .\templates\market\public_profile.html:130
+msgid "Orders Fulfilled"
+msgstr "Siparişler Gerçekleştirildi"
+
+#: .\templates\market\public_profile.html:165
+msgid "Issued by:"
+msgstr "Veren kuruluş:"
+
+#: .\templates\market\public_profile.html:188
+msgid "No image document available."
+msgstr "Resim belgesi mevcut değil."
+
+#: .\templates\market\public_profile.html:201
+msgid "No certifications uploaded yet."
+msgstr "Henüz hiçbir sertifika yüklenmedi."
+
+#: .\templates\market\public_profile.html:211
+msgid "Core Specialties"
+msgstr "Temel Uzmanlıklar"
+
+#: .\templates\market\public_profile.html:220
+msgid "Available Products"
+msgstr "Mevcut Ürünler"
+
+#: .\templates\market\public_profile.html:257
+msgid "View Details"
+msgstr "Ayrıntıları Görüntüle"
+
+#: .\templates\market\public_profile.html:267
+msgid "No active products listed at the moment."
+msgstr "Şu anda listelenmiş aktif ürün yok."
+
+#: .\templates\partials\chat_icon.html:11
+msgid "AI Assistant"
+msgstr "Yapay Zeka Asistanı"
+
+#: .\templates\partials\chat_icon.html:29
+msgid "Super AI Agent"
+msgstr "Süper Yapay Zeka Temsilcisi"
+
+#: .\templates\partials\chat_icon.html:32
+msgid "Elite automated interior guidance;"
+msgstr "Elit otomatik iç mekan yönlendirmesi;"
+
+#: .\templates\partials\chat_icon.html:33
+msgid "live agent support in"
+msgstr "canlı temsilci desteği"
+
+#: .\templates\partials\chat_icon.html:38
+msgid "AI Agent"
+msgstr "Yapay Zeka Temsilcisi"
+
+#: .\templates\partials\chat_icon.html:43
+msgid "Reach our private concierge?"
+msgstr "Özel konsiyerjimize ulaşmak ister misiniz?"
+
+#: .\templates\partials\chat_icon.html:45
+msgid "Message Specialist"
+msgstr "Mesaj Uzmanı"
+
+#: .\templates\partials\footer.html:7
+msgid "2026"
+msgstr "2026"
+
+#: .\templates\partials\footer.html:7 .\templates\partials\header.html:97
+msgid "Asortie"
+msgstr "Çeşitli"
+
+#: .\templates\partials\footer.html:8
+msgid "Addis Ababa, Ethiopia. Developer"
+msgstr "Addis Ababa, Etiyopya. Geliştirici"
+
+#: .\templates\partials\footer.html:8
+msgid "Bilal Nesru"
+msgstr "Bilal Nesru"
+
+#: .\templates\partials\footer.html:9
+msgid "Powered By"
+msgstr "Tarafından desteklenmektedir"
+
+#: .\templates\partials\footer.html:9
+msgid "Anwar5Promoter"
+msgstr "Anwar5Destekleyici"
+
+#: .\templates\partials\footer.html:10
+msgid "Privacy"
+msgstr "Mahremiyet"
+
+#: .\templates\partials\footer.html:11
+msgid "Terms"
+msgstr "Şartlar"
+
+#: .\templates\partials\header.html:38
+msgid "My Products"
+msgstr "Ürünlerim"
+
+#: .\templates\partials\header.html:41
+msgid "Manage Orders"
+msgstr "Siparişleri Yönet"
+
+#: .\templates\partials\header.html:45 .\templates\partials\header.html:81
+msgid "Business Profile"
+msgstr "İşletme Profili"
+
+#: .\templates\partials\header.html:48
+msgid "Buyer Messages"
+msgstr "Alıcı Mesajları"
+
+#: .\templates\seller_panel\business_profile.html:177
+msgid "Revenue Today"
+msgstr "Bugünkü Gelir"
+
+#: .\templates\seller_panel\business_profile.html:185
+msgid "Revenue This Month"
+msgstr "Bu Ayın Geliri"
+
+#: .\templates\seller_panel\business_profile.html:193
+msgid "Revenue This Year"
+msgstr "Bu Yıl Gelir"
+
+#: .\templates\seller_panel\business_profile.html:206
+msgid "Revenue Growth"
+msgstr "Gelir Artışı"
+
+#: .\templates\seller_panel\business_profile.html:223
+msgid "Based on total revenue volume"
+msgstr "Toplam gelir hacmine göre"
+
+#: .\templates\seller_panel\business_profile.html:235
+msgid "Successful Orders"
+msgstr "Başarılı Siparişler"
+
+#: .\templates\seller_panel\dashboard.html:6
+msgid "Seller Dashboard"
+msgstr "Satıcı Kontrol Paneli"
+
+#: .\templates\seller_panel\dashboard.html:11
+msgid "Total Sales"
+msgstr "Toplam Satışlar"
+
+#: .\templates\seller_panel\dashboard.html:23
+msgid "Order Status Analytics"
+msgstr "Sipariş Durumu Analizi"
+
+#: .\templates\seller_panel\orders.html:153
+msgid "Order Logistics"
+msgstr "Sipariş Lojistiği"
+
+#: .\templates\seller_panel\orders.html:154
+msgid "Manage furniture inquiries and shipping from Asortie to Ethiopia."
+msgstr "Mobilya sorgularını ve Asortie'den Etiyopya'ya nakliyeyi yönetin."
+
+#: .\templates\seller_panel\orders.html:165
+msgid "Luxury Item"
+msgstr "Lüks Ürün"
+
+#: .\templates\seller_panel\orders.html:166
+msgid "Client Info"
+msgstr "Müşteri Bilgileri"
+
+#: .\templates\seller_panel\orders.html:167
+msgid "Quoted Amount"
+msgstr "Teklif Edilen Tutar"
+
+#: .\templates\seller_panel\orders.html:196
+msgid "Waiting for Quote"
+msgstr "Teklif Bekleniyor"
+
+#: .\templates\seller_panel\orders.html:202
+msgid "Inquiry"
+msgstr "Sorgu"
+
+#: .\templates\seller_panel\orders.html:204
+msgid "Quoted"
+msgstr "Alıntı yapıldı"
+
+#: .\templates\seller_panel\orders.html:208
+msgid "In Transit"
+msgstr "Transit olarak"
+
+#: .\templates\seller_panel\orders.html:212
+msgid "Cancelled"
+msgstr "İptal edildi"
+
+#: .\templates\seller_panel\orders.html:214
+msgid "Declined"
+msgstr "Reddedildi"
+
+#: .\templates\seller_panel\orders.html:219
+msgid "Inquiry Withdrawn"
+msgstr "Soruşturma Geri Çekildi"
+
+#: .\templates\seller_panel\orders.html:223
+msgid "Manage"
+msgstr "Üstesinden gelmek"
+
+#: .\templates\seller_panel\orders.html:229
+msgid "Next Step"
+msgstr "Sonraki Adım"
+
+#: .\templates\seller_panel\orders.html:233
+msgid "Set Final Price"
+msgstr "Nihai Fiyatı Belirle"
+
+#: .\templates\seller_panel\orders.html:241
+msgid "Accept Order"
+msgstr "Siparişi Kabul Et"
+
+#: .\templates\seller_panel\orders.html:250
+msgid "Start Shipping"
+msgstr "Nakliyeye Başla"
+
+#: .\templates\seller_panel\orders.html:259
+msgid "Mark Delivered"
+msgstr "Teslim Edildi Olarak İşaretle"
+
+#: .\templates\seller_panel\orders.html:269
+msgid "Corrections"
+msgstr "Düzeltmeler"
+
+#: .\templates\seller_panel\orders.html:276
+msgid "Re-open Inquiry"
+msgstr "Soruşturmayı Yeniden Aç"
+
+#: .\templates\seller_panel\orders.html:276
+msgid "Reset to Pending"
+msgstr "Beklemede durumuna sıfırla"
+
+#: .\templates\seller_panel\orders.html:285
+msgid "Back to Quote"
+msgstr "Alıntıya Geri Dön"
+
+#: .\templates\seller_panel\orders.html:294
+msgid "Return to Warehouse"
+msgstr "Depoya Dönüş"
+
+#: .\templates\seller_panel\orders.html:303
+msgid "Reset to Shipping"
+msgstr "Gönderime Sıfırla"
+
+#: .\templates\seller_panel\orders.html:317
+msgid "Decline Inquiry"
+msgstr "Sorgulamayı Reddet"
+
+#: .\templates\seller_panel\orders.html:337
+msgid "OFFICIAL QUOTE"
+msgstr "RESMİ TEKLİF"
+
+#: .\templates\seller_panel\orders.html:343
+msgid "Final Agreed Price (USD)"
+msgstr "Kararlaştırılan Nihai Fiyat (ABD Doları)"
+
+#: .\templates\seller_panel\orders.html:352
+msgid "Send Quote to Buyer"
+msgstr "Alıcıya Teklif Gönder"
+
+#: .\templates\seller_panel\products.html:8
+msgid "Furniture Collection"
+msgstr "Mobilya Koleksiyonu"
+
+#: .\templates\seller_panel\products.html:9
+msgid "Manage your luxury catalog, AR variants, and galleries."
+msgstr "Lüks kataloğunuzu, AR çeşitlerinizi ve galerilerinizi yönetin."
+
+#: .\templates\seller_panel\products.html:13
+msgid "Add New Piece"
+msgstr "Yeni Parça Ekle"
+
+#: .\templates\seller_panel\products.html:16
+msgid "View Orders"
+msgstr "Siparişleri Görüntüle"
+
+#: .\templates\seller_panel\products.html:24
+msgid "Your Active Showroom"
+msgstr "Aktif Showroomunuz"
+
+#: .\templates\seller_panel\products.html:29
+msgid "Preview"
+msgstr "Önizleme"
+
+#: .\templates\seller_panel\products.html:30
+msgid "Item Name"
+msgstr "Öğe Adı"
+
+#: .\templates\seller_panel\products.html:32
+msgid "Price Strategy"
+msgstr "Fiyat Stratejisi"
+
+#: .\templates\seller_panel\products.html:33
+msgid "Gallery"
+msgstr "Galeri"
+
+#: .\templates\seller_panel\products.html:34
+msgid "Variants (AR)"
+msgstr "Varyantlar (AR)"
+
+#: .\templates\seller_panel\products.html:46
+msgid "No Img"
+msgstr "Resim yok"
+
+#: .\templates\seller_panel\products.html:62
+msgid "Quotation"
+msgstr "Alıntı yapmak"
+
+#: .\templates\seller_panel\products.html:70
+msgid "imgs"
+msgstr "görüntüler"
+
+#: .\templates\seller_panel\products.html:79
+msgid "View AR"
+msgstr "AR'yi görüntüle"
+
+#: .\templates\seller_panel\products.html:84
+msgid "No 3D Models"
+msgstr "3D Model Yok"
+
+#: .\templates\seller_panel\products.html:107
+msgid "No products listed yet."
+msgstr "Henüz listelenmiş ürün yok."
+
+#: .\templates\seller_panel\products_form.html:9
+msgid "Edit Product"
+msgstr "Ürünü Düzenle"
+
+#: .\templates\seller_panel\products_form.html:9
+msgid "Add New Product"
+msgstr "Yeni Ürün Ekle"
+
+#: .\templates\seller_panel\products_form.html:23
+msgid "Basic Information"
+msgstr "Temel Bilgiler"
+
+#: .\templates\seller_panel\products_form.html:26
+msgid "Product Name"
+msgstr "Ürün Adı"
+
+#: .\templates\seller_panel\products_form.html:32
+msgid "Modern"
+msgstr "Modern"
+
+#: .\templates\seller_panel\products_form.html:33
+msgid "Classic"
+msgstr "Klasik"
+
+#: .\templates\seller_panel\products_form.html:34
+msgid "Decoration"
+msgstr "Dekorasyon"
+
+#: .\templates\seller_panel\products_form.html:35
+msgid "Office"
+msgstr "Ofis"
+
+#: .\templates\seller_panel\products_form.html:36
+msgid "Hotel"
+msgstr "Otel"
+
+#: .\templates\seller_panel\products_form.html:41
+msgid "Pricing Strategy"
+msgstr "Fiyatlandırma Stratejisi"
+
+#: .\templates\seller_panel\products_form.html:43
+msgid "Negotiated (Quote)"
+msgstr "Pazarlık edildi (Alıntı)"
+
+#: .\templates\seller_panel\products_form.html:44
+msgid "selected"
+msgstr "seçilmiş"
+
+#: .\templates\seller_panel\products_form.html:44
+msgid "Base Price"
+msgstr "Taban Fiyat"
+
+#: .\templates\seller_panel\products_form.html:48
+msgid "Price ($)"
+msgstr "Fiyat ($)"
+
+#: .\templates\seller_panel\products_form.html:59
+msgid "Imagery"
+msgstr "Görüntüler"
+
+#: .\templates\seller_panel\products_form.html:63
+msgid "Main Image"
+msgstr "Ana Resim"
+
+#: .\templates\seller_panel\products_form.html:67
+msgid "Current"
+msgstr "Akım"
+
+#: .\templates\seller_panel\products_form.html:71
+msgid "Upload to replace current main image."
+msgstr "Mevcut ana resmi değiştirmek için yükleyin."
+
+#: .\templates\seller_panel\products_form.html:76
+msgid "Gallery Images"
+msgstr "Galeri Görselleri"
+
+#: .\templates\seller_panel\products_form.html:95
+msgid "Add New Images:"
+msgstr "Yeni Görseller Ekle:"
+
+#: .\templates\seller_panel\products_form.html:102
+msgid "3D Models & Variants"
+msgstr "3B Modeller ve Çeşitler"
+
+#: .\templates\seller_panel\products_form.html:104
+msgid "Add New"
+msgstr "Yeni Ekle"
+
+#: .\templates\seller_panel\products_form.html:111
+msgid "Current Variants"
+msgstr "Mevcut Varyantlar"
+
+#: .\templates\seller_panel\products_form.html:120
+msgid "File Uploaded"
+msgstr "Dosya Yüklendi"
+
+#: .\templates\seller_panel\products_form.html:122
+msgid "External Link"
+msgstr "Dış Bağlantı"
+
+#: .\templates\seller_panel\products_form.html:124
+msgid "No 3D data"
+msgstr "3D veri yok"
+
+#: .\templates\seller_panel\products_form.html:142
+msgid "Publish Product"
+msgstr "Ürünü Yayınla"
