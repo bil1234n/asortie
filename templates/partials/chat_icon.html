@@ -1,4 +1,4 @@
-
+{% load static i18n %} 
 <!-- 1. The Floating Button -->
 <div class="chat-btn-float" id="chatToggleBtn">
     <i class="fa-solid fa-comments"></i>
@@ -8,7 +8,7 @@
 <div class="chat-widget-container" id="chatWindow">
     <!-- Header -->
     <div class="chat-header">
-        <h5 class="mb-0 fs-6"><i class="fa-solid fa-headset me-2"></i> AI Assistant</h5>
+        <h5 class="mb-0 fs-6"><i class="fa-solid fa-headset me-2"></i> {% trans "AI Assistant" %}</h5>
         <button class="close-chat" id="closeChatBtn">&times;</button>
     </div>
 
@@ -26,23 +26,23 @@
         </div>
 
         <!-- Professional Text -->
-        <h6 class="fw-bold mb-2" style="color: #1B3C59;">Super AI Agent</h6>
+        <h6 class="fw-bold mb-2" style="color: #1B3C59;">{% trans "Super AI Agent" %}</h6>
         
         <p class="small text-muted px-3" style="line-height: 1.5;">
-            Elite automated interior guidance;  <br>
-            <span class="fst-italic text-secondary"> live agent support in v2.0.</span>
+            {% trans "Elite automated interior guidance;" %}  <br>
+            <span class="fst-italic text-secondary"> {% trans "live agent support in" %} v2.0.</span>
         </p>
 
         <div class="w-100 px-4 mb-4">
-            <a href="{% url 'ai' %}" class="btn btn-outline-dark btn_sm w-100 py-1" style="border-color: #1B3C59; color: #1B3C59;">
-                <i class="fa-solid fa-robot me-2"></i> AI Agent v2.1
+            <a href="{% url 'coming_soon' %}" class="btn btn-outline-dark btn_sm w-100 py-1" style="border-color: #1B3C59; color: #1B3C59;">
+                <i class="fa-solid fa-robot me-2"></i> {% trans "AI Agent" %} v2.1
             </a>
         </div>
         <!-- Redirect to Real Human Chat -->
         <div class="w-100 px-4">
-            <p class="small fw-bold mb-2 text-secondary">Reach our private concierge?</p>
+            <p class="small fw-bold mb-2 text-secondary">{% trans "Reach our private concierge?" %}</p>
             <a href="{% url 'contact_admin' %}" class="btn btn-outline-dark btn_sm w-100 py-2" style="border-color: #1B3C59; color: #1B3C59;">
-                <i class="fa-solid fa-envelope me-2"></i> Message Specialist
+                <i class="fa-solid fa-envelope me-2"></i> {% trans "Message Specialist" %}
             </a>
         </div>
     </div>
