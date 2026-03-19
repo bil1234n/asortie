@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %} 
 
 {% block content %}
 
@@ -89,7 +89,7 @@
         <!-- Logo on Top -->
         <img src="{% static 'img/logo_1.png' %}" alt="CoffeeCore Logo" class="hero-logo_2">
         <img src="{% static 'img/logo_2.png' %}" alt="CoffeeCore Logo" class="hero-logo">
-        <h1 class="fw-bold mb-3">Luxury landing with featured items.</h1>
+        <h1 class="fw-bold mb-3">{% trans "Luxury landing with featured items." %}</h1>
     </div>
 
 
@@ -102,12 +102,12 @@
                 <div class="icon-circle icon-ai">
                     <i class="fa-solid fa-robot"></i>
                 </div>
-                <h3 class="fw-bold mb-3">AI Hub</h3>
+                <h3 class="fw-bold mb-3">{% trans "AI Hub" %}</h3>
                 <p class="text-muted small mb-4">
-                    Leverage advanced artificial intelligence for real-time market trend analysis, pricing insights, and automated interior design assistance.
+                    {% trans "Leverage advanced artificial intelligence for real-time market trend analysis, pricing insights, and automated interior design assistance." %}
                 </p>
-                <a href="{% url 'ai' %}" class="btn btn-outline-secondary rounded-pill px-4 btn-sm">
-                    AI Hub
+                <a href="{% url 'coming_soon' %}" class="btn btn-outline-secondary rounded-pill px-4 btn-sm">
+                    {% trans "Coming Soon" %}
                 </a>
             </div>
         </div>
@@ -118,12 +118,12 @@
                 <div class="icon-circle icon-market">
                     <i class="fa-solid fa-shop"></i>
                 </div>
-                <h3 class="fw-bold mb-3">Marketplace</h3>
+                <h3 class="fw-bold mb-3">{% trans "Marketplace" %}</h3>
                 <p class="text-muted small mb-4">
-                    Discover a curated inventory of luxury furniture, décor, and textiles ready for immediate global shipment from verified manufacturers.
+                    {% trans "Discover a curated inventory of luxury furniture, décor, and textiles ready for immediate global shipment from verified manufacturers." %}
                 </p>
                 <a href="{% url 'product_list' %}" class="btn btn-dark rounded-pill px-4 btn-sm" style="background-color: #1B3C59;">
-                    Our Shop
+                    {% trans "Our Shop" %}
                 </a>
             </div>
         </div>
@@ -134,12 +134,12 @@
                 <div class="icon-circle icon-live">
                     <i class="fa-solid fa-cubes"></i>
                 </div>
-                <h3 class="fw-bold mb-3">3D Visualization</h3>
+                <h3 class="fw-bold mb-3">{% trans "3D Visualization" %}</h3>
                 <p class="text-muted small mb-4">
-                    Powerful 3D Visualization experience for our furniture in immersive 3D with real-time color customization and AR placement directly in your space.
+                    {% trans "Powerful 3D Visualization experience for our furniture in immersive 3D with real-time color customization and AR placement directly in your space." %}
                 </p>
                 <a href="{% url 'ar_showroom' %}" class="btn btn-outline-secondary rounded-pill px-4 btn-sm">
-                    3D & AR Visualization
+                    {% trans "3D & AR Visualization" %}
                 </a>
             </div>
         </div>
@@ -149,16 +149,16 @@
     <!-- 3. STATS STRIP (Professional Touch) -->
     <div class="row mt-5 text-center">
         <div class="col-md-4">
-            <h2 class="fw-bold text-primary">100%</h2>
-            <p class="text-muted uppercase small ls-1">Verified Sellers</p>
+            <h2 class="fw-bold text-primary">{% trans "100" %}%</h2>
+            <p class="text-muted uppercase small ls-1">{% trans "Verified Sellers" %}</p>
         </div>
         <div class="col-md-4">
             <h2 class="fw-bold text-success">{{ total_products|default:"0" }}+</h2>
-            <p class="text-muted uppercase small ls-1">Active Products</p>
+            <p class="text-muted uppercase small ls-1">{% trans "Active Products" %}</p>
         </div>
         <div class="col-md-4">
-            <h2 class="fw-bold text-danger">24/7</h2>
-            <p class="text-muted uppercase small ls-1">Global Support</p>
+            <h2 class="fw-bold text-danger">{% trans "24/7" %}</h2>
+            <p class="text-muted uppercase small ls-1">{% trans "Global Support" %}</p>
         </div>
     </div>
 
