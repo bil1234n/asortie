@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="fw-bold">{% if edit_mode %}Edit Product{% else %}Add New Product{% endif %}</h3>
+                <h3 class="fw-bold">{% if edit_mode %}{% trans "Edit Product" %}{% else %}{% trans "Add New Product" %}{% endif %}</h3>
                 <a href="{% url 'seller_products' %}" class="btn btn-outline-secondary">Cancel</a>
             </div>
 
@@ -19,60 +20,60 @@
                 <div class="card-body p-4">
                     
                     <!-- 1. MAIN INFO -->
-                    <h5 class="text-primary border-bottom pb-2 mb-3">Basic Information</h5>
+                    <h5 class="text-primary border-bottom pb-2 mb-3">{% trans "Basic Information" %}</h5>
                     <div class="row g-3 mb-4">
                         <div class="col-md-8">
-                            <label class="form-label fw-bold">Product Name</label>
+                            <label class="form-label fw-bold">{% trans "Product Name" %}</label>
                             <input type="text" name="name" class="form-control" required value="{{ product.name|default:'' }}">
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label fw-bold">Category</label>
+                            <label class="form-label fw-bold">{% trans "Category" %}</label>
                             <select name="category" class="form-select">
-                                <option value="Modern" {% if product.category == 'Modern' %}selected{% endif %}>Modern</option>
-                                <option value="Classic" {% if product.category == 'Classic' %}selected{% endif %}>Classic</option>
-                                <option value="Decoration" {% if product.category == 'Decoration' %}selected{% endif %}>Decoration</option>
-                                <option value="Office" {% if product.category == 'Office' %}selected{% endif %}>Office</option>
-                                <option value="Hotel" {% if product.category == 'Hotel' %}selected{% endif %}>Hotel</option>
+                                <option value="Modern" {% if product.category == 'Modern' %}selected{% endif %}>{% trans "Modern" %}</option>
+                                <option value="Classic" {% if product.category == 'Classic' %}selected{% endif %}>{% trans "Classic" %}</option>
+                                <option value="Decoration" {% if product.category == 'Decoration' %}selected{% endif %}>{% trans "Decoration" %}</option>
+                                <option value="Office" {% if product.category == 'Office' %}selected{% endif %}>{% trans "Office" %}</option>
+                                <option value="Hotel" {% if product.category == 'Hotel' %}selected{% endif %}>{% trans "Hotel" %}</option>
                             </select>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">Pricing Strategy</label>
+                            <label class="form-label fw-bold">{% trans "Pricing Strategy" %}</label>
                             <select id="pricingStrategy" class="form-select">
-                                <option value="negotiated" {% if not product.price or product.price == 0 %}selected{% endif %}>Negotiated (Quote)</option>
-                                <option value="base" {% if product.price and product.price > 0 %}selected{% endif %}>Base Price</option>
+                                <option value="negotiated" {% if not product.price or product.price == 0 %}selected{% endif %}>{% trans "Negotiated (Quote)" %}</option>
+                                <option value="base" {% if product.price and product.price > 0 %}{% trans "selected" %}{% endif %}>{% trans "Base Price" %}</option>
                             </select>
                         </div>
                         <div class="col-md-6" id="basePriceContainer" style="display: none;">
-                            <label class="form-label fw-bold">Price ($)</label>
+                            <label class="form-label fw-bold">{% trans "Price ($)" %}</label>
                             <input type="number" step="0.01" name="price" id="realPriceInput" class="form-control" value="{{ product.price|default:'0' }}">
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label fw-bold">Description</label>
+                            <label class="form-label fw-bold">{% trans "Description" %}</label>
                             <textarea name="description" class="form-control" rows="4" required>{{ product.description|default:'' }}</textarea>
                         </div>
                     </div>
 
                     <!-- 2. IMAGES -->
-                    <h5 class="text-primary border-bottom pb-2 mb-3">Imagery</h5>
+                    <h5 class="text-primary border-bottom pb-2 mb-3">{% trans "Imagery" %}</h5>
                     <div class="row g-3 mb-4">
                         <!-- Main Image -->
                         <div class="col-md-4">
-                            <label class="form-label fw-bold">Main Image</label>
+                            <label class="form-label fw-bold">{% trans "Main Image" %}</label>
                             {% if product.image %}
                                 <div class="mb-2 position-relative">
                                     <img src="{{ product.image.url }}" class="img-thumbnail" style="height: 150px; width: 100%; object-fit: cover;">
-                                    <span class="badge bg-primary position-absolute top-0 start-0 m-1">Current</span>
+                                    <span class="badge bg-primary position-absolute top-0 start-0 m-1">{% trans "Current" %}</span>
                                 </div>
                             {% endif %}
                             <input type="file" name="image" class="form-control form-control-sm">
-                            <div class="form-text">Upload to replace current main image.</div>
+                            <div class="form-text">{% trans "Upload to replace current main image." %}</div>
                         </div>
 
                         <!-- Gallery Images -->
                         <div class="col-md-8">
-                            <label class="form-label fw-bold">Gallery Images</label>
+                            <label class="form-label fw-bold">{% trans "Gallery Images" %}</label>
                             
                             <!-- Existing Gallery Grid -->
                             {% if product.gallery.all %}
@@ -91,23 +92,23 @@
                                 </div>
                             {% endif %}
 
-                            <label class="form-label small text-muted">Add New Images:</label>
+                            <label class="form-label small text-muted">{% trans "Add New Images:" %}</label>
                             <input type="file" name="gallery_images" class="form-control form-control-sm" multiple>
                         </div>
                     </div>
 
                     <!-- 3. AR/3D VARIANTS -->
                     <h5 class="text-primary border-bottom pb-2 mb-3 d-flex justify-content-between align-items-center">
-                        <span>3D Models & Variants</span>
+                        <span>{% trans "3D Models & Variants" %}</span>
                         <button type="button" class="btn btn-sm btn-outline-primary" onclick="addVariantRow()">
-                            <i class="fa-solid fa-plus"></i> Add New
+                            <i class="fa-solid fa-plus"></i> {% trans "Add New" %}
                         </button>
                     </h5>
 
                     <!-- Existing Variants List -->
                     {% if product.variants.all %}
                         <div class="mb-3">
-                            <label class="fw-bold mb-2 small text-uppercase text-muted">Current Variants</label>
+                            <label class="fw-bold mb-2 small text-uppercase text-muted">{% trans "Current Variants" %}</label>
                             <div class="list-group">
                                 {% for v in product.variants.all %}
                                     <div class="list-group-item d-flex justify-content-between align-items-center" id="variant-item-{{ v.id }}">
@@ -116,16 +117,16 @@
                                             <br>
                                             <small class="text-muted">
                                                 {% if v.model_3d %}
-                                                    <i class="fa-solid fa-file-arrow-up"></i> File Uploaded
+                                                    <i class="fa-solid fa-file-arrow-up"></i> {% trans "File Uploaded" %}
                                                 {% elif v.model_3d_link %}
-                                                    <i class="fa-solid fa-link"></i> External Link
+                                                    <i class="fa-solid fa-link"></i> {% trans "External Link" %}
                                                 {% else %}
-                                                    No 3D data
+                                                    {% trans "No 3D data" %}
                                                 {% endif %}
                                             </small>
                                         </div>
                                         <button type="button" class="btn btn-outline-danger btn-sm" onclick="markForDelete('variant', {{ v.id }})">
-                                            <i class="fa-solid fa-trash"></i> Delete
+                                            <i class="fa-solid fa-trash"></i> {% trans "Delete" %}
                                         </button>
                                     </div>
                                 {% endfor %}
@@ -138,7 +139,7 @@
 
                     <div class="mt-4 pt-3 border-top">
                         <button type="submit" class="btn btn-success w-100 py-2 fw-bold">
-                            {% if edit_mode %}Save Changes{% else %}Publish Product{% endif %}
+                            {% if edit_mode %}{% trans "Save Changes" %}{% else %}{% trans "Publish Product" %}{% endif %}
                         </button>
                     </div>
                 </div>
