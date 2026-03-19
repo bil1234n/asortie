@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %} 
 
 {% block content %}
 <div class="container py-5">
@@ -7,13 +7,13 @@
     <!-- DASHBOARD HEADER -->
     <div class="row mb-4 align-items-center">
         <div class="col-md-8">
-            <h2 class="fw-bold text-dark"><i class="fa-solid fa-bag-shopping me-2"></i>My Orders</h2>
-            <p class="text-muted">Manage your purchases and track shipments.</p>
+            <h2 class="fw-bold text-dark"><i class="fa-solid fa-bag-shopping me-2"></i>{% trans "My Orders" %}</h2>
+            <p class="text-muted">{% trans "Manage your purchases and track shipments." %}</p>
         </div>
         <div class="col-md-4 text-end">
             <div class="card bg-light border-0 shadow-sm">
                 <div class="card-body py-2 px-3">
-                    <small class="text-muted text-uppercase fw-bold">Total Spent</small>
+                    <small class="text-muted text-uppercase fw-bold">{% trans "Total Spent" %}</small>
                     <h4 class="mb-0 text-success fw-bold">${{ total_spend|default:"0.00" }}</h4>
                 </div>
             </div>
@@ -27,11 +27,11 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light text-secondary text-uppercase small">
                         <tr>
-                            <th class="ps-4 py-3">Item</th>
-                            <th>Order Date</th>
-                            <th>Status</th>
-                            <th>Amount</th>
-                            <th class="text-end pe-4">Action</th>
+                            <th class="ps-4 py-3">{% trans "Item" %}</th>
+                            <th>{% trans "Order Date" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th>{% trans "Amount" %}</th>
+                            <th class="text-end pe-4">{% trans "Action" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,15 +70,15 @@
                             <!-- 3. STATUS BADGE -->
                             <td>
                                 {% if order.status == 'Pending' %}
-                                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Price Pending</span>
+                                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">{% trans "Price Pending" %}</span>
                                 {% elif order.status == 'Paid' %}
-                                    <span class="badge bg-info text-dark px-3 py-2 rounded-pill">Paid</span>
+                                    <span class="badge bg-info text-dark px-3 py-2 rounded-pill">{% trans "Paid" %}</span>
                                 {% elif order.status == 'Accepted' %}
-                                    <span class="badge bg-primary px-3 py-2 rounded-pill">Processing</span>
+                                    <span class="badge bg-primary px-3 py-2 rounded-pill">{% trans "Processing" %}</span>
                                 {% elif order.status == 'Shipped' %}
-                                    <span class="badge bg-secondary px-3 py-2 rounded-pill">On the way</span>
+                                    <span class="badge bg-secondary px-3 py-2 rounded-pill">{% trans "On the way" %}</span>
                                 {% elif order.status == 'Delivered' %}
-                                    <span class="badge bg-success px-3 py-2 rounded-pill">Delivered</span>
+                                    <span class="badge bg-success px-3 py-2 rounded-pill">{% trans "Delivered" %}</span>
                                 {% else %}
                                     <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">{{ order.status }}</span>
                                 {% endif %}
@@ -95,7 +95,7 @@
                                 {% if order.status == 'Quoted' %}
                                     <!-- PAY BUTTON -->
                                     <a href="{% url 'payment' order.id %}" class="btn btn-dark btn-sm shadow-sm rounded-pill px-3">
-                                        Pay Now <i class="fa-solid fa-chevron-right ms-1"></i>
+                                        {% trans "Pay Now" %} <i class="fa-solid fa-chevron-right ms-1"></i>
                                     </a>
                                     <!-- CANCEL BUTTON -->
                                     <a href="{% url 'cancel_order' order.id %}" class="btn btn-outline-danger btn-sm rounded-circle ms-1" title="Cancel Order" onclick="return confirm('Are you sure you want to delete the order?');">
@@ -104,7 +104,7 @@
                                 {% else %}
                                     <!-- CHAT BUTTON -->
                                     <a href="{% url 'chat_room' order.product.seller.id %}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
-                                        <i class="fa-regular fa-comments me-1"></i> Chat
+                                        <i class="fa-regular fa-comments me-1"></i> {% trans "Chat" %}
                                     </a>
                                 {% endif %}
                             </td>
@@ -114,9 +114,9 @@
                             <td colspan="5" class="text-center py-5">
                                 <div class="text-muted">
                                     <i class="fa-solid fa-clipboard-list fa-3x mb-3"></i>
-                                    <h5>No orders found</h5>
-                                    <p class="small">You haven't placed any orders yet.</p>
-                                    <a href="{% url 'product_list' %}" class="btn btn-primary mt-2">Browse Products</a>
+                                    <h5>{% trans "No orders found" %}</h5>
+                                    <p class="small">{% trans "You haven't placed any orders yet." %}</p>
+                                    <a href="{% url 'product_list' %}" class="btn btn-primary mt-2">{% trans "Browse Products" %}</a>
                                 </div>
                             </td>
                         </tr>
