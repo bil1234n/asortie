@@ -1,0 +1,1918 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-17 23:49+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\templates\AR_3D\index.html:183
+msgid "Asorite 3D Hub"
+msgstr "Asorite 3D Hub"
+
+#: .\templates\AR_3D\index.html:188 .\templates\ai\index.html:271
+#: .\templates\ai\trainer.html:198 .\templates\partials\header.html:14
+#: .\templates\partials\header.html:35 .\templates\partials\header.html:66
+msgid "Dashboard"
+msgstr "ዳሽቦርድ"
+
+#: .\templates\AR_3D\index.html:192 .\templates\ai\index.html:276
+msgid "Train Ai"
+msgstr "ባቡር Ai"
+
+#: .\templates\AR_3D\index.html:198
+msgid "All"
+msgstr "ሁሉም"
+
+#: .\templates\AR_3D\index.html:211
+msgid "Loading..."
+msgstr "በመጫን ላይ..."
+
+#: .\templates\AR_3D\index.html:250 .\templates\ai\index.html:353
+#: .\templates\ai\trainer.html:267 .\templates\base.html:89
+msgid "Notifications"
+msgstr "ማሳወቂያዎች"
+
+#: .\templates\AR_3D\index.html:268 .\templates\ai\index.html:371
+#: .\templates\ai\trainer.html:285 .\templates\base.html:107
+msgid "ago"
+msgstr "በፊት"
+
+#: .\templates\AR_3D\index.html:274 .\templates\ai\index.html:377
+#: .\templates\ai\trainer.html:291 .\templates\base.html:113
+msgid "No new notifications"
+msgstr "ምንም አዲስ ማሳወቂያዎች የሉም"
+
+#: .\templates\AR_3D\index.html:278 .\templates\ai\index.html:381
+#: .\templates\ai\trainer.html:295 .\templates\base.html:117
+msgid "View All History"
+msgstr "ሁሉንም ታሪክ ይመልከቱ"
+
+#: .\templates\AR_3D\index.html:304 .\templates\ai\index.html:407
+#: .\templates\ai\trainer.html:321 .\templates\base.html:143
+#: .\templates\market\detail.html:450
+msgid "Login"
+msgstr "ግባ"
+
+#: .\templates\AR_3D\index.html:305 .\templates\ai\index.html:408
+#: .\templates\ai\trainer.html:322 .\templates\base.html:144
+msgid "Sign Up"
+msgstr "ይመዝገቡ"
+
+#: .\templates\AR_3D\index.html:346
+msgid "Color & Type Options"
+msgstr "የቀለም እና ዓይነት አማራጮች"
+
+#: .\templates\AR_3D\index.html:350
+msgid "OPEN IN AR"
+msgstr "በ AR ውስጥ ክፈት"
+
+#: .\templates\accounts\admin\login.html:9
+msgid "Administration"
+msgstr "አስተዳደር"
+
+#: .\templates\accounts\admin\login.html:15
+msgid "Access Denied. Check credentials."
+msgstr "መዳረሻ ተከልክሏል። ምስክርነቶችን ይፈትሹ."
+
+#: .\templates\accounts\admin\login.html:25
+msgid "Authenticate"
+msgstr "አረጋግጥ"
+
+#: .\templates\accounts\admin\register.html:9
+msgid "Secure Admin Registration"
+msgstr "ደህንነቱ የተጠበቀ የአስተዳዳሪ ምዝገባ"
+
+#: .\templates\accounts\admin\register.html:14
+msgid "Strictly for authorized personnel. Requires Master Passcode."
+msgstr "ለተፈቀደላቸው ሰዎች ብቻ። ማስተር የይለፍ ኮድ ያስፈልገዋል።"
+
+#: .\templates\accounts\admin\register.html:19
+msgid "Create Admin Account"
+msgstr "የአስተዳዳሪ መለያ ይፍጠሩ"
+
+#: .\templates\accounts\change_password.html:10
+msgid "Security Settings"
+msgstr "የደህንነት ቅንብሮች"
+
+#: .\templates\accounts\change_password.html:15
+msgid "Please enter your current password and your new password below."
+msgstr "እባክዎ የአሁኑን የይለፍ ቃልዎን እና አዲሱን የይለፍ ቃልዎን ከዚህ በታች ያስገቡ።"
+
+#: .\templates\accounts\change_password.html:37
+msgid "Update Password"
+msgstr "የይለፍ ቃል አዘምን"
+
+#: .\templates\accounts\change_password.html:40
+msgid "Cancel"
+msgstr "ሰርዝ"
+
+#: .\templates\accounts\login.html:53
+msgid "Welcome Back"
+msgstr "እንኳን ደህና መጣህ"
+
+#: .\templates\accounts\login.html:58 .\templates\accounts\register.html:108
+#: .\templates\admin_panel\orders.html:53
+msgid "Buyer"
+msgstr "ገዢ"
+
+#: .\templates\accounts\login.html:63 .\templates\accounts\register.html:113
+#: .\templates\admin_panel\products.html:32
+msgid "Seller"
+msgstr "ሻጭ"
+
+#: .\templates\accounts\login.html:77 .\templates\accounts\profile.html:91
+#: .\templates\accounts\register.html:121
+msgid "Username"
+msgstr "የተጠቃሚ ስም"
+
+#: .\templates\accounts\login.html:82
+msgid "Password"
+msgstr "የይለፍ ቃል"
+
+#: .\templates\accounts\login.html:87
+msgid "LOGIN"
+msgstr "ግባ"
+
+#: .\templates\accounts\login.html:93 .\templates\accounts\register.html:214
+msgid "OR"
+msgstr "ወይም"
+
+#: .\templates\accounts\login.html:117
+msgid "Don't have an account?"
+msgstr "መለያ የለህም?"
+
+#: .\templates\accounts\login.html:118
+msgid "Register Now"
+msgstr "አሁን ይመዝገቡ"
+
+#: .\templates\accounts\profile.html:23
+msgid "ADMINISTRATOR"
+msgstr "አስተዳዳሪ"
+
+#: .\templates\accounts\profile.html:25
+msgid "VERIFIED SELLER"
+msgstr "የተረጋገጠ ሻጭ"
+
+#: .\templates\accounts\profile.html:27
+msgid "BUYER"
+msgstr "ገዢ"
+
+#: .\templates\accounts\profile.html:36
+msgid "Account Status"
+msgstr "የመለያ ሁኔታ"
+
+#: .\templates\accounts\profile.html:38
+#: .\templates\admin_panel\products.html:46
+msgid "Active"
+msgstr "ንቁ"
+
+#: .\templates\accounts\profile.html:42
+msgid "Date Joined"
+msgstr "የተቀላቀለበት ቀን"
+
+#: .\templates\accounts\profile.html:47
+msgid "Verification"
+msgstr "ማረጋገጥ"
+
+#: .\templates\accounts\profile.html:50 .\templates\admin_panel\users.html:267
+#: .\templates\market\business_directory.html:177
+msgid "Verified"
+msgstr "የተረጋገጠ"
+
+#: .\templates\accounts\profile.html:52 .\templates\admin_panel\orders.html:27
+#: .\templates\admin_panel\users.html:269
+msgid "Pending"
+msgstr "በመጠባበቅ ላይ"
+
+#: .\templates\accounts\profile.html:67
+msgid "Edit Profile"
+msgstr "መገለጫ አርትዕ"
+
+#: .\templates\accounts\profile.html:75 .\templates\accounts\register.html:129
+msgid "First Name"
+msgstr "የመጀመሪያ ስም"
+
+#: .\templates\accounts\profile.html:79 .\templates\accounts\register.html:133
+msgid "Last Name"
+msgstr "የአያት ስም"
+
+#: .\templates\accounts\profile.html:85 .\templates\chat\guest_contact.html:86
+msgid "Email Address"
+msgstr "ኢሜል አድራሻ"
+
+#: .\templates\accounts\profile.html:87
+msgid "We'll never share your email with anyone else."
+msgstr "ኢሜልህን ለሌላ ለማንም አናጋራም።"
+
+#: .\templates\accounts\profile.html:93
+msgid "Username cannot be changed."
+msgstr "የተጠቃሚ ስም መቀየር አይቻልም።"
+
+#: .\templates\accounts\profile.html:99
+msgid "Business Documents"
+msgstr "የንግድ ሰነዶች"
+
+#: .\templates\accounts\profile.html:103
+#: .\templates\accounts\register.html:145
+msgid "Import/Export License"
+msgstr "የማስመጣት/የመላክ ፍቃድ"
+
+#: .\templates\accounts\profile.html:107
+msgid "View Current License"
+msgstr "የአሁኑን ፈቃድ ይመልከቱ"
+
+#: .\templates\accounts\profile.html:114
+#: .\templates\accounts\register.html:150
+msgid "National ID Card"
+msgstr "ብሔራዊ መታወቂያ ካርድ"
+
+#: .\templates\accounts\profile.html:118
+msgid "View Current ID"
+msgstr "የአሁን መታወቂያ ይመልከቱ"
+
+#: .\templates\accounts\profile.html:132
+msgid "Change Password"
+msgstr "የይለፍ ቃል ቀይር"
+
+#: .\templates\accounts\profile.html:136
+#: .\templates\market\business_profile.html:349
+#: .\templates\seller_panel\business_profile.html:340
+#: .\templates\seller_panel\products_form.html:142
+msgid "Save Changes"
+msgstr "ለውጦችን ያስቀምጡ"
+
+#: .\templates\accounts\register.html:93
+msgid "Create Account"
+msgstr "መለያ ይፍጠሩ"
+
+#: .\templates\accounts\register.html:103
+msgid "Select your account type to get started"
+msgstr "ለመጀመር የእርስዎን መለያ አይነት ይምረጡ"
+
+#: .\templates\accounts\register.html:125
+msgid "Email"
+msgstr "ኢሜይል"
+
+#: .\templates\accounts\register.html:142
+msgid "Seller Verification Required"
+msgstr "የሻጭ ማረጋገጫ ያስፈልጋል"
+
+#: .\templates\accounts\register.html:147
+msgid "PDF or Image required."
+msgstr "ፒዲኤፍ ወይም ምስል ያስፈልጋል።"
+
+#: .\templates\accounts\register.html:172
+msgid "Select Plan"
+msgstr "እቅድ ይምረጡ"
+
+#: .\templates\accounts\register.html:187
+msgid "Basic"
+msgstr "መሰረታዊ"
+
+#: .\templates\accounts\register.html:189
+msgid "Business Profile."
+msgstr "የንግድ መገለጫ."
+
+#: .\templates\accounts\register.html:189
+msgid "Luxury Furniture Listings."
+msgstr "የቅንጦት የቤት ዕቃዎች ዝርዝሮች."
+
+#: .\templates\accounts\register.html:191
+msgid "Premium"
+msgstr "ፕሪሚየም"
+
+#: .\templates\accounts\register.html:193
+msgid "4 Smart Agents."
+msgstr "4 ስማርት ወኪሎች."
+
+#: .\templates\accounts\register.html:193
+msgid "Full 3D Visualization."
+msgstr "ሙሉ የ3-ል እይታ።"
+
+#: .\templates\accounts\register.html:196
+msgid "Professional"
+msgstr "ፕሮፌሽናል"
+
+#: .\templates\accounts\register.html:197
+msgid "VIP"
+msgstr "ቪአይፒ"
+
+#: .\templates\accounts\register.html:199
+msgid "/year"
+msgstr "/አመት"
+
+#: .\templates\accounts\register.html:200
+msgid "8 Smart Agents."
+msgstr "8 ስማርት ወኪሎች።"
+
+#: .\templates\accounts\register.html:200
+msgid "Advanced Analytics."
+msgstr "የላቀ ትንታኔ።"
+
+#: .\templates\accounts\register.html:208
+msgid "Complete Registration"
+msgstr "የተሟላ ምዝገባ"
+
+#: .\templates\accounts\register.html:242
+#: .\templates\chat\guest_contact.html:110
+msgid "Already have an account?"
+msgstr "መለያ አለህ?"
+
+#: .\templates\accounts\register.html:243
+msgid "Login Here"
+msgstr "እዚህ ግባ"
+
+#: .\templates\admin_panel\dashboard.html:6
+msgid "Admin Dashboard"
+msgstr "የአስተዳዳሪ ዳሽቦርድ"
+
+#: .\templates\admin_panel\dashboard.html:13
+msgid "Total Users"
+msgstr "ጠቅላላ ተጠቃሚዎች"
+
+#: .\templates\admin_panel\dashboard.html:21
+msgid "Total Revenue"
+msgstr "ጠቅላላ ገቢ"
+
+#: .\templates\admin_panel\dashboard.html:29
+msgid "User Distribution"
+msgstr "የተጠቃሚ ስርጭት"
+
+#: .\templates\admin_panel\orders.html:7 .\templates\ai\trainer.html:207
+#: .\templates\partials\header.html:23
+msgid "Order Analytics"
+msgstr "የትዕዛዝ ትንታኔ"
+
+#: .\templates\admin_panel\orders.html:8
+#: .\templates\seller_panel\dashboard.html:17
+#: .\templates\seller_panel\orders.html:156
+msgid "Total Orders"
+msgstr "ጠቅላላ ትዕዛዞች"
+
+#: .\templates\admin_panel\orders.html:15
+msgid "Order Status Overview"
+msgstr "የትዕዛዝ ሁኔታ አጠቃላይ እይታ"
+
+#: .\templates\admin_panel\orders.html:39
+msgid "Revenue"
+msgstr "ገቢ"
+
+#: .\templates\admin_panel\orders.html:47
+msgid "Recent Transactions"
+msgstr "የቅርብ ጊዜ ግብይቶች"
+
+#: .\templates\admin_panel\orders.html:52
+#: .\templates\seller_panel\orders.html:164
+msgid "ID"
+msgstr "መታወቂያ"
+
+#: .\templates\admin_panel\orders.html:54 .\templates\market\payment.html:144
+msgid "Total"
+msgstr "ጠቅላላ"
+
+#: .\templates\admin_panel\orders.html:55
+#: .\templates\admin_panel\products.html:34
+#: .\templates\market\buyer_orders.html:32
+#: .\templates\seller_panel\orders.html:168
+msgid "Status"
+msgstr "ሁኔታ"
+
+#: .\templates\admin_panel\orders.html:71
+msgid "No orders yet."
+msgstr "እስካሁን ምንም ትዕዛዞች የሉም።"
+
+#: .\templates\admin_panel\products.html:7
+msgid "Product Analytics"
+msgstr "የምርት ትንታኔ"
+
+#: .\templates\admin_panel\products.html:8
+msgid "Total Products"
+msgstr "ጠቅላላ ምርቶች"
+
+#: .\templates\admin_panel\products.html:15
+msgid "Categories Distribution"
+msgstr "ምድቦች ስርጭት"
+
+#: .\templates\admin_panel\products.html:25
+msgid "All Products"
+msgstr "ሁሉም ምርቶች"
+
+#: .\templates\admin_panel\products.html:30
+msgid "Name"
+msgstr "ስም"
+
+#: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:495
+#: .\templates\market\list.html:40 .\templates\seller_panel\products.html:31
+#: .\templates\seller_panel\products_form.html:30
+msgid "Category"
+msgstr "ምድብ"
+
+#: .\templates\admin_panel\products.html:33
+msgid "Price"
+msgstr "ዋጋ"
+
+#: .\templates\admin_panel\products.html:48
+msgid "Hidden"
+msgstr "ተደብቋል"
+
+#: .\templates\admin_panel\products.html:54
+msgid "No products found."
+msgstr "ምንም ምርቶች አልተገኙም።"
+
+#: .\templates\admin_panel\users.html:97
+msgid "User & Compliance Management"
+msgstr "የተጠቃሚ እና ተገዢነት አስተዳደር"
+
+#: .\templates\admin_panel\users.html:98
+msgid "Review identity documents and verify seller certificates."
+msgstr "የማንነት ሰነዶችን ይገምግሙ እና የሻጭ የምስክር ወረቀቶችን ያረጋግጡ።"
+
+#: .\templates\admin_panel\users.html:101
+msgid "Users"
+msgstr "ተጠቃሚዎች"
+
+#: .\templates\admin_panel\users.html:111
+msgid "User Identity"
+msgstr "የተጠቃሚ ማንነት"
+
+#: .\templates\admin_panel\users.html:112
+msgid "Role"
+msgstr "ሚና"
+
+#: .\templates\admin_panel\users.html:113
+msgid "Identity Status"
+msgstr "የማንነት ሁኔታ"
+
+#: .\templates\admin_panel\users.html:114
+#: .\templates\market\business_profile.html:275
+#: .\templates\seller_panel\business_profile.html:266
+msgid "Certificates"
+msgstr "የምስክር ወረቀቶች"
+
+#: .\templates\admin_panel\users.html:115
+#: .\templates\seller_panel\orders.html:169
+#: .\templates\seller_panel\products.html:35
+msgid "Actions"
+msgstr "ድርጊቶች"
+
+#: .\templates\admin_panel\users.html:138
+msgid "Tier"
+msgstr "ደረጃ"
+
+#: .\templates\admin_panel\users.html:145
+msgid "Identity Verified"
+msgstr "ማንነት ተረጋግጧል"
+
+#: .\templates\admin_panel\users.html:147
+msgid "Docs Submitted"
+msgstr "ሰነዶች ገብተዋል።"
+
+#: .\templates\admin_panel\users.html:149
+msgid "No Documents"
+msgstr "ምንም ሰነዶች የሉም"
+
+#: .\templates\admin_panel\users.html:159
+msgid "Uploaded"
+msgstr "ተጭኗል"
+
+#: .\templates\admin_panel\users.html:182
+msgid "Review"
+msgstr "ግምገማ"
+
+#: .\templates\admin_panel\users.html:219
+msgid "Compliance Center:"
+msgstr "ተገዢነት ማዕከል፡-"
+
+#: .\templates\admin_panel\users.html:227
+msgid "Seller Profile"
+msgstr "የሻጭ መገለጫ"
+
+#: .\templates\admin_panel\users.html:230
+#: .\templates\market\business_profile.html:296
+#: .\templates\seller_panel\business_profile.html:287
+msgid "Company Name"
+msgstr "የኩባንያ ስም"
+
+#: .\templates\admin_panel\users.html:234
+#: .\templates\market\business_directory.html:77
+msgid "Location"
+msgstr "አካባቢ"
+
+#: .\templates\admin_panel\users.html:238
+msgid "Roles"
+msgstr "ሚናዎች"
+
+#: .\templates\admin_panel\users.html:239
+#: .\templates\market\business_directory.html:144
+#: .\templates\market\business_profile.html:83
+#: .\templates\market\business_profile.html:323
+#: .\templates\market\public_profile.html:100
+msgid "Farmer"
+msgstr "ገበሬ"
+
+#: .\templates\admin_panel\users.html:240
+#: .\templates\market\business_directory.html:145
+#: .\templates\market\business_profile.html:84
+#: .\templates\market\business_profile.html:329
+#: .\templates\market\public_profile.html:103
+msgid "Roaster"
+msgstr "ጥብስ"
+
+#: .\templates\admin_panel\users.html:245
+msgid "Account Actions"
+msgstr "የመለያ ድርጊቶች"
+
+#: .\templates\admin_panel\users.html:251
+msgid "Suspend User"
+msgstr "ተንጠልጣይ ተጠቃሚ"
+
+#: .\templates\admin_panel\users.html:253
+msgid "Unsuspend User"
+msgstr "ያልተቋረጠ ተጠቃሚ"
+
+#: .\templates\admin_panel\users.html:262
+msgid "1. Identity Verification"
+msgstr "1. የማንነት ማረጋገጫ"
+
+#: .\templates\admin_panel\users.html:265
+msgid "Business License / ID"
+msgstr "የንግድ ፈቃድ / መታወቂያ"
+
+#: .\templates\admin_panel\users.html:279
+msgid "No identity documents uploaded."
+msgstr "ምንም የመታወቂያ ሰነዶች አልተሰቀሉም።"
+
+#: .\templates\admin_panel\users.html:289
+msgid "Approve Identity"
+msgstr "ማንነትን አጽድቅ"
+
+#: .\templates\admin_panel\users.html:293
+msgid "Revoke Status"
+msgstr "ሁኔታን ሰርዝ"
+
+#: .\templates\admin_panel\users.html:300
+msgid "2. Trade Certificates"
+msgstr "2. የንግድ የምስክር ወረቀቶች"
+
+#: .\templates\admin_panel\users.html:310
+msgid "Valid"
+msgstr "የሚሰራ"
+
+#: .\templates\admin_panel\users.html:312
+msgid "Review Needed"
+msgstr "ግምገማ ያስፈልጋል"
+
+#: .\templates\admin_panel\users.html:320
+msgid "No file image."
+msgstr "ምንም የፋይል ምስል የለም።"
+
+#: .\templates\admin_panel\users.html:330
+#: .\templates\market\business_profile.html:149
+#: .\templates\market\public_profile.html:191
+#: .\templates\seller_panel\business_profile.html:146
+msgid "Expires:"
+msgstr "ጊዜው ያበቃል"
+
+#: .\templates\admin_panel\users.html:335
+msgid "Reject"
+msgstr "እምቢ"
+
+#: .\templates\admin_panel\users.html:336
+msgid "Approve Certificate"
+msgstr "የምስክር ወረቀት ማጽደቅ"
+
+#: .\templates\admin_panel\users.html:338
+msgid "Revoke Approval"
+msgstr "ማጽደቅን ሻረ"
+
+#: .\templates\admin_panel\users.html:345
+msgid "No additional certificates (Organic, Fair Trade, etc.) uploaded."
+msgstr "ምንም ተጨማሪ የምስክር ወረቀቶች (ኦርጋኒክ፣ ፍትሃዊ ንግድ፣ ወዘተ) አልተሰቀሉም።"
+
+#: .\templates\ai\index.html:266 .\templates\ai\trainer.html:193
+msgid "Interior Intelligence Hub"
+msgstr "የውስጥ ኢንተለጀንስ መገናኛ"
+
+#: .\templates\ai\index.html:280
+msgid "+ New Inquiry"
+msgstr "+ አዲስ ጥያቄ"
+
+#: .\templates\ai\index.html:285
+msgid "History"
+msgstr "ታሪክ"
+
+#: .\templates\ai\index.html:424
+msgid "Client Inquiry"
+msgstr "የደንበኛ ጥያቄ"
+
+#: .\templates\ai\index.html:424
+msgid "Asortie Consultant"
+msgstr "Asortie አማካሪ"
+
+#: .\templates\ai\index.html:457
+msgid "INQUIRE"
+msgstr "ይጠይቁ"
+
+#: .\templates\ai\trainer.html:201 .\templates\partials\header.html:17
+msgid "Manage Users"
+msgstr "ተጠቃሚዎችን አስተዳድር"
+
+#: .\templates\ai\trainer.html:204 .\templates\partials\header.html:20
+msgid "Products Analytics"
+msgstr "ምርቶች ትንታኔ"
+
+#: .\templates\ai\trainer.html:210 .\templates\chat\inbox.html:9
+#: .\templates\partials\header.html:26 .\templates\partials\header.html:77
+msgid "Messages"
+msgstr "መልዕክቶች"
+
+#: .\templates\ai\trainer.html:213
+msgid "Ai Agent"
+msgstr "አይ ወኪል"
+
+#: .\templates\ai\trainer.html:228
+msgid "AI Training Center"
+msgstr "AI ማሰልጠኛ ማዕከል"
+
+#: .\templates\ai\trainer.html:330
+msgid "Knowledge Management"
+msgstr "የእውቀት አስተዳደር"
+
+#: .\templates\ai\trainer.html:331
+msgid "Inject new facts and visual assets into the Asortie Intelligence core."
+msgstr "አዳዲስ እውነታዎችን እና ምስላዊ ንብረቶችን ወደ Asortie Intelligence core ያስገቡ።"
+
+#: .\templates\ai\trainer.html:338
+msgid "Add Text Fact"
+msgstr "የጽሑፍ እውነታ ያክሉ"
+
+#: .\templates\ai\trainer.html:346
+msgid "Inject into Memory"
+msgstr "ወደ ማህደረ ትውስታ ውስጥ ያስገቡ"
+
+#: .\templates\ai\trainer.html:355
+msgid "Add Visual Asset"
+msgstr "Visual Asset ጨምር"
+
+#: .\templates\ai\trainer.html:365
+msgid "Vectorize Image"
+msgstr "ምስልን ቬክተር አድርግ"
+
+#: .\templates\ai\trainer.html:373
+msgid "Recent System Knowledge"
+msgstr "የቅርብ ጊዜ የስርዓት እውቀት"
+
+#: .\templates\ai\trainer.html:387
+msgid "Visual"
+msgstr "የእይታ"
+
+#: .\templates\ai\trainer.html:387
+msgid "Fact"
+msgstr "እውነታ"
+
+#: .\templates\ai\trainer.html:396 .\templates\chat\single_message.html:26
+#: .\templates\seller_panel\products.html:93
+msgid "Edit"
+msgstr "አርትዕ"
+
+#: .\templates\ai\trainer.html:397
+#: .\templates\market\business_profile.html:156
+#: .\templates\seller_panel\business_profile.html:153
+#: .\templates\seller_panel\products_form.html:129
+msgid "Delete"
+msgstr "ሰርዝ"
+
+#: .\templates\base.html:7
+msgid "Asortie | Premium Export"
+msgstr "Asortie | ፕሪሚየም ወደ ውጭ ላክ"
+
+#: .\templates\chat\guest_contact.html:57
+msgid "Get in Touch"
+msgstr "ተገናኝ"
+
+#: .\templates\chat\guest_contact.html:59
+msgid ""
+"We are here to help. Please fill out the form below and an agent will "
+"contact you shortly."
+msgstr "እኛ ለመርዳት እዚህ ነን። እባክዎን ከዚህ በታች ያለውን ቅጽ ይሙሉ እና አንድ ወኪል በቅርቡ ያነጋግርዎታል።"
+
+#: .\templates\chat\guest_contact.html:80
+msgid "Full Name"
+msgstr "ሙሉ ስም"
+
+#: .\templates\chat\guest_contact.html:92
+msgid "Phone Number (Optional)"
+msgstr "ስልክ ቁጥር (አማራጭ)"
+
+#: .\templates\chat\guest_contact.html:98
+msgid "How can we help you?"
+msgstr "እንዴት ልንረዳዎ እንችላለን?"
+
+#: .\templates\chat\guest_contact.html:103
+msgid "Send Message"
+msgstr "መልእክት ላክ"
+
+#: .\templates\chat\guest_contact.html:112
+msgid "Login here"
+msgstr "እዚህ ግባ"
+
+#: .\templates\chat\inbox.html:10
+msgid "Conversations"
+msgstr "ውይይቶች"
+
+#: .\templates\chat\inbox.html:25 .\templates\chat\inbox.html:38
+msgid "Click to open chat"
+msgstr "ውይይት ለመክፈት ጠቅ ያድርጉ"
+
+#: .\templates\chat\inbox.html:47
+msgid "No messages yet."
+msgstr "እስካሁን ምንም መልዕክቶች የሉም።"
+
+#: .\templates\chat\inbox.html:48
+msgid "Contact a seller from the marketplace to start a chat."
+msgstr "ውይይት ለመጀመር ከገበያ ቦታ ያለውን ሻጭ ያነጋግሩ።"
+
+#: .\templates\chat\inbox.html:49
+msgid "Go to Market"
+msgstr "ወደ ገበያ ይሂዱ"
+
+#: .\templates\chat\room.html:117
+msgid "Online"
+msgstr "በመስመር ላይ"
+
+#: .\templates\chat\room.html:126
+msgid "Clear Chat"
+msgstr "ውይይትን አጽዳ"
+
+#: .\templates\chat\room.html:155
+msgid "Recording..."
+msgstr "በመቅዳት ላይ..."
+
+#: .\templates\chat\single_message.html:29
+msgid "Delete for everyone"
+msgstr "ለሁሉም ሰው ሰርዝ"
+
+#: .\templates\chat\single_message.html:33
+msgid "Delete for me"
+msgstr "ሰርዝልኝ"
+
+#: .\templates\chat\single_message.html:41
+msgid "This message was deleted."
+msgstr "ይህ መልእክት ተሰርዟል።"
+
+#: .\templates\chat\single_message.html:58
+msgid "Download Attachment"
+msgstr "አባሪ አውርድ"
+
+#: .\templates\chat\single_message.html:67
+msgid "(edited)"
+msgstr "(የተስተካከለ)"
+
+#: .\templates\core\coming_soon.html:314
+msgid "Asortie AI"
+msgstr "Asortie AI"
+
+#: .\templates\core\coming_soon.html:315 .\templates\core\home.html:110
+msgid "Coming Soon"
+msgstr "በቅርብ ቀን"
+
+#: .\templates\core\coming_soon.html:319
+msgid "Intelligence is the New Luxury"
+msgstr "ኢንተለጀንስ አዲሱ ቅንጦት ነው።"
+
+#: .\templates\core\coming_soon.html:320
+msgid ""
+"Our bespoke AI Concierge is currently learning the nuances of classical "
+"craftsmanship and modern logistics. We are perfecting the visual recognition"
+" of your world."
+msgstr ""
+"የእኛ የአይአይ ኮንሲየር በአሁኑ ጊዜ የክላሲካል ጥበባት እና የዘመናዊ ሎጅስቲክስ ልዩነቶችን እየተማረ ነው። የአለምዎን "
+"ምስላዊ እውቅና እያሟላን ነው።"
+
+#: .\templates\core\coming_soon.html:325
+msgid "Deployment in Progress"
+msgstr "ማሰማራት በሂደት ላይ ነው።"
+
+#: .\templates\core\coming_soon.html:332
+msgid ""
+"Current Phase: Validating 3D Showroom Assets & Groq Llama-4 Integration"
+msgstr "የአሁኑ ደረጃ፡ የ3D ማሳያ ክፍል ንብረቶችን እና የግሮክ ላማ-4 ውህደትን ማረጋገጥ"
+
+#: .\templates\core\coming_soon.html:344
+msgid "Vision Intelligence"
+msgstr "ራዕይ ኢንተለጀንስ"
+
+#: .\templates\core\coming_soon.html:345
+msgid ""
+"Recognizing brand assets and furniture styles through sophisticated CLIP-"
+"based vector matching."
+msgstr "የብራንድ ንብረቶችን እና የቤት እቃዎችን ስልቶችን በተራቀቀ CLIP ላይ የተመሰረተ ቬክተር ማዛመድን ማወቅ።"
+
+#: .\templates\core\coming_soon.html:353
+msgid "SQL Reasoning"
+msgstr "የ SQL ምክንያት"
+
+#: .\templates\core\coming_soon.html:354
+msgid ""
+"Direct database communication to provide real-time stock and bespoke pricing"
+" negotiation data."
+msgstr "ቀጥተኛ የውሂብ ጎታ ግንኙነት የእውነተኛ ጊዜ ክምችት እና የዋጋ ድርድር መረጃን ለማቅረብ።"
+
+#: .\templates\core\coming_soon.html:362
+msgid "AR Showroom"
+msgstr "የኤአር ማሳያ ክፍል"
+
+#: .\templates\core\coming_soon.html:363
+msgid ""
+"Bridging the gap between inquiry and experience with fully immersive 3D "
+"furniture visualization."
+msgstr "በጥያቄ እና በተሞክሮ መካከል ያለውን ክፍተት ሙሉ በሙሉ አስማጭ በሆነ የ3-ል የቤት ዕቃዎች እይታ በማጥበብ።"
+
+#: .\templates\core\coming_soon.html:371
+msgid "Bespoke Valuation"
+msgstr "Bespoke ዋጋ"
+
+#: .\templates\core\coming_soon.html:372
+msgid ""
+"AI-driven logistics pricing that accounts for white-glove handling, duty "
+"optimization, and localized transit insurance for high-value assets."
+msgstr ""
+"የነጭ ጓንት አያያዝን፣ የግዴታ ማመቻቸት እና ከፍተኛ ዋጋ ላላቸው ንብረቶች የተተረጎመ የመሸጋገሪያ መድንን የሚሸፍን በ "
+"AI የሚነዳ የሎጂስቲክስ ዋጋ።"
+
+#: .\templates\core\coming_soon.html:376
+msgid "Development Progress"
+msgstr "የእድገት ግስጋሴ"
+
+#: .\templates\core\home.html:92
+msgid "Luxury landing with featured items."
+msgstr "ተለይተው የቀረቡ እቃዎች ያለው የቅንጦት ማረፊያ።"
+
+#: .\templates\core\home.html:105 .\templates\partials\header.html:29
+#: .\templates\partials\header.html:60 .\templates\partials\header.html:91
+msgid "AI Hub"
+msgstr "የAI ማዕከል"
+
+#: .\templates\core\home.html:107
+msgid ""
+"Leverage advanced artificial intelligence for real-time market trend "
+"analysis, pricing insights, and automated interior design assistance."
+msgstr ""
+"ለእውነተኛ ጊዜ የገበያ አዝማሚያ ትንተና፣ የዋጋ አወጣጥ ግንዛቤዎች እና አውቶሜትድ የውስጥ ዲዛይን እገዛ የላቀ ሰው "
+"ሰራሽ የማሰብ ችሎታን ይጠቀሙ።"
+
+#: .\templates\core\home.html:121 .\templates\partials\header.html:54
+#: .\templates\partials\header.html:69
+msgid "Marketplace"
+msgstr "የገበያ ቦታ"
+
+#: .\templates\core\home.html:123
+msgid ""
+"Discover a curated inventory of luxury furniture, décor, and textiles ready "
+"for immediate global shipment from verified manufacturers."
+msgstr ""
+"ከተረጋገጡ አምራቾች ወዲያውኑ ለአለም አቀፍ ጭነት ዝግጁ የሆኑ የቅንጦት የቤት እቃዎች፣ የዲኮር እና የጨርቃጨርቅ ክምችት"
+" ያግኙ።"
+
+#: .\templates\core\home.html:126
+msgid "Our Shop"
+msgstr "የእኛ ሱቅ"
+
+#: .\templates\core\home.html:137 .\templates\partials\header.html:57
+#: .\templates\partials\header.html:88
+msgid "3D Visualization"
+msgstr "3D እይታ"
+
+#: .\templates\core\home.html:139
+msgid ""
+"Powerful 3D Visualization experience for our furniture in immersive 3D with "
+"real-time color customization and AR placement directly in your space."
+msgstr ""
+"በአስማጭ 3D ውስጥ ለዕቃዎቻችን ኃይለኛ የ3-ል የእይታ ተሞክሮ ከቅጽበታዊ ቀለም ማበጀት እና AR አቀማመጥ በእርስዎ "
+"ቦታ።"
+
+#: .\templates\core\home.html:142
+msgid "3D & AR Visualization"
+msgstr "3D እና AR እይታ"
+
+#: .\templates\core\home.html:152
+msgid "100"
+msgstr "100"
+
+#: .\templates\core\home.html:153
+msgid "Verified Sellers"
+msgstr "የተረጋገጡ ሻጮች"
+
+#: .\templates\core\home.html:157 .\templates\market\public_profile.html:136
+#: .\templates\seller_panel\business_profile.html:231
+msgid "Active Products"
+msgstr "ንቁ ምርቶች"
+
+#: .\templates\core\home.html:160
+msgid "24/7"
+msgstr "24/7"
+
+#: .\templates\core\home.html:161
+msgid "Global Support"
+msgstr "ዓለም አቀፍ ድጋፍ"
+
+#: .\templates\core\notifications.html:9
+msgid "Notification History"
+msgstr "የማሳወቂያ ታሪክ"
+
+#: .\templates\core\notifications.html:18
+msgid "Read All"
+msgstr "ሁሉንም ያንብቡ"
+
+#: .\templates\core\notifications.html:26
+msgid "Clear All"
+msgstr "ሁሉንም አጽዳ"
+
+#: .\templates\core\notifications.html:60
+msgid "New"
+msgstr "አዲስ"
+
+#: .\templates\core\notifications.html:70
+msgid "You have no notifications."
+msgstr "ምንም ማሳወቂያዎች የሉዎትም።"
+
+#: .\templates\core\notifications.html:71
+msgid "We will notify you when important events happen."
+msgstr "አስፈላጊ ክስተቶች ሲከሰቱ እናሳውቅዎታለን።"
+
+#: .\templates\market\business_directory.html:59
+#: .\templates\partials\header.html:51 .\templates\partials\header.html:85
+msgid "Merchant Hub"
+msgstr "የነጋዴ ማዕከል"
+
+#: .\templates\market\business_directory.html:60
+msgid ""
+"Access deep insights into seller performance, business credentials, and live"
+" product catalogs."
+msgstr "ስለ ሻጭ አፈጻጸም፣ የንግድ ምስክርነቶች እና የቀጥታ የምርት ካታሎጎች ጥልቅ ግንዛቤዎችን ይድረሱ።"
+
+#: .\templates\market\business_directory.html:68
+msgid "Search"
+msgstr "ፈልግ"
+
+#: .\templates\market\business_directory.html:79
+msgid "All Countries"
+msgstr "ሁሉም አገሮች"
+
+#: .\templates\market\business_directory.html:88
+#: .\templates\market\list.html:61
+msgid "Sort By"
+msgstr "ደርድር በ"
+
+#: .\templates\market\business_directory.html:90
+msgid "Default"
+msgstr "ነባሪ"
+
+#: .\templates\market\business_directory.html:91
+msgid "Highest Success"
+msgstr "ከፍተኛ ስኬት"
+
+#: .\templates\market\business_directory.html:100
+msgid "Verified Sellers Only"
+msgstr "የተረጋገጡ ሻጮች ብቻ"
+
+#: .\templates\market\business_directory.html:104
+msgid "With Certificates"
+msgstr "ከምስክር ወረቀቶች ጋር"
+
+#: .\templates\market\business_directory.html:111
+msgid "Apply Filters"
+msgstr "ማጣሪያዎችን ይተግብሩ"
+
+#: .\templates\market\business_directory.html:146
+#: .\templates\market\business_profile.html:85
+#: .\templates\market\business_profile.html:335
+#: .\templates\market\public_profile.html:106
+msgid "Exporter"
+msgstr "ላኪ"
+
+#: .\templates\market\business_directory.html:147
+#: .\templates\market\business_profile.html:86
+#: .\templates\market\business_profile.html:341
+#: .\templates\market\public_profile.html:109
+msgid "Supplier"
+msgstr "አቅራቢ"
+
+#: .\templates\market\business_directory.html:153
+msgid "Certified"
+msgstr "የተረጋገጠ"
+
+#: .\templates\market\business_directory.html:168
+msgid "View Products"
+msgstr "ምርቶችን ይመልከቱ"
+
+#: .\templates\market\business_directory.html:184
+msgid "No businesses found matching your search."
+msgstr "ከፍለጋህ ጋር የሚዛመዱ ምንም ንግዶች አልተገኙም።"
+
+#: .\templates\market\business_directory.html:185
+msgid "Clear Search"
+msgstr "ፍለጋን አጽዳ"
+
+#: .\templates\market\business_profile.html:41
+#: .\templates\seller_panel\business_profile.html:41
+msgid "Business Intelligence"
+msgstr "የንግድ ኢንተለጀንስ"
+
+#: .\templates\market\business_profile.html:42
+#: .\templates\seller_panel\business_profile.html:42
+msgid "Performance analytics and identity management."
+msgstr "የአፈጻጸም ትንተና እና የማንነት አስተዳደር."
+
+#: .\templates\market\business_profile.html:46
+#: .\templates\seller_panel\business_profile.html:45
+msgid "Edit Profile & Roles"
+msgstr "መገለጫ እና ሚናዎችን ያርትዑ"
+
+#: .\templates\market\business_profile.html:77
+#: .\templates\seller_panel\business_profile.html:74
+msgid "Location not set"
+msgstr "አካባቢ አልተዘጋጀም።"
+
+#: .\templates\market\business_profile.html:89
+msgid "No Roles Set"
+msgstr "ምንም ሚናዎች አልተዘጋጁም።"
+
+#: .\templates\market\business_profile.html:97
+#: .\templates\seller_panel\business_profile.html:93
+msgid "About Us"
+msgstr "ስለ እኛ"
+
+#: .\templates\market\business_profile.html:102
+#: .\templates\market\business_profile.html:312
+#: .\templates\seller_panel\business_profile.html:98
+#: .\templates\seller_panel\business_profile.html:303
+msgid "Core Products"
+msgstr "ዋና ምርቶች"
+
+#: .\templates\market\business_profile.html:107
+#: .\templates\seller_panel\business_profile.html:103
+msgid "Not specified"
+msgstr "አልተገለጸም።"
+
+#: .\templates\market\business_profile.html:115
+#: .\templates\market\public_profile.html:144
+#: .\templates\seller_panel\business_profile.html:111
+msgid "Verified Certifications"
+msgstr "የተረጋገጡ የምስክር ወረቀቶች"
+
+#: .\templates\market\business_profile.html:142
+#: .\templates\market\public_profile.html:181
+#: .\templates\seller_panel\business_profile.html:139
+msgid "Proof"
+msgstr "ማረጋገጫ"
+
+#: .\templates\market\business_profile.html:148
+#: .\templates\seller_panel\business_profile.html:145
+msgid "Authority:"
+msgstr "ስልጣን፡"
+
+#: .\templates\market\business_profile.html:163
+#: .\templates\seller_panel\business_profile.html:160
+msgid "No certifications uploaded."
+msgstr "ምንም ማረጋገጫዎች አልተሰቀሉም።"
+
+#: .\templates\market\business_profile.html:188
+msgid "This Month"
+msgstr "በዚህ ወር"
+
+#: .\templates\market\business_profile.html:196
+msgid "This Year"
+msgstr "በዚህ አመት"
+
+#: .\templates\market\business_profile.html:209
+msgid "Financial Growth"
+msgstr "የፋይናንስ እድገት"
+
+#: .\templates\market\business_profile.html:225
+#: .\templates\seller_panel\business_profile.html:221
+msgid "Market Ranking"
+msgstr "የገበያ ደረጃ አሰጣጥ"
+
+#: .\templates\market\business_profile.html:227
+msgid "Based on total revenue"
+msgstr "በጠቅላላው ገቢ ላይ በመመስረት"
+
+#: .\templates\market\business_profile.html:264
+#: .\templates\seller_panel\business_profile.html:255
+msgid "Manage Business Identity"
+msgstr "የንግድ ማንነትን ያስተዳድሩ"
+
+#: .\templates\market\business_profile.html:272
+#: .\templates\seller_panel\business_profile.html:263
+msgid "General Info"
+msgstr "አጠቃላይ መረጃ"
+
+#: .\templates\market\business_profile.html:290
+#: .\templates\seller_panel\business_profile.html:281
+msgid "Update Logo"
+msgstr "አርማ ያዘምኑ"
+
+#: .\templates\market\business_profile.html:300
+#: .\templates\seller_panel\business_profile.html:291
+msgid "Country"
+msgstr "ሀገር"
+
+#: .\templates\market\business_profile.html:304
+#: .\templates\seller_panel\business_profile.html:295
+msgid "City"
+msgstr "ከተማ"
+
+#: .\templates\market\business_profile.html:308
+#: .\templates\seller_panel\business_profile.html:299
+msgid "Short Bio"
+msgstr "አጭር ባዮ"
+
+#: .\templates\market\business_profile.html:318
+#: .\templates\seller_panel\business_profile.html:309
+msgid "Select Your Roles:"
+msgstr "የእርስዎን ሚናዎች ይምረጡ፡-"
+
+#: .\templates\market\business_profile.html:361
+#: .\templates\seller_panel\business_profile.html:352
+msgid "Certification Type"
+msgstr "የማረጋገጫ አይነት"
+
+#: .\templates\market\business_profile.html:365
+#: .\templates\seller_panel\business_profile.html:356
+msgid "Issuing Authority"
+msgstr "የማውጣት ባለስልጣን"
+
+#: .\templates\market\business_profile.html:369
+#: .\templates\seller_panel\business_profile.html:360
+msgid "Expiration Date"
+msgstr "የሚያበቃበት ቀን"
+
+#: .\templates\market\business_profile.html:373
+#: .\templates\seller_panel\business_profile.html:364
+msgid "Document Image (JPG/PNG)"
+msgstr "የሰነድ ምስል (JPG/PNG)"
+
+#: .\templates\market\business_profile.html:378
+#: .\templates\seller_panel\business_profile.html:369
+msgid "Upload for Verification"
+msgstr "ለማረጋገጫ ስቀል"
+
+#: .\templates\market\buyer_orders.html:10 .\templates\partials\header.html:74
+msgid "My Orders"
+msgstr "የእኔ ትዕዛዞች"
+
+#: .\templates\market\buyer_orders.html:11
+msgid "Manage your purchases and track shipments."
+msgstr "ግዢዎችዎን ያስተዳድሩ እና ጭነቶችን ይከታተሉ።"
+
+#: .\templates\market\buyer_orders.html:16
+msgid "Total Spent"
+msgstr "ጠቅላላ ወጪ"
+
+#: .\templates\market\buyer_orders.html:30
+msgid "Item"
+msgstr "ንጥል"
+
+#: .\templates\market\buyer_orders.html:31
+msgid "Order Date"
+msgstr "የትዕዛዝ ቀን"
+
+#: .\templates\market\buyer_orders.html:33
+msgid "Amount"
+msgstr "መጠን"
+
+#: .\templates\market\buyer_orders.html:34
+msgid "Action"
+msgstr "ድርጊት"
+
+#: .\templates\market\buyer_orders.html:73
+msgid "Price Pending"
+msgstr "ዋጋ በመጠባበቅ ላይ"
+
+#: .\templates\market\buyer_orders.html:75
+msgid "Paid"
+msgstr "የተከፈለ"
+
+#: .\templates\market\buyer_orders.html:77
+#: .\templates\seller_panel\orders.html:206
+msgid "Processing"
+msgstr "በማቀነባበር ላይ"
+
+#: .\templates\market\buyer_orders.html:79
+msgid "On the way"
+msgstr "በመንገድ ላይ"
+
+#: .\templates\market\buyer_orders.html:81
+#: .\templates\seller_panel\orders.html:210
+msgid "Delivered"
+msgstr "ደረሰ"
+
+#: .\templates\market\buyer_orders.html:98
+msgid "Pay Now"
+msgstr "አሁን ይክፈሉ።"
+
+#: .\templates\market\buyer_orders.html:107 .\templates\market\detail.html:409
+#: .\templates\market\public_profile.html:94
+msgid "Chat"
+msgstr "ተወያይ"
+
+#: .\templates\market\buyer_orders.html:117
+msgid "No orders found"
+msgstr "ምንም ትዕዛዞች አልተገኙም።"
+
+#: .\templates\market\buyer_orders.html:118
+msgid "You haven't placed any orders yet."
+msgstr "እስካሁን ምንም ትዕዛዝ አላስተላለፉም።"
+
+#: .\templates\market\buyer_orders.html:119
+msgid "Browse Products"
+msgstr "ምርቶችን ያስሱ"
+
+#: .\templates\market\detail.html:356
+msgid "Collection"
+msgstr "ስብስብ"
+
+#: .\templates\market\detail.html:372
+msgid "No Image Available"
+msgstr "ምንም ምስል አይገኝም"
+
+#: .\templates\market\detail.html:378
+msgid "View in 3D"
+msgstr "በ3-ል ይመልከቱ"
+
+#: .\templates\market\detail.html:403
+msgid "Seller:"
+msgstr "ሻጭ፡"
+
+#: .\templates\market\detail.html:405
+msgid "Visit Showroom"
+msgstr "ማሳያ ክፍልን ይጎብኙ"
+
+#: .\templates\market\detail.html:415
+msgid "Price On Request"
+msgstr "በጥያቄ ላይ ያለ ዋጋ"
+
+#: .\templates\market\detail.html:418
+msgid "/ set"
+msgstr "/ አዘጋጅ"
+
+#: .\templates\market\detail.html:429
+msgid "Quantity"
+msgstr "ብዛት"
+
+#: .\templates\market\detail.html:435
+msgid "Total Estimate"
+msgstr "ጠቅላላ ግምት"
+
+#: .\templates\market\detail.html:443
+msgid "Create Inquiry"
+msgstr "ጥያቄ ፍጠር"
+
+#: .\templates\market\detail.html:449
+msgid "Buyer Account Required"
+msgstr "የገዢ መለያ ያስፈልጋል"
+
+#: .\templates\market\detail.html:450
+msgid "Please"
+msgstr "አባክሽን"
+
+#: .\templates\market\detail.html:450
+msgid "to view shipping rates and place orders."
+msgstr "የማጓጓዣ ዋጋዎችን ለማየት እና ትዕዛዞችን ለማስቀመጥ."
+
+#: .\templates\market\detail.html:457
+msgid "Fast Shipping"
+msgstr "ፈጣን መላኪያ"
+
+#: .\templates\market\detail.html:461
+msgid "Buyer Protection"
+msgstr "የገዢ ጥበቃ"
+
+#: .\templates\market\detail.html:465
+msgid "24/7 Support"
+msgstr "24/7 ድጋፍ"
+
+#: .\templates\market\detail.html:478
+#: .\templates\seller_panel\products_form.html:53
+msgid "Description"
+msgstr "መግለጫ"
+
+#: .\templates\market\detail.html:481
+msgid "Specifications"
+msgstr "ዝርዝሮች"
+
+#: .\templates\market\detail.html:484
+msgid "Shipping & Returns"
+msgstr "መላኪያ እና መመለሻዎች"
+
+#: .\templates\market\detail.html:489
+msgid "Product Overview"
+msgstr "የምርት አጠቃላይ እይታ"
+
+#: .\templates\market\detail.html:493
+msgid "Technical Details"
+msgstr "ቴክኒካዊ ዝርዝሮች"
+
+#: .\templates\market\detail.html:497
+msgid "Material"
+msgstr "ቁሳቁስ"
+
+#: .\templates\market\detail.html:497
+msgid "Premium Source"
+msgstr "የፕሪሚየም ምንጭ"
+
+#: .\templates\market\detail.html:501
+msgid "Delivery Information"
+msgstr "የመላኪያ መረጃ"
+
+#: .\templates\market\detail.html:502
+msgid ""
+"Standard delivery times for this item vary by location. Please create an "
+"inquiry to receive a custom logistics quote for deliveries to Addis Ababa "
+"and surrounding regions."
+msgstr ""
+"የዚህ ንጥል ነገር መደበኛ የማድረሻ ጊዜ እንደየአካባቢው ይለያያል። እባክዎን ወደ አዲስ አበባ እና አካባቢው ክልሎች "
+"ለማድረስ ብጁ የሎጂስቲክስ ዋጋ ለመቀበል ጥያቄ ይፍጠሩ።"
+
+#: .\templates\market\list.html:19
+msgid "Global Marketplace"
+msgstr "ዓለም አቀፍ የገበያ ቦታ"
+
+#: .\templates\market\list.html:20
+msgid "Browse premium luxury furniture products from verified sellers."
+msgstr "ከተረጋገጡ ሻጮች ፕሪሚየም የቅንጦት የቤት ዕቃ ምርቶችን ያስሱ።"
+
+#: .\templates\market\list.html:31
+msgid "Search Products"
+msgstr "ምርቶችን ይፈልጉ"
+
+#: .\templates\market\list.html:42
+msgid "All Categories"
+msgstr "ሁሉም ምድቦች"
+
+#: .\templates\market\list.html:51
+msgid "Price Range (USD)"
+msgstr "የዋጋ ክልል (USD)"
+
+#: .\templates\market\list.html:63
+msgid "Newest Listed"
+msgstr "በጣም አዲስ የተዘረዘረ"
+
+#: .\templates\market\list.html:64
+msgid "Price: Low to High"
+msgstr "ዋጋ: ከዝቅተኛ ወደ ከፍተኛ"
+
+#: .\templates\market\list.html:65
+msgid "Price: High to Low"
+msgstr "ዋጋ፡ ከከፍተኛ ወደ ዝቅተኛ"
+
+#: .\templates\market\list.html:71
+msgid "Filter"
+msgstr "አጣራ"
+
+#: .\templates\market\list.html:96
+msgid "Price on request"
+msgstr "ዋጋ በጥያቄ"
+
+#: .\templates\market\list.html:98
+msgid "(Base Price)"
+msgstr "(መሰረታዊ ዋጋ)"
+
+#: .\templates\market\list.html:110 .\templates\market\public_profile.html:252
+msgid "To Order Login By Buyer"
+msgstr "በገዢ መግባትን ለማዘዝ"
+
+#: .\templates\market\list.html:115
+msgid "Order Now"
+msgstr "አሁን ይዘዙ"
+
+#: .\templates\market\list.html:122
+msgid "Login to Order"
+msgstr "ለማዘዝ ይግቡ"
+
+#: .\templates\market\list.html:132
+msgid "No products available right now."
+msgstr "በአሁኑ ጊዜ ምንም ምርቶች አይገኙም።"
+
+#: .\templates\market\payment.html:120
+msgid "Secure Checkout"
+msgstr "ደህንነቱ የተጠበቀ Checkout"
+
+#: .\templates\market\payment.html:121
+msgid "Step 2 of 2"
+msgstr "ደረጃ 2 ከ 2"
+
+#: .\templates\market\payment.html:127
+msgid "Order Summary"
+msgstr "የትዕዛዝ ማጠቃለያ"
+
+#: .\templates\market\payment.html:140
+msgid "Qty:"
+msgstr "ብዛት፡"
+
+#: .\templates\market\payment.html:158
+msgid "Select Payment Method"
+msgstr "የመክፈያ ዘዴን ይምረጡ"
+
+#: .\templates\market\payment.html:168
+msgid "International Payment"
+msgstr "ዓለም አቀፍ ክፍያ"
+
+#: .\templates\market\payment.html:169
+msgid "Credit Card, Debit Card (Stripe)"
+msgstr "ክሬዲት ካርድ፣ ዴቢት ካርድ (ስትሪፕ)"
+
+#: .\templates\market\payment.html:183
+msgid "Local Payment (Ethiopia)"
+msgstr "የአካባቢ ክፍያ (ኢትዮጵያ)"
+
+#: .\templates\market\payment.html:184
+msgid "Telebirr, CBE, Mobile Money (Chapa)"
+msgstr "ቴሌቢር፣ ንግድ ባንክ፣ ሞባይል ገንዘብ (ቻፓ)"
+
+#: .\templates\market\payment.html:192
+msgid "Pay"
+msgstr "ይክፈሉ።"
+
+#: .\templates\market\payment.html:192
+msgid "Now"
+msgstr "አሁን"
+
+#: .\templates\market\payment.html:195
+msgid "Cancel Order"
+msgstr "ትእዛዝ ሰርዝ"
+
+#: .\templates\market\payment.html:201
+msgid "SSL Encrypted Transaction"
+msgstr "SSL የተመሰጠረ ግብይት"
+
+#: .\templates\market\payment.html:206
+msgid "Chapa Verified"
+msgstr "Chapa የተረጋገጠ"
+
+#: .\templates\market\payment_success.html:7
+msgid "Payment Successful"
+msgstr "ክፍያ ተሳክቷል።"
+
+#: .\templates\market\payment_success.html:89
+msgid "Payment Successful!"
+msgstr "ክፍያ ተሳክቷል!"
+
+#: .\templates\market\payment_success.html:90
+msgid ""
+"Thank you for your order. We are processing it and will send you a "
+"confirmation email shortly."
+msgstr "ለትዕዛዝህ አመሰግናለሁ። እያስኬደነው ነው እና የማረጋገጫ ኢሜይል በቅርቡ እንልክልዎታለን።"
+
+#: .\templates\market\payment_success.html:93
+msgid "Redirecting to home page in"
+msgstr "ወደ መነሻ ገጽ በማዞር ላይ"
+
+#: .\templates\market\payment_success.html:93
+msgid "seconds..."
+msgstr "ሰከንዶች..."
+
+#: .\templates\market\payment_success.html:97
+msgid "Return to Home Now"
+msgstr "አሁን ወደ ቤት ተመለስ"
+
+#: .\templates\market\public_profile.html:130
+msgid "Orders Fulfilled"
+msgstr "ትዕዛዞች ተፈጽመዋል"
+
+#: .\templates\market\public_profile.html:165
+msgid "Issued by:"
+msgstr "የተሰጠ በ፡"
+
+#: .\templates\market\public_profile.html:188
+msgid "No image document available."
+msgstr "ምንም የምስል ሰነድ አይገኝም።"
+
+#: .\templates\market\public_profile.html:201
+msgid "No certifications uploaded yet."
+msgstr "እስካሁን ምንም ማረጋገጫዎች አልተሰቀሉም።"
+
+#: .\templates\market\public_profile.html:211
+msgid "Core Specialties"
+msgstr "ኮር ስፔሻሊስቶች"
+
+#: .\templates\market\public_profile.html:220
+msgid "Available Products"
+msgstr "የሚገኙ ምርቶች"
+
+#: .\templates\market\public_profile.html:257
+msgid "View Details"
+msgstr "ዝርዝሮችን ይመልከቱ"
+
+#: .\templates\market\public_profile.html:267
+msgid "No active products listed at the moment."
+msgstr "በአሁኑ ጊዜ ምንም ንቁ ምርቶች አልተዘረዘሩም።"
+
+#: .\templates\partials\chat_icon.html:11
+msgid "AI Assistant"
+msgstr "AI ረዳት"
+
+#: .\templates\partials\chat_icon.html:29
+msgid "Super AI Agent"
+msgstr "ሱፐር AI ወኪል"
+
+#: .\templates\partials\chat_icon.html:32
+msgid "Elite automated interior guidance;"
+msgstr "Elite አውቶማቲክ የውስጥ መመሪያ;"
+
+#: .\templates\partials\chat_icon.html:33
+msgid "live agent support in"
+msgstr "የቀጥታ ወኪል ድጋፍ በ"
+
+#: .\templates\partials\chat_icon.html:38
+msgid "AI Agent"
+msgstr "AI ወኪል"
+
+#: .\templates\partials\chat_icon.html:43
+msgid "Reach our private concierge?"
+msgstr "የኛን የግል ማዘጋጃ ቤት ይድረሱልን?"
+
+#: .\templates\partials\chat_icon.html:45
+msgid "Message Specialist"
+msgstr "የመልእክት ባለሙያ"
+
+#: .\templates\partials\footer.html:7
+msgid "2026"
+msgstr "2026"
+
+#: .\templates\partials\footer.html:7 .\templates\partials\header.html:97
+msgid "Asortie"
+msgstr "Asortie"
+
+#: .\templates\partials\footer.html:8
+msgid "Addis Ababa, Ethiopia. Developer"
+msgstr "አዲስ አበባ፣ ኢትዮጵያ። ገንቢ"
+
+#: .\templates\partials\footer.html:8
+msgid "Bilal Nesru"
+msgstr "ቢላል ነስሩ"
+
+#: .\templates\partials\footer.html:9
+msgid "Powered By"
+msgstr "የተጎላበተ በ"
+
+#: .\templates\partials\footer.html:9
+msgid "Anwar5Promoter"
+msgstr "አንዋር5 ፕሮሞተር"
+
+#: .\templates\partials\footer.html:10
+msgid "Privacy"
+msgstr "ግላዊነት"
+
+#: .\templates\partials\footer.html:11
+msgid "Terms"
+msgstr "ውሎች"
+
+#: .\templates\partials\header.html:38
+msgid "My Products"
+msgstr "የእኔ ምርቶች"
+
+#: .\templates\partials\header.html:41
+msgid "Manage Orders"
+msgstr "ትዕዛዞችን ያስተዳድሩ"
+
+#: .\templates\partials\header.html:45 .\templates\partials\header.html:81
+msgid "Business Profile"
+msgstr "የንግድ መገለጫ"
+
+#: .\templates\partials\header.html:48
+msgid "Buyer Messages"
+msgstr "የገዢ መልዕክቶች"
+
+#: .\templates\seller_panel\business_profile.html:177
+msgid "Revenue Today"
+msgstr "ገቢ ዛሬ"
+
+#: .\templates\seller_panel\business_profile.html:185
+msgid "Revenue This Month"
+msgstr "በዚህ ወር ገቢ"
+
+#: .\templates\seller_panel\business_profile.html:193
+msgid "Revenue This Year"
+msgstr "በዚህ አመት ገቢ"
+
+#: .\templates\seller_panel\business_profile.html:206
+msgid "Revenue Growth"
+msgstr "የገቢ ዕድገት"
+
+#: .\templates\seller_panel\business_profile.html:223
+msgid "Based on total revenue volume"
+msgstr "በጠቅላላ የገቢ መጠን ላይ በመመስረት"
+
+#: .\templates\seller_panel\business_profile.html:235
+msgid "Successful Orders"
+msgstr "ስኬታማ ትዕዛዞች"
+
+#: .\templates\seller_panel\dashboard.html:6
+msgid "Seller Dashboard"
+msgstr "የሻጭ ዳሽቦርድ"
+
+#: .\templates\seller_panel\dashboard.html:11
+msgid "Total Sales"
+msgstr "ጠቅላላ ሽያጮች"
+
+#: .\templates\seller_panel\dashboard.html:23
+msgid "Order Status Analytics"
+msgstr "የትዕዛዝ ሁኔታ ትንታኔ"
+
+#: .\templates\seller_panel\orders.html:153
+msgid "Order Logistics"
+msgstr "ሎጅስቲክስን ማዘዝ"
+
+#: .\templates\seller_panel\orders.html:154
+msgid "Manage furniture inquiries and shipping from Asortie to Ethiopia."
+msgstr "የቤት ዕቃዎች ጥያቄዎችን እና ከአሶርቲ ወደ ኢትዮጵያ መላኪያ ያስተዳድሩ።"
+
+#: .\templates\seller_panel\orders.html:165
+msgid "Luxury Item"
+msgstr "የቅንጦት ዕቃ"
+
+#: .\templates\seller_panel\orders.html:166
+msgid "Client Info"
+msgstr "የደንበኛ መረጃ"
+
+#: .\templates\seller_panel\orders.html:167
+msgid "Quoted Amount"
+msgstr "የተጠቀሰው መጠን"
+
+#: .\templates\seller_panel\orders.html:196
+msgid "Waiting for Quote"
+msgstr "ጥቅስ በመጠበቅ ላይ"
+
+#: .\templates\seller_panel\orders.html:202
+msgid "Inquiry"
+msgstr "ጥያቄ"
+
+#: .\templates\seller_panel\orders.html:204
+msgid "Quoted"
+msgstr "ተጠቅሷል"
+
+#: .\templates\seller_panel\orders.html:208
+msgid "In Transit"
+msgstr "በመጓጓዣ ውስጥ"
+
+#: .\templates\seller_panel\orders.html:212
+msgid "Cancelled"
+msgstr "ተሰርዟል።"
+
+#: .\templates\seller_panel\orders.html:214
+msgid "Declined"
+msgstr "ተቀባይነት አላገኘም።"
+
+#: .\templates\seller_panel\orders.html:219
+msgid "Inquiry Withdrawn"
+msgstr "ጥያቄ ተነስቷል።"
+
+#: .\templates\seller_panel\orders.html:223
+msgid "Manage"
+msgstr "አስተዳድር"
+
+#: .\templates\seller_panel\orders.html:229
+msgid "Next Step"
+msgstr "ቀጣዩ ደረጃ"
+
+#: .\templates\seller_panel\orders.html:233
+msgid "Set Final Price"
+msgstr "የመጨረሻ ዋጋ ያዘጋጁ"
+
+#: .\templates\seller_panel\orders.html:241
+msgid "Accept Order"
+msgstr "ትዕዛዝ ተቀበል"
+
+#: .\templates\seller_panel\orders.html:250
+msgid "Start Shipping"
+msgstr "መላኪያ ይጀምሩ"
+
+#: .\templates\seller_panel\orders.html:259
+msgid "Mark Delivered"
+msgstr "ማርክ ደርሷል"
+
+#: .\templates\seller_panel\orders.html:269
+msgid "Corrections"
+msgstr "እርማቶች"
+
+#: .\templates\seller_panel\orders.html:276
+msgid "Re-open Inquiry"
+msgstr "ጥያቄን እንደገና ክፈት"
+
+#: .\templates\seller_panel\orders.html:276
+msgid "Reset to Pending"
+msgstr "በመጠባበቅ ላይ ወዳለው ዳግም አስጀምር"
+
+#: .\templates\seller_panel\orders.html:285
+msgid "Back to Quote"
+msgstr "ወደ ጥቅስ ተመለስ"
+
+#: .\templates\seller_panel\orders.html:294
+msgid "Return to Warehouse"
+msgstr "ወደ Warehouse ተመለስ"
+
+#: .\templates\seller_panel\orders.html:303
+msgid "Reset to Shipping"
+msgstr "ወደ መላኪያ ዳግም አስጀምር"
+
+#: .\templates\seller_panel\orders.html:317
+msgid "Decline Inquiry"
+msgstr "ጥያቄን ውድቅ አድርግ"
+
+#: .\templates\seller_panel\orders.html:337
+msgid "OFFICIAL QUOTE"
+msgstr "ኦፊሴላዊ ጥቅስ"
+
+#: .\templates\seller_panel\orders.html:343
+msgid "Final Agreed Price (USD)"
+msgstr "የመጨረሻ ስምምነት ዋጋ (USD)"
+
+#: .\templates\seller_panel\orders.html:352
+msgid "Send Quote to Buyer"
+msgstr "ጥቅስ ለገዢ ይላኩ።"
+
+#: .\templates\seller_panel\products.html:8
+msgid "Furniture Collection"
+msgstr "የቤት ዕቃዎች ስብስብ"
+
+#: .\templates\seller_panel\products.html:9
+msgid "Manage your luxury catalog, AR variants, and galleries."
+msgstr "የእርስዎን የቅንጦት ካታሎግ፣ የኤአር ልዩነቶች እና ማዕከለ-ስዕላት ያስተዳድሩ።"
+
+#: .\templates\seller_panel\products.html:13
+msgid "Add New Piece"
+msgstr "አዲስ ቁራጭ ያክሉ"
+
+#: .\templates\seller_panel\products.html:16
+msgid "View Orders"
+msgstr "ትዕዛዞችን ይመልከቱ"
+
+#: .\templates\seller_panel\products.html:24
+msgid "Your Active Showroom"
+msgstr "የእርስዎ ንቁ ማሳያ ክፍል"
+
+#: .\templates\seller_panel\products.html:29
+msgid "Preview"
+msgstr "ቅድመ እይታ"
+
+#: .\templates\seller_panel\products.html:30
+msgid "Item Name"
+msgstr "የንጥል ስም"
+
+#: .\templates\seller_panel\products.html:32
+msgid "Price Strategy"
+msgstr "የዋጋ ስልት"
+
+#: .\templates\seller_panel\products.html:33
+msgid "Gallery"
+msgstr "ማዕከለ-ስዕላት"
+
+#: .\templates\seller_panel\products.html:34
+msgid "Variants (AR)"
+msgstr "ተለዋጮች (AR)"
+
+#: .\templates\seller_panel\products.html:46
+msgid "No Img"
+msgstr "አይ ኢም"
+
+#: .\templates\seller_panel\products.html:62
+msgid "Quotation"
+msgstr "ጥቅስ"
+
+#: .\templates\seller_panel\products.html:70
+msgid "imgs"
+msgstr "imgs"
+
+#: .\templates\seller_panel\products.html:79
+msgid "View AR"
+msgstr "AR ይመልከቱ"
+
+#: .\templates\seller_panel\products.html:84
+msgid "No 3D Models"
+msgstr "ምንም 3D ሞዴሎች የሉም"
+
+#: .\templates\seller_panel\products.html:107
+msgid "No products listed yet."
+msgstr "እስካሁን ምንም የተዘረዘሩ ምርቶች የሉም።"
+
+#: .\templates\seller_panel\products_form.html:9
+msgid "Edit Product"
+msgstr "ምርቱን ያርትዑ"
+
+#: .\templates\seller_panel\products_form.html:9
+msgid "Add New Product"
+msgstr "አዲስ ምርት ያክሉ"
+
+#: .\templates\seller_panel\products_form.html:23
+msgid "Basic Information"
+msgstr "መሰረታዊ መረጃ"
+
+#: .\templates\seller_panel\products_form.html:26
+msgid "Product Name"
+msgstr "የምርት ስም"
+
+#: .\templates\seller_panel\products_form.html:32
+msgid "Modern"
+msgstr "ዘመናዊ"
+
+#: .\templates\seller_panel\products_form.html:33
+msgid "Classic"
+msgstr "ክላሲክ"
+
+#: .\templates\seller_panel\products_form.html:34
+msgid "Decoration"
+msgstr "ማስጌጥ"
+
+#: .\templates\seller_panel\products_form.html:35
+msgid "Office"
+msgstr "ቢሮ"
+
+#: .\templates\seller_panel\products_form.html:36
+msgid "Hotel"
+msgstr "ሆቴል"
+
+#: .\templates\seller_panel\products_form.html:41
+msgid "Pricing Strategy"
+msgstr "የዋጋ አሰጣጥ ስልት"
+
+#: .\templates\seller_panel\products_form.html:43
+msgid "Negotiated (Quote)"
+msgstr "ድርድር (ጥቅስ)"
+
+#: .\templates\seller_panel\products_form.html:44
+msgid "selected"
+msgstr "ተመርጧል"
+
+#: .\templates\seller_panel\products_form.html:44
+msgid "Base Price"
+msgstr "የመሠረት ዋጋ"
+
+#: .\templates\seller_panel\products_form.html:48
+msgid "Price ($)"
+msgstr "ዋጋ ($)"
+
+#: .\templates\seller_panel\products_form.html:59
+msgid "Imagery"
+msgstr "ምስል"
+
+#: .\templates\seller_panel\products_form.html:63
+msgid "Main Image"
+msgstr "ዋና ምስል"
+
+#: .\templates\seller_panel\products_form.html:67
+msgid "Current"
+msgstr "የአሁኑ"
+
+#: .\templates\seller_panel\products_form.html:71
+msgid "Upload to replace current main image."
+msgstr "የአሁኑን ዋና ምስል ለመተካት ስቀል።"
+
+#: .\templates\seller_panel\products_form.html:76
+msgid "Gallery Images"
+msgstr "የጋለሪ ምስሎች"
+
+#: .\templates\seller_panel\products_form.html:95
+msgid "Add New Images:"
+msgstr "አዲስ ምስሎችን ያክሉ"
+
+#: .\templates\seller_panel\products_form.html:102
+msgid "3D Models & Variants"
+msgstr "3D ሞዴሎች እና ተለዋጮች"
+
+#: .\templates\seller_panel\products_form.html:104
+msgid "Add New"
+msgstr "አዲስ ያክሉ"
+
+#: .\templates\seller_panel\products_form.html:111
+msgid "Current Variants"
+msgstr "የአሁኑ ተለዋጮች"
+
+#: .\templates\seller_panel\products_form.html:120
+msgid "File Uploaded"
+msgstr "ፋይል ተጭኗል"
+
+#: .\templates\seller_panel\products_form.html:122
+msgid "External Link"
+msgstr "ውጫዊ አገናኝ"
+
+#: .\templates\seller_panel\products_form.html:124
+msgid "No 3D data"
+msgstr "ምንም 3D ውሂብ የለም።"
+
+#: .\templates\seller_panel\products_form.html:142
+msgid "Publish Product"
+msgstr "ምርትን አትም"
