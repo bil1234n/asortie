@@ -35,3 +35,7 @@ cryptography
 # --- GOOGLE LOGIN ---
 google-auth
 google-auth-oauthlib
+
+# --- MULTI LANG ---
+deep-translator
+polib
