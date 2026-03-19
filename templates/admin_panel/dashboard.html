@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<h2 class="fw-bold mb-4">Admin Dashboard</h2>
+<h2 class="fw-bold mb-4">{% trans "Admin Dashboard" %}</h2>
 
 <div class="row mb-4">
     <div class="col-md-4">
         <div class="card bg-primary text-white shadow-sm">
             <div class="card-body">
                 <h3>{{ total_users }}</h3>
-                <p>Total Users</p>
+                <p>{% trans "Total Users" %}</p>
             </div>
         </div>
     </div>
@@ -17,7 +18,7 @@
         <div class="card bg-success text-white shadow-sm">
             <div class="card-body">
                 <h3>${{ total_revenue }}</h3>
-                <p>Total Revenue</p>
+                <p>{% trans "Total Revenue" %}</p>
             </div>
         </div>
     </div>
@@ -25,7 +26,7 @@
 
 <!-- Chart -->
 <div class="card shadow border-0">
-    <div class="card-header bg-white">User Distribution</div>
+    <div class="card-header bg-white">{% trans "User Distribution" %}</div>
     <div class="card-body">
         <canvas id="userChart" style="max-height: 400px;"></canvas>
     </div>
