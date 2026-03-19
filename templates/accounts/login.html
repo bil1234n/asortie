@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 <style>
     :root {
@@ -49,17 +50,17 @@
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-body p-5">
                     <img src="../../static/img/logo_1.png" alt="Logo" width="50px" style="margin: 0 auto 20px; display: flex;"> 
-                    <h3 class="fw-bold text-center mb-4" style="color: var(--coffee-dark);">Welcome Back</h3>
+                    <h3 class="fw-bold text-center mb-4" style="color: var(--coffee-dark);">{% trans "Welcome Back" %}</h3>
 
                     <div class="role-switcher-login">
                         <input type="radio" name="login_role" id="lr_buyer" class="role-login-opt" checked>
                         <label for="lr_buyer" class="role-login-label">
-                            <i class="fa-solid fa-user me-2"></i>Buyer
+                            <i class="fa-solid fa-user me-2"></i>{% trans "Buyer" %}
                         </label>
 
                         <input type="radio" name="login_role" id="lr_seller" class="role-login-opt">
                         <label for="lr_seller" class="role-login-label">
-                            <i class="fa-solid fa-briefcase me-2"></i>Seller
+                            <i class="fa-solid fa-briefcase me-2"></i>{% trans "Seller" %}
                         </label>
                     </div>
 
@@ -73,23 +74,23 @@
                         {% endif %}
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold text-muted small">Username</label>
+                            <label class="form-label fw-bold text-muted small">{% trans "Username" %}</label>
                             {{ form.username }}
                         </div>
                         
                         <div class="mb-4">
-                            <label class="form-label fw-bold text-muted small">Password</label>
+                            <label class="form-label fw-bold text-muted small">{% trans "Password" %}</label>
                             {{ form.password }}
                         </div>
 
                         <button type="submit" class="btn btn-warning w-100 py-3 fw-bold text-white rounded-pill shadow-sm" style="background-color: var(--gold); border: none;">
-                            LOGIN
+                            {% trans "LOGIN" %}
                         </button>
                     </form>
 
                     <div class="d-flex align-items-center mb-4 mt-4">
                         <hr class="flex-grow-1">
-                        <span class="mx-3 text-muted small fw-bold">OR</span>
+                        <span class="mx-3 text-muted small fw-bold">{% trans "OR" %}</span>
                         <hr class="flex-grow-1">
                     </div>
 
@@ -113,8 +114,8 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <p class="small text-muted">Don't have an account? 
-                            <a href="{% url 'register' %}" class="fw-bold text-decoration-none" style="color: var(--coffee-dark);">Register Now</a>
+                        <p class="small text-muted">{% trans "Don't have an account?" %} 
+                            <a href="{% url 'register' %}" class="fw-bold text-decoration-none" style="color: var(--coffee-dark);">{% trans "Register Now" %}</a>
                         </p>
                     </div>
                 </div>
