@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware', # For Static Files on Render
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # <--- CRITICAL: Add this right after SessionMiddleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -123,12 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# --- INTERNATIONALIZATION ---
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
-
 # --- STATIC FILES ---
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -177,3 +172,36 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
 # Ensure your session cookies work with the popup redirect
 SESSION_COOKIE_SAMESITE = 'Lax'
+
+# --- INTERNATIONALIZATION ---
+LANGUAGE_CODE = 'en' # Changed from 'en-us' to 'en' for broader English matching
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+
+# 3. Ensure your LANGUAGES tuple matches
+LANGUAGES = [
+    ('en', 'English'),
+    ('am', 'Amharic'),
+    ('tr', 'Turkish'),
+    ('fr', 'French'),
+    ('ar', 'Arabic'),
+    ('ru', 'Russian'),
+]
+
+# 2. Tell Django where to look for translation files
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
+EXTRA_LANG_INFO = {
+    'am': {
+        'bidi': False,
+        'code': 'am',
+        'name': 'Amharic',
+        'name_local': 'አማርኛ', 
+    },
+}
+
+LANG_INFO = dict(django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO)
+django.conf.locale.LANG_INFO = LANG_INFO
