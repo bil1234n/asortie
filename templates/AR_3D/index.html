@@ -1,10 +1,10 @@
-{% load static %}
+{% load static i18n %} 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxé | Ultimate Immersive Experience</title>
+    <title>Asortie | Ultimate Immersive Experience</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -171,29 +172,30 @@
         .prod_desc{ height: 20vh; overflow-y: scroll; color: #444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
     </style>
 </head>
-<body>
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<body dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
 
 <aside class="sidebar p-6" id="sidebar">
     <button onclick="toggleSidebar()" class="absolute top-4 right-4 text-white/60 hover:text-white text-xl lg:hidden"><i class="fa-solid fa-xmark"></i></button>
     
     <div class="mb-6 text-center border_bot">
         <img src="{% static 'img/logo_2.png' %}" style="max-width: 230px; margin: 0 auto;" alt="Logo">
-        <p class="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1">Interior Intelligence Hub</p>
+        <p class="text-[9px] uppercase tracking-[0.2em] opacity-60 mt-1">{% trans "Asorite 3D Hub" %}</p>
     </div>
     
     <div class="space-y-3 mb-8 px-2">
         <button onclick="location.href='{% url 'home' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
-            <i class="fa-solid fa-house mr-2"></i> Dashboard
+            <i class="fa-solid fa-house mr-2"></i> {% trans "Dashboard" %}
         </button>
         {% if user.role == 'admin' or user.is_superuser %}
             <button onclick="location.href='{% url 'trainer' %}'" class="w-full py-3 px-4 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">
-                <i class="fa-solid fa-robot mr-2"></i> Train Ai
+                <i class="fa-solid fa-robot mr-2"></i> {% trans "Train Ai" %}
             </button>
         {% endif %}
     </div>
 
     <div class="category-nav" id="category-nav">
-        <div class="cat-pill active" onclick="filterByCategory('All', this)">All</div>
+        <div class="cat-pill active" onclick="filterByCategory('All', this)">{% trans "All" %}</div>
     </div>
     <div class="product-list" id="ui-list"></div>
 </aside>
@@ -206,12 +208,54 @@
             </div>
             <h2 class="header-title text-sm font-bold text-gray-500 uppercase tracking-widest mb-0">
                 <i class="fa-solid fa-folder-open mr-2 text-blue-800"></i> 
-                <span id="active-model-title">Loading...</span>
+                <span id="active-model-title">{% trans "Loading..." %}</span>
             </h2>
         </div>
 
             <div class="top-right-actions">
                 
+                
+                <form action="{% url 'set_language' %}" method="post" id="language-form" class="me-3 mb-0">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                    
+                    {% get_current_language as CURRENT_LANG %}
+                    <input type="hidden" name="language" id="selected-language" value="{{ CURRENT_LANG }}">
+
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-light border-0 fw-medium dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-globe me-2"></i> Select Language
+                        </button>
+                        
+                        <ul class="dropdown-menu shadow border-0">
+                            {% get_available_languages as ALL_LANGS %}
+                            {% get_language_info_list for ALL_LANGS as languages %}
+                            {% for lang in languages %}
+                                <li>
+                                    <button type="button" class="dropdown-item {% if lang.code == CURRENT_LANG %}active{% endif %}" 
+                                            onclick="document.getElementById('selected-language').value='{{ lang.code }}'; document.getElementById('language-form').submit();">
+                                        
+                                        {% if lang.code == 'en' %}
+                                            <img src="{% static 'img/usa.png' %}" alt="" width="20" class="me-2">
+                                        {% elif lang.code == 'am' %}
+                                            <img src="{% static 'img/eth.gif' %}" alt="" width="20" class="me-2">
+                                        {% elif lang.code == 'tr' %}
+                                            <img src="{% static 'img/tur.jpg' %}" alt="" width="20" class="me-2">
+                                        {% elif lang.code == 'fr' %}
+                                            <img src="{% static 'img/fra.webp' %}" alt="" width="20" class="me-2">
+                                        {% elif lang.code == 'ar' %}
+                                            <img src="{% static 'img/arb.webp' %}" alt="" width="20" class="me-2">
+                                        {% elif lang.code == 'ru' %}
+                                            <img src="{% static 'img/rus.webp' %}" alt="" width="20" class="me-2">
+                                        {% endif %}
+                                        {{ lang.name_local|title }}
+                                    </button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </form>
+
                 {% if user.is_authenticated %}
                     <!-- NOTIFICATION BELL -->
                     <li class="nav-item dropdown me-3" style="list-style: none;">
@@ -226,7 +270,7 @@
                         </a>
                         
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="width: 300px; max-height: 400px; overflow-y: auto;">
-                            <li class="dropdown-header fw-bold">Notifications</li>
+                            <li class="dropdown-header fw-bold">{% trans "Notifications" %}</li>
                             <li><hr class="dropdown-divider"></li>
                             
                             {% if notifications %}
@@ -244,17 +288,17 @@
                                         </div>
                                         <div style="white-space: normal;">
                                             <p class="mb-0 small fw-bold">{{ n.message }}</p>
-                                            <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} ago</small>
+                                            <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} {% trans "ago" %}</small>
                                         </div>
                                     </a>
                                 </li>
                                 {% endfor %}
                             {% else %}
-                                <li class="text-center py-3 small text-muted">No new notifications</li>
+                                <li class="text-center py-3 small text-muted">{% trans "No new notifications" %}</li>
                             {% endif %}
                             
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">View All History</a></li>
+                            <li><a class="dropdown-item text-center small text-primary" href="{% url 'all_notifications' %}">{% trans "View All History" %}</a></li>
                         </ul>
                     </li>
                 {% endif %}
@@ -280,8 +324,8 @@
 
                 {% else %}
                     <!-- GUEST BUTTONS -->
-                    <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">Login</a>
-                    <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">Sign Up</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-dark btn-sm me-2">{% trans "Login" %}</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-sm" style="background-color: #1B3C59; border: none;">{% trans "Sign Up" %}</a>
                 {% endif %}
             </div>
     </header>
@@ -322,11 +366,11 @@
             <h2 id="p-title" style="margin:10px 0 0 0; font-weight: 400; font-size: 1.2rem; color: var(--dark);"></h2>
             <div class="price" id="p-price"></div>
             
-            <span class="variant-tag">Color & Type Options</span>
+            <span class="variant-tag">{% trans "Color & Type Options" %}</span>
             <div class="swatch-container" id="swatch-container"></div>
             
             <p id="p-desc" class="prod_desc"></p>
-            <button class="ar-btn" onclick="viewer.activateAR()">OPEN IN AR</button>
+            <button class="ar-btn" onclick="viewer.activateAR()">{% trans "OPEN IN AR" %}</button>
         </div>
     </div>
 </div>
