@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
     <!-- Professional Luxury UI Styles -->
     <style>
@@ -149,10 +150,10 @@
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h2 class="fw-bold luxury-font" style="color: var(--luxury-blue);">Order Logistics</h2>
-                <p class="text-muted mb-0">Manage furniture inquiries and shipping from Asortie to Ethiopia.</p>
+                <h2 class="fw-bold luxury-font" style="color: var(--luxury-blue);">{% trans "Order Logistics" %}</h2>
+                <p class="text-muted mb-0">{% trans "Manage furniture inquiries and shipping from Asortie to Ethiopia." %}</p>
             </div>
-            <span class="badge bg-dark rounded-pill px-4 py-2 shadow-sm">{{ orders.count }} Total Orders</span>
+            <span class="badge bg-dark rounded-pill px-4 py-2 shadow-sm">{{ orders.count }} {% trans "Total Orders" %}</span>
         </div>
 
         <div class="card shadow-sm border-0">
@@ -160,12 +161,12 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th class="ps-4 text-secondary text-uppercase small">ID</th>
-                            <th class="text-secondary text-uppercase small">Luxury Item</th>
-                            <th class="text-secondary text-uppercase small">Client Info</th>
-                            <th class="text-secondary text-uppercase small">Quoted Amount</th>
-                            <th class="text-secondary text-uppercase small">Status</th>
-                            <th class="text-end pe-4 text-secondary text-uppercase small">Actions</th>
+                            <th class="ps-4 text-secondary text-uppercase small">{% trans "ID" %}</th>
+                            <th class="text-secondary text-uppercase small">{% trans "Luxury Item" %}</th>
+                            <th class="text-secondary text-uppercase small">{% trans "Client Info" %}</th>
+                            <th class="text-secondary text-uppercase small">{% trans "Quoted Amount" %}</th>
+                            <th class="text-secondary text-uppercase small">{% trans "Status" %}</th>
+                            <th class="text-end pe-4 text-secondary text-uppercase small">{% trans "Actions" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -192,44 +193,44 @@
                 {% if o.total_price > 0 %}
                     <span class="fw-bold text-success fs-5">${{ o.total_price }}</span>
                 {% else %}
-                    <span class="text-danger small fw-bold">Waiting for Quote</span>
+                    <span class="text-danger small fw-bold">{% trans "Waiting for Quote" %}</span>
                 {% endif %}
             </td>
             <td>
                 
                 {% if o.status == 'Pending' %}
-                    <span class="badge bg-warning text-dark px-3 py-2"><i class="fa-regular fa-clock me-1"></i> Inquiry</span>
+                    <span class="badge bg-warning text-dark px-3 py-2"><i class="fa-regular fa-clock me-1"></i> {% trans "Inquiry" %}</span>
                 {% elif o.status == 'Quoted' %}
-                    <span class="badge badge-quoted px-3 py-2"><i class="fa-solid fa-file-invoice-dollar me-1"></i> Quoted</span>
+                    <span class="badge badge-quoted px-3 py-2"><i class="fa-solid fa-file-invoice-dollar me-1"></i> {% trans "Quoted" %}</span>
                 {% elif o.status == 'Paid' or o.status == 'Accepted' %}
-                    <span class="badge bg-info text-dark px-3 py-2"><i class="fa-solid fa-gears me-1"></i> Processing</span>
+                    <span class="badge bg-info text-dark px-3 py-2"><i class="fa-solid fa-gears me-1"></i> {% trans "Processing" %}</span>
                 {% elif o.status == 'Shipped' %}
-                    <span class="badge bg-primary px-3 py-2"><i class="fa-solid fa-truck-fast me-1"></i> In Transit</span>
+                    <span class="badge bg-primary px-3 py-2"><i class="fa-solid fa-truck-fast me-1"></i> {% trans "In Transit" %}</span>
                 {% elif o.status == 'Delivered' %}
-                    <span class="badge bg-success px-3 py-2"><i class="fa-solid fa-check-circle me-1"></i> Delivered</span>
+                    <span class="badge bg-success px-3 py-2"><i class="fa-solid fa-check-circle me-1"></i> {% trans "Delivered" %}</span>
                 {% elif o.status == 'Cancelled' %}
-                    <span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-ban me-1"></i> Cancelled</span>
+                    <span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-ban me-1"></i> {% trans "Cancelled" %}</span>
                 {% elif o.status == 'Declined' %}
-                    <span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-ban me-1"></i> Declined</span>
+                    <span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-ban me-1"></i> {% trans "Declined" %}</span>
                 {% endif %}
             </td>
             <td class="text-end pe-4">
                 {% if o.status == 'Cancelled' %}
-                    <span class="text-muted small italic">Inquiry Withdrawn</span>
+                    <span class="text-muted small italic">{% trans "Inquiry Withdrawn" %}</span>
                 {% else %}
                 <div class="dropdown">
                     <button class="btn btn-action-trigger dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        Manage
+                        {% trans "Manage" %}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu shadow-lg">
                         
                         <!-- SECTION: NEXT LOGICAL STEPS -->
                         {% if o.status != 'Delivered' and o.status != 'Declined' %}
-                            <li><h6 class="dropdown-header-custom">Next Step</h6></li>
+                            <li><h6 class="dropdown-header-custom">{% trans "Next Step" %}</h6></li>
                             {% if o.status == 'Pending' %}
                                 <li>
                                     <button type="button" class="custom-dropdown-item fw-bold" style="color: var(--luxury-gold);" data-bs-toggle="modal" data-bs-target="#quoteModal{{ o.id }}">
-                                        <i class="fa-solid fa-tag"></i> Set Final Price
+                                        <i class="fa-solid fa-tag"></i> {% trans "Set Final Price" %}
                                     </button>
                                 </li>
                             {% elif o.status == 'Quoted' %}
@@ -237,7 +238,7 @@
                                     <form method="post" class="m-0">{% csrf_token %}
                                         <input type="hidden" name="order_id" value="{{ o.id }}">
                                         <button name="action" value="accept" class="custom-dropdown-item item-success fw-bold">
-                                            <i class="fa-solid fa-check"></i> Accept Order
+                                            <i class="fa-solid fa-check"></i> {% trans "Accept Order" %}
                                         </button>
                                     </form>
                                 </li>
@@ -246,7 +247,7 @@
                                     <form method="post" class="m-0">{% csrf_token %}
                                         <input type="hidden" name="order_id" value="{{ o.id }}">
                                         <button name="action" value="shipped" class="custom-dropdown-item item-primary fw-bold">
-                                            <i class="fa-solid fa-truck-fast"></i> Start Shipping
+                                            <i class="fa-solid fa-truck-fast"></i> {% trans "Start Shipping" %}
                                         </button>
                                     </form>
                                 </li>
@@ -255,7 +256,7 @@
                                     <form method="post" class="m-0">{% csrf_token %}
                                         <input type="hidden" name="order_id" value="{{ o.id }}">
                                         <button name="action" value="delivered" class="custom-dropdown-item item-success fw-bold">
-                                            <i class="fa-solid fa-box-open"></i> Mark Delivered
+                                            <i class="fa-solid fa-box-open"></i> {% trans "Mark Delivered" %}
                                         </button>
                                     </form>
                                 </li>
@@ -265,14 +266,14 @@
                         <!-- SECTION: CORRECTIONS / REVERSE STATUS -->
                         {% if o.status != 'Pending' %}
                             <li><hr class="dropdown-divider"></li>
-                            <li><h6 class="dropdown-header-custom">Corrections</h6></li>
+                            <li><h6 class="dropdown-header-custom">{% trans "Corrections" %}</h6></li>
                             
                             {% if o.status == 'Quoted' or o.status == 'Declined' %}
                                 <li>
                                     <form method="post" class="m-0">{% csrf_token %}
                                         <input type="hidden" name="order_id" value="{{ o.id }}">
                                         <button name="action" value="pending" class="custom-dropdown-item">
-                                            <i class="fa-solid fa-rotate-left"></i> {% if o.status == 'Declined' %}Re-open Inquiry{% else %}Reset to Pending{% endif %}
+                                            <i class="fa-solid fa-rotate-left"></i> {% if o.status == 'Declined' %}{% trans "Re-open Inquiry" %}{% else %}{% trans "Reset to Pending" %}{% endif %}
                                         </button>
                                     </form>
                                 </li>
@@ -281,7 +282,7 @@
                                     <form method="post" class="m-0">{% csrf_token %}
                                         <input type="hidden" name="order_id" value="{{ o.id }}">
                                         <button name="action" value="quoted_reverse" class="custom-dropdown-item">
-                                            <i class="fa-solid fa-rotate-left"></i> Back to Quote
+                                            <i class="fa-solid fa-rotate-left"></i> {% trans "Back to Quote" %}
                                         </button>
                                     </form>
                                 </li>
@@ -290,7 +291,7 @@
                                     <form method="post" class="m-0">{% csrf_token %}
                                         <input type="hidden" name="order_id" value="{{ o.id }}">
                                         <button name="action" value="accepted_reverse" class="custom-dropdown-item">
-                                            <i class="fa-solid fa-rotate-left"></i> Return to Warehouse
+                                            <i class="fa-solid fa-rotate-left"></i> {% trans "Return to Warehouse" %}
                                         </button>
                                     </form>
                                 </li>
@@ -299,7 +300,7 @@
                                     <form method="post" class="m-0">{% csrf_token %}
                                         <input type="hidden" name="order_id" value="{{ o.id }}">
                                         <button name="action" value="shipped_reverse" class="custom-dropdown-item">
-                                            <i class="fa-solid fa-rotate-left"></i> Reset to Shipping
+                                            <i class="fa-solid fa-rotate-left"></i> {% trans "Reset to Shipping" %}
                                         </button>
                                     </form>
                                 </li>
@@ -313,7 +314,7 @@
                                 <form method="post" class="m-0">{% csrf_token %}
                                     <input type="hidden" name="order_id" value="{{ o.id }}">
                                     <button name="action" value="decline" class="custom-dropdown-item item-danger">
-                                        <i class="fa-solid fa-ban"></i> Decline Inquiry
+                                        <i class="fa-solid fa-ban"></i> {% trans "Decline Inquiry" %}
                                     </button>
                                 </form>
                             </li>
@@ -333,13 +334,13 @@
                                             <input type="hidden" name="action" value="set_quote">
                                             
                                             <div class="modal-header lx-modal-header text-white">
-                                                <h5 class="modal-title luxury-font" style="color: #fff">OFFICIAL QUOTE #{{ o.id }}</h5>
+                                                <h5 class="modal-title luxury-font" style="color: #fff">{% trans "OFFICIAL QUOTE" %} #{{ o.id }}</h5>
                                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                                             </div>
 
                                             <div class="modal-body p-4">
                                                 <div class="mb-4">
-                                                    <label class="lx-modal-label">Final Agreed Price (USD)</label>
+                                                    <label class="lx-modal-label">{% trans "Final Agreed Price (USD)" %}</label>
                                                     <div class="lx-input-group d-flex align-items-center">
                                                         <span class="fs-4 me-2 text-muted">$</span>
                                                         <input type="number" step="0.01" name="total_price" class="lx-modal-input w-100" placeholder="0.00" required>
@@ -348,7 +349,7 @@
                                             </div>
 
                                             <div class="modal-footer p-0 border-0">
-                                                <button type="submit" class="lx-modal-btn w-100 py-3">Send Quote to Buyer</button>
+                                                <button type="submit" class="lx-modal-btn w-100 py-3">{% trans "Send Quote to Buyer" %}</button>
                                             </div>
                                         </form>
                                     </div>
