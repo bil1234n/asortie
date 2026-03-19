@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<h2 class="fw-bold">Seller Dashboard</h2>
+<h2 class="fw-bold">{% trans "Seller Dashboard" %}</h2>
 <div class="row my-4">
     <div class="col-md-4">
         <div class="card border-0 shadow-sm p-3">
             <h4>${{ revenue }}</h4>
-            <span class="text-muted">Total Sales</span>
+            <span class="text-muted">{% trans "Total Sales" %}</span>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card border-0 shadow-sm p-3">
             <h4>{{ orders_count }}</h4>
-            <span class="text-muted">Total Orders</span>
+            <span class="text-muted">{% trans "Total Orders" %}</span>
         </div>
     </div>
 </div>
 
 <div class="card border-0 shadow">
-    <div class="card-header bg-white">Order Status Analytics</div>
+    <div class="card-header bg-white">{% trans "Order Status Analytics" %}</div>
     <div class="card-body">
         <canvas id="orderChart"></canvas>
     </div>
