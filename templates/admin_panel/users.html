@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static i18n %} 
 {% load static %}
 
 {% block content %}
@@ -93,11 +94,11 @@
     <!-- 1. HEADER -->
     <div class="admin-header">
         <div>
-            <h1 class="page-title">User & Compliance Management</h1>
-            <p class="text-muted mb-0">Review identity documents and verify seller certificates.</p>
+            <h1 class="page-title">{% trans "User & Compliance Management" %}</h1>
+            <p class="text-muted mb-0">{% trans "Review identity documents and verify seller certificates." %}</p>
         </div>
         <div>
-            <span class="badge bg-dark fs-6">{{ users.count }} Users</span>
+            <span class="badge bg-dark fs-6">{{ users.count }} {% trans "Users" %}</span>
         </div>
     </div>
 
@@ -107,11 +108,11 @@
             <table class="table admin-table mb-0">
                 <thead>
                     <tr>
-                        <th>User Identity</th>
-                        <th>Role</th>
-                        <th>Identity Status</th>
-                        <th>Certificates</th>
-                        <th class="text-end">Actions</th>
+                        <th>{% trans "User Identity" %}</th>
+                        <th>{% trans "Role" %}</th>
+                        <th>{% trans "Identity Status" %}</th>
+                        <th>{% trans "Certificates" %}</th>
+                        <th class="text-end">{% trans "Actions" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -134,18 +135,18 @@
                         <td>
                             <span class="text-capitalize fw-bold">{{ u.role }}</span>
                             {% if u.role == 'seller' %}
-                                <div class="small text-muted">{{ u.get_package_tier_display }} Tier</div>
+                                <div class="small text-muted">{{ u.get_package_tier_display }} {% trans "Tier" %}</div>
                             {% endif %}
                         </td>
 
                         <!-- Identity Status -->
                         <td>
                             {% if u.is_verified %}
-                                <span class="status-badge verified"><i class="fa-solid fa-check-circle"></i> Identity Verified</span>
+                                <span class="status-badge verified"><i class="fa-solid fa-check-circle"></i> {% trans "Identity Verified" %}</span>
                             {% elif u.verification_doc %}
-                                <span class="status-badge pending"><i class="fa-solid fa-clock"></i> Docs Submitted</span>
+                                <span class="status-badge pending"><i class="fa-solid fa-clock"></i> {% trans "Docs Submitted" %}</span>
                             {% else %}
-                                <span class="text-muted small">No Documents</span>
+                                <span class="text-muted small">{% trans "No Documents" %}</span>
                             {% endif %}
                         </td>
 
@@ -155,7 +156,7 @@
                                 {% with cert_count=u.business_profile.certificates.count %}
                                     {% if cert_count > 0 %}
                                         <div class="d-flex align-items-center gap-2">
-                                            <span class="fw-bold text-dark">{{ cert_count }}</span> Uploaded
+                                            <span class="fw-bold text-dark">{{ cert_count }}</span> {% trans "Uploaded" %}
                                             <!-- Red dot if any unverified -->
                                             {% if u.business_profile.certificates.filter.is_verified|length != cert_count %}
                                                 <span class="badge bg-warning text-dark rounded-circle p-1" style="width: 10px; height: 10px;"></span>
@@ -178,7 +179,7 @@
                                     <button class="btn btn-dark btn-sm rounded-pill px-3 fw-bold" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#modal{{ u.id }}">
-                                        Review
+                                        {% trans "Review" %}
                                     </button>
                                 <!-- 2. Quick Suspend/Restore Form -->
                                 <form method="post" class="d-inline">
@@ -215,7 +216,7 @@
                         <div class="modal-dialog modal-xl modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header border-bottom bg-white py-3">
-                                    <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-shield-halved text-warning me-2"></i> Compliance Center: {{ u.username }}</h5>
+                                    <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-shield-halved text-warning me-2"></i> {% trans "Compliance Center:" %} {{ u.username }}</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body p-0">
@@ -223,33 +224,33 @@
                                         
                                         <!-- LEFT: PROFILE INFO -->
                                         <div class="col-lg-3 review-sidebar">
-                                            <h6 class="text-uppercase text-muted fw-bold small mb-3">Seller Profile</h6>
+                                            <h6 class="text-uppercase text-muted fw-bold small mb-3">{% trans "Seller Profile" %}</h6>
                                             
                                             <div class="mb-3">
-                                                <small class="d-block text-muted fw-bold">Company Name</small>
+                                                <small class="d-block text-muted fw-bold">{% trans "Company Name" %}</small>
                                                 <span class="text-dark">{{ u.business_profile.company_name|default:"Not Set" }}</span>
                                             </div>
                                             <div class="mb-3">
-                                                <small class="d-block text-muted fw-bold">Location</small>
+                                                <small class="d-block text-muted fw-bold">{% trans "Location" %}</small>
                                                 <span class="text-dark">{{ u.business_profile.city }}, {{ u.business_profile.country }}</span>
                                             </div>
                                             <div class="mb-3">
-                                                <small class="d-block text-muted fw-bold">Roles</small>
-                                                {% if u.business_profile.is_farmer %}<span class="badge bg-success me-1">Farmer</span>{% endif %}
-                                                {% if u.business_profile.is_roaster %}<span class="badge bg-danger">Roaster</span>{% endif %}
+                                                <small class="d-block text-muted fw-bold">{% trans "Roles" %}</small>
+                                                {% if u.business_profile.is_farmer %}<span class="badge bg-success me-1">{% trans "Farmer" %}</span>{% endif %}
+                                                {% if u.business_profile.is_roaster %}<span class="badge bg-danger">{% trans "Roaster" %}</span>{% endif %}
                                             </div>
 
                                             <hr>
 
-                                            <h6 class="text-uppercase text-muted fw-bold small mb-3">Account Actions</h6>
+                                            <h6 class="text-uppercase text-muted fw-bold small mb-3">{% trans "Account Actions" %}</h6>
                                             <form method="post">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="user_id" value="{{ u.id }}">
                                                 
                                                 {% if u.is_active %}
-                                                    <button name="action" value="suspend" class="btn btn-outline-danger w-100 btn-sm mb-2 fw-bold">Suspend User</button>
+                                                    <button name="action" value="suspend" class="btn btn-outline-danger w-100 btn-sm mb-2 fw-bold">{% trans "Suspend User" %}</button>
                                                 {% else %}
-                                                    <button name="action" value="unsuspend" class="btn btn-outline-success w-100 btn-sm mb-2 fw-bold">Unsuspend User</button>
+                                                    <button name="action" value="unsuspend" class="btn btn-outline-success w-100 btn-sm mb-2 fw-bold">{% trans "Unsuspend User" %}</button>
                                                 {% endif %}
                                             </form>
                                         </div>
@@ -258,14 +259,14 @@
                                         <div class="col-lg-9 review-main">
                                             
                                             <!-- SECTION 1: IDENTITY (LICENSE) -->
-                                            <h5 class="fw-bold mb-3 text-dark">1. Identity Verification</h5>
+                                            <h5 class="fw-bold mb-3 text-dark">{% trans "1. Identity Verification" %}</h5>
                                             <div class="doc-card">
                                                 <div class="doc-header">
-                                                    <span class="fw-bold"><i class="fa-solid fa-id-card me-2 text-muted"></i> Business License / ID</span>
+                                                    <span class="fw-bold"><i class="fa-solid fa-id-card me-2 text-muted"></i> {% trans "Business License / ID" %}</span>
                                                     {% if u.is_verified %}
-                                                        <span class="badge bg-success">Verified</span>
+                                                        <span class="badge bg-success">{% trans "Verified" %}</span>
                                                     {% else %}
-                                                        <span class="badge bg-warning text-dark">Pending</span>
+                                                        <span class="badge bg-warning text-dark">{% trans "Pending" %}</span>
                                                     {% endif %}
                                                 </div>
                                                 
@@ -275,7 +276,7 @@
                                                     {% elif u.verification_doc.id_card %}
                                                         <img src="{{ u.verification_doc.id_card.url }}">
                                                     {% else %}
-                                                        <span class="text-white-50">No identity documents uploaded.</span>
+                                                        <span class="text-white-50">{% trans "No identity documents uploaded." %}</span>
                                                     {% endif %}
                                                 </div>
 
@@ -285,18 +286,18 @@
                                                     
                                                     {% if not u.is_verified %}
                                                         <button name="action" value="approve_identity" class="btn btn-success btn-action text-white">
-                                                            <i class="fa-solid fa-check me-1"></i> Approve Identity
+                                                            <i class="fa-solid fa-check me-1"></i> {% trans "Approve Identity" %}
                                                         </button>
                                                     {% else %}
                                                         <button name="action" value="revoke_identity" class="btn btn-outline-danger btn-action">
-                                                            Revoke Status
+                                                            {% trans "Revoke Status" %}
                                                         </button>
                                                     {% endif %}
                                                 </form>
                                             </div>
 
                                             <!-- SECTION 2: CERTIFICATES -->
-                                            <h5 class="fw-bold mb-3 text-dark mt-5">2. Trade Certificates</h5>
+                                            <h5 class="fw-bold mb-3 text-dark mt-5">{% trans "2. Trade Certificates" %}</h5>
                                             
                                             {% for cert in u.business_profile.certificates.all %}
                                                 <div class="doc-card">
@@ -306,9 +307,9 @@
                                                             <small class="text-muted ms-2">({{ cert.authority_name }})</small>
                                                         </div>
                                                         {% if cert.is_verified %}
-                                                            <span class="badge bg-success">Valid</span>
+                                                            <span class="badge bg-success">{% trans "Valid" %}</span>
                                                         {% else %}
-                                                            <span class="badge bg-warning text-dark">Review Needed</span>
+                                                            <span class="badge bg-warning text-dark">{% trans "Review Needed" %}</span>
                                                         {% endif %}
                                                     </div>
 
@@ -316,7 +317,7 @@
                                                         {% if cert.document_image %}
                                                             <img src="{{ cert.document_image.url }}">
                                                         {% else %}
-                                                            <span class="text-white-50">No file image.</span>
+                                                            <span class="text-white-50">{% trans "No file image." %}</span>
                                                         {% endif %}
                                                     </div>
 
@@ -326,22 +327,22 @@
                                                         <input type="hidden" name="cert_id" value="{{ cert.id }}">
                                                         
                                                         <div class="small text-muted">
-                                                            <strong>Expires:</strong> {{ cert.expiry_date|default:"N/A" }}
+                                                            <strong>{% trans "Expires:" %}</strong> {{ cert.expiry_date|default:"N/A" }}
                                                         </div>
 
                                                         <div class="d-flex gap-2">
                                                             {% if not cert.is_verified %}
-                                                                <button name="action" value="reject_cert" class="btn btn-outline-danger btn-action">Reject</button>
-                                                                <button name="action" value="verify_cert" class="btn btn-success btn-action text-white">Approve Certificate</button>
+                                                                <button name="action" value="reject_cert" class="btn btn-outline-danger btn-action">{% trans "Reject" %}</button>
+                                                                <button name="action" value="verify_cert" class="btn btn-success btn-action text-white">{% trans "Approve Certificate" %}</button>
                                                             {% else %}
-                                                                <button name="action" value="reject_cert" class="btn btn-outline-secondary btn-action">Revoke Approval</button>
+                                                                <button name="action" value="reject_cert" class="btn btn-outline-secondary btn-action">{% trans "Revoke Approval" %}</button>
                                                             {% endif %}
                                                         </div>
                                                     </form>
                                                 </div>
                                             {% empty %}
                                                 <div class="alert alert-light border text-center text-muted">
-                                                    No additional certificates (Organic, Fair Trade, etc.) uploaded.
+                                                    {% trans "No additional certificates (Organic, Fair Trade, etc.) uploaded." %}
                                                 </div>
                                             {% endfor %}
 
