@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %} 
 
 {% block content %}
 <!-- Chart.js CDN -->
@@ -38,11 +38,11 @@
     <!-- HEADER -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="fw-bold text-dark">Business Intelligence</h2>
-            <p class="text-muted mb-0">Performance analytics and identity management.</p>
+            <h2 class="fw-bold text-dark">{% trans "Business Intelligence" %}</h2>
+            <p class="text-muted mb-0">{% trans "Performance analytics and identity management." %}</p>
         </div>
         <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-            <i class="fa-solid fa-pen-to-square me-2"></i> Edit Profile & Roles
+            <i class="fa-solid fa-pen-to-square me-2"></i> {% trans "Edit Profile & Roles" %}
         </button>
     </div>
 
@@ -71,7 +71,7 @@
                         {% if profile.city or profile.country %}
                             {{ profile.city }}, {{ profile.country }}
                         {% else %}
-                            <span class="fst-italic">Location not set</span>
+                            <span class="fst-italic">{% trans "Location not set" %}</span>
                         {% endif %}
                     </p>
 
@@ -90,17 +90,17 @@
 
                     <!-- Description -->
                     <div class="text-start mb-4">
-                        <h6 class="fw-bold text-uppercase small text-muted">About Us</h6>
+                        <h6 class="fw-bold text-uppercase small text-muted">{% trans "About Us" %}</h6>
                         <p class="small text-muted mb-3">
                             {{ profile.description|default:"No description added yet. Edit profile to add one."|linebreaksbr }}
                         </p>
                         
-                        <h6 class="fw-bold text-uppercase small text-muted">Core Products</h6>
+                        <h6 class="fw-bold text-uppercase small text-muted">{% trans "Core Products" %}</h6>
                         <p class="small mb-0">
                             {% if profile.core_products %}
                                 <i class="fa-solid fa-mug-hot text-secondary me-2"></i> {{ profile.core_products }}
                             {% else %}
-                                <span class="text-muted fst-italic">Not specified</span>
+                                <span class="text-muted fst-italic">{% trans "Not specified" %}</span>
                             {% endif %}
                         </p>
                     </div>
@@ -108,7 +108,7 @@
                     <!-- CERTIFICATIONS SECTION -->
                     <div class="text-start mt-3">
                         <h6 class="fw-bold text-uppercase small text-muted mb-2">
-                            <i class="fa-solid fa-award me-1"></i> Verified Certifications
+                            <i class="fa-solid fa-award me-1"></i> {% trans "Verified Certifications" %}
                         </h6>
                         
                         <div class="d-flex flex-wrap gap-2">
@@ -136,28 +136,28 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h6 class="modal-title fw-bold">{{ cert.name }} Proof</h6>
+                                                <h6 class="modal-title fw-bold">{{ cert.name }} {% trans "Proof" %}</h6>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
                                             <div class="modal-body text-center bg-light">
                                                 <img src="{{ cert.document_image.url }}" class="img-fluid shadow-sm rounded mb-3" style="max-height: 400px;">
                                                 <div class="text-start small border-top pt-3">
-                                                    <p class="mb-1"><strong>Authority:</strong> {{ cert.authority_name }}</p>
-                                                    <p class="mb-0"><strong>Expires:</strong> {{ cert.expiry_date }}</p>
+                                                    <p class="mb-1"><strong>{% trans "Authority:" %}</strong> {{ cert.authority_name }}</p>
+                                                    <p class="mb-0"><strong>{% trans "Expires:" %}</strong> {{ cert.expiry_date }}</p>
                                                 </div>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <span class="badge {% if cert.is_verified %}bg-success{% else %}bg-warning text-dark{% endif %}">
                                                     {% if cert.is_verified %}Verified{% else %}Pending{% endif %}
                                                 </span>
-                                                <a href="{% url 'delete_certificate' cert.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this certificate?');">Delete</a>
+                                                <a href="{% url 'delete_certificate' cert.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this certificate?');">{% trans "Delete" %}</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             {% empty %}
                                 <div class="w-100 text-center py-2 border rounded bg-light">
-                                    <small class="text-muted fst-italic">No certifications uploaded.</small>
+                                    <small class="text-muted fst-italic">{% trans "No certifications uploaded." %}</small>
                                 </div>
                             {% endfor %}
                         </div>
@@ -174,7 +174,7 @@
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm h-100 border-left-coffee">
                         <div class="card-body">
-                            <h6 class="text-muted text-uppercase small fw-bold">Revenue Today</h6>
+                            <h6 class="text-muted text-uppercase small fw-bold">{% trans "Revenue Today" %}</h6>
                             <h3 class="fw-bold text-dark mb-0">${{ rev_today|floatformat:2 }}</h3>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm h-100 border-left-gold">
                         <div class="card-body">
-                            <h6 class="text-muted text-uppercase small fw-bold">Revenue This Month</h6>
+                            <h6 class="text-muted text-uppercase small fw-bold">{% trans "Revenue This Month" %}</h6>
                             <h3 class="fw-bold text-dark mb-0">${{ rev_month|floatformat:2 }}</h3>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm h-100 border-left-green">
                         <div class="card-body">
-                            <h6 class="text-muted text-uppercase small fw-bold">Revenue This Year</h6>
+                            <h6 class="text-muted text-uppercase small fw-bold">{% trans "Revenue This Year" %}</h6>
                             <h3 class="fw-bold text-dark mb-0">${{ rev_year|floatformat:2 }}</h3>
                         </div>
                     </div>
@@ -203,7 +203,7 @@
                 <!-- Chart Area -->
                 <div class="col-md-7">
                     <div class="card shadow border-0 h-100">
-                        <div class="card-header bg-white fw-bold">Revenue Growth</div>
+                        <div class="card-header bg-white fw-bold">{% trans "Revenue Growth" %}</div>
                         <div class="card-body">
                             <!-- Canvas ID matches the old script below -->
                             <canvas id="revenueChart" height="200"></canvas>
@@ -218,9 +218,9 @@
                     <div class="card bg-dark text-white border-0 shadow mb-3" style="background: linear-gradient(45deg, #1B3C59, #4E342E);">
                         <div class="card-body text-center py-4">
                             <i class="fa-solid fa-trophy fa-3x text-warning mb-3"></i>
-                            <h5 class="fw-light">Market Ranking</h5>
+                            <h5 class="fw-light">{% trans "Market Ranking" %}</h5>
                             <h1 class="display-3 fw-bold">{{ my_rank }} <span class="fs-6 text-white-50">/ {{ total_sellers }}</span></h1>
-                            <p class="small text-white-50 mb-0">Based on total revenue volume</p>
+                            <p class="small text-white-50 mb-0">{% trans "Based on total revenue volume" %}</p>
                         </div>
                     </div>
                     
@@ -228,11 +228,11 @@
                     <div class="card shadow border-0">
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-                                <span><i class="fa-solid fa-box text-primary me-2"></i> Active Products</span>
+                                <span><i class="fa-solid fa-box text-primary me-2"></i> {% trans "Active Products" %}</span>
                                 <span class="fw-bold">{{ total_products }}</span>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <span><i class="fa-solid fa-check-circle text-success me-2"></i> Successful Orders</span>
+                                <span><i class="fa-solid fa-check-circle text-success me-2"></i> {% trans "Successful Orders" %}</span>
                                 <span class="fw-bold">{{ total_orders }}</span>
                             </div>
                         </div>
@@ -252,7 +252,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold">Manage Business Identity</h5>
+                <h5 class="modal-title fw-bold">{% trans "Manage Business Identity" %}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             
@@ -260,10 +260,10 @@
                 <!-- TABS -->
                 <ul class="nav nav-tabs nav-fill mb-4" role="tablist">
                     <li class="nav-item">
-                        <button class="nav-link active fw-bold" data-bs-toggle="tab" data-bs-target="#info" type="button">General Info</button>
+                        <button class="nav-link active fw-bold" data-bs-toggle="tab" data-bs-target="#info" type="button">{% trans "General Info" %}</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#certs" type="button">Certificates</button>
+                        <button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#certs" type="button">{% trans "Certificates" %}</button>
                     </li>
                 </ul>
 
@@ -278,35 +278,35 @@
                             <div class="row g-3">
                                 <!-- Logo Upload -->
                                 <div class="col-12 text-center mb-3">
-                                    <label class="form-label small fw-bold">Update Logo</label>
+                                    <label class="form-label small fw-bold">{% trans "Update Logo" %}</label>
                                     <input type="file" name="logo" class="form-control form-control-sm w-50 mx-auto">
                                 </div>
 
                                 <!-- Text Inputs -->
                                 <div class="col-md-12">
-                                    <label class="form-label fw-bold small">Company Name</label>
+                                    <label class="form-label fw-bold small">{% trans "Company Name" %}</label>
                                     <input type="text" name="company_name" class="form-control" value="{{ profile.company_name }}">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold small">Country</label>
+                                    <label class="form-label fw-bold small">{% trans "Country" %}</label>
                                     <input type="text" name="country" class="form-control" value="{{ profile.country }}">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold small">City</label>
+                                    <label class="form-label fw-bold small">{% trans "City" %}</label>
                                     <input type="text" name="city" class="form-control" value="{{ profile.city }}">
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label fw-bold small">Short Bio</label>
+                                    <label class="form-label fw-bold small">{% trans "Short Bio" %}</label>
                                     <textarea name="description" class="form-control" rows="2">{{ profile.description }}</textarea>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label fw-bold small">Core Products</label>
+                                    <label class="form-label fw-bold small">{% trans "Core Products" %}</label>
                                     <input type="text" name="core_products" class="form-control" value="{{ profile.core_products }}">
                                 </div>
 
                                 <!-- ROLES SELECTION (Visual style from old code) -->
                                 <div class="col-12 mt-3">
-                                    <label class="form-label fw-bold mb-2">Select Your Roles:</label>
+                                    <label class="form-label fw-bold mb-2">{% trans "Select Your Roles:" %}</label>
                                     <div class="row g-2">
                                         <div class="col-md-6">
                                             <div class="form-check p-3 border rounded bg-light">
@@ -337,7 +337,7 @@
                             </div>
                             
                             <div class="mt-4 text-end">
-                                <button type="submit" class="btn btn-dark">Save Changes</button>
+                                <button type="submit" class="btn btn-dark">{% trans "Save Changes" %}</button>
                             </div>
                         </form>
                     </div>
@@ -349,24 +349,24 @@
                             <input type="hidden" name="upload_cert" value="1">
                             
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">Certification Type</label>
+                                <label class="form-label fw-bold small">{% trans "Certification Type" %}</label>
                                 {{ cert_form.name }}
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">Issuing Authority</label>
+                                <label class="form-label fw-bold small">{% trans "Issuing Authority" %}</label>
                                 {{ cert_form.authority_name }}
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">Expiration Date</label>
+                                <label class="form-label fw-bold small">{% trans "Expiration Date" %}</label>
                                 {{ cert_form.expiry_date }}
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">Document Image (JPG/PNG)</label>
+                                <label class="form-label fw-bold small">{% trans "Document Image (JPG/PNG)" %}</label>
                                 {{ cert_form.document_image }}
                             </div>
 
                             <div class="mt-4 text-end">
-                                <button type="submit" class="btn btn-success fw-bold">Upload for Verification</button>
+                                <button type="submit" class="btn btn-success fw-bold">{% trans "Upload for Verification" %}</button>
                             </div>
                         </form>
                     </div>
