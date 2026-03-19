@@ -1,13 +1,14 @@
+{% load static i18n %} 
 <footer class="text-center py-4 text-muted border-top mt-auto bg-white">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <p class="mb-0 small">
-                    &copy; 2026 <strong>Asortie</strong>.
-                    Addis Ababa, Ethiopia. Developer <strong><a href="https://bil-portfolio.netlify.app/" class="footer_bil">Bilal Nesru</a></strong>
-                    Powered By <strong><a href="https://anwar5promoter.com/" class="footer_bil">Anwar5Promoter</a></strong>
-                    <a href="#" class="text-decoration-none ms-2">Privacy</a> | 
-                    <a href="#" class="text-decoration-none ms-2">Terms</a>
+                    &copy; {% trans "2026" %} <strong>{% trans "Asortie" %}</strong>.
+                    {% trans "Addis Ababa, Ethiopia. Developer" %} <strong><a href="https://bil-portfolio.netlify.app/" class="footer_bil">{% trans "Bilal Nesru" %}</a></strong>
+                    {% trans "Powered By" %} <strong><a href="https://anwar5promoter.com/" class="footer_bil">{% trans "Anwar5Promoter" %}</a></strong>
+                    <a href="#" class="text-decoration-none ms-2">{% trans "Privacy" %}</a> | 
+                    <a href="#" class="text-decoration-none ms-2">{% trans "Terms" %}</a>
                 </p>
             </div>
         </div>
