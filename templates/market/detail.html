@@ -349,6 +349,12 @@
         cursor: grabbing;
         transition: none; /* remove transition when dragging */
     }
+    .current-price_2{
+        font-size: 1.2rem;
+        padding-top: 0.5rem;
+        font-weight: 700;
+        color: var(--pro-primary);
+    }
 </style>
 
 <div class="container py-5">
@@ -434,7 +440,13 @@
                             <div class="col-6">
                                 <label class="small fw-bold text-muted mb-2 d-block text-uppercase">{% trans "Total Estimate" %}</label>
                                 <div class="h-100 d-flex fw-bold fs-4 text-dark" id="totalPrice">
-                                    ${{ product.price|floatformat:2 }}
+                                    
+                                    {% if product.price == 0 %}
+                                        <span class="current-price_2">{% trans "Price On Request" %}</span>
+                                    {% else %}
+                                        ${{ product.price|floatformat:2 }}
+                                    {% endif %}
+                                    <!-- ${{ product.price|floatformat:2 }} -->
                                 </div>
                             </div>
                         </div>
