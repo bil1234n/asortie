@@ -379,4 +379,7 @@ body {
     .top-bar {
         justify-content: space-between;
     }
+    .user-name{
+        display: none;
+    }
 }
