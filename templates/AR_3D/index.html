@@ -215,46 +215,48 @@
             <div class="top-right-actions">
                 
                 
-                <form action="{% url 'set_language' %}" method="post" id="language-form" class="me-3 mb-0">
-                    {% csrf_token %}
-                    <input name="next" type="hidden" value="{{ request.get_full_path }}">
-                    
-                    {% get_current_language as CURRENT_LANG %}
-                    <input type="hidden" name="language" id="selected-language" value="{{ CURRENT_LANG }}">
-
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-light border-0 fw-medium dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-globe me-2"></i> Select Language
-                        </button>
+                    <form action="{% url 'set_language' %}" method="post" id="language-form" class="me-3 mb-0">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
                         
-                        <ul class="dropdown-menu shadow border-0">
-                            {% get_available_languages as ALL_LANGS %}
-                            {% get_language_info_list for ALL_LANGS as languages %}
-                            {% for lang in languages %}
-                                <li>
-                                    <button type="button" class="dropdown-item {% if lang.code == CURRENT_LANG %}active{% endif %}" 
-                                            onclick="document.getElementById('selected-language').value='{{ lang.code }}'; document.getElementById('language-form').submit();">
-                                        
-                                        {% if lang.code == 'en' %}
-                                            <img src="{% static 'img/usa.png' %}" alt="" width="20" class="me-2">
-                                        {% elif lang.code == 'am' %}
-                                            <img src="{% static 'img/eth.gif' %}" alt="" width="20" class="me-2">
-                                        {% elif lang.code == 'tr' %}
-                                            <img src="{% static 'img/tur.jpg' %}" alt="" width="20" class="me-2">
-                                        {% elif lang.code == 'fr' %}
-                                            <img src="{% static 'img/fra.webp' %}" alt="" width="20" class="me-2">
-                                        {% elif lang.code == 'ar' %}
-                                            <img src="{% static 'img/arb.webp' %}" alt="" width="20" class="me-2">
-                                        {% elif lang.code == 'ru' %}
-                                            <img src="{% static 'img/rus.webp' %}" alt="" width="20" class="me-2">
-                                        {% endif %}
-                                        {{ lang.name_local|title }}
-                                    </button>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </form>
+                        {% get_current_language as CURRENT_LANG %}
+                        <input type="hidden" name="language" id="selected-language" value="{{ CURRENT_LANG }}">
+
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light border-0 fw-medium dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-globe me-2"></i> 
+                                <span class="show_mobile">Lang</span>
+                                <span class="hiden_mobile">Select Language</span>
+                            </button>
+                            
+                            <ul class="dropdown-menu shadow border-0">
+                                {% get_available_languages as ALL_LANGS %}
+                                {% get_language_info_list for ALL_LANGS as languages %}
+                                {% for lang in languages %}
+                                    <li>
+                                        <button type="button" class="dropdown-item {% if lang.code == CURRENT_LANG %}active{% endif %}" 
+                                                onclick="document.getElementById('selected-language').value='{{ lang.code }}'; document.getElementById('language-form').submit();">
+                                            
+                                            {% if lang.code == 'en' %}
+                                                <img src="{% static 'img/usa.png' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'am' %}
+                                                <img src="{% static 'img/eth.gif' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'tr' %}
+                                                <img src="{% static 'img/tur.jpg' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'fr' %}
+                                                <img src="{% static 'img/fra.webp' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'ar' %}
+                                                <img src="{% static 'img/arb.webp' %}" alt="" width="20" class="me-2">
+                                            {% elif lang.code == 'ru' %}
+                                                <img src="{% static 'img/rus.webp' %}" alt="" width="20" class="me-2">
+                                            {% endif %}
+                                            {{ lang.name_local|title }}
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </form>
 
                 {% if user.is_authenticated %}
                     <!-- NOTIFICATION BELL -->
