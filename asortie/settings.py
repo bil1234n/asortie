@@ -205,3 +205,5 @@ EXTRA_LANG_INFO = {
 
 LANG_INFO = dict(django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO)
 django.conf.locale.LANG_INFO = LANG_INFO
+
+LOGIN_URL = '/login/'
