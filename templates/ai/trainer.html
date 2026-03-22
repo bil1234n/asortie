@@ -178,6 +178,24 @@
             font-size: 1.5rem;
         }
         @media (max-width: 1024px) { .mobile-close { display: block; } }
+        
+.show_mobile{
+    display: none;
+}
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {      
+    .user-name{
+        display: none;
+    }
+}
+@media (max-width: 450px) {
+    .hiden_mobile{
+        display: none;
+    }
+    .show_mobile{
+        display: block;
+    }
+}
     </style>
 </head>
 {% get_current_language_bidi as LANGUAGE_BIDI %}
