@@ -355,7 +355,9 @@ body {
     background: var(--secondary-color);
     color: #fff;
 }
-
+.show_mobile{
+    display: none;
+}
 /* ai */
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
@@ -381,5 +383,13 @@ body {
     }
     .user-name{
         display: none;
+    }
+}
+@media (max-width: 450px) {
+    .hiden_mobile{
+        display: none;
+    }
+    .show_mobile{
+        display: block;
     }
 }
