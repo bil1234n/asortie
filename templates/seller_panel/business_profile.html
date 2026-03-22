@@ -27,7 +27,7 @@
     }
     .verified-icon { margin-left: 8px; font-size: 1rem; }
 
-    /* Revenue Card Borders (From your old code) */
+    /* Revenue Card Borders */
     .border-left-coffee { border-left: 5px solid #1B3C59 !important; }
     .border-left-gold { border-left: 5px solid #D4AF37 !important; }
     .border-left-green { border-left: 5px solid #28a745 !important; }
@@ -36,14 +36,17 @@
 <div class="container py-4">
     
     <!-- HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 mobile_block">
         <div>
             <h2 class="fw-bold text-dark">{% trans "Business Intelligence" %}</h2>
             <p class="text-muted mb-0">{% trans "Performance analytics and identity management." %}</p>
         </div>
+        {% if request.user.is_authenticated and request.user.id == profile.user.id %}
         <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#editProfileModal">
             <i class="fa-solid fa-pen-to-square me-2"></i> {% trans "Edit Profile & Roles" %}
         </button>
+        {% endif %}
+
     </div>
 
     <div class="row g-4">
@@ -77,12 +80,13 @@
 
                     <!-- Roles Badges -->
                     <div class="d-flex justify-content-center flex-wrap gap-1 mb-3">
-                        {% if profile.is_farmer %}<span class="badge bg-success rounded-pill">Farmer</span>{% endif %}
-                        {% if profile.is_roaster %}<span class="badge bg-danger rounded-pill">Roaster</span>{% endif %}
-                        {% if profile.is_exporter %}<span class="badge bg-primary rounded-pill">Exporter</span>{% endif %}
-                        {% if profile.is_supplier %}<span class="badge bg-warning text-dark rounded-pill">Supplier</span>{% endif %}
+                        {% if profile.is_farmer %}<span class="badge bg-success rounded-pill">{% trans "Farmer" %}</span>{% endif %}
+                        {% if profile.is_roaster %}<span class="badge bg-danger rounded-pill">{% trans "Roaster" %}</span>{% endif %}
+                        {% if profile.is_exporter %}<span class="badge bg-primary rounded-pill">{% trans "Exporter" %}</span>{% endif %}
+                        {% if profile.is_supplier %}<span class="badge bg-warning text-dark rounded-pill">{% trans "Supplier" %}</span>{% endif %}
+                        
                         {% if not profile.is_farmer and not profile.is_roaster and not profile.is_exporter and not profile.is_supplier %}
-                            <span class="badge bg-light text-dark border">No Roles Set</span>
+                            <span class="badge bg-light text-dark border">{% trans "No Roles Set" %}</span>
                         {% endif %}
                     </div>
 
@@ -117,7 +121,6 @@
                                 <div class="cert-badge d-flex align-items-center px-3 py-2 rounded-pill" 
                                      data-bs-toggle="modal" data-bs-target="#viewCertModal{{ cert.id }}">
                                     
-                                    <!-- Icon Logic -->
                                     {% if "Organic" in cert.name %}<i class="fa-solid fa-leaf text-success me-2"></i>
                                     {% elif "Fair" in cert.name %}<i class="fa-solid fa-scale-balanced text-primary me-2"></i>
                                     {% else %}<i class="fa-solid fa-certificate text-warning me-2"></i>{% endif %}
@@ -169,43 +172,42 @@
         <!-- RIGHT COLUMN: ANALYTICS -->
         <div class="col-lg-8">
             
-            <!-- 1. REVENUE CARDS (From Old Code) -->
+            <!-- 1. REVENUE/SPEND CARDS -->
             <div class="row g-3 mb-4">
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm h-100 border-left-coffee">
                         <div class="card-body">
-                            <h6 class="text-muted text-uppercase small fw-bold">{% trans "Revenue Today" %}</h6>
-                            <h3 class="fw-bold text-dark mb-0">${{ rev_today|floatformat:2 }}</h3>
+                            <h6 class="text-muted text-uppercase small fw-bold">{{ label_1 }}</h6>
+                            <h3 class="fw-bold text-dark mb-0">${{ val_today|floatformat:2 }}</h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm h-100 border-left-gold">
                         <div class="card-body">
-                            <h6 class="text-muted text-uppercase small fw-bold">{% trans "Revenue This Month" %}</h6>
-                            <h3 class="fw-bold text-dark mb-0">${{ rev_month|floatformat:2 }}</h3>
+                            <h6 class="text-muted text-uppercase small fw-bold">{% trans "This Month" %}</h6>
+                            <h3 class="fw-bold text-dark mb-0">${{ val_month|floatformat:2 }}</h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm h-100 border-left-green">
                         <div class="card-body">
-                            <h6 class="text-muted text-uppercase small fw-bold">{% trans "Revenue This Year" %}</h6>
-                            <h3 class="fw-bold text-dark mb-0">${{ rev_year|floatformat:2 }}</h3>
+                            <h6 class="text-muted text-uppercase small fw-bold">{% trans "This Year" %}</h6>
+                            <h3 class="fw-bold text-dark mb-0">${{ val_year|floatformat:2 }}</h3>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. CHART & RANKING (From Old Code) -->
+            <!-- 2. CHART & RANKING -->
             <div class="row g-4">
                 
                 <!-- Chart Area -->
                 <div class="col-md-7">
                     <div class="card shadow border-0 h-100">
-                        <div class="card-header bg-white fw-bold">{% trans "Revenue Growth" %}</div>
+                        <div class="card-header bg-white fw-bold">{% trans "Financial Growth" %}</div>
                         <div class="card-body">
-                            <!-- Canvas ID matches the old script below -->
                             <canvas id="revenueChart" height="200"></canvas>
                         </div>
                     </div>
@@ -214,27 +216,34 @@
                 <!-- Ranking & Stats -->
                 <div class="col-md-5">
                     
-                    <!-- Market Ranking -->
+                    {% if profile.user.role == 'seller' %}
+
+                    <!-- Market Ranking (Sellers Only) -->
                     <div class="card bg-dark text-white border-0 shadow mb-3" style="background: linear-gradient(45deg, #1B3C59, #4E342E);">
                         <div class="card-body text-center py-4">
                             <i class="fa-solid fa-trophy fa-3x text-warning mb-3"></i>
                             <h5 class="fw-light">{% trans "Market Ranking" %}</h5>
                             <h1 class="display-3 fw-bold">{{ my_rank }} <span class="fs-6 text-white-50">/ {{ total_sellers }}</span></h1>
-                            <p class="small text-white-50 mb-0">{% trans "Based on total revenue volume" %}</p>
+                            <p class="small text-white-50 mb-0">{% trans "Based on total revenue" %}</p>
                         </div>
                     </div>
+                    {% endif %}
                     
-                    <!-- Inventory Stats -->
+                    <!-- Stats Card -->
                     <div class="card shadow border-0">
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-                                <span><i class="fa-solid fa-box text-primary me-2"></i> {% trans "Active Products" %}</span>
-                                <span class="fw-bold">{{ total_products }}</span>
+                                <span><i class="fa-solid fa-box text-primary me-2"></i> {{ label_2 }}</span>
+                                <span class="fw-bold">{{ count_1 }}</span>
                             </div>
+                            
+                            {% if profile.user.role == 'seller' %}
+
                             <div class="d-flex justify-content-between">
-                                <span><i class="fa-solid fa-check-circle text-success me-2"></i> {% trans "Successful Orders" %}</span>
-                                <span class="fw-bold">{{ total_orders }}</span>
+                                <span><i class="fa-solid fa-check-circle text-success me-2"></i> {{ label_3 }}</span>
+                                <span class="fw-bold">{{ count_2 }}</span>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -311,25 +320,25 @@
                                         <div class="col-md-6">
                                             <div class="form-check p-3 border rounded bg-light">
                                                 <input class="form-check-input" type="checkbox" name="is_farmer" id="role1" {% if profile.is_farmer %}checked{% endif %}>
-                                                <label class="form-check-label w-100" for="role1"><i class="fa-solid fa-leaf text-success me-2"></i> Farmer</label>
+                                                <label class="form-check-label w-100" for="role1"><i class="fa-solid fa-leaf text-success me-2"></i> {% trans "Farmer" %}</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check p-3 border rounded bg-light">
                                                 <input class="form-check-input" type="checkbox" name="is_roaster" id="role2" {% if profile.is_roaster %}checked{% endif %}>
-                                                <label class="form-check-label w-100" for="role2"><i class="fa-solid fa-fire text-danger me-2"></i> Roaster</label>
+                                                <label class="form-check-label w-100" for="role2"><i class="fa-solid fa-fire text-danger me-2"></i> {% trans "Roaster" %}</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check p-3 border rounded bg-light">
                                                 <input class="form-check-input" type="checkbox" name="is_exporter" id="role3" {% if profile.is_exporter %}checked{% endif %}>
-                                                <label class="form-check-label w-100" for="role3"><i class="fa-solid fa-plane-departure text-primary me-2"></i> Exporter</label>
+                                                <label class="form-check-label w-100" for="role3"><i class="fa-solid fa-plane-departure text-primary me-2"></i> {% trans "Exporter" %}</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check p-3 border rounded bg-light">
                                                 <input class="form-check-input" type="checkbox" name="is_supplier" id="role4" {% if profile.is_supplier %}checked{% endif %}>
-                                                <label class="form-check-label w-100" for="role4"><i class="fa-solid fa-truck text-warning me-2"></i> Supplier</label>
+                                                <label class="form-check-label w-100" for="role4"><i class="fa-solid fa-truck text-warning me-2"></i> {% trans "Supplier" %}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -388,7 +397,7 @@
             data: {
                 labels: {{ chart_labels|safe }},
                 datasets: [{
-                    label: 'Revenue (USD)',
+                    label: 'Financials (USD)',
                     data: {{ chart_data|safe }},
                     // Exact colors from your old code
                     backgroundColor: ['#1B3C59', '#D4AF37', '#28a745'], 
