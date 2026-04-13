@@ -39,3 +39,6 @@ google-auth-oauthlib
 # --- MULTI LANG ---
 deep-translator
 polib
+
+# turkish payment
+iyzipay
