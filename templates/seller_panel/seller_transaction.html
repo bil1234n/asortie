@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block content %}
+<style>
+    /* Professional SaaS Base Styling */
+    .finance-dashboard { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #f8fafc; min-height: 100vh; padding-bottom: 3rem; }
+    
+    /* Elegant Tabs */
+    .nav-tabs-custom { border-bottom: 2px solid #e2e8f0; gap: 1.5rem; }
+    .nav-tabs-custom .nav-link { color: #64748b; font-weight: 600; padding: 0.75rem 0; border: none; position: relative; background: transparent; transition: color 0.2s; }
+    .nav-tabs-custom .nav-link:hover { color: #0f172a; }
+    .nav-tabs-custom .nav-link.active { color: #2563eb; background: transparent; }
+    .nav-tabs-custom .nav-link.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background-color: #2563eb; border-radius: 2px; }
+
+    /* Stripe-style Segmented Control (Currency Toggle) */
+    .segmented-control { background-color: #e2e8f0; padding: 4px; border-radius: 10px; display: inline-flex; align-items: center; }
+    .segmented-control .btn-check { display: none; }
+    .segmented-control label { padding: 6px 16px; font-size: 0.85rem; font-weight: 600; color: #475569; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; margin: 0; display: flex; align-items: center; }
+    .segmented-control label:hover { color: #0f172a; }
+    .segmented-control .btn-check:checked + label { background-color: #ffffff; color: #0f172a; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+    /* Premium Metric Cards */
+    .metric-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); transition: transform 0.2s ease, box-shadow 0.2s ease; position: relative; overflow: hidden; }
+    .metric-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04); }
+    
+    .card-gradient-primary { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #ffffff; border: none; }
+    .card-gradient-primary .text-muted { color: #94a3b8 !important; }
+    .card-gradient-primary .icon-watermark { position: absolute; right: -20px; bottom: -20px; font-size: 8rem; opacity: 0.05; transform: rotate(-15deg); pointer-events: none; }
+    
+    .metric-label { font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700; }
+    .metric-value { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em; margin-top: 0.5rem; }
+    
+    .border-danger-soft { border-left: 4px solid #ef4444; }
+
+    /* Refined Table Design */
+    .table-wrapper { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); overflow: hidden; }
+    .table-custom { margin-bottom: 0; }
+    .table-custom thead th { background-color: #f8fafc; color: #64748b; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 1rem 1.5rem; border-bottom: 1px solid #e2e8f0; }
+    .table-custom tbody td { padding: 1.25rem 1.5rem; vertical-align: middle; border-bottom: 1px solid #f1f5f9; color: #334155; transition: background-color 0.2s ease; }
+    .table-custom tbody tr:hover td { background-color: #f8fafc; }
+    .table-custom tbody tr:last-child td { border-bottom: none; }
+    
+    /* Professional Badges */
+    .badge-soft { padding: 0.4rem 0.75rem; font-weight: 600; font-size: 0.75rem; border-radius: 6px; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .badge-stripe { background-color: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+    .badge-chapa { background-color: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .badge-cod { background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+    
+    .status-paid { background-color: #dbeafe; color: #1e40af; }
+    .status-shipped { background-color: #fef3c7; color: #b45309; }
+    .status-success { background-color: #dcfce7; color: #166534; }
+
+    .user-link { color: #2563eb; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s; }
+    .user-link:hover { color: #1d4ed8; text-decoration: underline; }
+</style>
+
+<div class="finance-dashboard pt-5">
+    <div class="container max-w-7xl">
+        
+        <!-- HEADER & NAVIGATION -->
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end mb-5 gap-4">
+            <div>
+                <h2 class="fw-bold mb-4 text-dark" style="letter-spacing: -0.02em;">
+                    <i class="fa-solid fa-layer-group text-primary me-2"></i>{% trans "Financial Hub" %}
+                </h2>
+                <ul class="nav nav-tabs-custom mb-0 d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'seller_payment_setup' %}">
+                            <i class="fa-solid fa-sliders me-2"></i>{% trans "Payment Configuration" %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'seller_transactions' %}">
+                            <i class="fa-solid fa-chart-line me-2"></i>{% trans "Transactions & Payouts" %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CURRENCY TOGGLE -->
+            <div class="d-flex flex-column align-items-lg-end mb-2">
+                <div class="d-flex align-items-center mb-2">
+                    <span class="metric-label text-muted me-3"><i class="fa-solid fa-globe me-1"></i> {% trans "Display Currency" %}</span>
+                    <div class="segmented-control shadow-sm">
+                        <input type="radio" class="btn-check" name="currency_mode" id="cur-usd" value="USD" checked autocomplete="off">
+                        <label for="cur-usd"><img src="https://flagcdn.com/w20/us.png" width="16" class="me-1 rounded-sm"> {% trans "USD" %}</label>
+                        
+                        <input type="radio" class="btn-check" name="currency_mode" id="cur-etb" value="ETB" autocomplete="off">
+                        <label for="cur-etb"><img src="https://flagcdn.com/w20/et.png" width="16" class="me-1 rounded-sm"> {% trans "ETB" %}</label>
+                        
+                        <input type="radio" class="btn-check" name="currency_mode" id="cur-try" value="TRY" autocomplete="off">
+                        <label for="cur-try"><img src="https://flagcdn.com/w20/tr.png" width="16" class="me-1 rounded-sm"> {% trans "TRY" %}</label>
+                    </div>
+                </div>
+                <small id="live-rate-status" class="text-muted" style="font-size: 0.75rem; font-weight: 500;">
+                    <i class="fa-solid fa-circle-notch fa-spin text-primary me-1"></i> {% trans "Syncing exchange rates..." %}
+                </small>
+            </div>
+        </div>
+
+        <!-- METRIC CARDS -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4">
+                <div class="metric-card card-gradient-primary h-100 p-4">
+                    <i class="fa-solid fa-wallet icon-watermark"></i>
+                    <div class="position-relative z-1">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="metric-label text-muted">{% trans "Net Earnings" %} (95%)</span>
+                            <div class="bg-white bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                                <i class="fa-solid fa-arrow-trend-up text-white" style="font-size: 0.9rem;"></i>
+                            </div>
+                        </div>
+                        <div class="metric-value money-display text-nowrap" data-usd="{{ total_net|default:0|floatformat:2 }}">${{ total_net|floatformat:2 }}</div>
+                        <div class="mt-3 text-muted" style="font-size: 0.8rem;">
+                            <i class="fa-solid fa-building-columns me-1"></i> {% trans "Ready for payout" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="metric-card h-100 p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="metric-label text-muted">{% trans "Gross Volume" %}</span>
+                        <div class="bg-light rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                            <i class="fa-solid fa-money-bill-transfer text-primary" style="font-size: 0.9rem;"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value text-dark money-display text-nowrap" data-usd="{{ total_gross|default:0|floatformat:2 }}">${{ total_gross|floatformat:2 }}</div>
+                    <div class="mt-3 text-muted" style="font-size: 0.8rem;">
+                        {% trans "Total client payments received" %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="metric-card border-danger-soft h-100 p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="metric-label text-muted">{% trans "Platform Fees" %} (5%)</span>
+                        <div class="bg-danger bg-opacity-10 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                            <i class="fa-solid fa-bolt text-danger" style="font-size: 0.9rem;"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value text-danger money-display text-nowrap" data-usd="{{ total_fee|default:0|floatformat:2 }}" data-prefix="-">-${{ total_fee|floatformat:2 }}</div>
+                    <div class="mt-3 text-muted" style="font-size: 0.8rem;">
+                        {% trans "Asortie maintenance commission" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRANSACTIONS TABLE -->
+        <div class="table-wrapper">
+            <div class="bg-white p-4 d-flex justify-content-between align-items-center border-bottom" style="border-color: #e2e8f0 !important;">
+                <h5 class="mb-0 fw-bold text-dark" style="font-size: 1.1rem;"><i class="fa-solid fa-clock-rotate-left me-2 text-muted"></i>{% trans "Recent Transactions" %}</h5>
+                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold" style="font-size: 0.75rem;"><i class="fa-solid fa-download me-1"></i> {% trans "Export CSV" %}</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-custom w-100">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">{% trans "Order Info" %}</th>
+                            <th>{% trans "Customer & Product" %}</th>
+                            <th class="text-end">{% trans "Gross" %}</th>
+                            <th class="text-end">{% trans "Fee" %}</th>
+                            <th class="text-end">{% trans "Net" %}</th>
+                            <th class="text-center">{% trans "Gateway" %}</th>
+                            <th class="pe-4 text-end">{% trans "Status" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in transactions %}
+                        <tr>
+                            <td class="ps-4">
+                                <div class="fw-bold text-dark" style="font-size: 0.9rem;">#{{ order.id }}</div>
+                                <div class="text-muted mt-1" style="font-size: 0.75rem;">{{ order.created_at|date:"M d, Y" }} <br> {{ order.created_at|date:"h:i A" }}</div>
+                            </td>
+                            <td>
+                                <div>
+                                    <a href="{% url 'chat_room' order.buyer.id %}" class="user-link">
+                                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">
+                                            <i class="fa-solid fa-user text-secondary" style="font-size: 0.7rem;"></i>
+                                        </div>
+                                        {{ order.buyer.username }}
+                                    </a>
+                                </div>
+                                <div class="text-muted mt-1 text-truncate" style="max-width: 220px; font-size: 0.8rem;">{{ order.product.name }}</div>
+                            </td>
+                            
+                            <td class="text-end text-dark fw-semibold text-nowrap money-display" data-usd="{{ order.gross|default:0|floatformat:2 }}" style="font-size: 0.95rem;">${{ order.gross|floatformat:2 }}</td>
+                            <td class="text-end text-danger text-nowrap money-display" data-usd="{{ order.fee|default:0|floatformat:2 }}" data-prefix="-" style="font-size: 0.95rem;">-${{ order.fee|floatformat:2 }}</td>
+                            <td class="text-end text-success fw-bold text-nowrap money-display" data-usd="{{ order.net|default:0|floatformat:2 }}" style="font-size: 0.95rem;">${{ order.net|floatformat:2 }}</td>
+                            
+                            <td class="text-center">
+                                {% if order.payment_gateway == "stripe" %}
+                                    <span class="badge-soft badge-stripe">
+                                        <i class="fa-brands fa-stripe-s"></i> {% trans "Stripe" %}
+                                    </span>
+                                {% elif order.payment_gateway == "chapa" %}
+                                    <span class="badge-soft badge-chapa">
+                                        <i class="fa-solid fa-mobile-screen"></i> {% trans "Chapa" %}
+                                    </span>
+                                {% elif order.payment_gateway == "cod" %}
+                                    <span class="badge-soft badge-cod">
+                                        <i class="fa-solid fa-hand-holding-dollar"></i> {% trans "COD" %}
+                                    </span>
+                                {% else %}
+                                    <span class="badge-soft" style="background: #f1f5f9; color: #64748b;">{% trans "System" %}</span>
+                                {% endif %}
+                            </td>
+                            <td class="pe-4 text-end">
+                                <span class="badge-soft {% if order.status == 'Paid' %}status-paid{% elif order.status == 'Shipped' %}status-shipped{% else %}status-success{% endif %}">
+                                    <div class="rounded-circle bg-current" style="width: 6px; height: 6px; background-color: currentColor;"></div>
+                                    {{ order.get_status_display }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center py-5">
+                                <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                                    <i class="fa-solid fa-receipt fs-3 text-secondary opacity-50"></i>
+                                </div>
+                                <h6 class="fw-bold text-dark">{% trans "No transactions yet" %}</h6>
+                                <p class="text-muted small mb-0">{% trans "Successful orders and payments will appear here automatically." %}</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROFESSIONAL EXCHANGE RATE LOGIC -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let exchangeRates = { USD: 1, ETB: 115.0, TRY: 32.0 };
+        const currencySymbols = { USD: '$', ETB: 'Br ', TRY: '₺ ' };
+        let activeCurrency = 'USD';
+
+        async function fetchLiveRates() {
+            try {
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                const data = await response.json();
+                
+                if (data && data.rates) {
+                    exchangeRates.ETB = data.rates.ETB || exchangeRates.ETB;
+                    exchangeRates.TRY = data.rates.TRY || exchangeRates.TRY;
+                    
+                    document.getElementById('live-rate-status').innerHTML = 
+                        '<i class="fa-solid fa-circle-check text-success me-1"></i> Live rates active';
+                }
+            } catch (error) {
+                console.warn('API unavailable, falling back to static offline rates.', error);
+                document.getElementById('live-rate-status').innerHTML = 
+                    '<i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Offline approximate rates';
+            }
+            renderAllMoneyElements();
+        }
+
+        function renderAllMoneyElements() {
+            const currentMultiplier = exchangeRates[activeCurrency];
+            const activeSymbol = currencySymbols[activeCurrency];
+
+            document.querySelectorAll('.money-display').forEach(el => {
+                const rawUsdString = el.getAttribute('data-usd') || '0';
+                const baseUsd = parseFloat(rawUsdString.replace(/,/g, ''));
+                const prefix = el.getAttribute('data-prefix') || '';
+
+                const convertedValue = baseUsd * currentMultiplier;
+                const formattedAmount = convertedValue.toLocaleString(undefined, {
+                    minimumFractionDigits: 2, 
+                    maximumFractionDigits: 2
+                });
+
+                el.innerText = `${prefix}${activeSymbol}${formattedAmount}`;
+            });
+        }
+
+        document.querySelectorAll('input[name="currency_mode"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                activeCurrency = e.target.value;
+                renderAllMoneyElements();
+            });
+        });
+
+        fetchLiveRates();
+    });
+</script>
+{% endblock %}
