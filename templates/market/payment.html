@@ -3,238 +3,671 @@
 
 {% block content %}
 <style>
-    :root {
-        --coffee-dark: #1B3C59;
-        --coffee-light: #5d4037;
-        --gold-accent: #d4af37;
-        --bg-light: #f8f9fa;
-        --border-color: #e9ecef;
-    }
+    /* Professional Checkout Styling */
+    .checkout-wrapper { max-width: 1050px; margin: 0 auto; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    
+    .step-indicator { display: flex; justify-content: space-between; margin-bottom: 2.5rem; position: relative; }
+    .step-indicator::before { content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 2px; background: #e9ecef; z-index: 1; }
+    .step { position: relative; z-index: 2; background: transparent; padding: 0 15px; text-align: center; color: #adb5bd; }
+    .step.active { color: #212529; font-weight: bold; }
+    .step-circle { width: 32px; height: 32px; border-radius: 50%; background: #e9ecef; color: #fff; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 14px; transition: all 0.3s; }
+    .step.active .step-circle { background: #0d6efd; box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15); }
+    
+    .payment-option-card { cursor: pointer; transition: all 0.2s ease; border: 2px solid #f8f9fa; background: #f8f9fa; border-radius: 12px; }
+    .payment-option-card:hover { border-color: #dee2e6; transform: translateY(-2px); }
+    .payment-radio-input:checked + .payment-option-card { border-color: #0d6efd; background-color: #f8fbff; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.1); }
+    .payment-radio-input { display: none; }
+    
+    /* Map & Inputs */
+    #map { height: 380px; border-radius: 12px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #dee2e6; }
+    .country-select-wrapper { border-left: 4px solid #0d6efd; padding-left: 15px; background: #f8f9fa; border-radius: 0 8px 8px 0; }
+    
+    /* Input Group Styling */
+    .search-input-group { box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; border: 1px solid #ced4da; }
+    .search-input-group .form-control:focus { box-shadow: none; border-color: transparent; }
+    .btn-location { background-color: #e9ecef; border: none; color: #0d6efd; transition: all 0.2s; }
+    .btn-location:hover { background-color: #0d6efd; color: #fff; }
 
-    /* Checkout Card Styling */
-    .checkout-card {
-        border: none;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        overflow: hidden;
-    }
+    /* Summary Card */
+    .summary-box { background: #f8f9fa; border-radius: 12px; padding: 24px; border: 1px solid #e9ecef; }
+    .price-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 1.05rem; }
+    .price-row.total { border-top: 2px dashed #dee2e6; padding-top: 16px; font-size: 1.25rem; font-weight: bold; margin-top: 16px; margin-bottom: 0; }
 
-    .checkout-header {
-        background: linear-gradient(135deg, var(--coffee-dark), var(--coffee-light));
-        color: white;
-        padding: 20px 25px;
-    }
+    /* Currency Converter Styling */
+    .currency-converter { background-color: #ffffff; border-radius: 8px; padding: 12px; border: 1px solid #e9ecef; }
 
-    /* Product Summary */
-    .product-thumb {
-        width: 90px;
-        height: 90px;
-        object-fit: contain;
-        border-radius: 12px;
-        border: 2px solid var(--border-color);
+    .btn-check:checked+.btn small{
+        color: #fff !important;
     }
-
-    .price-tag {
-        font-size: 1.5rem;
-        font-weight: 800;
-        color: var(--coffee-dark);
-    }
-
-    /* Custom Payment Radio Buttons */
-    .payment-radio-input {
-        display: none; /* Hide default radio */
-    }
-
-    .payment-option-card {
-        display: flex;
-        align-items: center;
-        padding: 20px;
-        border: 2px solid var(--border-color);
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        background: white;
-        margin-bottom: 15px;
-    }
-
-    .payment-option-card:hover {
-        border-color: #b0b0b0;
-        transform: translateY(-2px);
-    }
-
-    /* Selected State */
-    .payment-radio-input:checked + .payment-option-card {
-        border-color: var(--gold-accent);
-        background-color: #fffcf2; /* Very light gold tint */
-        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
-    }
-
-    .payment-radio-input:checked + .payment-option-card .check-icon {
-        color: var(--gold-accent);
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    .payment-icon {
-        font-size: 1.8rem;
-        width: 50px;
-        text-align: center;
-        color: var(--coffee-light);
-        margin-right: 15px;
-    }
-
-    .check-icon {
-        margin-left: auto;
-        font-size: 1.2rem;
-        opacity: 0;
-        transform: scale(0.5);
-        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    /* Secure Badge */
-    .secure-badge {
-        background: #e8f5e9;
-        color: #2e7d32;
-        padding: 8px 15px;
-        border-radius: 50px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
+    .col-lg-5{
+        z-index: 1;
     }
 </style>
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-            
-            <form method="post" id="payment-form">
-                {% csrf_token %}
-                
-                <!-- MAIN CARD -->
-                <div class="card checkout-card mb-4">
-                    
-                    <!-- Header -->
-                    <div class="checkout-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0 fw-bold"><i class="fa-solid fa-lock me-2"></i>{% trans "Secure Checkout" %}</h4>
-                        <span class="badge bg-warning text-dark">{% trans "Step 2 of 2" %}</span>
-                    </div>
+<div class="container py-5 checkout-wrapper">
+    <div class="step-indicator d-none d-md-flex">
+        <div class="step active">
+            <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+            <small>{% trans "Negotiation" %}</small>
+        </div>
+        <div class="step active">
+            <div class="step-circle">2</div>
+            <small>{% trans "Delivery & Payment" %}</small>
+        </div>
+        <div class="step">
+            <div class="step-circle">3</div>
+            <small>{% trans "Confirmation" %}</small>
+        </div>
+    </div>
 
-                    <div class="card-body p-4">
+    <form method="post" id="payment-form">
+        {% csrf_token %}
+        <input type="hidden" name="calculated_delivery_fee" id="hidden_delivery_fee" value="0">
+        <input type="hidden" name="delivery_lat" id="hidden_lat" value="">
+        <input type="hidden" name="delivery_lng" id="hidden_lng" value="">
+        <input type="hidden" name="buyer_country" id="hidden_country" value="">
+        <input type="hidden" name="transport_type" id="hidden_transport_type" value="">
+
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <!-- Delivery Options Section (Unchanged) -->
+                <div class="card shadow-sm border-0 mb-4 rounded-4">
+                    <div class="card-body p-4 p-md-5">
+                        <h5 class="fw-bold mb-4"><i class="fa-solid fa-truck text-primary me-2"></i> {% trans "Delivery Options" %}</h5>
                         
-                        <!-- Order Summary Section -->
-                        <h6 class="text-muted text-uppercase small fw-bold mb-3">{% trans "Order Summary" %}</h6>
-                        <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
-                            {% if order.product.image %}
-                                <img src="{{ order.product.image.url }}" alt="{{ order.product.name }}" class="product-thumb shadow-sm me-3">
-                            {% else %}
-                                <div class="product-thumb bg-light d-flex align-items-center justify-content-center text-muted me-3">
-                                    <i class="fa-solid fa-mug-hot fa-2x"></i>
-                                </div>
-                            {% endif %}
-                            
-                            <div class="flex-grow-1">
-                                <h5 class="mb-1 fw-bold text-dark">{{ order.product.name }}</h5>
-                                <p class="text-muted mb-0 small">
-                                    <i class="fa-solid fa-cubes me-1"></i> {% trans "Qty:" %} {{ order.quantity }}
-                                </p>
+                        <div class="row g-3 mb-4">
+                            <div class="col-sm-6">
+                                <input type="radio" class="btn-check" name="delivery_option" id="opt-pickup" value="Pickup" autocomplete="off" checked onchange="toggleDeliveryUI()">
+                                <label class="btn btn-outline-primary w-100 py-3 h-100 d-flex flex-column align-items-center justify-content-center rounded-3" for="opt-pickup">
+                                    <i class="fa-solid fa-store fs-4 mb-2"></i>
+                                    <span class="fw-bold">Store Pickup</span>
+                                    <small class="text-success fw-bold mt-1">Free</small>
+                                </label>
                             </div>
-                            <div class="text-end">
-                                <small class="text-muted d-block">{% trans "Total" %}</small>
-                                <span class="price-tag">${{ order.total_price }}</span>
+                            <div class="col-sm-6">
+                                <input type="radio" class="btn-check" name="delivery_option" id="opt-delivery" value="Delivery" autocomplete="off" onchange="toggleDeliveryUI()">
+                                <label class="btn btn-outline-primary w-100 py-3 h-100 d-flex flex-column align-items-center justify-content-center rounded-3" for="opt-delivery">
+                                    <i class="fa-solid fa-map-location-dot fs-4 mb-2"></i>
+                                    <span class="fw-bold">Deliver to Me</span>
+                                    <small class="text-muted mt-1">Calculated intelligently</small>
+                                </label>
                             </div>
                         </div>
 
-                        <!-- Error Message -->
-                        {% if error %}
-                        <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
-                            <i class="fa-solid fa-circle-exclamation me-2"></i>
-                            <div>{{ error }}</div>
+                        <div id="delivery-ui-section" style="display: none; animation: fadeIn 0.3s;">
+                            <div class="mb-4 p-3 country-select-wrapper">
+                                <label class="form-label fw-bold text-uppercase small text-muted"><i class="fa-solid fa-globe me-2"></i>{% trans "Destination Country" %}</label>
+                                <select class="form-select form-select-lg border-0 bg-transparent fw-bold" id="buyer_country_select" onchange="handleCountryChange()">
+                                    <option value="" selected disabled>-- Select Destination Country --</option>
+                                    <option value="ethiopia">Ethiopia</option>
+                                    <option value="turkey">Turkey</option>
+                                    <option value="usa">United States</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="canada">Canada</option>
+                                    <option value="uae">United Arab Emirates</option>
+                                    <option value="china">China</option>
+                                    <option value="kenya">Kenya</option>
+                                    <option value="other">Other International</option>
+                                </select>
+                            </div>
+
+                            <div id="domestic-ui" style="display: none;">
+                                <label class="form-label fw-bold small text-muted text-uppercase">{% trans "Set Delivery Pin" %}</label>
+                                <div class="input-group input-group-lg search-input-group mb-3">
+                                    <span class="input-group-text bg-white border-0 text-danger"><i class="fa-solid fa-location-dot"></i></span>
+                                    <input id="pac-input" class="form-control border-0" type="text" placeholder="Search address or click on the map..." />
+                                    <button class="btn btn-location px-4" type="button" id="btn-my-location" onclick="getUserLocation()" title="Use My Current GPS Location">
+                                        <i class="fa-solid fa-crosshairs me-2"></i><span class="d-none d-sm-inline">Locate Me</span>
+                                    </button>
+                                </div>
+                                <div id="map" class="mb-3 position-relative">
+                                    <div id="map-loading" class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-light z-1">
+                                        <div class="spinner-border text-primary mb-2" role="status"></div>
+                                        <span class="text-muted fw-bold">Initializing Logistics Engine...</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="international-ui" style="display: none;" class="p-4 border rounded-3 bg-light mb-3">
+                                <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-ship me-2"></i>International Freight Logistics</h6>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold small">Preferred Transport Method</label>
+                                    <select class="form-select form-select-lg shadow-sm border-0" id="buyer_transport_type" onchange="calculateInternationalShipping()">
+                                        <option value="" selected disabled>-- Select Transport --</option>
+                                        <option value="Air">✈️ Air Freight (Fastest)</option>
+                                        <option value="Sea">🚢 Sea Freight (Standard)</option>
+                                        <option value="Land">🚛 Land / Rail Transport</option>
+                                    </select>
+                                </div>
+                                <div class="alert alert-secondary border-0 mb-0 d-none rounded-3" id="intl-breakdown">
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span class="text-muted">Containers Required:</span> <strong id="lbl-container-num" class="text-dark">0</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between small mb-2 border-bottom border-secondary pb-2 mb-2">
+                                        <span class="text-muted">Base Transport Fee:</span> <strong id="lbl-transport-fee" class="text-dark">$0.00</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between text-dark fw-bold fs-5 mt-2">
+                                        <span>Total Freight Cost <small class="text-muted fs-6">(x{{ order.quantity }} qty)</small>:</span> 
+                                        <strong id="lbl-intl-total" class="text-primary">$0.00</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-success border-0 d-none mb-0 shadow-sm rounded-3" id="delivery-info-box">
+                                <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom border-success border-opacity-25" id="dist-row">
+                                    <span class="text-success"><i class="fa-solid fa-route me-2"></i>Calculated Distance</span>
+                                    <strong id="calc-dist" class="fs-6">-</strong>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-success fw-bold"><i class="fa-solid fa-money-bill-wave me-2"></i>Calculated Fee</span>
+                                    <strong id="calc-fee" class="fs-5 text-success">-</strong>
+                                </div>
+                            </div>
+                            <div id="calc-error" class="alert alert-danger mt-3 d-none border-0 mb-0 shadow-sm rounded-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa-solid fa-circle-exclamation fs-4 me-3"></i>
+                                    <span id="calc-error-text" class="fw-bold"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Options Section (Unchanged) -->
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body p-4 p-md-5">
+                        <h5 class="fw-bold mb-4"><i class="fa-solid fa-wallet text-primary me-2"></i> {% trans "Payment Gateway" %}</h5>
+                        
+                        {% if not seller_has_stripe and not seller_has_chapa and not seller_has_iyzico and not seller_has_cod %}
+                        <div class="alert alert-danger border-0 rounded-3 shadow-sm d-flex align-items-center">
+                            <i class="fa-solid fa-triangle-exclamation fs-3 me-3"></i>
+                            <div>
+                                <strong>Checkout Unavailable</strong><br>
+                                <small>This seller has not configured any payment methods yet. Please contact support or the seller directly.</small>
+                            </div>
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                document.getElementById('submit-btn').disabled = true;
+                            });
+                        </script>
+                        {% endif %}
+
+                        {% if seller_has_stripe %}
+                        <div class="mb-3">
+                            <input type="radio" name="payment_method" id="stripe" value="stripe" class="payment-radio-input" checked>
+                            <label for="stripe" class="payment-option-card d-flex align-items-center p-3 w-100">
+                                <div class="flex-shrink-0 text-primary mx-2" style="width: 50px;"><i class="fa-brands fa-stripe fa-3x"></i></div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-0 fw-bold">{% trans "Credit / Debit Card" %}</h6>
+                                    <small class="text-muted">{% trans "Secure international checkout via Stripe" %}</small>
+                                </div>
+                                <div class="text-primary ms-3"><i class="fa-solid fa-circle-check fs-4 d-none check-icon"></i></div>
+                            </label>
                         </div>
                         {% endif %}
 
-                        <!-- Payment Method Selection -->
-                        <h6 class="text-muted text-uppercase small fw-bold mb-3">{% trans "Select Payment Method" %}</h6>
-                        
-                        <!-- Option 1: Stripe -->
-                        <div class="mb-2">
-                            <input type="radio" name="payment_method" id="stripe" value="stripe" class="payment-radio-input" checked>
-                            <label for="stripe" class="payment-option-card">
-                                <div class="payment-icon">
-                                    <i class="fa-brands fa-cc-visa"></i>
+                        {% if seller_has_chapa %}
+                        <div class="mb-3">
+                            <input type="radio" name="payment_method" id="chapa" value="chapa" class="payment-radio-input" {% if not seller_has_stripe %}checked{% endif %}>
+                            <label for="chapa" class="payment-option-card d-flex align-items-center p-3 w-100">
+                                <div class="flex-shrink-0 text-success mx-2 text-center" style="width: 50px;"><i class="fa-solid fa-mobile-screen-button fa-3x"></i></div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-0 fw-bold">{% trans "Local Mobile Payment" %}</h6>
+                                    <small class="text-muted">{% trans "Telebirr, CBE Birr, M-Pesa via Chapa" %}</small>
                                 </div>
-                                <div>
-                                    <h6 class="mb-0 fw-bold">{% trans "International Payment" %}</h6>
-                                    <small class="text-muted">{% trans "Credit Card, Debit Card (Stripe)" %}</small>
-                                </div>
-                                <i class="fa-solid fa-circle-check check-icon"></i>
+                                <div class="text-primary ms-3"><i class="fa-solid fa-circle-check fs-4 d-none check-icon"></i></div>
                             </label>
                         </div>
+                        {% endif %}
 
-                        <!-- Option 2: Chapa -->
-                        <div class="mb-2">
-                            <input type="radio" name="payment_method" id="chapa" value="chapa" class="payment-radio-input">
-                            <label for="chapa" class="payment-option-card">
-                                <div class="payment-icon">
-                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                        {% if seller_has_iyzico %}
+                        <div class="mb-3">
+                            <input type="radio" name="payment_method" id="iyzico" value="iyzico" class="payment-radio-input" {% if not seller_has_stripe and not seller_has_chapa %}checked{% endif %}>
+                            <label for="iyzico" class="payment-option-card d-flex align-items-center p-3 w-100">
+                                <div class="flex-shrink-0 text-info mx-2 text-center" style="width: 50px;"><i class="fa-solid fa-credit-card fa-2x"></i></div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-0 fw-bold">{% trans "Iyzico" %}</h6>
+                                    <small class="text-muted">{% trans "Pay with credit card or protected transfer via Iyzico" %}</small>
                                 </div>
-                                <div>
-                                    <h6 class="mb-0 fw-bold">{% trans "Local Payment (Ethiopia)" %}</h6>
-                                    <small class="text-muted">{% trans "Telebirr, CBE, Mobile Money (Chapa)" %}</small>
-                                </div>
-                                <i class="fa-solid fa-circle-check check-icon"></i>
+                                <div class="text-primary ms-3"><i class="fa-solid fa-circle-check fs-4 d-none check-icon"></i></div>
                             </label>
                         </div>
+                        {% endif %}
 
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-dark w-100 py-3 mt-3 shadow fw-bold fs-5" style="background-color: var(--coffee-dark); border-color: var(--coffee-dark);">
-                            {% trans "Pay" %} ${{ order.total_price }} {% trans "Now" %} <i class="fa-solid fa-arrow-right ms-2"></i>
-                        </button>
-                            
-                            <a class="btn btn-dark w-100 py-3 mt-3 shadow fw-bold fs-5" href="{% url 'cancel_order' order.id %}" style="background-color: red; border-color: red; color: #fff; text-decoration: none;"><i class="fa-solid fa-arrow-left ms-2"></i> {% trans "Cancel Order" %}</a>
-                        
-
-                        <!-- Footer Security Badge -->
-                        <div class="text-center mt-4">
-                            <div class="secure-badge">
-                                <i class="fa-solid fa-shield-halved"></i> {% trans "SSL Encrypted Transaction" %}
-                            </div>
-                            <div class="mt-2 text-muted small">
-                                <i class="fa-brands fa-stripe fa-lg mx-1"></i>
-                                <i class="fa-solid fa-lock fa-sm mx-1"></i>
-                                <span class="mx-1">{% trans "Chapa Verified" %}</span>
-                            </div>
+                        {% if seller_has_cod %}
+                        <div>
+                            <input type="radio" name="payment_method" id="cod" value="cod" class="payment-radio-input" {% if not seller_has_stripe and not seller_has_chapa and not seller_has_iyzico %}checked{% endif %}>
+                            <label for="cod" class="payment-option-card d-flex align-items-center p-3 w-100">
+                                <div class="flex-shrink-0 text-dark mx-2 text-center" style="width: 50px;"><i class="fa-solid fa-hand-holding-dollar fa-2x"></i></div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-0 fw-bold">{% trans "Cash on Delivery (COD)" %}</h6>
+                                    <small class="text-muted">{% trans "Pay securely when your item arrives" %}</small>
+                                </div>
+                                <div class="text-primary ms-3"><i class="fa-solid fa-circle-check fs-4 d-none check-icon"></i></div>
+                            </label>
                         </div>
-
+                        {% endif %}
                     </div>
                 </div>
-            </form>
+            </div>
 
+            <div class="col-lg-5">
+                <div class="card shadow-sm border-0 rounded-4 sticky-top" style="top: 25px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h5 class="fw-bold mb-4 border-bottom pb-3">{% trans "Order Summary" %}</h5>
+                        
+                        <div class="d-flex align-items-center mb-4 bg-light p-3 rounded-3">
+                            {% if order.product.image %}
+                                <img src="{{ order.product.image.url }}" alt="{{ order.product.name }}" class="rounded shadow-sm me-3 bg-white" style="width: 70px; height: 70px; object-fit: cover; border: 2px solid #fff;">
+                            {% else %}
+                                <div class="rounded shadow-sm me-3 bg-white d-flex align-items-center justify-content-center text-muted" style="width: 70px; height: 70px; border: 2px solid #fff;">
+                                    <i class="fa-solid fa-image fs-3"></i>
+                                </div>
+                            {% endif %}
+                            <div>
+                                <h6 class="fw-bold mb-1">{{ order.product.name }}</h6>
+                                <span class="badge bg-dark">Qty: {{ order.quantity }}</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-box mb-4">
+                            <div class="price-row">
+                                <span class="text-muted">{% trans "Agreed Product Quote" %}</span>
+                                <span class="fw-bold text-dark" id="product-price" data-price="{% if order.product_price > 0 %}{{ order.product_price }}{% else %}{{ order.total_price }}{% endif %}">
+                                    ${% if order.product_price > 0 %}{{ order.product_price|floatformat:2 }}{% else %}{{ order.total_price|floatformat:2 }}{% endif %}
+                                </span>
+                            </div>
+                            <div class="price-row">
+                                <span class="text-muted">{% trans "Delivery Total" %} <small class="text-info fw-bold">(x{{ order.quantity }})</small></span>
+                                <span class="fw-bold text-success" id="summary-delivery-fee">Free</span>
+                            </div>
+                            <div class="price-row total mb-3">
+                                <span class="text-dark">{% trans "Grand Total" %}</span>
+                                <span class="text-primary fs-3" id="grand-total-display">
+                                    ${% if order.product_price > 0 %}{{ order.product_price|floatformat:2 }}{% else %}{{ order.total_price|floatformat:2 }}{% endif %}
+                                </span>
+                            </div>
+
+                            <!-- NEW: Currency Converter Section -->
+                            <div class="currency-converter mt-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold text-muted small text-uppercase">Local Currencies</span>
+                                    <i class="fa-solid fa-right-left text-muted" style="font-size: 0.8rem;"></i>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-muted"><img src="https://flagcdn.com/w20/et.png" width="18" class="me-1"> ETB (Birr)</span>
+                                    <strong id="conv-etb" class="text-dark">...</strong>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-muted"><img src="https://flagcdn.com/w20/tr.png" width="18" class="me-1"> TRY (Lira)</span>
+                                    <strong id="conv-try" class="text-dark">...</strong>
+                                </div>
+                                <div class="text-end mt-2">
+                                    <small class="text-muted" style="font-size: 0.65rem;" id="exchange-rate-info">Fetching live exchange rates...</small>
+                                </div>
+                            </div>
+                            <!-- END NEW -->
+
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="btn btn-primary btn-lg w-100 py-3 mb-3 fw-bold shadow-sm d-flex justify-content-center align-items-center gap-2">
+                            <i class="fa-solid fa-lock"></i> <span>{% trans "Confirm & Pay Securely" %}</span>
+                        </button>
+                        
+                        <div class="text-center">
+                            <small class="text-muted d-block mb-1"><i class="fa-solid fa-shield-halved text-success me-1"></i> {% trans "256-bit SSL Encrypted Checkout" %}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <script>
-    document.getElementById('payment-form').addEventListener('submit', async function(e){
-        e.preventDefault();
-        
-        // Show loading state on button
-        const btn = this.querySelector('button[type="submit"]');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>Processing...';
-        btn.disabled = true;
+    // --- SERVER VARIABLES ---
+    const sellerLat = parseFloat("{{ order.product.pickup_lat|default:'8.9806'|escapejs }}"); 
+    const sellerLng = parseFloat("{{ order.product.pickup_lng|default:'38.7578'|escapejs }}");
+    const sellerCountry = "{{ order.product.pickup_country|default:'Ethiopia'|escapejs }}".trim().toLowerCase();
+    
+    // Pricing Logistics Variables
+    const orderQty = parseInt("{{ order.quantity|default:'1'|escapejs }}");
+    const freeDeliveryKm = parseFloat("{{ order.product.free_delivery_km|default:'0'|escapejs }}");
+    const maxDeliveryKm = parseFloat("{{ order.product.maximum_delivery_km|default:'100'|escapejs }}");
+    const pricePer01Km = parseFloat("{{ order.product.price_per_0_1_km|default:'0'|escapejs }}");
+    
+    const containerNumber = parseInt("{{ order.product.container_number|default:'1'|escapejs }}");
+    const containerPrice = parseFloat("{{ order.product.container_price|default:'0'|escapejs }}");
+    const transportFee = parseFloat("{{ order.product.transport_fee|default:'0'|escapejs }}");
+    
+    const productPrice = parseFloat(document.getElementById('product-price').getAttribute('data-price')) || 0;
 
-        const method = document.querySelector('input[name="payment_method"]:checked').value;
+    let map, marker, flightPath, autocomplete, geocoder;
+    let mapsScriptLoaded = false;
 
-        // Small delay to allow UI to update before redirect (optional UX improvement)
-        setTimeout(() => {
-            if(method === 'stripe'){
-                window.location.href = "{% url 'stripe_checkout' order.id %}";
-            } else if(method === 'chapa'){
-                window.location.href = "{% url 'chapa_checkout' order.id %}";
+    // --- NEW: Currency Exchange Logic ---
+    let exchangeRates = { ETB: 115.0, TRY: 32.0 }; // Fallback rates if API fails
+
+    async function fetchExchangeRates() {
+        try {
+            // Using a free, reliable open API for currency rates
+            const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+            const data = await response.json();
+            if(data && data.rates) {
+                exchangeRates.ETB = data.rates.ETB || exchangeRates.ETB;
+                exchangeRates.TRY = data.rates.TRY || exchangeRates.TRY;
+                document.getElementById('exchange-rate-info').innerText = "*Live rates applied successfully";
             }
-        }, 500);
+        } catch (error) {
+            console.error('Failed to fetch live exchange rates. Using fallback values.', error);
+            document.getElementById('exchange-rate-info').innerText = "*Using approximate fallback rates";
+        }
+        // Run initial conversion based on the current product price on page load
+        updateConvertedCurrencies(productPrice);
+    }
+
+    function updateConvertedCurrencies(totalUsdAmount) {
+        if (isNaN(totalUsdAmount) || totalUsdAmount === 0) {
+            document.getElementById('conv-etb').innerText = '---';
+            document.getElementById('conv-try').innerText = '---';
+            return;
+        }
+        const totalEtb = (totalUsdAmount * exchangeRates.ETB).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        const totalTry = (totalUsdAmount * exchangeRates.TRY).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        
+        document.getElementById('conv-etb').innerText = totalEtb + " Br";
+        document.getElementById('conv-try').innerText = "₺ " + totalTry;
+    }
+
+    // Call fetch on load
+    document.addEventListener('DOMContentLoaded', fetchExchangeRates);
+    // -------------------------------------
+
+
+    // Radio UI Sync & Dynamic Button Text Setup
+    function updatePaymentUI() {
+        document.querySelectorAll('.check-icon').forEach(icon => icon.classList.add('d-none'));
+        const checkedInput = document.querySelector('.payment-radio-input:checked');
+        
+        if (checkedInput) {
+            checkedInput.nextElementSibling.querySelector('.check-icon').classList.remove('d-none');
+            const submitBtnText = document.querySelector('#submit-btn span');
+            const submitBtnIcon = document.querySelector('#submit-btn i');
+            
+            if (checkedInput.value === 'cod') {
+                submitBtnText.innerText = "{% trans 'Confirm Order (Pay on Delivery)' %}";
+                submitBtnIcon.className = "fa-solid fa-check-double";
+            } else {
+                submitBtnText.innerText = "{% trans 'Confirm & Pay Securely' %}";
+                submitBtnIcon.className = "fa-solid fa-lock";
+            }
+        }
+    }
+
+    document.querySelectorAll('.payment-radio-input').forEach(input => {
+        input.addEventListener('change', updatePaymentUI);
+    });
+    
+    // Run once on page load to set correct initial state
+    updatePaymentUI();
+
+    // --- Delivery UI & Logistics Logic (Unchanged but Integrated) ---
+    function toggleDeliveryUI() {
+        const isDelivery = document.getElementById('opt-delivery').checked;
+        const uiSection = document.getElementById('delivery-ui-section');
+        
+        if (isDelivery) {
+            uiSection.style.display = 'block';
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('buyer_country_select').value = ""; 
+            document.getElementById('domestic-ui').style.display = 'none';
+            document.getElementById('international-ui').style.display = 'none';
+            document.getElementById('delivery-info-box').classList.add('d-none');
+            document.getElementById('calc-error').classList.add('d-none');
+        } else {
+            uiSection.style.display = 'none';
+            updateTotal(0); 
+            document.getElementById('submit-btn').disabled = false;
+        }
+    }
+
+    function handleCountryChange() {
+        const selectedCountry = document.getElementById('buyer_country_select').value;
+        document.getElementById('hidden_country').value = selectedCountry;
+        
+        document.getElementById('delivery-info-box').classList.add('d-none');
+        document.getElementById('calc-error').classList.add('d-none');
+        document.getElementById('submit-btn').disabled = true;
+
+        if (selectedCountry.toLowerCase() === sellerCountry.toLowerCase() || selectedCountry === 'ethiopia') {
+            document.getElementById('domestic-ui').style.display = 'block';
+            document.getElementById('international-ui').style.display = 'none';
+            loadGoogleMaps();
+        } else {
+            document.getElementById('domestic-ui').style.display = 'none';
+            document.getElementById('international-ui').style.display = 'block';
+            document.getElementById('buyer_transport_type').value = ""; 
+            document.getElementById('intl-breakdown').classList.add('d-none');
+        }
+    }
+
+    function calculateInternationalShipping() {
+        const tType = document.getElementById('buyer_transport_type').value;
+        if (!tType) return;
+        
+        document.getElementById('hidden_transport_type').value = tType;
+        document.getElementById('intl-breakdown').classList.remove('d-none');
+        
+        document.getElementById('lbl-container-num').innerText = containerNumber;
+        const baseIntlFee = (containerNumber * containerPrice) + transportFee;
+        document.getElementById('lbl-transport-fee').innerText = "$" + baseIntlFee.toFixed(2);
+        
+        const totalIntlFee = baseIntlFee * orderQty;
+        document.getElementById('lbl-intl-total').innerText = "$" + totalIntlFee.toFixed(2);
+        
+        document.getElementById('dist-row').style.display = 'none';
+        document.getElementById('calc-fee').innerHTML = `$${baseIntlFee.toFixed(2)} <span class="fs-6 text-muted">x ${orderQty} qty = </span> $${totalIntlFee.toFixed(2)}`;
+        
+        document.getElementById('delivery-info-box').classList.remove('d-none');
+        document.getElementById('calc-error').classList.add('d-none');
+        
+        updateTotal(totalIntlFee, false);
+        document.getElementById('submit-btn').disabled = false;
+    }
+
+    function loadGoogleMaps() {
+        if(mapsScriptLoaded) return initMap();
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places,geometry&callback=initMap`;
+        script.async = true; script.defer = true;
+        document.head.appendChild(script);
+        mapsScriptLoaded = true;
+    }
+
+    window.initMap = function() {
+        const sellerLocation = { lat: sellerLat, lng: sellerLng };
+        geocoder = new google.maps.Geocoder();
+
+        const loadingEl = document.getElementById('map-loading');
+        if(loadingEl) loadingEl.remove();
+
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: sellerLocation, zoom: 11, mapTypeControl: false, streetViewControl: false,
+            styles: [ { "featureType": "poi", "elementType": "labels", "stylers": [{ "visibility": "off" }] } ]
+        });
+
+        new google.maps.Marker({
+            map: map, position: sellerLocation, title: "Seller's Store",
+            icon: { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
+        });
+
+        marker = new google.maps.Marker({
+            map: map, draggable: true, position: sellerLocation, animation: google.maps.Animation.DROP,
+        });
+
+        const input = document.getElementById("pac-input");
+        autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo("bounds", map);
+
+        autocomplete.addListener("place_changed", () => {
+            const place = autocomplete.getPlace();
+            if (!place.geometry) { showError("Please select an address from the dropdown list."); return; }
+            marker.setPosition(place.geometry.location);
+            calculateDomesticShipping(place.geometry.location);
+        });
+
+        marker.addListener("dragend", () => {
+            const newPos = marker.getPosition();
+            calculateDomesticShipping(newPos);
+            reverseGeocodeUpdateInput(newPos);
+        });
+
+        map.addListener("click", (event) => {
+            marker.setPosition(event.latLng);
+            calculateDomesticShipping(event.latLng);
+            reverseGeocodeUpdateInput(event.latLng);
+        });
+    }
+
+    function getUserLocation() {
+        const btn = document.getElementById('btn-my-location');
+        const originalHtml = btn.innerHTML;
+        
+        if (navigator.geolocation) {
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Locating...';
+            btn.disabled = true;
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+                    const latLngObj = new google.maps.LatLng(pos.lat, pos.lng);
+                    
+                    marker.setPosition(latLngObj);
+                    calculateDomesticShipping(latLngObj);
+                    reverseGeocodeUpdateInput(latLngObj);
+                    
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                },
+                (error) => {
+                    showError("Could not get your GPS location. Please check your browser permissions.");
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                },
+                { enableHighAccuracy: true, timeout: 10000 }
+            );
+        } else {
+            showError("Your browser doesn't support geolocation.");
+        }
+    }
+
+    function reverseGeocodeUpdateInput(latLng) {
+        geocoder.geocode({ location: latLng }, (results, status) => {
+            if (status === "OK" && results[0]) {
+                document.getElementById("pac-input").value = results[0].formatted_address;
+            }
+        });
+    }
+
+    function calculateDomesticShipping(destinationLatLng) {
+        document.getElementById('hidden_lat').value = destinationLatLng.lat();
+        document.getElementById('hidden_lng').value = destinationLatLng.lng();
+
+        const sellerLatLng = new google.maps.LatLng(sellerLat, sellerLng);
+        
+        if(!flightPath) {
+            flightPath = new google.maps.Polyline({
+                path: [sellerLatLng, destinationLatLng],
+                geodesic: true, strokeColor: "#198754", strokeOpacity: 0.8, strokeWeight: 5, map: map
+            });
+        } else {
+            flightPath.setPath([sellerLatLng, destinationLatLng]);
+        }
+
+        const bounds = new google.maps.LatLngBounds();
+        bounds.extend(sellerLatLng);
+        bounds.extend(destinationLatLng);
+        map.fitBounds(bounds, { padding: 50 }); 
+
+        const distanceMeters = google.maps.geometry.spherical.computeDistanceBetween(sellerLatLng, destinationLatLng);
+        const distanceKm = parseFloat((distanceMeters / 1000).toFixed(2));
+        
+        let baseFee = 0;
+        let totalFee = 0;
+        let errorMsg = null;
+
+        if (distanceKm > maxDeliveryKm && maxDeliveryKm > 0) {
+            errorMsg = `Out of range! The location (${distanceKm} km) exceeds our maximum delivery distance of ${maxDeliveryKm} km.`;
+        } else if (distanceKm <= freeDeliveryKm) {
+            baseFee = 0;
+            totalFee = 0;
+        } else {
+            const chargeableKm = distanceKm - freeDeliveryKm;
+            const pricePerKm = pricePer01Km * 10;
+            baseFee = chargeableKm * pricePerKm;
+            totalFee = baseFee * orderQty;
+        }
+
+        document.getElementById('dist-row').style.display = 'flex';
+        document.getElementById('delivery-info-box').classList.remove('d-none');
+        document.getElementById('calc-dist').innerText = distanceKm + " km";
+        
+        if (errorMsg) {
+            showError(errorMsg);
+            document.getElementById('calc-fee').innerText = "N/A";
+            updateTotal(0, true);
+        } else {
+            document.getElementById('calc-error').classList.add('d-none');
+            if (totalFee > 0) {
+                document.getElementById('calc-fee').innerHTML = `$${baseFee.toFixed(2)} <span class="fs-6 text-muted">x ${orderQty} qty = </span> $${totalFee.toFixed(2)}`;
+            } else {
+                document.getElementById('calc-fee').innerText = "Free";
+            }
+            document.getElementById('submit-btn').disabled = false;
+            updateTotal(totalFee, false);
+        }
+    }
+
+    function showError(msg) {
+        document.getElementById('calc-error-text').innerText = msg;
+        document.getElementById('calc-error').classList.remove('d-none');
+        document.getElementById('delivery-info-box').classList.add('d-none');
+        document.getElementById('submit-btn').disabled = true;
+    }
+
+    function updateTotal(totalDeliveryFee, hasError = false) {
+        document.getElementById('hidden_delivery_fee').value = totalDeliveryFee;
+        const summaryFee = document.getElementById('summary-delivery-fee');
+        const grandTotalDisplay = document.getElementById('grand-total-display');
+
+        if (hasError) {
+            summaryFee.innerText = "Unavailable";
+            summaryFee.classList.replace('text-success', 'text-danger');
+            grandTotalDisplay.innerText = "---";
+            
+            updateConvertedCurrencies(0); // Clear currencies if error
+        } else {
+            summaryFee.innerText = totalDeliveryFee > 0 ? "+ $" + totalDeliveryFee.toFixed(2) : "Free";
+            summaryFee.classList.replace('text-danger', 'text-success');
+            
+            const grandTotal = productPrice + parseFloat(totalDeliveryFee);
+            grandTotalDisplay.innerText = "$" + grandTotal.toFixed(2);
+            
+            // --- NEW: Update Currency Converter when grand total changes ---
+            updateConvertedCurrencies(grandTotal); 
+        }
+    }
+
+    // Submit form styling
+    document.getElementById('payment-form').addEventListener('submit', function() {
+        const btn = document.getElementById('submit-btn');
+        const isCOD = document.querySelector('.payment-radio-input:checked').value === 'cod';
+        
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> ' + 
+                        (isCOD ? 'Processing Order...' : 'Securing Connection...');
+        btn.style.pointerEvents = 'none'; 
+        btn.style.opacity = '0.8';
     });
 </script>
 {% endblock %}
