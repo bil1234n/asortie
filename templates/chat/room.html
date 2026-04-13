@@ -98,7 +98,106 @@
     .chat_head_a .text-muted{
         color: #ffffff !important;
     }
+
+    /* Professional Upload Overlay */
+    .upload-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+        border-radius: 8px;
+    }
+
+    .spinner-ring {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--wa-bg);
+        border-top: 3px solid var(--wa-blue);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    .upload-size-text {
+        font-size: 0.75rem;
+        color: var(--wa-muted);
+        font-weight: 600;
+        margin-top: 5px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
     
+    /* --- NEW: FILE PREVIEW UI STYLES --- */
+    #file-preview-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 12px;
+        padding: 10px 5px;
+        margin-bottom: 8px;
+    }
+    #file-preview-container::-webkit-scrollbar { height: 6px; }
+    #file-preview-container::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
+
+    .file-preview-item {
+        position: relative;
+        width: 70px;
+        height: 70px;
+        border-radius: 8px;
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .file-preview-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    .file-preview-remove {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        background: #ff4d4f;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        transition: transform 0.2s;
+    }
+    .file-preview-remove:hover {
+        transform: scale(1.15);
+    }
+    .file-preview-name {
+        font-size: 0.6rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        padding: 0 4px;
+        text-align: center;
+        margin-top: 4px;
+        color: var(--wa-muted);
+    }
+
     @media (max-width: 450px) {
         .container{
             margin-left: -0.5rem !important;
@@ -144,6 +243,19 @@
                 </div>
 
                 <div class="chat-footer position-relative">
+
+                    <!-- NEW: REPLY PREVIEW BOX -->
+                    <div id="reply-preview-box" class="p-2 mb-2 rounded position-relative shadow-sm" style="display: none; background-color: rgba(0,0,0,0.05); border-left: 4px solid var(--wa-blue);">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span id="reply-sender-name" class="fw-bold" style="font-size: 0.85rem; color: var(--wa-blue);"></span>
+                            <i class="fa-solid fa-xmark text-muted" onclick="cancelReply()" style="cursor: pointer; font-size: 0.9rem;"></i>
+                        </div>
+                        <div id="reply-content" class="text-muted text-truncate" style="font-size: 0.8rem; max-height: 40px; overflow: hidden;"></div>
+                    </div>
+                    <!-- END NEW -->
+                    
+                    <div id="file-preview-container" class="d-none"></div>
+
                     <form id="chat-form" class="d-flex align-items-center gap-2 w-100">
                         <button type="button" class="btn btn-link text-muted p-1" id="emoji-trigger">
                             <i class="fa-regular fa-face-smile fs-4"></i>
@@ -152,7 +264,7 @@
                         <button type="button" class="btn btn-link text-muted p-1" id="attachment-btn" onclick="document.getElementById('file-input').click()">
                             <i class="fa-solid fa-paperclip fs-4"></i>
                         </button>
-                        <input type="file" id="file-input" class="d-none" onchange="uploadFile(this)">
+                        <input type="file" id="file-input" class="d-none" multiple onchange="handleFileSelection(this)">
 
                         <textarea id="msg-input" class="form-control" placeholder="Type a message" rows="1"></textarea>
                         
@@ -243,6 +355,63 @@
             reactionPicker.style.display = 'none';
         }
     });
+
+    // --- NEW: FILE PREVIEW & QUEUE LOGIC ---
+    let pendingFilesQueue = [];
+
+    function handleFileSelection(input) {
+        if (input.files) {
+            for (let file of input.files) {
+                pendingFilesQueue.push(file);
+            }
+            renderFilePreviews();
+        }
+        input.value = ''; // Reset input to allow adding the same file again if needed
+    }
+
+    function renderFilePreviews() {
+        const container = document.getElementById('file-preview-container');
+        
+        if (pendingFilesQueue.length === 0) {
+            container.classList.add('d-none');
+            container.innerHTML = '';
+            return;
+        }
+
+        container.classList.remove('d-none');
+        container.innerHTML = '';
+
+        pendingFilesQueue.forEach((file, index) => {
+            const isImage = file.type.startsWith('image/');
+            const isVideo = file.type.startsWith('video/');
+            let innerHtml = '';
+
+            if (isImage) {
+                const url = URL.createObjectURL(file);
+                innerHtml = `<img src="${url}" class="file-preview-img">`;
+            } else if (isVideo) {
+                innerHtml = `<i class="fa-solid fa-file-video fs-2 text-primary"></i><div class="file-preview-name">${file.name}</div>`;
+            } else {
+                innerHtml = `<i class="fa-solid fa-file-lines fs-2 text-secondary"></i><div class="file-preview-name">${file.name}</div>`;
+            }
+
+            const itemHtml = `
+                <div class="file-preview-item shadow-sm">
+                    <span class="file-preview-remove" onclick="removePendingFile(${index})" title="Remove">
+                        <i class="fa-solid fa-xmark"></i>
+                    </span>
+                    ${innerHtml}
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', itemHtml);
+        });
+    }
+
+    window.removePendingFile = function(index) {
+        pendingFilesQueue.splice(index, 1);
+        renderFilePreviews();
+    }
+
 
     // --- FIXED VOICE RECORDING LOGIC ---
     let mediaRecorder;
@@ -405,43 +574,142 @@
         }
     }
 
-    // --- SUBMIT TEXT FORM ---
+    // --- SUBMIT TEXT FORM & MULTIPLE FILES ---
     chatForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const input = document.getElementById('msg-input');
-        if(input.value.trim() === '') return;
+        const textContent = input.value.trim();
         
-        const formData = new FormData();
-        formData.append('content', input.value);
-        sendData(formData);
-        input.value = '';
+        if(textContent === '' && pendingFilesQueue.length === 0) return;
+
+        if (pendingFilesQueue.length > 0) {
+            pendingFilesQueue.forEach((file, index) => {
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                if (index === 0 && textContent !== '') {
+                    formData.append('content', textContent);
+                } else {
+                    formData.append('content', '');
+                }
+
+                // NEW: Append Reply ID
+                if (replyingToId) formData.append('reply_to', replyingToId);
+                
+                sendData(formData);
+            });
+            
+            pendingFilesQueue = [];
+            renderFilePreviews();
+        } 
+        else if (textContent !== '') {
+            const formData = new FormData();
+            formData.append('content', textContent);
+            
+            // NEW: Append Reply ID
+            if (replyingToId) formData.append('reply_to', replyingToId);
+            
+            sendData(formData);
+        }
+
+        input.value = ''; 
+        cancelReply(); // NEW: Clear reply state after sending
     });
 
-    function uploadFile(input) {
-        if (input.files && input.files[0]) {
-            const formData = new FormData();
-            formData.append('file', input.files[0]);
-            sendData(formData);
-            input.value = ''; // reset
-        }
+    // Helper to format bytes to MB/GB
+    function formatBytes(bytes, decimals = 2) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 
     function sendData(formData) {
-        fetch(`{% url 'api_send_message' room.id %}`, {
-            method: 'POST',
-            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'success') {
-                appendMessage(data.message_id, data.content, data.time, true, false, false, false, data.msg_type, data.file_url, {});
+        const xhr = new XMLHttpRequest();
+        
+        // 1. Create a "Placeholder" message bubble for loading
+        const tempId = 'uploading-' + Math.random().toString(36).substr(2, 9);
+        const isMe = true;
+        const alignClass = 'justify-content-end';
+        const bubbleStyle = 'background-color: var(--wa-outgoing); border-top-right-radius: 0;';
+        
+        // Check if we are uploading a file to show progress bar
+        const isFileUpload = formData.has('file');
+        
+        let loadingHtml = '';
+        if (isFileUpload) {
+            loadingHtml = `
+            <div class="d-flex w-100 ${alignClass} mb-2" id="${tempId}">
+                <div class="position-relative p-2 px-3 shadow-sm message-bubble" style="${bubbleStyle} border-radius: 8px; min-width: 150px; min-height: 100px;">
+                    <div class="upload-overlay">
+                        <div class="spinner-ring"></div>
+                        <div class="upload-size-text" id="size-${tempId}">Uploading...</div>
+                    </div>
+                    <div class="msg-meta">Sending...</div>
+                </div>
+            </div>`;
+        } else {
+            // Text only temporary bubble
+            loadingHtml = `
+            <div class="d-flex w-100 ${alignClass} mb-2" id="${tempId}">
+                <div class="position-relative p-2 px-3 shadow-sm message-bubble" style="${bubbleStyle} border-radius: 8px;">
+                    <div class="text-muted"><i class="fa-solid fa-clock me-1"></i> Sending...</div>
+                </div>
+            </div>`;
+        }
+        
+        document.getElementById('msg-container').insertAdjacentHTML('beforeend', loadingHtml);
+        scrollToBottom();
+
+        // 2. Track Progress (only matters for files)
+        if (isFileUpload) {
+            xhr.upload.addEventListener("progress", function(e) {
+                if (e.lengthComputable) {
+                    const loaded = formatBytes(e.loaded);
+                    const total = formatBytes(e.total);
+                    const sizeText = document.getElementById(`size-${tempId}`);
+                    if(sizeText) sizeText.innerText = `${loaded} / ${total}`;
+                }
+            });
+        }
+
+        // 3. Handle Completion
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                const el = document.getElementById(tempId);
+                if(el) el.remove(); // Remove placeholder
+
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        appendMessage(
+                            response.message_id, 
+                            response.content, 
+                            response.time, 
+                            true, false, false, false, 
+                            response.msg_type, 
+                            response.file_url, 
+                            {},
+                            response.reply_to 
+                        );
+                    } else {
+                        alert("Upload failed.");
+                    }
+                } else {
+                    alert("Network error occurred.");
+                }
             }
-        });
+        };
+
+        xhr.open("POST", `{% url 'api_send_message' room.id %}`, true);
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.send(formData);
     }
 
     // --- APPEND MESSAGE ---
-    function appendMessage(id, content, time, isMe, isDeleted, isEdited, isRead, msgType = 'text', fileUrl = null, reactions = {}) {
+    function appendMessage(id, content, time, isMe, isDeleted, isEdited, isRead, msgType = 'text', fileUrl = null, reactions = {}, replyTo = null) {
         if (document.getElementById(`msg-row-${id}`)) return;
 
         const alignClass = isMe ? 'justify-content-end' : 'justify-content-start';
@@ -451,6 +719,30 @@
         if (isDeleted) {
             contentDisplay = `<span class="deleted-text"><i class="fa-solid fa-ban me-1"></i> This message was deleted.</span>`;
         } else {
+            // NEW: Render the Quoted Reply Box instantly
+            if (replyTo) {
+                const replyColor = replyTo.sender === 'You' ? 'var(--wa-blue, #34B7F1)' : '#25D366';
+                
+                let replyPreview = '';
+                if (replyTo.msg_type === 'image') replyPreview = '<i class="fa-solid fa-image me-1"></i> Photo';
+                else if (replyTo.msg_type === 'video') replyPreview = '<i class="fa-solid fa-video me-1"></i> Video';
+                else if (replyTo.msg_type === 'audio') replyPreview = '<i class="fa-solid fa-microphone me-1"></i> Audio';
+                else if (replyTo.msg_type === 'file') replyPreview = '<i class="fa-solid fa-file-lines me-1"></i> Document';
+                else replyPreview = replyTo.content ? replyTo.content.substring(0, 60) + (replyTo.content.length > 60 ? '...' : '') : 'Media';
+
+                contentDisplay += `
+                    <div class="reply-quote rounded p-2 mb-2" 
+                         style="background-color: rgba(0,0,0,0.05); border-left: 4px solid ${replyColor}; font-size: 0.85rem; cursor: pointer;" 
+                         onclick="scrollToMessage(${replyTo.id})">
+                        <div class="fw-bold" style="color: ${replyColor};">${replyTo.sender}</div>
+                        <div class="text-muted text-truncate" style="max-height: 40px; overflow: hidden;">
+                            ${replyPreview}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Render Media
             if (msgType === 'image' && fileUrl) {
                 contentDisplay += `<img src="${fileUrl}" class="img-fluid rounded-2 mb-1" style="max-height: 300px; cursor: pointer;" onclick="window.open(this.src)">`;
             } else if (msgType === 'video' && fileUrl) {
@@ -460,6 +752,8 @@
             } else if (msgType === 'file' && fileUrl) {
                 contentDisplay += `<div class="p-2 border rounded bg-light d-flex align-items-center mb-1"><i class="fa-solid fa-file-lines me-2 fs-4"></i><a href="${fileUrl}" target="_blank" class="text-decoration-none text-dark small text-truncate">Download Attachment</a></div>`;
             }
+            
+            // Render Text
             if (content) {
                 let editedTag = isEdited ? ` <small class="text-muted fst-italic" style="font-size:0.6rem">(edited)</small>` : '';
                 contentDisplay += `<p class="mb-1">${content}${editedTag}</p>`;
@@ -498,7 +792,7 @@
                 <div class="position-relative p-2 px-3 shadow-sm message-bubble group" style="${bubbleStyle} border-radius: 8px;">
                     ${reactionBtn}
                     ${dropdownHTML}
-                    <div class="text-break" id="msg-content-${id}">${contentDisplay}</div>
+                    <div class="text-break mt-1" id="msg-content-${id}">${contentDisplay}</div>
                     <div class="msg-meta">
                         ${time}
                         ${isMe ? `<i class="fa-solid fa-check-double" style="color: ${isRead ? 'var(--wa-blue)' : '#8696a0'}"></i>` : ''}
@@ -525,7 +819,12 @@
                 data.new_messages.forEach(msg => {
                     if (!document.getElementById(`msg-row-${msg.id}`)) {
                         if (msg.sender_id != currentUserId) {
-                            appendMessage(msg.id, msg.content, msg.time, false, msg.is_deleted, false, false, msg.msg_type, msg.file_url, msg.reactions);
+                            appendMessage(
+                                msg.id, msg.content, msg.time, false, 
+                                msg.is_deleted, false, false, msg.msg_type, 
+                                msg.file_url, msg.reactions, 
+                                msg.reply_to // <--- NEW: Pass reply data here
+                            );
                         }
                     }
                 });
@@ -563,7 +862,6 @@
     // --- CLEAR CHAT LOGIC ---
     function clearChat() {
         if (confirm("Are you sure you want to clear the chat history? This cannot be undone.")) {
-            // FIXED: Changed 'clear_chat_history' to 'api_clear_chat'
             fetch(`{% url 'api_clear_chat' room.id %}`, {
                 method: 'POST',
                 headers: {
@@ -619,6 +917,46 @@
             .catch(error => console.error('Error editing message:', error));
         }
     };
+    
+    // Variable to store the ID of the message being replied to
+let replyingToId = null;
+
+function prepareReply(messageId, senderName, contentPreview) {
+    replyingToId = messageId;
+    
+    const replyPreviewBox = document.getElementById('reply-preview-box');
+    const replySenderName = document.getElementById('reply-sender-name');
+    const replyContent = document.getElementById('reply-content');
+    
+    replySenderName.textContent = senderName;
+    replyContent.textContent = contentPreview;
+    
+    replyPreviewBox.style.display = 'block';
+    
+    // FIXED: changed from 'chat-input' to 'msg-input'
+    document.getElementById('msg-input').focus(); 
+}
+
+function cancelReply() {
+    replyingToId = null;
+    document.getElementById('reply-preview-box').style.display = 'none';
+}
+
+function scrollToMessage(messageId) {
+    const messageElement = document.getElementById(`msg-row-${messageId}`);
+    if (messageElement) {
+        messageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Optional: Add a brief highlight effect
+        messageElement.firstElementChild.style.transition = 'background-color 0.5s';
+        const originalColor = messageElement.firstElementChild.style.backgroundColor;
+        messageElement.firstElementChild.style.backgroundColor = 'rgba(52, 183, 241, 0.3)';
+        
+        setTimeout(() => {
+            messageElement.firstElementChild.style.backgroundColor = originalColor;
+        }, 1500);
+    }
+}
 
 </script>
 {% endblock %}
