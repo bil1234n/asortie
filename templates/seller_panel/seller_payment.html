@@ -1,0 +1,173 @@
+{% extends 'base.html' %} 
+{% load static i18n %} 
+{% block title %}Payment Settings{% endblock %}
+
+{% block content %}
+<style>
+    .nav-tabs-custom .nav-link { color: #6c757d; font-weight: 600; padding: 12px 24px; border: none; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+    .nav-tabs-custom .nav-link:hover { color: #0d6efd; background: #f8f9fa; border-radius: 8px 8px 0 0; }
+    .nav-tabs-custom .nav-link.active { color: #0d6efd; border-bottom: 3px solid #0d6efd; background: transparent; }
+    .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .hover-lift:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(99, 91, 255, 0.2) !important; }
+</style>
+
+<div class="container py-5 max-w-4xl">
+    
+    <!-- TOP NAVIGATION TABS -->
+    <div class="d-flex justify-content-between align-items-end border-bottom mb-5">
+        <div>
+            <h2 class="fw-bold mb-3"><i class="fa-solid fa-money-check-dollar text-primary me-2"></i>{% trans "Financial Hub" %}</h2>
+            <ul class="nav nav-tabs-custom mb-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'seller_payment_setup' %}">
+                        <i class="fa-solid fa-gear me-2"></i>{% trans "Payment Configuration" %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'seller_transactions' %}">
+                        <i class="fa-solid fa-chart-line me-2"></i>{% trans "Transactions & Payouts" %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <p class="text-muted fs-5">{% trans "Manage how buyers pay you. Active gateways will be displayed on your product checkouts." %}</p>
+    </div>
+
+    <form method="POST" action="{% url 'seller_payment_setup' %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="save_all">
+
+        <div class="row g-4">
+            <!-- STRIPE CONFIGURATION test account-->
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 rounded-4 h-100 {% if config.stripe_account_id %}border-start border-4 border-primary{% endif %}">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0"><i class="fa-brands fa-stripe text-primary fs-3 me-2 align-middle"></i> {% trans "Stripe Integration" %}</h5>
+                            {% if config.stripe_account_id %}
+                                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">{% trans "Active" %}</span>
+                            {% else %}
+                                <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2">{% trans "Disabled" %}</span>
+                            {% endif %}
+                        </div>
+                        <p class="small text-muted mb-4">{% trans "Accept credit/debit cards globally. A 5% platform fee is automatically deducted." %}</p>
+                        
+                        <label class="form-label fw-bold small">{% trans "Stripe Account ID" %}</label>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-link text-muted"></i></span>
+                            <input type="text" class="form-control border-start-0" name="stripe_account_id" 
+                                   value="{{ config.stripe_account_id|default:'' }}" 
+                                   placeholder="acct_1032D82eZvKYlo2C">
+                            
+                            <!-- Delete Button -->
+                            {% if config.stripe_account_id %}
+                                <button type="submit" name="action" value="delete_stripe" class="btn btn-outline-danger" title="Remove Stripe" onclick="return confirm('Are you sure you want to remove Stripe?');">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            {% endif %}
+                        </div>
+                        <small class="text-muted">{% trans "Found in Stripe Settings > Business Settings > Account Details." %}</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAPA CONFIGURATION -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 rounded-4 h-100 {% if config.chapa_account_id %}border-start border-4 border-success{% endif %}">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0"><i class="fa-solid fa-mobile-screen-button text-success fs-3 me-2 align-middle"></i> {% trans "Chapa Integration" %}</h5>
+                            {% if config.chapa_account_id %}
+                                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">{% trans "Active" %}</span>
+                            {% else %}
+                                <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2">{% trans "Disabled" %}</span>
+                            {% endif %}
+                        </div>
+                        <p class="small text-muted mb-4">{% trans "Accept Telebirr, CBE Birr, and mobile money locally in Ethiopia." %}</p>
+                        
+                        <label class="form-label fw-bold small">{% trans "Chapa Merchant ID / Bank Info" %}</label>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-building-columns text-muted"></i></span>
+                            <input type="text" class="form-control border-start-0" name="chapa_account_id" 
+                                   value="{{ config.chapa_account_id|default:'' }}" 
+                                   placeholder="Enter Chapa Subaccount ID">
+                            
+                            <!-- Delete Button -->
+                            {% if config.chapa_account_id %}
+                                <button type="submit" name="action" value="delete_chapa" class="btn btn-outline-danger" title="Remove Chapa" onclick="return confirm('Are you sure you want to remove Chapa?');">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Iyzico CONFIGURATION -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 rounded-4 h-100 {% if config.iyzico_api_key %}border-start border-4 border-info{% endif %}">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0"><i class="fa-solid fa-credit-card text-info fs-3 me-2 align-middle"></i> {% trans "Iyzico Integration" %}</h5>
+                            {% if config.iyzico_api_key %}
+                                <span class="badge bg-info bg-opacity-10 text-info rounded-pill px-3 py-2">{% trans "Active" %}</span>
+                            {% else %}
+                                <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2">{% trans "Disabled" %}</span>
+                            {% endif %}
+                        </div>
+                        <p class="small text-muted mb-4">{% trans "Accept payments locally in Turkey. USD is automatically converted to TRY." %}</p>
+                        
+                        <label class="form-label fw-bold small">{% trans "Iyzico API Key" %}</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-key text-muted"></i></span>
+                            <input type="text" class="form-control border-start-0" name="iyzico_api_key" 
+                                value="{{ config.iyzico_api_key|default:'' }}" 
+                                placeholder="Enter API Key">
+                        </div>
+
+                        <label class="form-label fw-bold small">{% trans "Iyzico Secret Key" %}</label>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                            <input type="text" class="form-control border-start-0" name="iyzico_secret_key" 
+                                value="{{ config.iyzico_secret_key|default:'' }}" 
+                                placeholder="Enter Secret Key">
+                            
+                            {% if config.iyzico_api_key %}
+                                <button type="submit" name="action" value="delete_iyzico" class="btn btn-outline-danger" title="Remove Iyzico" onclick="return confirm('Are you sure you want to remove Iyzico?');">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            {% endif %}
+                        </div>
+                        <small class="text-muted">{% trans "Keys can be found in the Iyzico Merchant Dashboard." %}</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COD TOGGLE -->
+            <div class="col-12">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <h5 class="fw-bold mb-1"><i class="fa-solid fa-hand-holding-dollar text-dark fs-4 me-2"></i> {% trans "Cash on Delivery (COD)" %}</h5>
+                            <p class="small text-muted mb-0">{% trans "Allow buyers to order and pay physical cash upon delivery." %}</p>
+                        </div>
+                        <div class="form-check form-switch fs-3">
+                            <input class="form-check-input" type="checkbox" role="switch" id="codSwitch" name="is_cod_enabled" {% if config.is_cod_enabled %}checked{% endif %}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAVE BUTTON -->
+        <div class="mt-4 text-end bg-white p-4 rounded-4 shadow-sm">
+            <button type="submit" class="btn btn-primary btn-lg px-5 fw-bold shadow-sm">
+                <i class="fa-solid fa-floppy-disk me-2"></i> {% trans "Save All Preferences" %}
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
