@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-17 23:49+0300\n"
+"POT-Creation-Date: 2026-04-13 23:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,66 +18,128 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\templates\AR_3D\index.html:183
+#: .\templates\AR_3D\index.html:7
+msgid "Asortie | Ultimate Immersive Experience"
+msgstr "Assortie | Expérience immersive ultime"
+
+#: .\templates\AR_3D\index.html:210
 msgid "Asorite 3D Hub"
 msgstr "Hub 3D Asorite"
 
-#: .\templates\AR_3D\index.html:188 .\templates\ai\index.html:271
-#: .\templates\ai\trainer.html:198 .\templates\partials\header.html:14
-#: .\templates\partials\header.html:35 .\templates\partials\header.html:66
+#: .\templates\AR_3D\index.html:215 .\templates\ai\index.html:289
+#: .\templates\ai\trainer.html:216 .\templates\partials\header.html:14
+#: .\templates\partials\header.html:35 .\templates\partials\header.html:69
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: .\templates\AR_3D\index.html:192 .\templates\ai\index.html:276
+#: .\templates\AR_3D\index.html:219 .\templates\ai\index.html:294
 msgid "Train Ai"
 msgstr "Train Ai"
 
-#: .\templates\AR_3D\index.html:198
+#: .\templates\AR_3D\index.html:226 .\templates\market\list.html:40
+#: .\templates\market\list.html:50
 msgid "All"
 msgstr "Tous"
 
-#: .\templates\AR_3D\index.html:211
+#: .\templates\AR_3D\index.html:243
 msgid "Loading..."
 msgstr "Chargement..."
 
-#: .\templates\AR_3D\index.html:250 .\templates\ai\index.html:353
-#: .\templates\ai\trainer.html:267 .\templates\base.html:89
+#: .\templates\AR_3D\index.html:258 .\templates\ai\index.html:348
+#: .\templates\ai\trainer.html:263 .\templates\base.html:44
+msgid "Lang"
+msgstr "Lang"
+
+#: .\templates\AR_3D\index.html:259 .\templates\ai\index.html:349
+#: .\templates\ai\trainer.html:264 .\templates\base.html:45
+#| msgid "Select Plan"
+msgid "Select Language"
+msgstr "Sélectionnez la langue"
+
+#: .\templates\AR_3D\index.html:305 .\templates\ai\index.html:395
+#: .\templates\ai\trainer.html:310 .\templates\base.html:93
 msgid "Notifications"
 msgstr "Notifications"
 
-#: .\templates\AR_3D\index.html:268 .\templates\ai\index.html:371
-#: .\templates\ai\trainer.html:285 .\templates\base.html:107
+#: .\templates\AR_3D\index.html:323 .\templates\ai\index.html:413
+#: .\templates\ai\trainer.html:328 .\templates\base.html:111
+#: .\templates\partials\notification_items.html:17
 msgid "ago"
 msgstr "il y a"
 
-#: .\templates\AR_3D\index.html:274 .\templates\ai\index.html:377
-#: .\templates\ai\trainer.html:291 .\templates\base.html:113
+#: .\templates\AR_3D\index.html:329 .\templates\ai\index.html:419
+#: .\templates\ai\trainer.html:334 .\templates\base.html:117
+#: .\templates\partials\notification_items.html:23
 msgid "No new notifications"
 msgstr "Aucune nouvelle notification"
 
-#: .\templates\AR_3D\index.html:278 .\templates\ai\index.html:381
-#: .\templates\ai\trainer.html:295 .\templates\base.html:117
+#: .\templates\AR_3D\index.html:333 .\templates\ai\index.html:423
+#: .\templates\ai\trainer.html:338 .\templates\base.html:121
 msgid "View All History"
 msgstr "Afficher tout l'historique"
 
-#: .\templates\AR_3D\index.html:304 .\templates\ai\index.html:407
-#: .\templates\ai\trainer.html:321 .\templates\base.html:143
-#: .\templates\market\detail.html:450
+#: .\templates\AR_3D\index.html:357 .\templates\ai\index.html:449
+#: .\templates\ai\trainer.html:364 .\templates\base.html:147
+#: .\templates\market\detail.html:463
 msgid "Login"
 msgstr "Se connecter"
 
-#: .\templates\AR_3D\index.html:305 .\templates\ai\index.html:408
-#: .\templates\ai\trainer.html:322 .\templates\base.html:144
+#: .\templates\AR_3D\index.html:358 .\templates\ai\index.html:450
+#: .\templates\ai\trainer.html:365 .\templates\base.html:148
 msgid "Sign Up"
 msgstr "S'inscrire"
 
-#: .\templates\AR_3D\index.html:346
+#: .\templates\AR_3D\index.html:397
 msgid "Color & Type Options"
 msgstr "Options de couleur et de type"
 
-#: .\templates\AR_3D\index.html:350
+#: .\templates\AR_3D\index.html:402
 msgid "OPEN IN AR"
 msgstr "OUVERT EN AR"
+
+#: .\templates\AR_3D\index.html:413
+msgid "Scan to View in AR"
+msgstr "Numériser pour afficher en AR"
+
+#: .\templates\AR_3D\index.html:414
+msgid ""
+"Point your phone's camera at this code to view this product in your physical"
+" space."
+msgstr ""
+"Pointez l'appareil photo de votre téléphone sur ce code pour visualiser ce "
+"produit dans votre espace physique."
+
+#: .\templates\AR_3D\index.html:419 .\templates\AR_3D\index.html:436
+msgid "Close"
+msgstr "Fermer"
+
+#: .\templates\AR_3D\index.html:428
+msgid "AR Not Supported"
+msgstr "AR non pris en charge"
+
+#: .\templates\AR_3D\index.html:429
+msgid ""
+"Your device does not meet the hardware or software requirements for "
+"Augmented Reality."
+msgstr ""
+"Votre appareil ne répond pas à la configuration matérielle ou logicielle "
+"requise pour la réalité augmentée."
+
+#: .\templates\AR_3D\index.html:431
+msgid "System Requirements:"
+msgstr "Configuration système requise :"
+
+#: .\templates\AR_3D\index.html:446
+msgid "Ready for AR"
+msgstr "Prêt pour la RA"
+
+#: .\templates\AR_3D\index.html:447
+msgid "Tap anywhere to open camera"
+msgstr "Appuyez n'importe où pour ouvrir la caméra"
+
+#: .\templates\AR_3D\index.html:645
+msgid "No products match this filter."
+msgstr "Aucun produit ne correspond à ce filtre."
 
 #: .\templates\accounts\admin\login.html:9
 msgid "Administration"
@@ -127,18 +189,18 @@ msgstr "Annuler"
 msgid "Welcome Back"
 msgstr "Content de te revoir"
 
-#: .\templates\accounts\login.html:58 .\templates\accounts\register.html:108
+#: .\templates\accounts\login.html:58 .\templates\accounts\register.html:123
 #: .\templates\admin_panel\orders.html:53
 msgid "Buyer"
 msgstr "Acheteur"
 
-#: .\templates\accounts\login.html:63 .\templates\accounts\register.html:113
+#: .\templates\accounts\login.html:63 .\templates\accounts\register.html:130
 #: .\templates\admin_panel\products.html:32
 msgid "Seller"
 msgstr "Vendeur"
 
 #: .\templates\accounts\login.html:77 .\templates\accounts\profile.html:91
-#: .\templates\accounts\register.html:121
+#: .\templates\accounts\register.html:139
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -150,7 +212,7 @@ msgstr "Mot de passe"
 msgid "LOGIN"
 msgstr "SE CONNECTER"
 
-#: .\templates\accounts\login.html:93 .\templates\accounts\register.html:214
+#: .\templates\accounts\login.html:93
 msgid "OR"
 msgstr "OU"
 
@@ -180,6 +242,9 @@ msgstr "Statut du compte"
 
 #: .\templates\accounts\profile.html:38
 #: .\templates\admin_panel\products.html:46
+#: .\templates\seller_panel\seller_payment.html:51
+#: .\templates\seller_panel\seller_payment.html:84
+#: .\templates\seller_panel\seller_payment.html:116
 msgid "Active"
 msgstr "Actif"
 
@@ -205,11 +270,11 @@ msgstr "En attente"
 msgid "Edit Profile"
 msgstr "Modifier le profil"
 
-#: .\templates\accounts\profile.html:75 .\templates\accounts\register.html:129
+#: .\templates\accounts\profile.html:75 .\templates\accounts\register.html:153
 msgid "First Name"
 msgstr "Prénom"
 
-#: .\templates\accounts\profile.html:79 .\templates\accounts\register.html:133
+#: .\templates\accounts\profile.html:79 .\templates\accounts\register.html:160
 msgid "Last Name"
 msgstr "Nom de famille"
 
@@ -230,7 +295,7 @@ msgid "Business Documents"
 msgstr "Documents commerciaux"
 
 #: .\templates\accounts\profile.html:103
-#: .\templates\accounts\register.html:145
+#: .\templates\accounts\register.html:175
 msgid "Import/Export License"
 msgstr "Licence d'importation/exportation"
 
@@ -239,7 +304,7 @@ msgid "View Current License"
 msgstr "Afficher la licence actuelle"
 
 #: .\templates\accounts\profile.html:114
-#: .\templates\accounts\register.html:150
+#: .\templates\accounts\register.html:182
 msgid "National ID Card"
 msgstr "Carte d'identité nationale"
 
@@ -254,88 +319,96 @@ msgstr "Changer le mot de passe"
 #: .\templates\accounts\profile.html:136
 #: .\templates\market\business_profile.html:349
 #: .\templates\seller_panel\business_profile.html:340
-#: .\templates\seller_panel\products_form.html:142
 msgid "Save Changes"
 msgstr "Enregistrer les modifications"
 
-#: .\templates\accounts\register.html:93
+#: .\templates\accounts\register.html:98
 msgid "Create Account"
 msgstr "Créer un compte"
 
-#: .\templates\accounts\register.html:103
+#: .\templates\accounts\register.html:117
 msgid "Select your account type to get started"
 msgstr "Sélectionnez votre type de compte pour commencer"
 
-#: .\templates\accounts\register.html:125
+#: .\templates\accounts\register.html:146
 msgid "Email"
 msgstr "E-mail"
 
-#: .\templates\accounts\register.html:142
+#: .\templates\accounts\register.html:172
 msgid "Seller Verification Required"
 msgstr "Vérification du vendeur requise"
 
-#: .\templates\accounts\register.html:147
-msgid "PDF or Image required."
-msgstr "PDF ou image requis."
-
-#: .\templates\accounts\register.html:172
+#: .\templates\accounts\register.html:209
 msgid "Select Plan"
 msgstr "Sélectionnez le forfait"
 
-#: .\templates\accounts\register.html:187
+#: .\templates\accounts\register.html:224
 msgid "Basic"
 msgstr "Basique"
 
-#: .\templates\accounts\register.html:189
+#: .\templates\accounts\register.html:225
+msgid "$0"
+msgstr "0 $"
+
+#: .\templates\accounts\register.html:226
 msgid "Business Profile."
 msgstr "Profil d'entreprise."
 
-#: .\templates\accounts\register.html:189
+#: .\templates\accounts\register.html:226
 msgid "Luxury Furniture Listings."
 msgstr "Listes de meubles de luxe."
 
-#: .\templates\accounts\register.html:191
+#: .\templates\accounts\register.html:228
 msgid "Premium"
 msgstr "Prime"
 
-#: .\templates\accounts\register.html:193
-msgid "4 Smart Agents."
-msgstr "4 agents intelligents."
+#: .\templates\accounts\register.html:229
+msgid "$400"
+msgstr "400 $"
 
-#: .\templates\accounts\register.html:193
-msgid "Full 3D Visualization."
-msgstr "Visualisation 3D complète."
-
-#: .\templates\accounts\register.html:196
-msgid "Professional"
-msgstr "Professionnel"
-
-#: .\templates\accounts\register.html:197
-msgid "VIP"
-msgstr "VIP"
-
-#: .\templates\accounts\register.html:199
+#: .\templates\accounts\register.html:229
+#: .\templates\accounts\register.html:236
 msgid "/year"
 msgstr "/année"
 
-#: .\templates\accounts\register.html:200
+#: .\templates\accounts\register.html:230
+msgid "4 Smart Agents."
+msgstr "4 agents intelligents."
+
+#: .\templates\accounts\register.html:230
+msgid "Full 3D Visualization."
+msgstr "Visualisation 3D complète."
+
+#: .\templates\accounts\register.html:233
+msgid "Professional"
+msgstr "Professionnel"
+
+#: .\templates\accounts\register.html:234
+msgid "VIP"
+msgstr "VIP"
+
+#: .\templates\accounts\register.html:236
+msgid "$800"
+msgstr "800 $"
+
+#: .\templates\accounts\register.html:237
 msgid "8 Smart Agents."
 msgstr "8 agents intelligents."
 
-#: .\templates\accounts\register.html:200
+#: .\templates\accounts\register.html:237
 msgid "Advanced Analytics."
 msgstr "Analyse avancée."
 
-#: .\templates\accounts\register.html:208
+#: .\templates\accounts\register.html:245
 msgid "Complete Registration"
 msgstr "Terminer l'inscription"
 
-#: .\templates\accounts\register.html:242
+#: .\templates\accounts\register.html:250
 #: .\templates\chat\guest_contact.html:110
 msgid "Already have an account?"
 msgstr "Vous avez déjà un compte ?"
 
-#: .\templates\accounts\register.html:243
+#: .\templates\accounts\register.html:251
 msgid "Login Here"
 msgstr "Connectez-vous ici"
 
@@ -355,14 +428,14 @@ msgstr "Revenu total"
 msgid "User Distribution"
 msgstr "Répartition des utilisateurs"
 
-#: .\templates\admin_panel\orders.html:7 .\templates\ai\trainer.html:207
+#: .\templates\admin_panel\orders.html:7 .\templates\ai\trainer.html:225
 #: .\templates\partials\header.html:23
 msgid "Order Analytics"
 msgstr "Analyse des commandes"
 
 #: .\templates\admin_panel\orders.html:8
 #: .\templates\seller_panel\dashboard.html:17
-#: .\templates\seller_panel\orders.html:156
+#: .\templates\seller_panel\orders.html:179
 msgid "Total Orders"
 msgstr "Total des commandes"
 
@@ -375,22 +448,24 @@ msgid "Revenue"
 msgstr "Revenu"
 
 #: .\templates\admin_panel\orders.html:47
+#: .\templates\seller_panel\seller_transaction.html:154
 msgid "Recent Transactions"
 msgstr "Transactions récentes"
 
 #: .\templates\admin_panel\orders.html:52
-#: .\templates\seller_panel\orders.html:164
+#: .\templates\seller_panel\orders.html:258
 msgid "ID"
 msgstr "IDENTIFIANT"
 
-#: .\templates\admin_panel\orders.html:54 .\templates\market\payment.html:144
+#: .\templates\admin_panel\orders.html:54
 msgid "Total"
 msgstr "Total"
 
 #: .\templates\admin_panel\orders.html:55
 #: .\templates\admin_panel\products.html:34
-#: .\templates\market\buyer_orders.html:32
-#: .\templates\seller_panel\orders.html:168
+#: .\templates\market\buyer_orders.html:110
+#: .\templates\seller_panel\orders.html:262
+#: .\templates\seller_panel\seller_transaction.html:167
 msgid "Status"
 msgstr "Statut"
 
@@ -418,13 +493,14 @@ msgstr "Tous les produits"
 msgid "Name"
 msgstr "Nom"
 
-#: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:495
-#: .\templates\market\list.html:40 .\templates\seller_panel\products.html:31
-#: .\templates\seller_panel\products_form.html:30
+#: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:508
+#: .\templates\market\list.html:38 .\templates\seller_panel\products.html:39
+#: .\templates\seller_panel\products_form.html:19
 msgid "Category"
 msgstr "Catégorie"
 
 #: .\templates\admin_panel\products.html:33
+#: .\templates\seller_panel\products_form.html:35
 msgid "Price"
 msgstr "Prix"
 
@@ -468,8 +544,8 @@ msgid "Certificates"
 msgstr "Certificats"
 
 #: .\templates\admin_panel\users.html:115
-#: .\templates\seller_panel\orders.html:169
-#: .\templates\seller_panel\products.html:35
+#: .\templates\seller_panel\orders.html:263
+#: .\templates\seller_panel\products.html:43
 msgid "Actions"
 msgstr "Actes"
 
@@ -609,98 +685,107 @@ msgstr ""
 "Aucun certificat supplémentaire (biologique, commerce équitable, etc.) "
 "téléchargé."
 
-#: .\templates\ai\index.html:266 .\templates\ai\trainer.html:193
+#: .\templates\ai\index.html:7 .\templates\partials\index.html:6
+msgid "Asortie Ultimate | Luxury AI Hub"
+msgstr "Assortie Ultime | Hub d'IA de luxe"
+
+#: .\templates\ai\index.html:284 .\templates\ai\trainer.html:211
 msgid "Interior Intelligence Hub"
 msgstr "Centre d'intelligence intérieure"
 
-#: .\templates\ai\index.html:280
+#: .\templates\ai\index.html:298
 msgid "+ New Inquiry"
 msgstr "+ Nouvelle demande"
 
-#: .\templates\ai\index.html:285
+#: .\templates\ai\index.html:303
 msgid "History"
 msgstr "Histoire"
 
-#: .\templates\ai\index.html:424
+#: .\templates\ai\index.html:466
 msgid "Client Inquiry"
 msgstr "Demande client"
 
-#: .\templates\ai\index.html:424
+#: .\templates\ai\index.html:466
 msgid "Asortie Consultant"
 msgstr "Consultant Asortie"
 
-#: .\templates\ai\index.html:457
+#: .\templates\ai\index.html:499
 msgid "INQUIRE"
 msgstr "RENSEIGNER"
 
-#: .\templates\ai\trainer.html:201 .\templates\partials\header.html:17
+#: .\templates\ai\trainer.html:7
+#| msgid "AI Training Center"
+msgid "Asortie Ultimate | AI Training Center"
+msgstr "Assortie Ultime | Centre de formation en IA"
+
+#: .\templates\ai\trainer.html:219 .\templates\partials\header.html:17
 msgid "Manage Users"
 msgstr "Gérer les utilisateurs"
 
-#: .\templates\ai\trainer.html:204 .\templates\partials\header.html:20
+#: .\templates\ai\trainer.html:222 .\templates\partials\header.html:20
 msgid "Products Analytics"
 msgstr "Analyse des produits"
 
-#: .\templates\ai\trainer.html:210 .\templates\chat\inbox.html:9
-#: .\templates\partials\header.html:26 .\templates\partials\header.html:77
+#: .\templates\ai\trainer.html:228 .\templates\chat\inbox.html:9
+#: .\templates\partials\header.html:26 .\templates\partials\header.html:51
+#: .\templates\partials\header.html:80
 msgid "Messages"
 msgstr "Messages"
 
-#: .\templates\ai\trainer.html:213
+#: .\templates\ai\trainer.html:231
 msgid "Ai Agent"
 msgstr "Agent IA"
 
-#: .\templates\ai\trainer.html:228
+#: .\templates\ai\trainer.html:246
 msgid "AI Training Center"
 msgstr "Centre de formation en IA"
 
-#: .\templates\ai\trainer.html:330
+#: .\templates\ai\trainer.html:373
 msgid "Knowledge Management"
 msgstr "Gestion des connaissances"
 
-#: .\templates\ai\trainer.html:331
+#: .\templates\ai\trainer.html:374
 msgid "Inject new facts and visual assets into the Asortie Intelligence core."
 msgstr ""
 "Injectez de nouveaux faits et ressources visuelles dans le noyau d’Asortie "
 "Intelligence."
 
-#: .\templates\ai\trainer.html:338
+#: .\templates\ai\trainer.html:381
 msgid "Add Text Fact"
 msgstr "Ajouter un fait textuel"
 
-#: .\templates\ai\trainer.html:346
+#: .\templates\ai\trainer.html:389
 msgid "Inject into Memory"
 msgstr "Injecter en mémoire"
 
-#: .\templates\ai\trainer.html:355
+#: .\templates\ai\trainer.html:398
 msgid "Add Visual Asset"
 msgstr "Ajouter un élément visuel"
 
-#: .\templates\ai\trainer.html:365
+#: .\templates\ai\trainer.html:408
 msgid "Vectorize Image"
 msgstr "Vectoriser l'image"
 
-#: .\templates\ai\trainer.html:373
+#: .\templates\ai\trainer.html:416
 msgid "Recent System Knowledge"
 msgstr "Connaissance récente du système"
 
-#: .\templates\ai\trainer.html:387
+#: .\templates\ai\trainer.html:430
 msgid "Visual"
 msgstr "Visuel"
 
-#: .\templates\ai\trainer.html:387
+#: .\templates\ai\trainer.html:430
 msgid "Fact"
 msgstr "Fait"
 
-#: .\templates\ai\trainer.html:396 .\templates\chat\single_message.html:26
-#: .\templates\seller_panel\products.html:93
+#: .\templates\ai\trainer.html:439 .\templates\chat\single_message.html:32
+#: .\templates\seller_panel\products.html:102
 msgid "Edit"
 msgstr "Modifier"
 
-#: .\templates\ai\trainer.html:397
+#: .\templates\ai\trainer.html:440
 #: .\templates\market\business_profile.html:156
 #: .\templates\seller_panel\business_profile.html:153
-#: .\templates\seller_panel\products_form.html:129
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -744,52 +829,89 @@ msgstr "Connectez-vous ici"
 msgid "Conversations"
 msgstr "Conversations"
 
-#: .\templates\chat\inbox.html:25 .\templates\chat\inbox.html:38
+#: .\templates\chat\inbox.html:24 .\templates\chat\inbox.html:42
 msgid "Click to open chat"
 msgstr "Cliquez pour ouvrir le chat"
 
-#: .\templates\chat\inbox.html:47
+#: .\templates\chat\inbox.html:28 .\templates\chat\inbox.html:46
+msgid "Delete Conversation"
+msgstr "Supprimer la conversation"
+
+#: .\templates\chat\inbox.html:56
 msgid "No messages yet."
 msgstr "Aucun message pour l'instant."
 
-#: .\templates\chat\inbox.html:48
+#: .\templates\chat\inbox.html:57
 msgid "Contact a seller from the marketplace to start a chat."
 msgstr ""
 "Contactez un vendeur de la place de marché pour démarrer une discussion."
 
-#: .\templates\chat\inbox.html:49
+#: .\templates\chat\inbox.html:58
 msgid "Go to Market"
 msgstr "Aller au marché"
 
-#: .\templates\chat\room.html:117
+#: .\templates\chat\inbox.html:73
+msgid ""
+"Are you sure you want to delete this conversation? All messages will be "
+"cleared for you."
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer cette conversation ? Tous les messages "
+"seront effacés pour vous."
+
+#: .\templates\chat\room.html:223
 msgid "Online"
 msgstr "En ligne"
 
-#: .\templates\chat\room.html:126
+#: .\templates\chat\room.html:232
 msgid "Clear Chat"
 msgstr "Effacer le chat"
 
-#: .\templates\chat\room.html:155
+#: .\templates\chat\room.html:274
 msgid "Recording..."
 msgstr "Enregistrement..."
 
-#: .\templates\chat\single_message.html:29
+#: .\templates\chat\single_message.html:25
+#: .\templates\chat\single_message.html:60
+msgid "You"
+msgstr "Toi"
+
+#: .\templates\chat\single_message.html:26
+msgid "Reply"
+msgstr "Répondre"
+
+#: .\templates\chat\single_message.html:37
 msgid "Delete for everyone"
 msgstr "Supprimer pour tout le monde"
 
-#: .\templates\chat\single_message.html:33
+#: .\templates\chat\single_message.html:43
 msgid "Delete for me"
 msgstr "Supprimer pour moi"
 
-#: .\templates\chat\single_message.html:41
+#: .\templates\chat\single_message.html:52
 msgid "This message was deleted."
 msgstr "Ce message a été supprimé."
 
-#: .\templates\chat\single_message.html:58
+#: .\templates\chat\single_message.html:64
+msgid "Photo"
+msgstr "Photo"
+
+#: .\templates\chat\single_message.html:66
+msgid "Video"
+msgstr "Vidéo"
+
+#: .\templates\chat\single_message.html:68
+msgid "Audio"
+msgstr "Audio"
+
+#: .\templates\chat\single_message.html:70
+msgid "Document"
+msgstr "Document"
+
+#: .\templates\chat\single_message.html:92
 msgid "Download Attachment"
 msgstr "Télécharger la pièce jointe"
 
-#: .\templates\chat\single_message.html:67
+#: .\templates\chat\single_message.html:101
 msgid "(edited)"
 msgstr "(édité)"
 
@@ -884,7 +1006,7 @@ msgid "Luxury landing with featured items."
 msgstr "Atterrissage de luxe avec articles en vedette."
 
 #: .\templates\core\home.html:105 .\templates\partials\header.html:29
-#: .\templates\partials\header.html:60 .\templates\partials\header.html:91
+#: .\templates\partials\header.html:63 .\templates\partials\header.html:94
 msgid "AI Hub"
 msgstr "Centre d'IA"
 
@@ -897,8 +1019,8 @@ msgstr ""
 "tendances du marché en temps réel, des informations sur les prix et une "
 "assistance automatisée à la décoration intérieure."
 
-#: .\templates\core\home.html:121 .\templates\partials\header.html:54
-#: .\templates\partials\header.html:69
+#: .\templates\core\home.html:121 .\templates\partials\header.html:57
+#: .\templates\partials\header.html:72
 msgid "Marketplace"
 msgstr "Marché"
 
@@ -915,8 +1037,8 @@ msgstr ""
 msgid "Our Shop"
 msgstr "Notre boutique"
 
-#: .\templates\core\home.html:137 .\templates\partials\header.html:57
-#: .\templates\partials\header.html:88
+#: .\templates\core\home.html:137 .\templates\partials\header.html:60
+#: .\templates\partials\header.html:91
 msgid "3D Visualization"
 msgstr "Visualisation 3D"
 
@@ -963,6 +1085,7 @@ msgid "Read All"
 msgstr "Lire tout"
 
 #: .\templates\core\notifications.html:26
+#: .\templates\market\buyer_orders.html:93
 msgid "Clear All"
 msgstr "Tout effacer"
 
@@ -978,8 +1101,33 @@ msgstr "Vous n'avez aucune notification."
 msgid "We will notify you when important events happen."
 msgstr "Nous vous informerons lorsque des événements importants surviennent."
 
+#: .\templates\market\_product_grid.html:20
+msgid "Price on request"
+msgstr "Prix ​​sur demande"
+
+#: .\templates\market\_product_grid.html:22
+msgid "(Base Price)"
+msgstr "(Prix de base)"
+
+#: .\templates\market\_product_grid.html:31
+#: .\templates\market\public_profile.html:252
+msgid "To Order Login By Buyer"
+msgstr "Pour commander, connectez-vous par l'acheteur"
+
+#: .\templates\market\_product_grid.html:34
+msgid "Order Now"
+msgstr "Commandez maintenant"
+
+#: .\templates\market\_product_grid.html:37
+msgid "Login to Order"
+msgstr "Connectez-vous pour commander"
+
+#: .\templates\market\_product_grid.html:47
+msgid "No products match your filters."
+msgstr "Aucun produit ne correspond à vos filtres."
+
 #: .\templates\market\business_directory.html:59
-#: .\templates\partials\header.html:51 .\templates\partials\header.html:85
+#: .\templates\partials\header.html:54 .\templates\partials\header.html:88
 msgid "Merchant Hub"
 msgstr "Centre des commerçants"
 
@@ -992,6 +1140,7 @@ msgstr ""
 "les références commerciales et les catalogues de produits en direct."
 
 #: .\templates\market\business_directory.html:68
+#: .\templates\market\list.html:30
 msgid "Search"
 msgstr "Recherche"
 
@@ -1000,7 +1149,6 @@ msgid "All Countries"
 msgstr "Tous les pays"
 
 #: .\templates\market\business_directory.html:88
-#: .\templates\market\list.html:61
 msgid "Sort By"
 msgstr "Trier par"
 
@@ -1021,6 +1169,8 @@ msgid "With Certificates"
 msgstr "Avec certificats"
 
 #: .\templates\market\business_directory.html:111
+#: .\templates\market\buyer_orders.html:94
+#: .\templates\seller_panel\orders.html:241
 msgid "Apply Filters"
 msgstr "Appliquer des filtres"
 
@@ -1198,175 +1348,216 @@ msgstr "Image du document (JPG/PNG)"
 msgid "Upload for Verification"
 msgstr "Télécharger pour vérification"
 
-#: .\templates\market\buyer_orders.html:10 .\templates\partials\header.html:74
+#: .\templates\market\buyer_orders.html:36 .\templates\partials\header.html:77
 msgid "My Orders"
 msgstr "Mes commandes"
 
-#: .\templates\market\buyer_orders.html:11
-msgid "Manage your purchases and track shipments."
-msgstr "Gérez vos achats et suivez les expéditions."
+#: .\templates\market\buyer_orders.html:37
+msgid "Track your luxury furniture collection and inquiries."
+msgstr ""
+"Suivez votre collection de meubles de luxe et vos demandes de "
+"renseignements."
 
-#: .\templates\market\buyer_orders.html:16
-msgid "Total Spent"
-msgstr "Total dépensé"
+#: .\templates\market\buyer_orders.html:42
+msgid "Total Investment"
+msgstr "Investissement total"
 
-#: .\templates\market\buyer_orders.html:30
+#: .\templates\market\buyer_orders.html:52
+msgid "FILTER ORDERS"
+msgstr "COMMANDES DE FILTRE"
+
+#: .\templates\market\buyer_orders.html:54 .\templates\market\list.html:65
+msgid "Filter"
+msgstr "Filtre"
+
+#: .\templates\market\buyer_orders.html:61
+msgid "Search Product"
+msgstr "Rechercher un produit"
+
+#: .\templates\market\buyer_orders.html:65
+#: .\templates\seller_panel\orders.html:204
+msgid "Exact Date"
+msgstr "Date exacte"
+
+#: .\templates\market\buyer_orders.html:69
+msgid "Month / Year"
+msgstr "Mois / Année"
+
+#: .\templates\market\buyer_orders.html:72
+#: .\templates\seller_panel\orders.html:210
+msgid "Month"
+msgstr "Mois"
+
+#: .\templates\market\buyer_orders.html:78
+#: .\templates\seller_panel\orders.html:219
+msgid "Year"
+msgstr "Année"
+
+#: .\templates\market\buyer_orders.html:86 .\templates\market\list.html:55
+msgid "Price Range"
+msgstr "Gamme de prix"
+
+#: .\templates\market\buyer_orders.html:108
 msgid "Item"
 msgstr "Article"
 
-#: .\templates\market\buyer_orders.html:31
+#: .\templates\market\buyer_orders.html:109
 msgid "Order Date"
 msgstr "Date de commande"
 
-#: .\templates\market\buyer_orders.html:33
+#: .\templates\market\buyer_orders.html:111
 msgid "Amount"
 msgstr "Montant"
 
-#: .\templates\market\buyer_orders.html:34
+#: .\templates\market\buyer_orders.html:112
 msgid "Action"
 msgstr "Action"
 
-#: .\templates\market\buyer_orders.html:73
-msgid "Price Pending"
-msgstr "Prix ​​en attente"
+#: .\templates\market\buyer_orders.html:138
+#: .\templates\seller_panel\orders.html:290
+msgid "Waiting for Quote"
+msgstr "En attente de devis"
 
-#: .\templates\market\buyer_orders.html:75
-msgid "Paid"
-msgstr "Payé"
+#: .\templates\market\buyer_orders.html:146
+msgid "Seller Terms & Notes"
+msgstr "Conditions et remarques du vendeur"
 
-#: .\templates\market\buyer_orders.html:77
-#: .\templates\seller_panel\orders.html:206
+#: .\templates\market\buyer_orders.html:148
+msgid "Price Offered"
+msgstr "Prix ​​offert"
+
+#: .\templates\market\buyer_orders.html:161
+msgid "Quote Expired"
+msgstr "Devis expiré"
+
+#: .\templates\market\buyer_orders.html:165
+#: .\templates\seller_panel\orders.html:311
 msgid "Processing"
 msgstr "Traitement"
 
-#: .\templates\market\buyer_orders.html:79
-msgid "On the way"
-msgstr "En route"
+#: .\templates\market\buyer_orders.html:167
+#: .\templates\seller_panel\order_details.html:56
+#: .\templates\seller_panel\orders.html:313
+msgid "In Transit"
+msgstr "En transit"
 
-#: .\templates\market\buyer_orders.html:81
-#: .\templates\seller_panel\orders.html:210
+#: .\templates\market\buyer_orders.html:169
+#: .\templates\seller_panel\order_details.html:58
+#: .\templates\seller_panel\orders.html:315
 msgid "Delivered"
 msgstr "Livré"
 
-#: .\templates\market\buyer_orders.html:98
+#: .\templates\market\buyer_orders.html:183
 msgid "Pay Now"
 msgstr "Payez maintenant"
 
-#: .\templates\market\buyer_orders.html:107 .\templates\market\detail.html:409
+#: .\templates\market\buyer_orders.html:188
+msgid "Request Renew"
+msgstr "Demande de renouvellement"
+
+#: .\templates\market\detail.html:362
+msgid "Collection"
+msgstr "Collection"
+
+#: .\templates\market\detail.html:378
+msgid "No Image Available"
+msgstr "Aucune image disponible"
+
+#: .\templates\market\detail.html:384
+msgid "View in 3D"
+msgstr "Voir en 3D"
+
+#: .\templates\market\detail.html:410
+msgid "Seller:"
+msgstr "Vendeur:"
+
+#: .\templates\market\detail.html:412
+msgid "Visit Showroom"
+msgstr "Visitez la salle d'exposition"
+
+#: .\templates\market\detail.html:416
 #: .\templates\market\public_profile.html:94
 msgid "Chat"
 msgstr "Chat"
 
-#: .\templates\market\buyer_orders.html:117
-msgid "No orders found"
-msgstr "Aucune commande trouvée"
-
-#: .\templates\market\buyer_orders.html:118
-msgid "You haven't placed any orders yet."
-msgstr "Vous n'avez pas encore passé de commande."
-
-#: .\templates\market\buyer_orders.html:119
-msgid "Browse Products"
-msgstr "Parcourir les produits"
-
-#: .\templates\market\detail.html:356
-msgid "Collection"
-msgstr "Collection"
-
-#: .\templates\market\detail.html:372
-msgid "No Image Available"
-msgstr "Aucune image disponible"
-
-#: .\templates\market\detail.html:378
-msgid "View in 3D"
-msgstr "Voir en 3D"
-
-#: .\templates\market\detail.html:403
-msgid "Seller:"
-msgstr "Vendeur:"
-
-#: .\templates\market\detail.html:405
-msgid "Visit Showroom"
-msgstr "Visitez la salle d'exposition"
-
-#: .\templates\market\detail.html:415
+#: .\templates\market\detail.html:422 .\templates\market\detail.html:446
 msgid "Price On Request"
 msgstr "Prix ​​Sur Demande"
 
-#: .\templates\market\detail.html:418
+#: .\templates\market\detail.html:425
 msgid "/ set"
 msgstr "/ ensemble"
 
-#: .\templates\market\detail.html:429
+#: .\templates\market\detail.html:436
 msgid "Quantity"
 msgstr "Quantité"
 
-#: .\templates\market\detail.html:435
+#: .\templates\market\detail.html:442
 msgid "Total Estimate"
 msgstr "Estimation totale"
 
-#: .\templates\market\detail.html:443
+#: .\templates\market\detail.html:456
 msgid "Create Inquiry"
 msgstr "Créer une demande"
 
-#: .\templates\market\detail.html:449
+#: .\templates\market\detail.html:462
 msgid "Buyer Account Required"
 msgstr "Compte acheteur requis"
 
-#: .\templates\market\detail.html:450
+#: .\templates\market\detail.html:463
 msgid "Please"
 msgstr "S'il te plaît"
 
-#: .\templates\market\detail.html:450
+#: .\templates\market\detail.html:463
 msgid "to view shipping rates and place orders."
 msgstr "pour consulter les tarifs d'expédition et passer des commandes."
 
-#: .\templates\market\detail.html:457
+#: .\templates\market\detail.html:470
 msgid "Fast Shipping"
 msgstr "Expédition rapide"
 
-#: .\templates\market\detail.html:461
+#: .\templates\market\detail.html:474
 msgid "Buyer Protection"
 msgstr "Protection de l'acheteur"
 
-#: .\templates\market\detail.html:465
+#: .\templates\market\detail.html:478
 msgid "24/7 Support"
 msgstr "Assistance 24h/24 et 7j/7"
 
-#: .\templates\market\detail.html:478
-#: .\templates\seller_panel\products_form.html:53
+#: .\templates\market\detail.html:491
+#: .\templates\seller_panel\products_form.html:48
 msgid "Description"
 msgstr "Description"
 
-#: .\templates\market\detail.html:481
+#: .\templates\market\detail.html:494
 msgid "Specifications"
 msgstr "Caractéristiques"
 
-#: .\templates\market\detail.html:484
+#: .\templates\market\detail.html:497
 msgid "Shipping & Returns"
 msgstr "Expéditions et retours"
 
-#: .\templates\market\detail.html:489
+#: .\templates\market\detail.html:502
 msgid "Product Overview"
 msgstr "Présentation du produit"
 
-#: .\templates\market\detail.html:493
+#: .\templates\market\detail.html:506
 msgid "Technical Details"
 msgstr "Détails techniques"
 
-#: .\templates\market\detail.html:497
+#: .\templates\market\detail.html:510
 msgid "Material"
 msgstr "Matériel"
 
-#: .\templates\market\detail.html:497
+#: .\templates\market\detail.html:510
 msgid "Premium Source"
 msgstr "Source premium"
 
-#: .\templates\market\detail.html:501
+#: .\templates\market\detail.html:514
 msgid "Delivery Information"
 msgstr "Informations de livraison"
 
-#: .\templates\market\detail.html:502
+#: .\templates\market\detail.html:515
 msgid ""
 "Standard delivery times for this item vary by location. Please create an "
 "inquiry to receive a custom logistics quote for deliveries to Addis Ababa "
@@ -1377,123 +1568,140 @@ msgstr ""
 "personnalisé pour les livraisons à Addis-Abeba et dans les régions "
 "environnantes."
 
-#: .\templates\market\list.html:19
+#: .\templates\market\iyzico_hosted.html:7
+msgid "Complete Your Payment"
+msgstr "Complétez votre paiement"
+
+#: .\templates\market\iyzico_hosted.html:8
+#: .\templates\seller_panel\order_details.html:45
+msgid "Order #"
+msgstr "Commande #"
+
+#: .\templates\market\iyzico_hosted.html:8
+msgid "Total:"
+msgstr "Total:"
+
+#: .\templates\market\iyzico_hosted.html:8
+#: .\templates\seller_panel\seller_transaction.html:87
+msgid "USD"
+msgstr "USD"
+
+#: .\templates\market\iyzico_hosted.html:18
+msgid "Failed to load the payment form. Please try again."
+msgstr "Échec du chargement du formulaire de paiement. Veuillez réessayer."
+
+#: .\templates\market\iyzico_hosted.html:24
+msgid "Cancel and go back"
+msgstr "Annuler et revenir"
+
+#: .\templates\market\list.html:22
 msgid "Global Marketplace"
 msgstr "Marché mondial"
 
-#: .\templates\market\list.html:20
+#: .\templates\market\list.html:23
 msgid "Browse premium luxury furniture products from verified sellers."
 msgstr ""
 "Parcourez les produits de meubles de luxe haut de gamme auprès de vendeurs "
 "vérifiés."
 
-#: .\templates\market\list.html:31
-msgid "Search Products"
-msgstr "Rechercher des produits"
+#: .\templates\market\list.html:48
+#: .\templates\seller_panel\products_form.html:29
+msgid "Sub Category"
+msgstr "Sous-catégorie"
 
-#: .\templates\market\list.html:42
-msgid "All Categories"
-msgstr "Toutes les catégories"
+#: .\templates\market\list.html:68
+msgid "Clear"
+msgstr "Clair"
 
-#: .\templates\market\list.html:51
-msgid "Price Range (USD)"
-msgstr "Fourchette de prix (USD)"
+#: .\templates\market\payment.html:51
+msgid "Negotiation"
+msgstr "Négociation"
 
-#: .\templates\market\list.html:63
-msgid "Newest Listed"
-msgstr "Répertorié le plus récent"
+#: .\templates\market\payment.html:55
+msgid "Delivery & Payment"
+msgstr "Livraison et paiement"
 
-#: .\templates\market\list.html:64
-msgid "Price: Low to High"
-msgstr "Prix : faible à élevé"
+#: .\templates\market\payment.html:59
+msgid "Confirmation"
+msgstr "Confirmation"
 
-#: .\templates\market\list.html:65
-msgid "Price: High to Low"
-msgstr "Prix : haut à bas"
+#: .\templates\market\payment.html:76
+msgid "Delivery Options"
+msgstr "Options de livraison"
 
-#: .\templates\market\list.html:71
-msgid "Filter"
-msgstr "Filtre"
+#: .\templates\market\payment.html:99
+msgid "Destination Country"
+msgstr "Pays de destination"
 
-#: .\templates\market\list.html:96
-msgid "Price on request"
-msgstr "Prix ​​sur demande"
+#: .\templates\market\payment.html:115
+msgid "Set Delivery Pin"
+msgstr "Définir le code de livraison"
 
-#: .\templates\market\list.html:98
-msgid "(Base Price)"
-msgstr "(Prix de base)"
+#: .\templates\market\payment.html:179
+msgid "Payment Gateway"
+msgstr "Passerelle de paiement"
 
-#: .\templates\market\list.html:110 .\templates\market\public_profile.html:252
-msgid "To Order Login By Buyer"
-msgstr "Pour commander, connectez-vous par l'acheteur"
+#: .\templates\market\payment.html:202
+msgid "Credit / Debit Card"
+msgstr "Carte de crédit/débit"
 
-#: .\templates\market\list.html:115
-msgid "Order Now"
-msgstr "Commandez maintenant"
+#: .\templates\market\payment.html:203
+msgid "Secure international checkout via Stripe"
+msgstr "Paiement international sécurisé via Stripe"
 
-#: .\templates\market\list.html:122
-msgid "Login to Order"
-msgstr "Connectez-vous pour commander"
+#: .\templates\market\payment.html:216
+msgid "Local Mobile Payment"
+msgstr "Paiement mobile local"
 
-#: .\templates\market\list.html:132
-msgid "No products available right now."
-msgstr "Aucun produit disponible pour le moment."
+#: .\templates\market\payment.html:217
+msgid "Telebirr, CBE Birr, M-Pesa via Chapa"
+msgstr "Telebirr, CBE Birr, M-Pesa via Chapa"
 
-#: .\templates\market\payment.html:120
-msgid "Secure Checkout"
-msgstr "Paiement sécurisé"
+#: .\templates\market\payment.html:230
+msgid "Iyzico"
+msgstr "Iyzico"
 
-#: .\templates\market\payment.html:121
-msgid "Step 2 of 2"
-msgstr "Étape 2 sur 2"
+#: .\templates\market\payment.html:231
+msgid "Pay with credit card or protected transfer via Iyzico"
+msgstr "Payez par carte de crédit ou virement protégé via Iyzico"
 
-#: .\templates\market\payment.html:127
+#: .\templates\market\payment.html:244
+#: .\templates\seller_panel\seller_payment.html:154
+msgid "Cash on Delivery (COD)"
+msgstr "Paiement à la livraison (COD)"
+
+#: .\templates\market\payment.html:245
+msgid "Pay securely when your item arrives"
+msgstr "Payez en toute sécurité à l'arrivée de votre article"
+
+#: .\templates\market\payment.html:258
 msgid "Order Summary"
 msgstr "Récapitulatif de la commande"
 
-#: .\templates\market\payment.html:140
-msgid "Qty:"
-msgstr "Quantité :"
+#: .\templates\market\payment.html:276
+msgid "Agreed Product Quote"
+msgstr "Devis de produit convenu"
 
-#: .\templates\market\payment.html:158
-msgid "Select Payment Method"
-msgstr "Sélectionnez le mode de paiement"
+#: .\templates\market\payment.html:282
+msgid "Delivery Total"
+msgstr "Livraison totale"
 
-#: .\templates\market\payment.html:168
-msgid "International Payment"
-msgstr "Paiement international"
+#: .\templates\market\payment.html:286
+#: .\templates\seller_panel\order_details.html:143
+msgid "Grand Total"
+msgstr "Total"
 
-#: .\templates\market\payment.html:169
-msgid "Credit Card, Debit Card (Stripe)"
-msgstr "Carte de crédit, carte de débit (Stripe)"
+#: .\templates\market\payment.html:315 .\templates\market\payment.html:402
+msgid "Confirm & Pay Securely"
+msgstr "Confirmez et payez en toute sécurité"
 
-#: .\templates\market\payment.html:183
-msgid "Local Payment (Ethiopia)"
-msgstr "Paiement local (Éthiopie)"
+#: .\templates\market\payment.html:319
+msgid "256-bit SSL Encrypted Checkout"
+msgstr "Paiement crypté SSL 256 bits"
 
-#: .\templates\market\payment.html:184
-msgid "Telebirr, CBE, Mobile Money (Chapa)"
-msgstr "Telebirr, CBE, Mobile Money (Chapa)"
-
-#: .\templates\market\payment.html:192
-msgid "Pay"
-msgstr "Payer"
-
-#: .\templates\market\payment.html:192
-msgid "Now"
-msgstr "Maintenant"
-
-#: .\templates\market\payment.html:195
-msgid "Cancel Order"
-msgstr "Annuler la commande"
-
-#: .\templates\market\payment.html:201
-msgid "SSL Encrypted Transaction"
-msgstr "Transaction cryptée SSL"
-
-#: .\templates\market\payment.html:206
-msgid "Chapa Verified"
-msgstr "Chapa Vérifié"
+#: .\templates\market\payment.html:399
+msgid "Confirm Order (Pay on Delivery)"
+msgstr "Confirmer la commande (paiement à la livraison)"
 
 #: .\templates\market\payment_success.html:7
 msgid "Payment Successful"
@@ -1587,7 +1795,7 @@ msgstr "Spécialiste des messages"
 msgid "2026"
 msgstr "2026"
 
-#: .\templates\partials\footer.html:7 .\templates\partials\header.html:97
+#: .\templates\partials\footer.html:7 .\templates\partials\header.html:100
 msgid "Asortie"
 msgstr "Assortie"
 
@@ -1623,13 +1831,33 @@ msgstr "Mes produits"
 msgid "Manage Orders"
 msgstr "Gérer les commandes"
 
-#: .\templates\partials\header.html:45 .\templates\partials\header.html:81
+#: .\templates\partials\header.html:44
+msgid "Manage Payments"
+msgstr "Gérer les paiements"
+
+#: .\templates\partials\header.html:48 .\templates\partials\header.html:84
 msgid "Business Profile"
 msgstr "Profil d'entreprise"
 
-#: .\templates\partials\header.html:48
-msgid "Buyer Messages"
-msgstr "Messages de l'acheteur"
+#: .\templates\partials\index.html:107
+msgid "Luxury Interior Intelligence"
+msgstr "Intelligence intérieure de luxe"
+
+#: .\templates\partials\index.html:109
+msgid "+ New Collection Inquiry"
+msgstr "+ Demande de nouvelle collection"
+
+#: .\templates\partials\index.html:139
+msgid "User"
+msgstr "Utilisateur"
+
+#: .\templates\partials\index.html:139
+msgid "Asortie Intelligence"
+msgstr "Assortie Intelligence"
+
+#: .\templates\partials\index.html:167
+msgid "Inquire"
+msgstr "Renseigner"
 
 #: .\templates\seller_panel\business_profile.html:177
 msgid "Revenue Today"
@@ -1667,117 +1895,319 @@ msgstr "Ventes totales"
 msgid "Order Status Analytics"
 msgstr "Analyse du statut des commandes"
 
-#: .\templates\seller_panel\orders.html:153
+#: .\templates\seller_panel\order_details.html:43
+msgid "Back to Orders"
+msgstr "Retour aux commandes"
+
+#: .\templates\seller_panel\order_details.html:45
+msgid "Details"
+msgstr "Détails"
+
+#: .\templates\seller_panel\order_details.html:46
+msgid "Placed on"
+msgstr "Placé sur"
+
+#: .\templates\seller_panel\order_details.html:50
+msgid "Inquiry Received"
+msgstr "Demande reçue"
+
+#: .\templates\seller_panel\order_details.html:52
+msgid "Quote Sent"
+msgstr "Devis envoyé"
+
+#: .\templates\seller_panel\order_details.html:54
+msgid "Paid & Processing"
+msgstr "Payé et traitement"
+
+#: .\templates\seller_panel\order_details.html:70
+msgid "Product & Client Info"
+msgstr "Informations sur les produits et les clients"
+
+#: .\templates\seller_panel\order_details.html:85
+msgid "Client Username"
+msgstr "Nom d'utilisateur du client"
+
+#: .\templates\seller_panel\order_details.html:89
+msgid "Contact / Action"
+msgstr "Contact / Actions"
+
+#: .\templates\seller_panel\order_details.html:91
+msgid "Message Client"
+msgstr "Client de messages"
+
+#: .\templates\seller_panel\order_details.html:101
+msgid "Financial Summary"
+msgstr "Résumé financier"
+
+#: .\templates\seller_panel\order_details.html:105
+msgid "Settings"
+msgstr "Paramètres"
+
+#: .\templates\seller_panel\order_details.html:112
+msgid "Awaiting Quote"
+msgstr "En attente de devis"
+
+#: .\templates\seller_panel\order_details.html:113
+msgid "You have not set the final price for this inquiry yet."
+msgstr "Vous n'avez pas encore fixé le prix final pour cette demande."
+
+#: .\templates\seller_panel\order_details.html:118
+msgid "Chosen Payment Method"
+msgstr "Mode de paiement choisi"
+
+#: .\templates\seller_panel\order_details.html:120
+msgid "Stripe Paid"
+msgstr "Stripe Payé"
+
+#: .\templates\seller_panel\order_details.html:122
+msgid "Chapa Paid"
+msgstr "Chapa Payé"
+
+#: .\templates\seller_panel\order_details.html:124
+msgid "Cash on Delivery"
+msgstr "Paiement à la livraison"
+
+#: .\templates\seller_panel\order_details.html:126
+msgid "Awaiting Checkout"
+msgstr "En attente de paiement"
+
+#: .\templates\seller_panel\order_details.html:131
+msgid "Agreed Product Price"
+msgstr "Prix ​​du produit convenu"
+
+#: .\templates\seller_panel\order_details.html:135
+msgid "Delivery / Logistics Fee"
+msgstr "Frais de livraison/logistique"
+
+#: .\templates\seller_panel\order_details.html:139
+msgid "Free / Pickup"
+msgstr "Gratuit / Ramassage"
+
+#: .\templates\seller_panel\order_details.html:150
+msgid "Internal Notes & Transport Requests"
+msgstr "Notes internes et demandes de transport"
+
+#: .\templates\seller_panel\order_details.html:164
+msgid "Logistics & Routing"
+msgstr "Logistique et acheminement"
+
+#: .\templates\seller_panel\order_details.html:166
+msgid "Store Pickup"
+msgstr "Retrait en magasin"
+
+#: .\templates\seller_panel\order_details.html:168
+msgid "Delivery Requested"
+msgstr "Livraison demandée"
+
+#: .\templates\seller_panel\order_details.html:177
+msgid "Client will pick up in-store"
+msgstr "Le client viendra chercher en magasin"
+
+#: .\templates\seller_panel\order_details.html:178
+msgid "No delivery logistics required for this order."
+msgstr "Aucune logistique de livraison requise pour cette commande."
+
+#: .\templates\seller_panel\order_details.html:185
+msgid "From (Your Location)"
+msgstr "De (votre emplacement)"
+
+#: .\templates\seller_panel\order_details.html:194
+msgid "To (Client Destination)"
+msgstr "À (Destination du client)"
+
+#: .\templates\seller_panel\order_details.html:197
+msgid "Coordinates Received"
+msgstr "Coordonnées reçues"
+
+#: .\templates\seller_panel\order_details.html:211
+msgid "Exact Distance"
+msgstr "Distance exacte"
+
+#: .\templates\seller_panel\order_details.html:215
+msgid "Live ETA"
+msgstr "ETA en direct"
+
+#: .\templates\seller_panel\order_details.html:221
+msgid "Start Route"
+msgstr "Début de l'itinéraire"
+
+#: .\templates\seller_panel\order_details.html:230
+msgid "Calculating Optimal Driver Route..."
+msgstr "Calcul de l'itinéraire optimal du conducteur..."
+
+#: .\templates\seller_panel\order_details.html:237
+msgid "International / Freight Delivery"
+msgstr "Livraison internationale/fret"
+
+#: .\templates\seller_panel\order_details.html:238
+msgid "Coordinate mapping is disabled for international freight."
+msgstr ""
+"La cartographie des coordonnées est désactivée pour le fret international."
+
+#: .\templates\seller_panel\order_details.html:238
+msgid "Check the "
+msgstr "Vérifiez le"
+
+#: .\templates\seller_panel\orders.html:176
 msgid "Order Logistics"
 msgstr "Logistique des commandes"
 
-#: .\templates\seller_panel\orders.html:154
+#: .\templates\seller_panel\orders.html:177
 msgid "Manage furniture inquiries and shipping from Asortie to Ethiopia."
 msgstr ""
 "Gérer les demandes de renseignements et l’expédition de meubles d’Asortie "
 "vers l’Éthiopie."
 
-#: .\templates\seller_panel\orders.html:165
+#: .\templates\seller_panel\orders.html:184
+msgid "ADVANCED FILTERS"
+msgstr "FILTRES AVANCÉS"
+
+#: .\templates\seller_panel\orders.html:186
+msgid "Adjust View"
+msgstr "Ajuster la vue"
+
+#: .\templates\seller_panel\orders.html:194
+msgid "Client / Username"
+msgstr "Client / Nom d'utilisateur"
+
+#: .\templates\seller_panel\orders.html:198
+msgid "Luxury Item Name"
+msgstr "Nom de l'article de luxe"
+
+#: .\templates\seller_panel\orders.html:212
+msgid "All Months"
+msgstr "Tous les mois"
+
+#: .\templates\seller_panel\orders.html:221
+msgid "All Years"
+msgstr "Toutes les années"
+
+#: .\templates\seller_panel\orders.html:230
+msgid "Min Price ($)"
+msgstr "Prix ​​minimum ($)"
+
+#: .\templates\seller_panel\orders.html:234
+msgid "Max Price ($)"
+msgstr "Prix ​​maximum ($)"
+
+#: .\templates\seller_panel\orders.html:244
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: .\templates\seller_panel\orders.html:259
 msgid "Luxury Item"
 msgstr "Article de luxe"
 
-#: .\templates\seller_panel\orders.html:166
+#: .\templates\seller_panel\orders.html:260
 msgid "Client Info"
 msgstr "Informations client"
 
-#: .\templates\seller_panel\orders.html:167
+#: .\templates\seller_panel\orders.html:261
 msgid "Quoted Amount"
 msgstr "Montant cité"
 
-#: .\templates\seller_panel\orders.html:196
-msgid "Waiting for Quote"
-msgstr "En attente de devis"
-
-#: .\templates\seller_panel\orders.html:202
+#: .\templates\seller_panel\orders.html:296
 msgid "Inquiry"
 msgstr "Enquête"
 
-#: .\templates\seller_panel\orders.html:204
+#: .\templates\seller_panel\orders.html:303
+msgid "Quote Details"
+msgstr "Détails du devis"
+
+#: .\templates\seller_panel\orders.html:305
 msgid "Quoted"
 msgstr "Cité"
 
-#: .\templates\seller_panel\orders.html:208
-msgid "In Transit"
-msgstr "En transit"
+#: .\templates\seller_panel\orders.html:309
+msgid "Expired"
+msgstr "Expiré"
 
-#: .\templates\seller_panel\orders.html:212
+#: .\templates\seller_panel\orders.html:317
 msgid "Cancelled"
 msgstr "Annulé"
 
-#: .\templates\seller_panel\orders.html:214
+#: .\templates\seller_panel\orders.html:319
 msgid "Declined"
 msgstr "Refusé"
 
-#: .\templates\seller_panel\orders.html:219
+#: .\templates\seller_panel\orders.html:326
 msgid "Inquiry Withdrawn"
 msgstr "Enquête retirée"
 
-#: .\templates\seller_panel\orders.html:223
+#: .\templates\seller_panel\orders.html:330
 msgid "Manage"
 msgstr "Gérer"
 
-#: .\templates\seller_panel\orders.html:229
+#: .\templates\seller_panel\orders.html:337
+msgid "View Full Details"
+msgstr "Afficher tous les détails"
+
+#: .\templates\seller_panel\orders.html:346
 msgid "Next Step"
 msgstr "Étape suivante"
 
-#: .\templates\seller_panel\orders.html:233
+#: .\templates\seller_panel\orders.html:350
 msgid "Set Final Price"
 msgstr "Fixer le prix final"
 
-#: .\templates\seller_panel\orders.html:241
+#: .\templates\seller_panel\orders.html:358
 msgid "Accept Order"
 msgstr "Accepter la commande"
 
-#: .\templates\seller_panel\orders.html:250
+#: .\templates\seller_panel\orders.html:367
 msgid "Start Shipping"
 msgstr "Commencer l'expédition"
 
-#: .\templates\seller_panel\orders.html:259
+#: .\templates\seller_panel\orders.html:376
 msgid "Mark Delivered"
 msgstr "Marque livrée"
 
-#: .\templates\seller_panel\orders.html:269
+#: .\templates\seller_panel\orders.html:386
 msgid "Corrections"
 msgstr "Corrections"
 
-#: .\templates\seller_panel\orders.html:276
+#: .\templates\seller_panel\orders.html:394
 msgid "Re-open Inquiry"
 msgstr "Réouverture de l'enquête"
 
-#: .\templates\seller_panel\orders.html:276
+#: .\templates\seller_panel\orders.html:394
 msgid "Reset to Pending"
 msgstr "Réinitialiser en attente"
 
-#: .\templates\seller_panel\orders.html:285
+#: .\templates\seller_panel\orders.html:403
 msgid "Back to Quote"
 msgstr "Retour au devis"
 
-#: .\templates\seller_panel\orders.html:294
+#: .\templates\seller_panel\orders.html:412
 msgid "Return to Warehouse"
 msgstr "Retour à l'entrepôt"
 
-#: .\templates\seller_panel\orders.html:303
+#: .\templates\seller_panel\orders.html:421
 msgid "Reset to Shipping"
 msgstr "Réinitialiser à l'expédition"
 
-#: .\templates\seller_panel\orders.html:317
+#: .\templates\seller_panel\orders.html:435
 msgid "Decline Inquiry"
 msgstr "Refuser la demande"
 
-#: .\templates\seller_panel\orders.html:337
+#: .\templates\seller_panel\orders.html:456
 msgid "OFFICIAL QUOTE"
 msgstr "DEVIS OFFICIEL"
 
-#: .\templates\seller_panel\orders.html:343
+#: .\templates\seller_panel\orders.html:463
 msgid "Final Agreed Price (USD)"
 msgstr "Prix ​​final convenu (USD)"
 
-#: .\templates\seller_panel\orders.html:352
+#: .\templates\seller_panel\orders.html:472
+msgid "Note to Buyer / Terms"
+msgstr "Note à l'acheteur/Conditions"
+
+#: .\templates\seller_panel\orders.html:474
+msgid "e.g. Includes custom packaging and shipping insurance..."
+msgstr ""
+"par ex. Comprend un emballage personnalisé et une assurance d'expédition..."
+
+#: .\templates\seller_panel\orders.html:480
 msgid "Send Quote to Buyer"
 msgstr "Envoyer un devis à l'acheteur"
 
@@ -1797,158 +2227,454 @@ msgstr "Ajouter une nouvelle pièce"
 msgid "View Orders"
 msgstr "Afficher les commandes"
 
-#: .\templates\seller_panel\products.html:24
+#: .\templates\seller_panel\products.html:26
 msgid "Your Active Showroom"
 msgstr "Votre showroom actif"
 
 #: .\templates\seller_panel\products.html:29
+msgid "Search by product name..."
+msgstr "Recherche par nom de produit..."
+
+#: .\templates\seller_panel\products.html:37
 msgid "Preview"
 msgstr "Aperçu"
 
-#: .\templates\seller_panel\products.html:30
+#: .\templates\seller_panel\products.html:38
 msgid "Item Name"
 msgstr "Nom de l'article"
 
-#: .\templates\seller_panel\products.html:32
+#: .\templates\seller_panel\products.html:40
 msgid "Price Strategy"
 msgstr "Stratégie de prix"
 
-#: .\templates\seller_panel\products.html:33
+#: .\templates\seller_panel\products.html:41
 msgid "Gallery"
 msgstr "Galerie"
 
-#: .\templates\seller_panel\products.html:34
+#: .\templates\seller_panel\products.html:42
 msgid "Variants (AR)"
 msgstr "Variantes (AR)"
 
-#: .\templates\seller_panel\products.html:46
+#: .\templates\seller_panel\products.html:56
 msgid "No Img"
 msgstr "Aucune image"
 
-#: .\templates\seller_panel\products.html:62
+#: .\templates\seller_panel\products.html:73
 msgid "Quotation"
 msgstr "Citation"
 
-#: .\templates\seller_panel\products.html:70
+#: .\templates\seller_panel\products.html:81
 msgid "imgs"
 msgstr "images"
 
-#: .\templates\seller_panel\products.html:79
+#: .\templates\seller_panel\products.html:89
 msgid "View AR"
 msgstr "Afficher la RA"
 
-#: .\templates\seller_panel\products.html:84
+#: .\templates\seller_panel\products.html:94
 msgid "No 3D Models"
 msgstr "Aucun modèle 3D"
 
-#: .\templates\seller_panel\products.html:107
+#: .\templates\seller_panel\products.html:116
 msgid "No products listed yet."
 msgstr "Aucun produit répertorié pour l'instant."
 
-#: .\templates\seller_panel\products_form.html:9
+#: .\templates\seller_panel\products_form.html:5
 msgid "Edit Product"
 msgstr "Modifier le produit"
 
-#: .\templates\seller_panel\products_form.html:9
+#: .\templates\seller_panel\products_form.html:5
 msgid "Add New Product"
 msgstr "Ajouter un nouveau produit"
 
-#: .\templates\seller_panel\products_form.html:23
+#: .\templates\seller_panel\products_form.html:11
 msgid "Basic Information"
 msgstr "Informations de base"
 
-#: .\templates\seller_panel\products_form.html:26
+#: .\templates\seller_panel\products_form.html:15
 msgid "Product Name"
 msgstr "Nom du produit"
 
-#: .\templates\seller_panel\products_form.html:32
-msgid "Modern"
-msgstr "Moderne"
-
-#: .\templates\seller_panel\products_form.html:33
+#: .\templates\seller_panel\products_form.html:21
 msgid "Classic"
 msgstr "Classique"
 
-#: .\templates\seller_panel\products_form.html:34
+#: .\templates\seller_panel\products_form.html:22
+msgid "Modern"
+msgstr "Moderne"
+
+#: .\templates\seller_panel\products_form.html:23
 msgid "Decoration"
 msgstr "Décoration"
 
-#: .\templates\seller_panel\products_form.html:35
+#: .\templates\seller_panel\products_form.html:24
 msgid "Office"
 msgstr "Bureau"
 
-#: .\templates\seller_panel\products_form.html:36
+#: .\templates\seller_panel\products_form.html:25
 msgid "Hotel"
 msgstr "Hôtel"
 
-#: .\templates\seller_panel\products_form.html:41
-msgid "Pricing Strategy"
-msgstr "Stratégie de prix"
+#: .\templates\seller_panel\products_form.html:39
+msgid "Stock"
+msgstr "Action"
 
 #: .\templates\seller_panel\products_form.html:43
-msgid "Negotiated (Quote)"
-msgstr "Négocié (devis)"
-
-#: .\templates\seller_panel\products_form.html:44
-msgid "selected"
-msgstr "choisi"
-
-#: .\templates\seller_panel\products_form.html:44
-msgid "Base Price"
-msgstr "Prix ​​de base"
-
-#: .\templates\seller_panel\products_form.html:48
-msgid "Price ($)"
-msgstr "Prix ​​($)"
-
-#: .\templates\seller_panel\products_form.html:59
-msgid "Imagery"
-msgstr "Imagerie"
-
-#: .\templates\seller_panel\products_form.html:63
 msgid "Main Image"
 msgstr "Image principale"
 
+#: .\templates\seller_panel\products_form.html:55
+msgid "Logistics & Delivery Configuration"
+msgstr "Configuration logistique et livraison"
+
+#: .\templates\seller_panel\products_form.html:59
+msgid "Transport Type"
+msgstr "Type de transport"
+
+#: .\templates\seller_panel\products_form.html:61
+msgid "Land Transport"
+msgstr "Transports terrestres"
+
+#: .\templates\seller_panel\products_form.html:62
+msgid "Air Freight"
+msgstr "Fret aérien"
+
+#: .\templates\seller_panel\products_form.html:63
+msgid "Sea Freight"
+msgstr "Fret maritime"
+
 #: .\templates\seller_panel\products_form.html:67
-msgid "Current"
-msgstr "Actuel"
+msgid "Free Delivery Up To (KM)"
+msgstr "Livraison gratuite jusqu'à (KM)"
 
 #: .\templates\seller_panel\products_form.html:71
-msgid "Upload to replace current main image."
-msgstr "Téléchargez pour remplacer l'image principale actuelle."
+msgid "Maximum Delivery (KM)"
+msgstr "Livraison maximale (KM)"
 
-#: .\templates\seller_panel\products_form.html:76
-msgid "Gallery Images"
-msgstr "Images de la galerie"
+#: .\templates\seller_panel\products_form.html:78
+msgid "Price Per Country"
+msgstr "Prix ​​par pays"
 
-#: .\templates\seller_panel\products_form.html:95
-msgid "Add New Images:"
-msgstr "Ajouter de nouvelles images :"
+#: .\templates\seller_panel\products_form.html:82
+msgid "Price Per 0.1 KM"
+msgstr "Prix ​​par 0,1 KM"
+
+#: .\templates\seller_panel\products_form.html:86
+msgid "Container Price"
+msgstr "Prix ​​du conteneur"
+
+#: .\templates\seller_panel\products_form.html:90
+msgid "Container Number"
+msgstr "Numéro de conteneur"
+
+#: .\templates\seller_panel\products_form.html:98
+msgid "Pickup Location"
+msgstr "Lieu de prise en charge"
 
 #: .\templates\seller_panel\products_form.html:102
-msgid "3D Models & Variants"
-msgstr "Modèles et variantes 3D"
+msgid "Full Address"
+msgstr "Adresse complète"
 
-#: .\templates\seller_panel\products_form.html:104
-msgid "Add New"
-msgstr "Ajouter un nouveau"
+#: .\templates\seller_panel\products_form.html:106
+msgid "Pickup Country"
+msgstr "Pays de ramassage"
 
-#: .\templates\seller_panel\products_form.html:111
-msgid "Current Variants"
-msgstr "Variantes actuelles"
+#: .\templates\seller_panel\products_form.html:119
+msgid "Update Product & Logistics"
+msgstr "Mettre à jour le produit et la logistique"
 
-#: .\templates\seller_panel\products_form.html:120
-msgid "File Uploaded"
-msgstr "Fichier téléchargé"
-
-#: .\templates\seller_panel\products_form.html:122
-msgid "External Link"
-msgstr "Lien externe"
-
-#: .\templates\seller_panel\products_form.html:124
-msgid "No 3D data"
-msgstr "Aucune donnée 3D"
-
-#: .\templates\seller_panel\products_form.html:142
+#: .\templates\seller_panel\products_form.html:119
 msgid "Publish Product"
 msgstr "Publier le produit"
+
+#: .\templates\seller_panel\seller_payment.html:19
+#: .\templates\seller_panel\seller_transaction.html:65
+msgid "Financial Hub"
+msgstr "Centre financier"
+
+#: .\templates\seller_panel\seller_payment.html:23
+#: .\templates\seller_panel\seller_transaction.html:70
+msgid "Payment Configuration"
+msgstr "Configuration du paiement"
+
+#: .\templates\seller_panel\seller_payment.html:28
+#: .\templates\seller_panel\seller_transaction.html:75
+msgid "Transactions & Payouts"
+msgstr "Transactions et paiements"
+
+#: .\templates\seller_panel\seller_payment.html:36
+msgid ""
+"Manage how buyers pay you. Active gateways will be displayed on your product"
+" checkouts."
+msgstr ""
+"Gérez la façon dont les acheteurs vous paient. Les passerelles actives "
+"seront affichées sur vos caisses de produits."
+
+#: .\templates\seller_panel\seller_payment.html:49
+msgid "Stripe Integration"
+msgstr "Intégration de Stripe"
+
+#: .\templates\seller_panel\seller_payment.html:53
+#: .\templates\seller_panel\seller_payment.html:86
+#: .\templates\seller_panel\seller_payment.html:118
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: .\templates\seller_panel\seller_payment.html:56
+#, python-format
+msgid ""
+"Accept credit/debit cards globally. A 5%% platform fee is automatically "
+"deducted."
+msgstr ""
+"Acceptez les cartes de crédit/débit dans le monde entier. Des frais de "
+"plateforme de 5%% sont automatiquement déduits."
+
+#: .\templates\seller_panel\seller_payment.html:58
+msgid "Stripe Account ID"
+msgstr "Identifiant de compte Stripe"
+
+#: .\templates\seller_panel\seller_payment.html:72
+msgid "Found in Stripe Settings > Business Settings > Account Details."
+msgstr ""
+"Trouvé dans Paramètres Stripe > Paramètres professionnels > Détails du "
+"compte."
+
+#: .\templates\seller_panel\seller_payment.html:82
+msgid "Chapa Integration"
+msgstr "Intégration Chapa"
+
+#: .\templates\seller_panel\seller_payment.html:89
+msgid "Accept Telebirr, CBE Birr, and mobile money locally in Ethiopia."
+msgstr ""
+"Acceptez Telebirr, CBE Birr et l'argent mobile localement en Éthiopie."
+
+#: .\templates\seller_panel\seller_payment.html:91
+msgid "Chapa Merchant ID / Bank Info"
+msgstr "Chapa Merchant ID / Informations bancaires"
+
+#: .\templates\seller_panel\seller_payment.html:114
+msgid "Iyzico Integration"
+msgstr "Intégration Iyzico"
+
+#: .\templates\seller_panel\seller_payment.html:121
+msgid ""
+"Accept payments locally in Turkey. USD is automatically converted to TRY."
+msgstr ""
+"Acceptez les paiements localement en Turquie. USD est automatiquement "
+"converti en TRY."
+
+#: .\templates\seller_panel\seller_payment.html:123
+msgid "Iyzico API Key"
+msgstr "Clé API Iyzico"
+
+#: .\templates\seller_panel\seller_payment.html:131
+msgid "Iyzico Secret Key"
+msgstr "Clé secrète d'Iyzico"
+
+#: .\templates\seller_panel\seller_payment.html:144
+msgid "Keys can be found in the Iyzico Merchant Dashboard."
+msgstr ""
+"Les clés peuvent être trouvées dans le tableau de bord marchand Iyzico."
+
+#: .\templates\seller_panel\seller_payment.html:155
+msgid "Allow buyers to order and pay physical cash upon delivery."
+msgstr ""
+"Permettez aux acheteurs de commander et de payer en espèces à la livraison."
+
+#: .\templates\seller_panel\seller_payment.html:168
+msgid "Save All Preferences"
+msgstr "Enregistrer toutes les préférences"
+
+#: .\templates\seller_panel\seller_transaction.html:84
+msgid "Display Currency"
+msgstr "Devise d'affichage"
+
+#: .\templates\seller_panel\seller_transaction.html:90
+msgid "ETB"
+msgstr "ETB"
+
+#: .\templates\seller_panel\seller_transaction.html:93
+msgid "TRY"
+msgstr "ESSAYER"
+
+#: .\templates\seller_panel\seller_transaction.html:97
+msgid "Syncing exchange rates..."
+msgstr "Synchronisation des taux de change..."
+
+#: .\templates\seller_panel\seller_transaction.html:109
+msgid "Net Earnings"
+msgstr "Bénéfice net"
+
+#: .\templates\seller_panel\seller_transaction.html:116
+msgid "Ready for payout"
+msgstr "Prêt pour le paiement"
+
+#: .\templates\seller_panel\seller_transaction.html:124
+msgid "Gross Volume"
+msgstr "Volume brut"
+
+#: .\templates\seller_panel\seller_transaction.html:131
+msgid "Total client payments received"
+msgstr "Total des paiements clients reçus"
+
+#: .\templates\seller_panel\seller_transaction.html:138
+msgid "Platform Fees"
+msgstr "Frais de plateforme"
+
+#: .\templates\seller_panel\seller_transaction.html:145
+msgid "Asortie maintenance commission"
+msgstr "Commission d'entretien de l'Asortie"
+
+#: .\templates\seller_panel\seller_transaction.html:155
+msgid "Export CSV"
+msgstr "Exporter au format CSV"
+
+#: .\templates\seller_panel\seller_transaction.html:161
+msgid "Order Info"
+msgstr "Informations sur la commande"
+
+#: .\templates\seller_panel\seller_transaction.html:162
+msgid "Customer & Product"
+msgstr "Client et produit"
+
+#: .\templates\seller_panel\seller_transaction.html:163
+msgid "Gross"
+msgstr "Brut"
+
+#: .\templates\seller_panel\seller_transaction.html:164
+msgid "Fee"
+msgstr "Frais"
+
+#: .\templates\seller_panel\seller_transaction.html:165
+msgid "Net"
+msgstr "Filet"
+
+#: .\templates\seller_panel\seller_transaction.html:166
+msgid "Gateway"
+msgstr "Porte"
+
+#: .\templates\seller_panel\seller_transaction.html:196
+msgid "Stripe"
+msgstr "Bande"
+
+#: .\templates\seller_panel\seller_transaction.html:200
+msgid "Chapa"
+msgstr "Chapa"
+
+#: .\templates\seller_panel\seller_transaction.html:204
+msgid "COD"
+msgstr "MORUE"
+
+#: .\templates\seller_panel\seller_transaction.html:207
+msgid "System"
+msgstr "Système"
+
+#: .\templates\seller_panel\seller_transaction.html:223
+msgid "No transactions yet"
+msgstr "Aucune transaction pour l'instant"
+
+#: .\templates\seller_panel\seller_transaction.html:224
+msgid "Successful orders and payments will appear here automatically."
+msgstr "Les commandes et paiements réussis apparaîtront automatiquement ici."
+
+#~ msgid "PDF or Image required."
+#~ msgstr "PDF ou image requis."
+
+#~ msgid "Manage your purchases and track shipments."
+#~ msgstr "Gérez vos achats et suivez les expéditions."
+
+#~ msgid "Paid"
+#~ msgstr "Payé"
+
+#~ msgid "On the way"
+#~ msgstr "En route"
+
+#~ msgid "No orders found"
+#~ msgstr "Aucune commande trouvée"
+
+#~ msgid "You haven't placed any orders yet."
+#~ msgstr "Vous n'avez pas encore passé de commande."
+
+#~ msgid "Browse Products"
+#~ msgstr "Parcourir les produits"
+
+#~ msgid "Newest Listed"
+#~ msgstr "Répertorié le plus récent"
+
+#~ msgid "Price: Low to High"
+#~ msgstr "Prix : faible à élevé"
+
+#~ msgid "Price: High to Low"
+#~ msgstr "Prix : haut à bas"
+
+#~ msgid "No products available right now."
+#~ msgstr "Aucun produit disponible pour le moment."
+
+#~ msgid "Secure Checkout"
+#~ msgstr "Paiement sécurisé"
+
+#~ msgid "Step 2 of 2"
+#~ msgstr "Étape 2 sur 2"
+
+#~ msgid "Qty:"
+#~ msgstr "Quantité :"
+
+#~ msgid "Local Payment (Ethiopia)"
+#~ msgstr "Paiement local (Éthiopie)"
+
+#~ msgid "Pay"
+#~ msgstr "Payer"
+
+#~ msgid "Now"
+#~ msgstr "Maintenant"
+
+#~ msgid "Cancel Order"
+#~ msgstr "Annuler la commande"
+
+#~ msgid "SSL Encrypted Transaction"
+#~ msgstr "Transaction cryptée SSL"
+
+#~ msgid "Buyer Messages"
+#~ msgstr "Messages de l'acheteur"
+
+#~ msgid "Pricing Strategy"
+#~ msgstr "Stratégie de prix"
+
+#~ msgid "Negotiated (Quote)"
+#~ msgstr "Négocié (devis)"
+
+#~ msgid "selected"
+#~ msgstr "choisi"
+
+#~ msgid "Imagery"
+#~ msgstr "Imagerie"
+
+#~ msgid "Current"
+#~ msgstr "Actuel"
+
+#~ msgid "Upload to replace current main image."
+#~ msgstr "Téléchargez pour remplacer l'image principale actuelle."
+
+#~ msgid "Gallery Images"
+#~ msgstr "Images de la galerie"
+
+#~ msgid "Add New Images:"
+#~ msgstr "Ajouter de nouvelles images :"
+
+#~ msgid "3D Models & Variants"
+#~ msgstr "Modèles et variantes 3D"
+
+#~ msgid "Add New"
+#~ msgstr "Ajouter un nouveau"
+
+#~ msgid "Current Variants"
+#~ msgstr "Variantes actuelles"
+
+#~ msgid "File Uploaded"
+#~ msgstr "Fichier téléchargé"
+
+#~ msgid "External Link"
+#~ msgstr "Lien externe"
+
+#~ msgid "No 3D data"
+#~ msgstr "Aucune donnée 3D"
