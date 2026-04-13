@@ -10,39 +10,48 @@
                     <span class="badge bg-warning text-dark">{{ rooms.count }} {% trans "Conversations" %}</span>
                 </div>
                 
-                <div class="list-group list-group-flush">
+                <div class="list-group list-group-flush" id="inbox-list">
                     {% for room in rooms %}
                         
-                        <!-- LOGIC: Find out who the 'other' person is -->
+                        <!-- Current user is P1, so we chat with P2 -->
                         {% if room.participant_1 == user %}
-                            <!-- Current user is P1, so we chat with P2 -->
-                            <a href="{% url 'chat_room' room.participant_2.id %}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
-                                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                            <a href="{% url 'chat_room' room.participant_2.id %}" id="room-{{ room.id }}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
+                                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 1.2rem; flex-shrink: 0;">
                                     {{ room.participant_2.username|first|upper }}
                                 </div>
-                                <div>
+                                <div class="flex-grow-1">
                                     <h6 class="mb-1 fw-bold">{{ room.participant_2.username }}</h6>
                                     <small class="text-muted">{% trans "Click to open chat" %}</small>
                                 </div>
-                                <small class="text-muted ms-auto">{{ room.updated_at|date:"M d, H:i" }}</small>
+                                <div class="ms-auto d-flex flex-column align-items-end gap-2">
+                                    <small class="text-muted">{{ room.updated_at|date:"M d, H:i" }}</small>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteConversation({{ room.id }}, event, '{% url 'api_clear_chat' room.id %}')" title="{% trans 'Delete Conversation' %}">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div>
                             </a>
                         
+                        <!-- Current user is P2, so we chat with P1 -->
                         {% else %}
-                            <!-- Current user is P2, so we chat with P1 -->
-                            <a href="{% url 'chat_room' room.participant_1.id %}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
-                                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                            <a href="{% url 'chat_room' room.participant_1.id %}" id="room-{{ room.id }}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
+                                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 1.2rem; flex-shrink: 0;">
                                     {{ room.participant_1.username|first|upper }}
                                 </div>
-                                <div>
+                                <div class="flex-grow-1">
                                     <h6 class="mb-1 fw-bold">{{ room.participant_1.username }}</h6>
                                     <small class="text-muted">{% trans "Click to open chat" %}</small>
                                 </div>
-                                <small class="text-muted ms-auto">{{ room.updated_at|date:"M d, H:i" }}</small>
+                                <div class="ms-auto d-flex flex-column align-items-end gap-2">
+                                    <small class="text-muted">{{ room.updated_at|date:"M d, H:i" }}</small>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteConversation({{ room.id }}, event, '{% url 'api_clear_chat' room.id %}')" title="{% trans 'Delete Conversation' %}">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div>
                             </a>
                         {% endif %}
 
                     {% empty %}
-                        <div class="text-center py-5">
+                        <div class="text-center py-5" id="empty-state">
                             <i class="fa-regular fa-comments fa-3x text-muted mb-3"></i>
                             <h5 class="text-muted">{% trans "No messages yet." %}</h5>
                             <p class="small text-muted">{% trans "Contact a seller from the marketplace to start a chat." %}</p>
@@ -54,4 +63,45 @@
         </div>
     </div>
 </div>
+
+<script>
+    function deleteConversation(roomId, event, apiUrl) {
+        // Prevent clicking the button from redirecting to the chat room
+        event.preventDefault();
+        event.stopPropagation();
+        
+        if (confirm("{% trans 'Are you sure you want to delete this conversation? All messages will be cleared for you.' %}")) {
+            
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'cleared') {
+                    // Instantly remove the row from the UI
+                    const row = document.getElementById(`room-${roomId}`);
+                    if (row) {
+                        row.remove();
+                    }
+                    
+                    // If no conversations are left, reload to show the empty state message
+                    const remainingRooms = document.querySelectorAll('.list-group-item');
+                    if (remainingRooms.length === 0) {
+                        location.reload(); 
+                    }
+                } else {
+                    alert("Failed to delete the conversation. You might not have permission.");
+                }
+            })
+            .catch(error => {
+                console.error("Error deleting conversation:", error);
+                alert("A network error occurred.");
+            });
+        }
+    }
+</script>
 {% endblock %}
