@@ -1,0 +1,2648 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-13 23:51+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: .\templates\AR_3D\index.html:7
+msgid "Asortie | Ultimate Immersive Experience"
+msgstr "اسورتي | تجربة غامرة في نهاية المطاف"
+
+#: .\templates\AR_3D\index.html:210
+msgid "Asorite 3D Hub"
+msgstr "محور أسورايت ثلاثي الأبعاد"
+
+#: .\templates\AR_3D\index.html:215 .\templates\ai\index.html:289
+#: .\templates\ai\trainer.html:216 .\templates\partials\header.html:14
+#: .\templates\partials\header.html:35 .\templates\partials\header.html:69
+msgid "Dashboard"
+msgstr "لوحة القيادة"
+
+#: .\templates\AR_3D\index.html:219 .\templates\ai\index.html:294
+msgid "Train Ai"
+msgstr "تدريب عاي"
+
+#: .\templates\AR_3D\index.html:226 .\templates\market\list.html:40
+#: .\templates\market\list.html:50
+msgid "All"
+msgstr "الجميع"
+
+#: .\templates\AR_3D\index.html:243
+msgid "Loading..."
+msgstr "تحميل..."
+
+#: .\templates\AR_3D\index.html:258 .\templates\ai\index.html:348
+#: .\templates\ai\trainer.html:263 .\templates\base.html:44
+msgid "Lang"
+msgstr "لانج"
+
+#: .\templates\AR_3D\index.html:259 .\templates\ai\index.html:349
+#: .\templates\ai\trainer.html:264 .\templates\base.html:45
+#| msgid "Select Plan"
+msgid "Select Language"
+msgstr "اختر اللغة"
+
+#: .\templates\AR_3D\index.html:305 .\templates\ai\index.html:395
+#: .\templates\ai\trainer.html:310 .\templates\base.html:93
+msgid "Notifications"
+msgstr "إشعارات"
+
+#: .\templates\AR_3D\index.html:323 .\templates\ai\index.html:413
+#: .\templates\ai\trainer.html:328 .\templates\base.html:111
+#: .\templates\partials\notification_items.html:17
+msgid "ago"
+msgstr "منذ"
+
+#: .\templates\AR_3D\index.html:329 .\templates\ai\index.html:419
+#: .\templates\ai\trainer.html:334 .\templates\base.html:117
+#: .\templates\partials\notification_items.html:23
+msgid "No new notifications"
+msgstr "لا توجد إشعارات جديدة"
+
+#: .\templates\AR_3D\index.html:333 .\templates\ai\index.html:423
+#: .\templates\ai\trainer.html:338 .\templates\base.html:121
+msgid "View All History"
+msgstr "عرض كل التاريخ"
+
+#: .\templates\AR_3D\index.html:357 .\templates\ai\index.html:449
+#: .\templates\ai\trainer.html:364 .\templates\base.html:147
+#: .\templates\market\detail.html:463
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: .\templates\AR_3D\index.html:358 .\templates\ai\index.html:450
+#: .\templates\ai\trainer.html:365 .\templates\base.html:148
+msgid "Sign Up"
+msgstr "اشتراك"
+
+#: .\templates\AR_3D\index.html:397
+msgid "Color & Type Options"
+msgstr "خيارات اللون والنوع"
+
+#: .\templates\AR_3D\index.html:402
+msgid "OPEN IN AR"
+msgstr "مفتوح في الواقع المعزز"
+
+#: .\templates\AR_3D\index.html:413
+msgid "Scan to View in AR"
+msgstr "مسح للعرض في AR"
+
+#: .\templates\AR_3D\index.html:414
+msgid ""
+"Point your phone's camera at this code to view this product in your physical"
+" space."
+msgstr ""
+"قم بتوجيه كاميرا هاتفك نحو هذا الرمز لعرض هذا المنتج في مساحتك الفعلية."
+
+#: .\templates\AR_3D\index.html:419 .\templates\AR_3D\index.html:436
+msgid "Close"
+msgstr "يغلق"
+
+#: .\templates\AR_3D\index.html:428
+msgid "AR Not Supported"
+msgstr "الواقع المعزز غير مدعوم"
+
+#: .\templates\AR_3D\index.html:429
+msgid ""
+"Your device does not meet the hardware or software requirements for "
+"Augmented Reality."
+msgstr "لا يلبي جهازك متطلبات الأجهزة أو البرامج الخاصة بالواقع المعزز."
+
+#: .\templates\AR_3D\index.html:431
+msgid "System Requirements:"
+msgstr "متطلبات النظام:"
+
+#: .\templates\AR_3D\index.html:446
+msgid "Ready for AR"
+msgstr "جاهز للواقع المعزز"
+
+#: .\templates\AR_3D\index.html:447
+msgid "Tap anywhere to open camera"
+msgstr "انقر في أي مكان لفتح الكاميرا"
+
+#: .\templates\AR_3D\index.html:645
+msgid "No products match this filter."
+msgstr "لا توجد منتجات تتطابق مع هذا الفلتر."
+
+#: .\templates\accounts\admin\login.html:9
+msgid "Administration"
+msgstr "إدارة"
+
+#: .\templates\accounts\admin\login.html:15
+msgid "Access Denied. Check credentials."
+msgstr "تم الرفض. التحقق من بيانات الاعتماد."
+
+#: .\templates\accounts\admin\login.html:25
+msgid "Authenticate"
+msgstr "مصادقة"
+
+#: .\templates\accounts\admin\register.html:9
+msgid "Secure Admin Registration"
+msgstr "تسجيل المشرف الآمن"
+
+#: .\templates\accounts\admin\register.html:14
+msgid "Strictly for authorized personnel. Requires Master Passcode."
+msgstr "بدقة للموظفين المصرح لهم. يتطلب رمز المرور الرئيسي."
+
+#: .\templates\accounts\admin\register.html:19
+msgid "Create Admin Account"
+msgstr "إنشاء حساب المسؤول"
+
+#: .\templates\accounts\change_password.html:10
+msgid "Security Settings"
+msgstr "إعدادات الأمان"
+
+#: .\templates\accounts\change_password.html:15
+msgid "Please enter your current password and your new password below."
+msgstr "الرجاء إدخال كلمة المرور الحالية وكلمة المرور الجديدة أدناه."
+
+#: .\templates\accounts\change_password.html:37
+msgid "Update Password"
+msgstr "تحديث كلمة المرور"
+
+#: .\templates\accounts\change_password.html:40
+msgid "Cancel"
+msgstr "يلغي"
+
+#: .\templates\accounts\login.html:53
+msgid "Welcome Back"
+msgstr "مرحبًا بعودتك"
+
+#: .\templates\accounts\login.html:58 .\templates\accounts\register.html:123
+#: .\templates\admin_panel\orders.html:53
+msgid "Buyer"
+msgstr "المشتري"
+
+#: .\templates\accounts\login.html:63 .\templates\accounts\register.html:130
+#: .\templates\admin_panel\products.html:32
+msgid "Seller"
+msgstr "بائع"
+
+#: .\templates\accounts\login.html:77 .\templates\accounts\profile.html:91
+#: .\templates\accounts\register.html:139
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: .\templates\accounts\login.html:82
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: .\templates\accounts\login.html:87
+msgid "LOGIN"
+msgstr "تسجيل الدخول"
+
+#: .\templates\accounts\login.html:93
+msgid "OR"
+msgstr "أو"
+
+#: .\templates\accounts\login.html:117
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+#: .\templates\accounts\login.html:118
+msgid "Register Now"
+msgstr "سجل الآن"
+
+#: .\templates\accounts\profile.html:23
+msgid "ADMINISTRATOR"
+msgstr "المسؤول"
+
+#: .\templates\accounts\profile.html:25
+msgid "VERIFIED SELLER"
+msgstr "بائع معتمد"
+
+#: .\templates\accounts\profile.html:27
+msgid "BUYER"
+msgstr "المشتري"
+
+#: .\templates\accounts\profile.html:36
+msgid "Account Status"
+msgstr "حالة الحساب"
+
+#: .\templates\accounts\profile.html:38
+#: .\templates\admin_panel\products.html:46
+#: .\templates\seller_panel\seller_payment.html:51
+#: .\templates\seller_panel\seller_payment.html:84
+#: .\templates\seller_panel\seller_payment.html:116
+msgid "Active"
+msgstr "نشيط"
+
+#: .\templates\accounts\profile.html:42
+msgid "Date Joined"
+msgstr "تاريخ الانضمام"
+
+#: .\templates\accounts\profile.html:47
+msgid "Verification"
+msgstr "تَحَقّق"
+
+#: .\templates\accounts\profile.html:50 .\templates\admin_panel\users.html:267
+#: .\templates\market\business_directory.html:177
+msgid "Verified"
+msgstr "تم التحقق منه"
+
+#: .\templates\accounts\profile.html:52 .\templates\admin_panel\orders.html:27
+#: .\templates\admin_panel\users.html:269
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: .\templates\accounts\profile.html:67
+msgid "Edit Profile"
+msgstr "تحرير الملف الشخصي"
+
+#: .\templates\accounts\profile.html:75 .\templates\accounts\register.html:153
+msgid "First Name"
+msgstr "الاسم الأول"
+
+#: .\templates\accounts\profile.html:79 .\templates\accounts\register.html:160
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+#: .\templates\accounts\profile.html:85 .\templates\chat\guest_contact.html:86
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: .\templates\accounts\profile.html:87
+msgid "We'll never share your email with anyone else."
+msgstr "لن نشارك بريدك الإلكتروني أبدًا مع أي شخص آخر."
+
+#: .\templates\accounts\profile.html:93
+msgid "Username cannot be changed."
+msgstr "لا يمكن تغيير اسم المستخدم."
+
+#: .\templates\accounts\profile.html:99
+msgid "Business Documents"
+msgstr "وثائق الأعمال"
+
+#: .\templates\accounts\profile.html:103
+#: .\templates\accounts\register.html:175
+msgid "Import/Export License"
+msgstr "رخصة الاستيراد/التصدير"
+
+#: .\templates\accounts\profile.html:107
+msgid "View Current License"
+msgstr "عرض الترخيص الحالي"
+
+#: .\templates\accounts\profile.html:114
+#: .\templates\accounts\register.html:182
+msgid "National ID Card"
+msgstr "بطاقة التعريف الوطنية"
+
+#: .\templates\accounts\profile.html:118
+msgid "View Current ID"
+msgstr "عرض المعرف الحالي"
+
+#: .\templates\accounts\profile.html:132
+msgid "Change Password"
+msgstr "تغيير كلمة المرور"
+
+#: .\templates\accounts\profile.html:136
+#: .\templates\market\business_profile.html:349
+#: .\templates\seller_panel\business_profile.html:340
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+#: .\templates\accounts\register.html:98
+msgid "Create Account"
+msgstr "إنشاء حساب"
+
+#: .\templates\accounts\register.html:117
+msgid "Select your account type to get started"
+msgstr "حدد نوع حسابك للبدء"
+
+#: .\templates\accounts\register.html:146
+msgid "Email"
+msgstr "بريد إلكتروني"
+
+#: .\templates\accounts\register.html:172
+msgid "Seller Verification Required"
+msgstr "مطلوب التحقق من البائع"
+
+#: .\templates\accounts\register.html:209
+msgid "Select Plan"
+msgstr "حدد الخطة"
+
+#: .\templates\accounts\register.html:224
+msgid "Basic"
+msgstr "أساسي"
+
+#: .\templates\accounts\register.html:225
+msgid "$0"
+msgstr "0 دولار"
+
+#: .\templates\accounts\register.html:226
+msgid "Business Profile."
+msgstr "الملف التجاري."
+
+#: .\templates\accounts\register.html:226
+msgid "Luxury Furniture Listings."
+msgstr "قوائم الأثاث الفاخر."
+
+#: .\templates\accounts\register.html:228
+msgid "Premium"
+msgstr "غالي"
+
+#: .\templates\accounts\register.html:229
+msgid "$400"
+msgstr "400 دولار"
+
+#: .\templates\accounts\register.html:229
+#: .\templates\accounts\register.html:236
+msgid "/year"
+msgstr "/سنة"
+
+#: .\templates\accounts\register.html:230
+msgid "4 Smart Agents."
+msgstr "4 وكلاء الذكية."
+
+#: .\templates\accounts\register.html:230
+msgid "Full 3D Visualization."
+msgstr "تصور ثلاثي الأبعاد كامل."
+
+#: .\templates\accounts\register.html:233
+msgid "Professional"
+msgstr "احترافي"
+
+#: .\templates\accounts\register.html:234
+msgid "VIP"
+msgstr "VIP"
+
+#: .\templates\accounts\register.html:236
+msgid "$800"
+msgstr "800 دولار"
+
+#: .\templates\accounts\register.html:237
+msgid "8 Smart Agents."
+msgstr "8 وكلاء الذكية."
+
+#: .\templates\accounts\register.html:237
+msgid "Advanced Analytics."
+msgstr "التحليلات المتقدمة."
+
+#: .\templates\accounts\register.html:245
+msgid "Complete Registration"
+msgstr "التسجيل الكامل"
+
+#: .\templates\accounts\register.html:250
+#: .\templates\chat\guest_contact.html:110
+msgid "Already have an account?"
+msgstr "هل لديك حساب بالفعل؟"
+
+#: .\templates\accounts\register.html:251
+msgid "Login Here"
+msgstr "تسجيل الدخول هنا"
+
+#: .\templates\admin_panel\dashboard.html:6
+msgid "Admin Dashboard"
+msgstr "لوحة تحكم المشرف"
+
+#: .\templates\admin_panel\dashboard.html:13
+msgid "Total Users"
+msgstr "إجمالي المستخدمين"
+
+#: .\templates\admin_panel\dashboard.html:21
+msgid "Total Revenue"
+msgstr "إجمالي الإيرادات"
+
+#: .\templates\admin_panel\dashboard.html:29
+msgid "User Distribution"
+msgstr "توزيع المستخدم"
+
+#: .\templates\admin_panel\orders.html:7 .\templates\ai\trainer.html:225
+#: .\templates\partials\header.html:23
+msgid "Order Analytics"
+msgstr "ترتيب التحليلات"
+
+#: .\templates\admin_panel\orders.html:8
+#: .\templates\seller_panel\dashboard.html:17
+#: .\templates\seller_panel\orders.html:179
+msgid "Total Orders"
+msgstr "إجمالي الطلبات"
+
+#: .\templates\admin_panel\orders.html:15
+msgid "Order Status Overview"
+msgstr "نظرة عامة على حالة الطلب"
+
+#: .\templates\admin_panel\orders.html:39
+msgid "Revenue"
+msgstr "ربح"
+
+#: .\templates\admin_panel\orders.html:47
+#: .\templates\seller_panel\seller_transaction.html:154
+msgid "Recent Transactions"
+msgstr "المعاملات الأخيرة"
+
+#: .\templates\admin_panel\orders.html:52
+#: .\templates\seller_panel\orders.html:258
+msgid "ID"
+msgstr "بطاقة تعريف"
+
+#: .\templates\admin_panel\orders.html:54
+msgid "Total"
+msgstr "المجموع"
+
+#: .\templates\admin_panel\orders.html:55
+#: .\templates\admin_panel\products.html:34
+#: .\templates\market\buyer_orders.html:110
+#: .\templates\seller_panel\orders.html:262
+#: .\templates\seller_panel\seller_transaction.html:167
+msgid "Status"
+msgstr "حالة"
+
+#: .\templates\admin_panel\orders.html:71
+msgid "No orders yet."
+msgstr "لا توجد أوامر حتى الآن."
+
+#: .\templates\admin_panel\products.html:7
+msgid "Product Analytics"
+msgstr "تحليلات المنتج"
+
+#: .\templates\admin_panel\products.html:8
+msgid "Total Products"
+msgstr "إجمالي المنتجات"
+
+#: .\templates\admin_panel\products.html:15
+msgid "Categories Distribution"
+msgstr "توزيع الفئات"
+
+#: .\templates\admin_panel\products.html:25
+msgid "All Products"
+msgstr "جميع المنتجات"
+
+#: .\templates\admin_panel\products.html:30
+msgid "Name"
+msgstr "اسم"
+
+#: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:508
+#: .\templates\market\list.html:38 .\templates\seller_panel\products.html:39
+#: .\templates\seller_panel\products_form.html:19
+msgid "Category"
+msgstr "فئة"
+
+#: .\templates\admin_panel\products.html:33
+#: .\templates\seller_panel\products_form.html:35
+msgid "Price"
+msgstr "سعر"
+
+#: .\templates\admin_panel\products.html:48
+msgid "Hidden"
+msgstr "مختفي"
+
+#: .\templates\admin_panel\products.html:54
+msgid "No products found."
+msgstr "لم يتم العثور على منتجات."
+
+#: .\templates\admin_panel\users.html:97
+msgid "User & Compliance Management"
+msgstr "إدارة المستخدم والامتثال"
+
+#: .\templates\admin_panel\users.html:98
+msgid "Review identity documents and verify seller certificates."
+msgstr "مراجعة وثائق الهوية والتحقق من شهادات البائع."
+
+#: .\templates\admin_panel\users.html:101
+msgid "Users"
+msgstr "المستخدمين"
+
+#: .\templates\admin_panel\users.html:111
+msgid "User Identity"
+msgstr "هوية المستخدم"
+
+#: .\templates\admin_panel\users.html:112
+msgid "Role"
+msgstr "دور"
+
+#: .\templates\admin_panel\users.html:113
+msgid "Identity Status"
+msgstr "حالة الهوية"
+
+#: .\templates\admin_panel\users.html:114
+#: .\templates\market\business_profile.html:275
+#: .\templates\seller_panel\business_profile.html:266
+msgid "Certificates"
+msgstr "الشهادات"
+
+#: .\templates\admin_panel\users.html:115
+#: .\templates\seller_panel\orders.html:263
+#: .\templates\seller_panel\products.html:43
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: .\templates\admin_panel\users.html:138
+msgid "Tier"
+msgstr "الطبقة"
+
+#: .\templates\admin_panel\users.html:145
+msgid "Identity Verified"
+msgstr "تم التحقق من الهوية"
+
+#: .\templates\admin_panel\users.html:147
+msgid "Docs Submitted"
+msgstr "تم إرسال المستندات"
+
+#: .\templates\admin_panel\users.html:149
+msgid "No Documents"
+msgstr "لا توجد وثائق"
+
+#: .\templates\admin_panel\users.html:159
+msgid "Uploaded"
+msgstr "تم الرفع"
+
+#: .\templates\admin_panel\users.html:182
+msgid "Review"
+msgstr "مراجعة"
+
+#: .\templates\admin_panel\users.html:219
+msgid "Compliance Center:"
+msgstr "مركز الامتثال:"
+
+#: .\templates\admin_panel\users.html:227
+msgid "Seller Profile"
+msgstr "الملف الشخصي للبائع"
+
+#: .\templates\admin_panel\users.html:230
+#: .\templates\market\business_profile.html:296
+#: .\templates\seller_panel\business_profile.html:287
+msgid "Company Name"
+msgstr "اسم الشركة"
+
+#: .\templates\admin_panel\users.html:234
+#: .\templates\market\business_directory.html:77
+msgid "Location"
+msgstr "موقع"
+
+#: .\templates\admin_panel\users.html:238
+msgid "Roles"
+msgstr "الأدوار"
+
+#: .\templates\admin_panel\users.html:239
+#: .\templates\market\business_directory.html:144
+#: .\templates\market\business_profile.html:83
+#: .\templates\market\business_profile.html:323
+#: .\templates\market\public_profile.html:100
+msgid "Farmer"
+msgstr "مزارع"
+
+#: .\templates\admin_panel\users.html:240
+#: .\templates\market\business_directory.html:145
+#: .\templates\market\business_profile.html:84
+#: .\templates\market\business_profile.html:329
+#: .\templates\market\public_profile.html:103
+msgid "Roaster"
+msgstr "المحمصة"
+
+#: .\templates\admin_panel\users.html:245
+msgid "Account Actions"
+msgstr "إجراءات الحساب"
+
+#: .\templates\admin_panel\users.html:251
+msgid "Suspend User"
+msgstr "تعليق المستخدم"
+
+#: .\templates\admin_panel\users.html:253
+msgid "Unsuspend User"
+msgstr "إلغاء تعليق المستخدم"
+
+#: .\templates\admin_panel\users.html:262
+msgid "1. Identity Verification"
+msgstr "1. التحقق من الهوية"
+
+#: .\templates\admin_panel\users.html:265
+msgid "Business License / ID"
+msgstr "رخصة العمل/الهوية"
+
+#: .\templates\admin_panel\users.html:279
+msgid "No identity documents uploaded."
+msgstr "لم يتم تحميل أي وثائق هوية."
+
+#: .\templates\admin_panel\users.html:289
+msgid "Approve Identity"
+msgstr "الموافقة على الهوية"
+
+#: .\templates\admin_panel\users.html:293
+msgid "Revoke Status"
+msgstr "إبطال الحالة"
+
+#: .\templates\admin_panel\users.html:300
+msgid "2. Trade Certificates"
+msgstr "2. الشهادات التجارية"
+
+#: .\templates\admin_panel\users.html:310
+msgid "Valid"
+msgstr "صالح"
+
+#: .\templates\admin_panel\users.html:312
+msgid "Review Needed"
+msgstr "المراجعة مطلوبة"
+
+#: .\templates\admin_panel\users.html:320
+msgid "No file image."
+msgstr "لا توجد صورة ملف."
+
+#: .\templates\admin_panel\users.html:330
+#: .\templates\market\business_profile.html:149
+#: .\templates\market\public_profile.html:191
+#: .\templates\seller_panel\business_profile.html:146
+msgid "Expires:"
+msgstr "تنتهي:"
+
+#: .\templates\admin_panel\users.html:335
+msgid "Reject"
+msgstr "يرفض"
+
+#: .\templates\admin_panel\users.html:336
+msgid "Approve Certificate"
+msgstr "الموافقة على الشهادة"
+
+#: .\templates\admin_panel\users.html:338
+msgid "Revoke Approval"
+msgstr "إلغاء الموافقة"
+
+#: .\templates\admin_panel\users.html:345
+msgid "No additional certificates (Organic, Fair Trade, etc.) uploaded."
+msgstr ""
+"لم يتم تحميل أي شهادات إضافية (عضوية، أو التجارة العادلة، أو ما إلى ذلك)."
+
+#: .\templates\ai\index.html:7 .\templates\partials\index.html:6
+msgid "Asortie Ultimate | Luxury AI Hub"
+msgstr "اسورتي في نهاية المطاف | مركز الذكاء الاصطناعي الفاخر"
+
+#: .\templates\ai\index.html:284 .\templates\ai\trainer.html:211
+msgid "Interior Intelligence Hub"
+msgstr "مركز الاستخبارات الداخلية"
+
+#: .\templates\ai\index.html:298
+msgid "+ New Inquiry"
+msgstr "+ استفسار جديد"
+
+#: .\templates\ai\index.html:303
+msgid "History"
+msgstr "تاريخ"
+
+#: .\templates\ai\index.html:466
+msgid "Client Inquiry"
+msgstr "استفسار العميل"
+
+#: .\templates\ai\index.html:466
+msgid "Asortie Consultant"
+msgstr "مستشار اسورتي"
+
+#: .\templates\ai\index.html:499
+msgid "INQUIRE"
+msgstr "استفسر"
+
+#: .\templates\ai\trainer.html:7
+#| msgid "AI Training Center"
+msgid "Asortie Ultimate | AI Training Center"
+msgstr "اسورتي في نهاية المطاف | مركز تدريب الذكاء الاصطناعي"
+
+#: .\templates\ai\trainer.html:219 .\templates\partials\header.html:17
+msgid "Manage Users"
+msgstr "إدارة المستخدمين"
+
+#: .\templates\ai\trainer.html:222 .\templates\partials\header.html:20
+msgid "Products Analytics"
+msgstr "تحليلات المنتجات"
+
+#: .\templates\ai\trainer.html:228 .\templates\chat\inbox.html:9
+#: .\templates\partials\header.html:26 .\templates\partials\header.html:51
+#: .\templates\partials\header.html:80
+msgid "Messages"
+msgstr "رسائل"
+
+#: .\templates\ai\trainer.html:231
+msgid "Ai Agent"
+msgstr "وكيل منظمة العفو الدولية"
+
+#: .\templates\ai\trainer.html:246
+msgid "AI Training Center"
+msgstr "مركز تدريب الذكاء الاصطناعي"
+
+#: .\templates\ai\trainer.html:373
+msgid "Knowledge Management"
+msgstr "إدارة المعرفة"
+
+#: .\templates\ai\trainer.html:374
+msgid "Inject new facts and visual assets into the Asortie Intelligence core."
+msgstr "أدخل حقائق جديدة وأصولًا مرئية في قلب Asortie Intelligence."
+
+#: .\templates\ai\trainer.html:381
+msgid "Add Text Fact"
+msgstr "إضافة حقيقة النص"
+
+#: .\templates\ai\trainer.html:389
+msgid "Inject into Memory"
+msgstr "حقن في الذاكرة"
+
+#: .\templates\ai\trainer.html:398
+msgid "Add Visual Asset"
+msgstr "أضف الأصول المرئية"
+
+#: .\templates\ai\trainer.html:408
+msgid "Vectorize Image"
+msgstr "تحويل الصورة إلى ناقل"
+
+#: .\templates\ai\trainer.html:416
+msgid "Recent System Knowledge"
+msgstr "المعرفة الحديثة بالنظام"
+
+#: .\templates\ai\trainer.html:430
+msgid "Visual"
+msgstr "مرئي"
+
+#: .\templates\ai\trainer.html:430
+msgid "Fact"
+msgstr "حقيقة"
+
+#: .\templates\ai\trainer.html:439 .\templates\chat\single_message.html:32
+#: .\templates\seller_panel\products.html:102
+msgid "Edit"
+msgstr "يحرر"
+
+#: .\templates\ai\trainer.html:440
+#: .\templates\market\business_profile.html:156
+#: .\templates\seller_panel\business_profile.html:153
+msgid "Delete"
+msgstr "يمسح"
+
+#: .\templates\base.html:7
+msgid "Asortie | Premium Export"
+msgstr "اسورتي | تصدير ممتاز"
+
+#: .\templates\chat\guest_contact.html:57
+msgid "Get in Touch"
+msgstr "تواصل معنا"
+
+#: .\templates\chat\guest_contact.html:59
+msgid ""
+"We are here to help. Please fill out the form below and an agent will "
+"contact you shortly."
+msgstr ""
+"نحن هنا للمساعدة. يرجى ملء النموذج أدناه وسيتصل بك أحد الوكلاء قريبًا."
+
+#: .\templates\chat\guest_contact.html:80
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+#: .\templates\chat\guest_contact.html:92
+msgid "Phone Number (Optional)"
+msgstr "رقم الهاتف (اختياري)"
+
+#: .\templates\chat\guest_contact.html:98
+msgid "How can we help you?"
+msgstr "كيف يمكننا مساعدتك؟"
+
+#: .\templates\chat\guest_contact.html:103
+msgid "Send Message"
+msgstr "أرسل رسالة"
+
+#: .\templates\chat\guest_contact.html:112
+msgid "Login here"
+msgstr "تسجيل الدخول هنا"
+
+#: .\templates\chat\inbox.html:10
+msgid "Conversations"
+msgstr "المحادثات"
+
+#: .\templates\chat\inbox.html:24 .\templates\chat\inbox.html:42
+msgid "Click to open chat"
+msgstr "انقر لفتح الدردشة"
+
+#: .\templates\chat\inbox.html:28 .\templates\chat\inbox.html:46
+msgid "Delete Conversation"
+msgstr "حذف المحادثة"
+
+#: .\templates\chat\inbox.html:56
+msgid "No messages yet."
+msgstr "لا توجد رسائل حتى الآن."
+
+#: .\templates\chat\inbox.html:57
+msgid "Contact a seller from the marketplace to start a chat."
+msgstr "اتصل بالبائع من السوق لبدء الدردشة."
+
+#: .\templates\chat\inbox.html:58
+msgid "Go to Market"
+msgstr "اذهب إلى السوق"
+
+#: .\templates\chat\inbox.html:73
+msgid ""
+"Are you sure you want to delete this conversation? All messages will be "
+"cleared for you."
+msgstr "هل أنت متأكد أنك تريد حذف هذه المحادثة؟ سيتم مسح جميع الرسائل لك."
+
+#: .\templates\chat\room.html:223
+msgid "Online"
+msgstr "متصل"
+
+#: .\templates\chat\room.html:232
+msgid "Clear Chat"
+msgstr "مسح الدردشة"
+
+#: .\templates\chat\room.html:274
+msgid "Recording..."
+msgstr "تسجيل..."
+
+#: .\templates\chat\single_message.html:25
+#: .\templates\chat\single_message.html:60
+msgid "You"
+msgstr "أنت"
+
+#: .\templates\chat\single_message.html:26
+msgid "Reply"
+msgstr "رد"
+
+#: .\templates\chat\single_message.html:37
+msgid "Delete for everyone"
+msgstr "الحذف للجميع"
+
+#: .\templates\chat\single_message.html:43
+msgid "Delete for me"
+msgstr "حذف بالنسبة لي"
+
+#: .\templates\chat\single_message.html:52
+msgid "This message was deleted."
+msgstr "تم حذف هذه الرسالة."
+
+#: .\templates\chat\single_message.html:64
+msgid "Photo"
+msgstr "صورة"
+
+#: .\templates\chat\single_message.html:66
+msgid "Video"
+msgstr "فيديو"
+
+#: .\templates\chat\single_message.html:68
+msgid "Audio"
+msgstr "صوتي"
+
+#: .\templates\chat\single_message.html:70
+msgid "Document"
+msgstr "وثيقة"
+
+#: .\templates\chat\single_message.html:92
+msgid "Download Attachment"
+msgstr "تحميل المرفق"
+
+#: .\templates\chat\single_message.html:101
+msgid "(edited)"
+msgstr "(تحرير)"
+
+#: .\templates\core\coming_soon.html:314
+msgid "Asortie AI"
+msgstr "مجموعة متنوعة من الذكاء الاصطناعي"
+
+#: .\templates\core\coming_soon.html:315 .\templates\core\home.html:110
+msgid "Coming Soon"
+msgstr "قريباً"
+
+#: .\templates\core\coming_soon.html:319
+msgid "Intelligence is the New Luxury"
+msgstr "الذكاء هو الترف الجديد"
+
+#: .\templates\core\coming_soon.html:320
+msgid ""
+"Our bespoke AI Concierge is currently learning the nuances of classical "
+"craftsmanship and modern logistics. We are perfecting the visual recognition"
+" of your world."
+msgstr ""
+"يتعلم الكونسيرج المصمم خصيصًا بتقنية الذكاء الاصطناعي حاليًا الفروق الدقيقة "
+"في الحرفية الكلاسيكية والخدمات اللوجستية الحديثة. نحن نعمل على تحسين التعرف "
+"البصري على عالمك."
+
+#: .\templates\core\coming_soon.html:325
+msgid "Deployment in Progress"
+msgstr "النشر قيد التقدم"
+
+#: .\templates\core\coming_soon.html:332
+msgid ""
+"Current Phase: Validating 3D Showroom Assets & Groq Llama-4 Integration"
+msgstr ""
+"المرحلة الحالية: التحقق من صحة أصول صالة العرض ثلاثية الأبعاد وتكامل Groq "
+"Llama-4"
+
+#: .\templates\core\coming_soon.html:344
+msgid "Vision Intelligence"
+msgstr "ذكاء الرؤية"
+
+#: .\templates\core\coming_soon.html:345
+msgid ""
+"Recognizing brand assets and furniture styles through sophisticated CLIP-"
+"based vector matching."
+msgstr ""
+"التعرف على أصول العلامة التجارية وأنماط الأثاث من خلال مطابقة المتجهات "
+"المتطورة المستندة إلى CLIP."
+
+#: .\templates\core\coming_soon.html:353
+msgid "SQL Reasoning"
+msgstr "منطق SQL"
+
+#: .\templates\core\coming_soon.html:354
+msgid ""
+"Direct database communication to provide real-time stock and bespoke pricing"
+" negotiation data."
+msgstr ""
+"الاتصال المباشر بقاعدة البيانات لتوفير المخزون في الوقت الفعلي وبيانات "
+"التفاوض على الأسعار المخصصة."
+
+#: .\templates\core\coming_soon.html:362
+msgid "AR Showroom"
+msgstr "معرض AR"
+
+#: .\templates\core\coming_soon.html:363
+msgid ""
+"Bridging the gap between inquiry and experience with fully immersive 3D "
+"furniture visualization."
+msgstr ""
+"سد الفجوة بين الاستفسار والخبرة من خلال تصور الأثاث ثلاثي الأبعاد الغامر "
+"بالكامل."
+
+#: .\templates\core\coming_soon.html:371
+msgid "Bespoke Valuation"
+msgstr "تقييم مفصل"
+
+#: .\templates\core\coming_soon.html:372
+msgid ""
+"AI-driven logistics pricing that accounts for white-glove handling, duty "
+"optimization, and localized transit insurance for high-value assets."
+msgstr ""
+"تسعير الخدمات اللوجستية القائم على الذكاء الاصطناعي والذي يأخذ في الاعتبار "
+"التعامل مع القفازات البيضاء، وتحسين الرسوم، وتأمين النقل المحلي للأصول ذات "
+"القيمة العالية."
+
+#: .\templates\core\coming_soon.html:376
+msgid "Development Progress"
+msgstr "التقدم التنموي"
+
+#: .\templates\core\home.html:92
+msgid "Luxury landing with featured items."
+msgstr "هبوط فاخر مع عناصر مميزة."
+
+#: .\templates\core\home.html:105 .\templates\partials\header.html:29
+#: .\templates\partials\header.html:63 .\templates\partials\header.html:94
+msgid "AI Hub"
+msgstr "مركز الذكاء الاصطناعي"
+
+#: .\templates\core\home.html:107
+msgid ""
+"Leverage advanced artificial intelligence for real-time market trend "
+"analysis, pricing insights, and automated interior design assistance."
+msgstr ""
+"استفد من الذكاء الاصطناعي المتقدم لتحليل اتجاهات السوق في الوقت الفعلي، ورؤى"
+" التسعير، والمساعدة الآلية في التصميم الداخلي."
+
+#: .\templates\core\home.html:121 .\templates\partials\header.html:57
+#: .\templates\partials\header.html:72
+msgid "Marketplace"
+msgstr "السوق"
+
+#: .\templates\core\home.html:123
+msgid ""
+"Discover a curated inventory of luxury furniture, décor, and textiles ready "
+"for immediate global shipment from verified manufacturers."
+msgstr ""
+"اكتشف مخزونًا منسقًا من الأثاث والديكور والمنسوجات الفاخرة الجاهزة للشحن "
+"العالمي الفوري من الشركات المصنعة المعتمدة."
+
+#: .\templates\core\home.html:126
+msgid "Our Shop"
+msgstr "متجرنا"
+
+#: .\templates\core\home.html:137 .\templates\partials\header.html:60
+#: .\templates\partials\header.html:91
+msgid "3D Visualization"
+msgstr "التصور ثلاثي الأبعاد"
+
+#: .\templates\core\home.html:139
+msgid ""
+"Powerful 3D Visualization experience for our furniture in immersive 3D with "
+"real-time color customization and AR placement directly in your space."
+msgstr ""
+"تجربة تصور ثلاثية الأبعاد قوية لأثاثنا ثلاثي الأبعاد غامرة مع تخصيص الألوان "
+"في الوقت الفعلي ووضع الواقع المعزز مباشرة في مساحتك الخاصة."
+
+#: .\templates\core\home.html:142
+msgid "3D & AR Visualization"
+msgstr "التصور ثلاثي الأبعاد والواقع المعزز"
+
+#: .\templates\core\home.html:152
+msgid "100"
+msgstr "100"
+
+#: .\templates\core\home.html:153
+msgid "Verified Sellers"
+msgstr "البائعين المعتمدين"
+
+#: .\templates\core\home.html:157 .\templates\market\public_profile.html:136
+#: .\templates\seller_panel\business_profile.html:231
+msgid "Active Products"
+msgstr "المنتجات النشطة"
+
+#: .\templates\core\home.html:160
+msgid "24/7"
+msgstr "24/7"
+
+#: .\templates\core\home.html:161
+msgid "Global Support"
+msgstr "الدعم العالمي"
+
+#: .\templates\core\notifications.html:9
+msgid "Notification History"
+msgstr "تاريخ الإخطار"
+
+#: .\templates\core\notifications.html:18
+msgid "Read All"
+msgstr "قراءة الكل"
+
+#: .\templates\core\notifications.html:26
+#: .\templates\market\buyer_orders.html:93
+msgid "Clear All"
+msgstr "مسح الكل"
+
+#: .\templates\core\notifications.html:60
+msgid "New"
+msgstr "جديد"
+
+#: .\templates\core\notifications.html:70
+msgid "You have no notifications."
+msgstr "ليس لديك أي إشعارات."
+
+#: .\templates\core\notifications.html:71
+msgid "We will notify you when important events happen."
+msgstr "سنقوم بإخطارك عند حدوث أحداث مهمة."
+
+#: .\templates\market\_product_grid.html:20
+msgid "Price on request"
+msgstr "السعر عند الطلب"
+
+#: .\templates\market\_product_grid.html:22
+msgid "(Base Price)"
+msgstr "(السعر الأساسي)"
+
+#: .\templates\market\_product_grid.html:31
+#: .\templates\market\public_profile.html:252
+msgid "To Order Login By Buyer"
+msgstr "لطلب تسجيل الدخول من قبل المشتري"
+
+#: .\templates\market\_product_grid.html:34
+msgid "Order Now"
+msgstr "اطلب الآن"
+
+#: .\templates\market\_product_grid.html:37
+msgid "Login to Order"
+msgstr "تسجيل الدخول للطلب"
+
+#: .\templates\market\_product_grid.html:47
+msgid "No products match your filters."
+msgstr "لا توجد منتجات تتطابق مع عوامل التصفية الخاصة بك."
+
+#: .\templates\market\business_directory.html:59
+#: .\templates\partials\header.html:54 .\templates\partials\header.html:88
+msgid "Merchant Hub"
+msgstr "مركز التاجر"
+
+#: .\templates\market\business_directory.html:60
+msgid ""
+"Access deep insights into seller performance, business credentials, and live"
+" product catalogs."
+msgstr ""
+"يمكنك الوصول إلى رؤى عميقة حول أداء البائع وبيانات اعتماد الأعمال وكتالوجات "
+"المنتجات المباشرة."
+
+#: .\templates\market\business_directory.html:68
+#: .\templates\market\list.html:30
+msgid "Search"
+msgstr "يبحث"
+
+#: .\templates\market\business_directory.html:79
+msgid "All Countries"
+msgstr "جميع البلدان"
+
+#: .\templates\market\business_directory.html:88
+msgid "Sort By"
+msgstr "فرز حسب"
+
+#: .\templates\market\business_directory.html:90
+msgid "Default"
+msgstr "تقصير"
+
+#: .\templates\market\business_directory.html:91
+msgid "Highest Success"
+msgstr "أعلى النجاح"
+
+#: .\templates\market\business_directory.html:100
+msgid "Verified Sellers Only"
+msgstr "البائعين المعتمدين فقط"
+
+#: .\templates\market\business_directory.html:104
+msgid "With Certificates"
+msgstr "مع الشهادات"
+
+#: .\templates\market\business_directory.html:111
+#: .\templates\market\buyer_orders.html:94
+#: .\templates\seller_panel\orders.html:241
+msgid "Apply Filters"
+msgstr "تطبيق المرشحات"
+
+#: .\templates\market\business_directory.html:146
+#: .\templates\market\business_profile.html:85
+#: .\templates\market\business_profile.html:335
+#: .\templates\market\public_profile.html:106
+msgid "Exporter"
+msgstr "مصدر"
+
+#: .\templates\market\business_directory.html:147
+#: .\templates\market\business_profile.html:86
+#: .\templates\market\business_profile.html:341
+#: .\templates\market\public_profile.html:109
+msgid "Supplier"
+msgstr "مزود"
+
+#: .\templates\market\business_directory.html:153
+msgid "Certified"
+msgstr "معتمد"
+
+#: .\templates\market\business_directory.html:168
+msgid "View Products"
+msgstr "عرض المنتجات"
+
+#: .\templates\market\business_directory.html:184
+msgid "No businesses found matching your search."
+msgstr "لم يتم العثور على أي أعمال مطابقة لبحثك."
+
+#: .\templates\market\business_directory.html:185
+msgid "Clear Search"
+msgstr "مسح البحث"
+
+#: .\templates\market\business_profile.html:41
+#: .\templates\seller_panel\business_profile.html:41
+msgid "Business Intelligence"
+msgstr "ذكاء الأعمال"
+
+#: .\templates\market\business_profile.html:42
+#: .\templates\seller_panel\business_profile.html:42
+msgid "Performance analytics and identity management."
+msgstr "تحليلات الأداء وإدارة الهوية."
+
+#: .\templates\market\business_profile.html:46
+#: .\templates\seller_panel\business_profile.html:45
+msgid "Edit Profile & Roles"
+msgstr "تحرير الملف الشخصي والأدوار"
+
+#: .\templates\market\business_profile.html:77
+#: .\templates\seller_panel\business_profile.html:74
+msgid "Location not set"
+msgstr "لم يتم تحديد الموقع"
+
+#: .\templates\market\business_profile.html:89
+msgid "No Roles Set"
+msgstr "لم يتم تعيين أدوار"
+
+#: .\templates\market\business_profile.html:97
+#: .\templates\seller_panel\business_profile.html:93
+msgid "About Us"
+msgstr "معلومات عنا"
+
+#: .\templates\market\business_profile.html:102
+#: .\templates\market\business_profile.html:312
+#: .\templates\seller_panel\business_profile.html:98
+#: .\templates\seller_panel\business_profile.html:303
+msgid "Core Products"
+msgstr "المنتجات الأساسية"
+
+#: .\templates\market\business_profile.html:107
+#: .\templates\seller_panel\business_profile.html:103
+msgid "Not specified"
+msgstr "غير محدد"
+
+#: .\templates\market\business_profile.html:115
+#: .\templates\market\public_profile.html:144
+#: .\templates\seller_panel\business_profile.html:111
+msgid "Verified Certifications"
+msgstr "الشهادات التي تم التحقق منها"
+
+#: .\templates\market\business_profile.html:142
+#: .\templates\market\public_profile.html:181
+#: .\templates\seller_panel\business_profile.html:139
+msgid "Proof"
+msgstr "دليل"
+
+#: .\templates\market\business_profile.html:148
+#: .\templates\seller_panel\business_profile.html:145
+msgid "Authority:"
+msgstr "سلطة:"
+
+#: .\templates\market\business_profile.html:163
+#: .\templates\seller_panel\business_profile.html:160
+msgid "No certifications uploaded."
+msgstr "لم يتم تحميل أي شهادات."
+
+#: .\templates\market\business_profile.html:188
+msgid "This Month"
+msgstr "هذا الشهر"
+
+#: .\templates\market\business_profile.html:196
+msgid "This Year"
+msgstr "هذا العام"
+
+#: .\templates\market\business_profile.html:209
+msgid "Financial Growth"
+msgstr "النمو المالي"
+
+#: .\templates\market\business_profile.html:225
+#: .\templates\seller_panel\business_profile.html:221
+msgid "Market Ranking"
+msgstr "تصنيف السوق"
+
+#: .\templates\market\business_profile.html:227
+msgid "Based on total revenue"
+msgstr "على أساس إجمالي الإيرادات"
+
+#: .\templates\market\business_profile.html:264
+#: .\templates\seller_panel\business_profile.html:255
+msgid "Manage Business Identity"
+msgstr "إدارة الهوية التجارية"
+
+#: .\templates\market\business_profile.html:272
+#: .\templates\seller_panel\business_profile.html:263
+msgid "General Info"
+msgstr "معلومات عامة"
+
+#: .\templates\market\business_profile.html:290
+#: .\templates\seller_panel\business_profile.html:281
+msgid "Update Logo"
+msgstr "تحديث الشعار"
+
+#: .\templates\market\business_profile.html:300
+#: .\templates\seller_panel\business_profile.html:291
+msgid "Country"
+msgstr "دولة"
+
+#: .\templates\market\business_profile.html:304
+#: .\templates\seller_panel\business_profile.html:295
+msgid "City"
+msgstr "مدينة"
+
+#: .\templates\market\business_profile.html:308
+#: .\templates\seller_panel\business_profile.html:299
+msgid "Short Bio"
+msgstr "سيرة ذاتية قصيرة"
+
+#: .\templates\market\business_profile.html:318
+#: .\templates\seller_panel\business_profile.html:309
+msgid "Select Your Roles:"
+msgstr "حدد أدوارك:"
+
+#: .\templates\market\business_profile.html:361
+#: .\templates\seller_panel\business_profile.html:352
+msgid "Certification Type"
+msgstr "نوع الشهادة"
+
+#: .\templates\market\business_profile.html:365
+#: .\templates\seller_panel\business_profile.html:356
+msgid "Issuing Authority"
+msgstr "سلطة الإصدار"
+
+#: .\templates\market\business_profile.html:369
+#: .\templates\seller_panel\business_profile.html:360
+msgid "Expiration Date"
+msgstr "تاريخ انتهاء الصلاحية"
+
+#: .\templates\market\business_profile.html:373
+#: .\templates\seller_panel\business_profile.html:364
+msgid "Document Image (JPG/PNG)"
+msgstr "صورة الوثيقة (JPG/PNG)"
+
+#: .\templates\market\business_profile.html:378
+#: .\templates\seller_panel\business_profile.html:369
+msgid "Upload for Verification"
+msgstr "تحميل للتحقق"
+
+#: .\templates\market\buyer_orders.html:36 .\templates\partials\header.html:77
+msgid "My Orders"
+msgstr "طلباتي"
+
+#: .\templates\market\buyer_orders.html:37
+msgid "Track your luxury furniture collection and inquiries."
+msgstr "تتبع مجموعة الأثاث الفاخر الخاص بك والاستفسارات."
+
+#: .\templates\market\buyer_orders.html:42
+msgid "Total Investment"
+msgstr "إجمالي الاستثمار"
+
+#: .\templates\market\buyer_orders.html:52
+msgid "FILTER ORDERS"
+msgstr "أوامر التصفية"
+
+#: .\templates\market\buyer_orders.html:54 .\templates\market\list.html:65
+msgid "Filter"
+msgstr "فلتر"
+
+#: .\templates\market\buyer_orders.html:61
+msgid "Search Product"
+msgstr "بحث عن المنتج"
+
+#: .\templates\market\buyer_orders.html:65
+#: .\templates\seller_panel\orders.html:204
+msgid "Exact Date"
+msgstr "التاريخ المحدد"
+
+#: .\templates\market\buyer_orders.html:69
+msgid "Month / Year"
+msgstr "الشهر / السنة"
+
+#: .\templates\market\buyer_orders.html:72
+#: .\templates\seller_panel\orders.html:210
+msgid "Month"
+msgstr "شهر"
+
+#: .\templates\market\buyer_orders.html:78
+#: .\templates\seller_panel\orders.html:219
+msgid "Year"
+msgstr "سنة"
+
+#: .\templates\market\buyer_orders.html:86 .\templates\market\list.html:55
+msgid "Price Range"
+msgstr "نطاق السعر"
+
+#: .\templates\market\buyer_orders.html:108
+msgid "Item"
+msgstr "غرض"
+
+#: .\templates\market\buyer_orders.html:109
+msgid "Order Date"
+msgstr "تاريخ الطلب"
+
+#: .\templates\market\buyer_orders.html:111
+msgid "Amount"
+msgstr "كمية"
+
+#: .\templates\market\buyer_orders.html:112
+msgid "Action"
+msgstr "فعل"
+
+#: .\templates\market\buyer_orders.html:138
+#: .\templates\seller_panel\orders.html:290
+msgid "Waiting for Quote"
+msgstr "في انتظار الاقتباس"
+
+#: .\templates\market\buyer_orders.html:146
+msgid "Seller Terms & Notes"
+msgstr "شروط البائع وملاحظاته"
+
+#: .\templates\market\buyer_orders.html:148
+msgid "Price Offered"
+msgstr "السعر المعروض"
+
+#: .\templates\market\buyer_orders.html:161
+msgid "Quote Expired"
+msgstr "انتهت صلاحية الاقتباس"
+
+#: .\templates\market\buyer_orders.html:165
+#: .\templates\seller_panel\orders.html:311
+msgid "Processing"
+msgstr "يعالج"
+
+#: .\templates\market\buyer_orders.html:167
+#: .\templates\seller_panel\order_details.html:56
+#: .\templates\seller_panel\orders.html:313
+msgid "In Transit"
+msgstr "في مرحلة انتقالية"
+
+#: .\templates\market\buyer_orders.html:169
+#: .\templates\seller_panel\order_details.html:58
+#: .\templates\seller_panel\orders.html:315
+msgid "Delivered"
+msgstr "تم التوصيل"
+
+#: .\templates\market\buyer_orders.html:183
+msgid "Pay Now"
+msgstr "ادفع الآن"
+
+#: .\templates\market\buyer_orders.html:188
+msgid "Request Renew"
+msgstr "طلب التجديد"
+
+#: .\templates\market\detail.html:362
+msgid "Collection"
+msgstr "مجموعة"
+
+#: .\templates\market\detail.html:378
+msgid "No Image Available"
+msgstr "لا توجد صورة متاحة"
+
+#: .\templates\market\detail.html:384
+msgid "View in 3D"
+msgstr "عرض ثلاثي الأبعاد"
+
+#: .\templates\market\detail.html:410
+msgid "Seller:"
+msgstr "بائع:"
+
+#: .\templates\market\detail.html:412
+msgid "Visit Showroom"
+msgstr "زيارة صالة العرض"
+
+#: .\templates\market\detail.html:416
+#: .\templates\market\public_profile.html:94
+msgid "Chat"
+msgstr "محادثة"
+
+#: .\templates\market\detail.html:422 .\templates\market\detail.html:446
+msgid "Price On Request"
+msgstr "السعر عند الطلب"
+
+#: .\templates\market\detail.html:425
+msgid "/ set"
+msgstr "/ تعيين"
+
+#: .\templates\market\detail.html:436
+msgid "Quantity"
+msgstr "كمية"
+
+#: .\templates\market\detail.html:442
+msgid "Total Estimate"
+msgstr "التقدير الإجمالي"
+
+#: .\templates\market\detail.html:456
+msgid "Create Inquiry"
+msgstr "إنشاء استفسار"
+
+#: .\templates\market\detail.html:462
+msgid "Buyer Account Required"
+msgstr "مطلوب حساب المشتري"
+
+#: .\templates\market\detail.html:463
+msgid "Please"
+msgstr "لو سمحت"
+
+#: .\templates\market\detail.html:463
+msgid "to view shipping rates and place orders."
+msgstr "لعرض أسعار الشحن وتقديم الطلبات."
+
+#: .\templates\market\detail.html:470
+msgid "Fast Shipping"
+msgstr "شحن سريع"
+
+#: .\templates\market\detail.html:474
+msgid "Buyer Protection"
+msgstr "حماية المشتري"
+
+#: .\templates\market\detail.html:478
+msgid "24/7 Support"
+msgstr "دعم 24/7"
+
+#: .\templates\market\detail.html:491
+#: .\templates\seller_panel\products_form.html:48
+msgid "Description"
+msgstr "وصف"
+
+#: .\templates\market\detail.html:494
+msgid "Specifications"
+msgstr "تحديد"
+
+#: .\templates\market\detail.html:497
+msgid "Shipping & Returns"
+msgstr "الشحن والإرجاع"
+
+#: .\templates\market\detail.html:502
+msgid "Product Overview"
+msgstr "نظرة عامة على المنتج"
+
+#: .\templates\market\detail.html:506
+msgid "Technical Details"
+msgstr "التفاصيل الفنية"
+
+#: .\templates\market\detail.html:510
+msgid "Material"
+msgstr "مادة"
+
+#: .\templates\market\detail.html:510
+msgid "Premium Source"
+msgstr "مصدر مميز"
+
+#: .\templates\market\detail.html:514
+msgid "Delivery Information"
+msgstr "معلومات التسليم"
+
+#: .\templates\market\detail.html:515
+msgid ""
+"Standard delivery times for this item vary by location. Please create an "
+"inquiry to receive a custom logistics quote for deliveries to Addis Ababa "
+"and surrounding regions."
+msgstr ""
+"تختلف أوقات التسليم القياسية لهذا العنصر حسب الموقع. يرجى إنشاء استفسار "
+"لتلقي عرض أسعار لوجستي مخصص لعمليات التسليم إلى أديس أبابا والمناطق المحيطة "
+"بها."
+
+#: .\templates\market\iyzico_hosted.html:7
+msgid "Complete Your Payment"
+msgstr "أكمل دفعتك"
+
+#: .\templates\market\iyzico_hosted.html:8
+#: .\templates\seller_panel\order_details.html:45
+msgid "Order #"
+msgstr "طلب #"
+
+#: .\templates\market\iyzico_hosted.html:8
+msgid "Total:"
+msgstr "المجموع:"
+
+#: .\templates\market\iyzico_hosted.html:8
+#: .\templates\seller_panel\seller_transaction.html:87
+msgid "USD"
+msgstr "دولار أمريكي"
+
+#: .\templates\market\iyzico_hosted.html:18
+msgid "Failed to load the payment form. Please try again."
+msgstr "فشل في تحميل نموذج الدفع. يرجى المحاولة مرة أخرى."
+
+#: .\templates\market\iyzico_hosted.html:24
+msgid "Cancel and go back"
+msgstr "إلغاء والعودة"
+
+#: .\templates\market\list.html:22
+msgid "Global Marketplace"
+msgstr "السوق العالمية"
+
+#: .\templates\market\list.html:23
+msgid "Browse premium luxury furniture products from verified sellers."
+msgstr "تصفح منتجات الأثاث الفاخرة المتميزة من البائعين المعتمدين."
+
+#: .\templates\market\list.html:48
+#: .\templates\seller_panel\products_form.html:29
+msgid "Sub Category"
+msgstr "الفئة الفرعية"
+
+#: .\templates\market\list.html:68
+msgid "Clear"
+msgstr "واضح"
+
+#: .\templates\market\payment.html:51
+msgid "Negotiation"
+msgstr "التفاوض"
+
+#: .\templates\market\payment.html:55
+msgid "Delivery & Payment"
+msgstr "التسليم والدفع"
+
+#: .\templates\market\payment.html:59
+msgid "Confirmation"
+msgstr "تأكيد"
+
+#: .\templates\market\payment.html:76
+msgid "Delivery Options"
+msgstr "خيارات التسليم"
+
+#: .\templates\market\payment.html:99
+msgid "Destination Country"
+msgstr "بلد المقصد"
+
+#: .\templates\market\payment.html:115
+msgid "Set Delivery Pin"
+msgstr "تعيين دبوس التسليم"
+
+#: .\templates\market\payment.html:179
+msgid "Payment Gateway"
+msgstr "بوابة الدفع"
+
+#: .\templates\market\payment.html:202
+msgid "Credit / Debit Card"
+msgstr "بطاقة الائتمان / الخصم"
+
+#: .\templates\market\payment.html:203
+msgid "Secure international checkout via Stripe"
+msgstr "الخروج الدولي الآمن عبر Stripe"
+
+#: .\templates\market\payment.html:216
+msgid "Local Mobile Payment"
+msgstr "الدفع بواسطة الهاتف المحمول المحلي"
+
+#: .\templates\market\payment.html:217
+msgid "Telebirr, CBE Birr, M-Pesa via Chapa"
+msgstr "Telebirr، CBE Birr، M-Pesa عبر تشابا"
+
+#: .\templates\market\payment.html:230
+msgid "Iyzico"
+msgstr "ايزيكو"
+
+#: .\templates\market\payment.html:231
+msgid "Pay with credit card or protected transfer via Iyzico"
+msgstr "ادفع ببطاقة الائتمان أو التحويل المحمي عبر Iyzico"
+
+#: .\templates\market\payment.html:244
+#: .\templates\seller_panel\seller_payment.html:154
+msgid "Cash on Delivery (COD)"
+msgstr "الدفع عند الاستلام (COD)"
+
+#: .\templates\market\payment.html:245
+msgid "Pay securely when your item arrives"
+msgstr "ادفع بشكل آمن عند وصول العنصر الخاص بك"
+
+#: .\templates\market\payment.html:258
+msgid "Order Summary"
+msgstr "ملخص الطلب"
+
+#: .\templates\market\payment.html:276
+msgid "Agreed Product Quote"
+msgstr "عرض أسعار المنتج المتفق عليه"
+
+#: .\templates\market\payment.html:282
+msgid "Delivery Total"
+msgstr "إجمالي التسليم"
+
+#: .\templates\market\payment.html:286
+#: .\templates\seller_panel\order_details.html:143
+msgid "Grand Total"
+msgstr "المجموع الإجمالي"
+
+#: .\templates\market\payment.html:315 .\templates\market\payment.html:402
+msgid "Confirm & Pay Securely"
+msgstr "تأكيد والدفع بشكل آمن"
+
+#: .\templates\market\payment.html:319
+msgid "256-bit SSL Encrypted Checkout"
+msgstr "الخروج مشفر SSL 256 بت"
+
+#: .\templates\market\payment.html:399
+msgid "Confirm Order (Pay on Delivery)"
+msgstr "تأكيد الطلب (الدفع عند الاستلام)"
+
+#: .\templates\market\payment_success.html:7
+msgid "Payment Successful"
+msgstr "تم الدفع بنجاح"
+
+#: .\templates\market\payment_success.html:89
+msgid "Payment Successful!"
+msgstr "تم الدفع بنجاح!"
+
+#: .\templates\market\payment_success.html:90
+msgid ""
+"Thank you for your order. We are processing it and will send you a "
+"confirmation email shortly."
+msgstr ""
+"شكرا لطلبك. نحن نقوم بمعالجتها وسنرسل إليك رسالة تأكيد بالبريد الإلكتروني "
+"قريبًا."
+
+#: .\templates\market\payment_success.html:93
+msgid "Redirecting to home page in"
+msgstr "إعادة التوجيه إلى الصفحة الرئيسية في"
+
+#: .\templates\market\payment_success.html:93
+msgid "seconds..."
+msgstr "ثواني..."
+
+#: .\templates\market\payment_success.html:97
+msgid "Return to Home Now"
+msgstr "العودة إلى المنزل الآن"
+
+#: .\templates\market\public_profile.html:130
+msgid "Orders Fulfilled"
+msgstr "تم تنفيذ الطلبات"
+
+#: .\templates\market\public_profile.html:165
+msgid "Issued by:"
+msgstr "صادرة عن:"
+
+#: .\templates\market\public_profile.html:188
+msgid "No image document available."
+msgstr "لا توجد وثيقة صورة متاحة."
+
+#: .\templates\market\public_profile.html:201
+msgid "No certifications uploaded yet."
+msgstr "لم يتم تحميل الشهادات بعد."
+
+#: .\templates\market\public_profile.html:211
+msgid "Core Specialties"
+msgstr "التخصصات الأساسية"
+
+#: .\templates\market\public_profile.html:220
+msgid "Available Products"
+msgstr "المنتجات المتوفرة"
+
+#: .\templates\market\public_profile.html:257
+msgid "View Details"
+msgstr "عرض التفاصيل"
+
+#: .\templates\market\public_profile.html:267
+msgid "No active products listed at the moment."
+msgstr "لا توجد منتجات نشطة مدرجة في الوقت الراهن."
+
+#: .\templates\partials\chat_icon.html:11
+msgid "AI Assistant"
+msgstr "مساعد الذكاء الاصطناعي"
+
+#: .\templates\partials\chat_icon.html:29
+msgid "Super AI Agent"
+msgstr "وكيل سوبر منظمة العفو الدولية"
+
+#: .\templates\partials\chat_icon.html:32
+msgid "Elite automated interior guidance;"
+msgstr "النخبة التوجيه الداخلي الآلي."
+
+#: .\templates\partials\chat_icon.html:33
+msgid "live agent support in"
+msgstr "دعم الوكيل المباشر في"
+
+#: .\templates\partials\chat_icon.html:38
+msgid "AI Agent"
+msgstr "وكيل منظمة العفو الدولية"
+
+#: .\templates\partials\chat_icon.html:43
+msgid "Reach our private concierge?"
+msgstr "الوصول إلى بوابنا الخاص؟"
+
+#: .\templates\partials\chat_icon.html:45
+msgid "Message Specialist"
+msgstr "أخصائي الرسائل"
+
+#: .\templates\partials\footer.html:7
+msgid "2026"
+msgstr "2026"
+
+#: .\templates\partials\footer.html:7 .\templates\partials\header.html:100
+msgid "Asortie"
+msgstr "اسورتي"
+
+#: .\templates\partials\footer.html:8
+msgid "Addis Ababa, Ethiopia. Developer"
+msgstr "أديس أبابا، إثيوبيا. المطور"
+
+#: .\templates\partials\footer.html:8
+msgid "Bilal Nesru"
+msgstr "بلال نسرو"
+
+#: .\templates\partials\footer.html:9
+msgid "Powered By"
+msgstr "مدعوم من"
+
+#: .\templates\partials\footer.html:9
+msgid "Anwar5Promoter"
+msgstr "أنور5المروج"
+
+#: .\templates\partials\footer.html:10
+msgid "Privacy"
+msgstr "خصوصية"
+
+#: .\templates\partials\footer.html:11
+msgid "Terms"
+msgstr "شروط"
+
+#: .\templates\partials\header.html:38
+msgid "My Products"
+msgstr "منتجاتي"
+
+#: .\templates\partials\header.html:41
+msgid "Manage Orders"
+msgstr "إدارة الطلبات"
+
+#: .\templates\partials\header.html:44
+msgid "Manage Payments"
+msgstr "إدارة المدفوعات"
+
+#: .\templates\partials\header.html:48 .\templates\partials\header.html:84
+msgid "Business Profile"
+msgstr "الملف التجاري"
+
+#: .\templates\partials\index.html:107
+msgid "Luxury Interior Intelligence"
+msgstr "ذكاء داخلي فاخر"
+
+#: .\templates\partials\index.html:109
+msgid "+ New Collection Inquiry"
+msgstr "+ الاستعلام عن المجموعة الجديدة"
+
+#: .\templates\partials\index.html:139
+msgid "User"
+msgstr "مستخدم"
+
+#: .\templates\partials\index.html:139
+msgid "Asortie Intelligence"
+msgstr "الاستخبارات المتنوعة"
+
+#: .\templates\partials\index.html:167
+msgid "Inquire"
+msgstr "استفسر"
+
+#: .\templates\seller_panel\business_profile.html:177
+msgid "Revenue Today"
+msgstr "الإيرادات اليوم"
+
+#: .\templates\seller_panel\business_profile.html:185
+msgid "Revenue This Month"
+msgstr "الإيرادات هذا الشهر"
+
+#: .\templates\seller_panel\business_profile.html:193
+msgid "Revenue This Year"
+msgstr "الإيرادات هذا العام"
+
+#: .\templates\seller_panel\business_profile.html:206
+msgid "Revenue Growth"
+msgstr "نمو الإيرادات"
+
+#: .\templates\seller_panel\business_profile.html:223
+msgid "Based on total revenue volume"
+msgstr "على أساس إجمالي حجم الإيرادات"
+
+#: .\templates\seller_panel\business_profile.html:235
+msgid "Successful Orders"
+msgstr "الطلبات الناجحة"
+
+#: .\templates\seller_panel\dashboard.html:6
+msgid "Seller Dashboard"
+msgstr "لوحة تحكم البائع"
+
+#: .\templates\seller_panel\dashboard.html:11
+msgid "Total Sales"
+msgstr "إجمالي المبيعات"
+
+#: .\templates\seller_panel\dashboard.html:23
+msgid "Order Status Analytics"
+msgstr "تحليلات حالة الطلب"
+
+#: .\templates\seller_panel\order_details.html:43
+msgid "Back to Orders"
+msgstr "العودة إلى الطلبات"
+
+#: .\templates\seller_panel\order_details.html:45
+msgid "Details"
+msgstr "تفاصيل"
+
+#: .\templates\seller_panel\order_details.html:46
+msgid "Placed on"
+msgstr "وضعت على"
+
+#: .\templates\seller_panel\order_details.html:50
+msgid "Inquiry Received"
+msgstr "تم استلام الاستفسار"
+
+#: .\templates\seller_panel\order_details.html:52
+msgid "Quote Sent"
+msgstr "تم إرسال الاقتباس"
+
+#: .\templates\seller_panel\order_details.html:54
+msgid "Paid & Processing"
+msgstr "الدفع والمعالجة"
+
+#: .\templates\seller_panel\order_details.html:70
+msgid "Product & Client Info"
+msgstr "معلومات المنتج والعميل"
+
+#: .\templates\seller_panel\order_details.html:85
+msgid "Client Username"
+msgstr "اسم مستخدم العميل"
+
+#: .\templates\seller_panel\order_details.html:89
+msgid "Contact / Action"
+msgstr "الاتصال / الإجراء"
+
+#: .\templates\seller_panel\order_details.html:91
+msgid "Message Client"
+msgstr "عميل الرسالة"
+
+#: .\templates\seller_panel\order_details.html:101
+msgid "Financial Summary"
+msgstr "الملخص المالي"
+
+#: .\templates\seller_panel\order_details.html:105
+msgid "Settings"
+msgstr "إعدادات"
+
+#: .\templates\seller_panel\order_details.html:112
+msgid "Awaiting Quote"
+msgstr "في انتظار الاقتباس"
+
+#: .\templates\seller_panel\order_details.html:113
+msgid "You have not set the final price for this inquiry yet."
+msgstr "لم تقم بتحديد السعر النهائي لهذا الاستفسار بعد."
+
+#: .\templates\seller_panel\order_details.html:118
+msgid "Chosen Payment Method"
+msgstr "طريقة الدفع المختارة"
+
+#: .\templates\seller_panel\order_details.html:120
+msgid "Stripe Paid"
+msgstr "شريط مدفوع"
+
+#: .\templates\seller_panel\order_details.html:122
+msgid "Chapa Paid"
+msgstr "تشابا المدفوعة"
+
+#: .\templates\seller_panel\order_details.html:124
+msgid "Cash on Delivery"
+msgstr "الدفع عند التسليم"
+
+#: .\templates\seller_panel\order_details.html:126
+msgid "Awaiting Checkout"
+msgstr "في انتظار الخروج"
+
+#: .\templates\seller_panel\order_details.html:131
+msgid "Agreed Product Price"
+msgstr "سعر المنتج المتفق عليه"
+
+#: .\templates\seller_panel\order_details.html:135
+msgid "Delivery / Logistics Fee"
+msgstr "رسوم التسليم / الخدمات اللوجستية"
+
+#: .\templates\seller_panel\order_details.html:139
+msgid "Free / Pickup"
+msgstr "مجاني / بيك اب"
+
+#: .\templates\seller_panel\order_details.html:150
+msgid "Internal Notes & Transport Requests"
+msgstr "الملاحظات الداخلية وطلبات النقل"
+
+#: .\templates\seller_panel\order_details.html:164
+msgid "Logistics & Routing"
+msgstr "اللوجستية والتوجيه"
+
+#: .\templates\seller_panel\order_details.html:166
+msgid "Store Pickup"
+msgstr "متجر بيك اب"
+
+#: .\templates\seller_panel\order_details.html:168
+msgid "Delivery Requested"
+msgstr "طلب التسليم"
+
+#: .\templates\seller_panel\order_details.html:177
+msgid "Client will pick up in-store"
+msgstr "سوف يلتقط العميل في المتجر"
+
+#: .\templates\seller_panel\order_details.html:178
+msgid "No delivery logistics required for this order."
+msgstr "لا توجد حاجة للوجستيات التسليم لهذا الطلب."
+
+#: .\templates\seller_panel\order_details.html:185
+msgid "From (Your Location)"
+msgstr "من (موقعك)"
+
+#: .\templates\seller_panel\order_details.html:194
+msgid "To (Client Destination)"
+msgstr "إلى (وجهة العميل)"
+
+#: .\templates\seller_panel\order_details.html:197
+msgid "Coordinates Received"
+msgstr "تم استلام الإحداثيات"
+
+#: .\templates\seller_panel\order_details.html:211
+msgid "Exact Distance"
+msgstr "المسافة الدقيقة"
+
+#: .\templates\seller_panel\order_details.html:215
+msgid "Live ETA"
+msgstr "الوقت المتوقع للوصول المباشر"
+
+#: .\templates\seller_panel\order_details.html:221
+msgid "Start Route"
+msgstr "بدء الطريق"
+
+#: .\templates\seller_panel\order_details.html:230
+msgid "Calculating Optimal Driver Route..."
+msgstr "جارٍ حساب المسار الأمثل للسائق..."
+
+#: .\templates\seller_panel\order_details.html:237
+msgid "International / Freight Delivery"
+msgstr "الدولي / تسليم البضائع"
+
+#: .\templates\seller_panel\order_details.html:238
+msgid "Coordinate mapping is disabled for international freight."
+msgstr "تم تعطيل التعيين الإحداثي للشحن الدولي."
+
+#: .\templates\seller_panel\order_details.html:238
+msgid "Check the "
+msgstr "تحقق من"
+
+#: .\templates\seller_panel\orders.html:176
+msgid "Order Logistics"
+msgstr "النظام اللوجستية"
+
+#: .\templates\seller_panel\orders.html:177
+msgid "Manage furniture inquiries and shipping from Asortie to Ethiopia."
+msgstr "إدارة استفسارات الأثاث والشحن من Asortie إلى إثيوبيا."
+
+#: .\templates\seller_panel\orders.html:184
+msgid "ADVANCED FILTERS"
+msgstr "مرشحات متقدمة"
+
+#: .\templates\seller_panel\orders.html:186
+msgid "Adjust View"
+msgstr "ضبط العرض"
+
+#: .\templates\seller_panel\orders.html:194
+msgid "Client / Username"
+msgstr "العميل / اسم المستخدم"
+
+#: .\templates\seller_panel\orders.html:198
+msgid "Luxury Item Name"
+msgstr "اسم السلعة الفاخرة"
+
+#: .\templates\seller_panel\orders.html:212
+msgid "All Months"
+msgstr "كل الشهور"
+
+#: .\templates\seller_panel\orders.html:221
+msgid "All Years"
+msgstr "كل السنوات"
+
+#: .\templates\seller_panel\orders.html:230
+msgid "Min Price ($)"
+msgstr "الحد الأدنى للسعر ($)"
+
+#: .\templates\seller_panel\orders.html:234
+msgid "Max Price ($)"
+msgstr "الحد الأقصى للسعر ($)"
+
+#: .\templates\seller_panel\orders.html:244
+msgid "Reset"
+msgstr "إعادة ضبط"
+
+#: .\templates\seller_panel\orders.html:259
+msgid "Luxury Item"
+msgstr "السلعة الفاخرة"
+
+#: .\templates\seller_panel\orders.html:260
+msgid "Client Info"
+msgstr "معلومات العميل"
+
+#: .\templates\seller_panel\orders.html:261
+msgid "Quoted Amount"
+msgstr "المبلغ المقتبس"
+
+#: .\templates\seller_panel\orders.html:296
+msgid "Inquiry"
+msgstr "سؤال"
+
+#: .\templates\seller_panel\orders.html:303
+msgid "Quote Details"
+msgstr "تفاصيل الاقتباس"
+
+#: .\templates\seller_panel\orders.html:305
+msgid "Quoted"
+msgstr "مقتبس"
+
+#: .\templates\seller_panel\orders.html:309
+msgid "Expired"
+msgstr "منتهي الصلاحية"
+
+#: .\templates\seller_panel\orders.html:317
+msgid "Cancelled"
+msgstr "تم الإلغاء"
+
+#: .\templates\seller_panel\orders.html:319
+msgid "Declined"
+msgstr "انخفض"
+
+#: .\templates\seller_panel\orders.html:326
+msgid "Inquiry Withdrawn"
+msgstr "تم سحب الاستفسار"
+
+#: .\templates\seller_panel\orders.html:330
+msgid "Manage"
+msgstr "يدير"
+
+#: .\templates\seller_panel\orders.html:337
+msgid "View Full Details"
+msgstr "عرض التفاصيل الكاملة"
+
+#: .\templates\seller_panel\orders.html:346
+msgid "Next Step"
+msgstr "الخطوة التالية"
+
+#: .\templates\seller_panel\orders.html:350
+msgid "Set Final Price"
+msgstr "تحديد السعر النهائي"
+
+#: .\templates\seller_panel\orders.html:358
+msgid "Accept Order"
+msgstr "قبول الطلب"
+
+#: .\templates\seller_panel\orders.html:367
+msgid "Start Shipping"
+msgstr "ابدأ الشحن"
+
+#: .\templates\seller_panel\orders.html:376
+msgid "Mark Delivered"
+msgstr "تم تسليم العلامة"
+
+#: .\templates\seller_panel\orders.html:386
+msgid "Corrections"
+msgstr "التصحيحات"
+
+#: .\templates\seller_panel\orders.html:394
+msgid "Re-open Inquiry"
+msgstr "إعادة فتح الاستفسار"
+
+#: .\templates\seller_panel\orders.html:394
+msgid "Reset to Pending"
+msgstr "إعادة التعيين إلى \"معلق\"."
+
+#: .\templates\seller_panel\orders.html:403
+msgid "Back to Quote"
+msgstr "العودة إلى الاقتباس"
+
+#: .\templates\seller_panel\orders.html:412
+msgid "Return to Warehouse"
+msgstr "العودة إلى المستودع"
+
+#: .\templates\seller_panel\orders.html:421
+msgid "Reset to Shipping"
+msgstr "إعادة التعيين إلى الشحن"
+
+#: .\templates\seller_panel\orders.html:435
+msgid "Decline Inquiry"
+msgstr "رفض الاستفسار"
+
+#: .\templates\seller_panel\orders.html:456
+msgid "OFFICIAL QUOTE"
+msgstr "الاقتباس الرسمي"
+
+#: .\templates\seller_panel\orders.html:463
+msgid "Final Agreed Price (USD)"
+msgstr "السعر النهائي المتفق عليه (بالدولار الأمريكي)"
+
+#: .\templates\seller_panel\orders.html:472
+msgid "Note to Buyer / Terms"
+msgstr "ملاحظة للمشتري/الشروط"
+
+#: .\templates\seller_panel\orders.html:474
+msgid "e.g. Includes custom packaging and shipping insurance..."
+msgstr "على سبيل المثال يشمل التغليف المخصص والتأمين على الشحن..."
+
+#: .\templates\seller_panel\orders.html:480
+msgid "Send Quote to Buyer"
+msgstr "إرسال الاقتباس إلى المشتري"
+
+#: .\templates\seller_panel\products.html:8
+msgid "Furniture Collection"
+msgstr "مجموعة الأثاث"
+
+#: .\templates\seller_panel\products.html:9
+msgid "Manage your luxury catalog, AR variants, and galleries."
+msgstr "قم بإدارة كتالوج المنتجات الفاخرة ومتغيرات الواقع المعزز والمعارض."
+
+#: .\templates\seller_panel\products.html:13
+msgid "Add New Piece"
+msgstr "إضافة قطعة جديدة"
+
+#: .\templates\seller_panel\products.html:16
+msgid "View Orders"
+msgstr "عرض الطلبات"
+
+#: .\templates\seller_panel\products.html:26
+msgid "Your Active Showroom"
+msgstr "صالة العرض النشطة الخاصة بك"
+
+#: .\templates\seller_panel\products.html:29
+msgid "Search by product name..."
+msgstr "البحث حسب اسم المنتج..."
+
+#: .\templates\seller_panel\products.html:37
+msgid "Preview"
+msgstr "معاينة"
+
+#: .\templates\seller_panel\products.html:38
+msgid "Item Name"
+msgstr "اسم العنصر"
+
+#: .\templates\seller_panel\products.html:40
+msgid "Price Strategy"
+msgstr "استراتيجية الأسعار"
+
+#: .\templates\seller_panel\products.html:41
+msgid "Gallery"
+msgstr "معرض"
+
+#: .\templates\seller_panel\products.html:42
+msgid "Variants (AR)"
+msgstr "المتغيرات (AR)"
+
+#: .\templates\seller_panel\products.html:56
+msgid "No Img"
+msgstr "لا صورة"
+
+#: .\templates\seller_panel\products.html:73
+msgid "Quotation"
+msgstr "اقتباس"
+
+#: .\templates\seller_panel\products.html:81
+msgid "imgs"
+msgstr "imgs"
+
+#: .\templates\seller_panel\products.html:89
+msgid "View AR"
+msgstr "عرض الواقع المعزز"
+
+#: .\templates\seller_panel\products.html:94
+msgid "No 3D Models"
+msgstr "لا توجد نماذج ثلاثية الأبعاد"
+
+#: .\templates\seller_panel\products.html:116
+msgid "No products listed yet."
+msgstr "لا توجد منتجات مدرجة حتى الآن."
+
+#: .\templates\seller_panel\products_form.html:5
+msgid "Edit Product"
+msgstr "تحرير المنتج"
+
+#: .\templates\seller_panel\products_form.html:5
+msgid "Add New Product"
+msgstr "إضافة منتج جديد"
+
+#: .\templates\seller_panel\products_form.html:11
+msgid "Basic Information"
+msgstr "المعلومات الأساسية"
+
+#: .\templates\seller_panel\products_form.html:15
+msgid "Product Name"
+msgstr "اسم المنتج"
+
+#: .\templates\seller_panel\products_form.html:21
+msgid "Classic"
+msgstr "كلاسيكي"
+
+#: .\templates\seller_panel\products_form.html:22
+msgid "Modern"
+msgstr "حديث"
+
+#: .\templates\seller_panel\products_form.html:23
+msgid "Decoration"
+msgstr "زخرفة"
+
+#: .\templates\seller_panel\products_form.html:24
+msgid "Office"
+msgstr "مكتب"
+
+#: .\templates\seller_panel\products_form.html:25
+msgid "Hotel"
+msgstr "الفندق"
+
+#: .\templates\seller_panel\products_form.html:39
+msgid "Stock"
+msgstr "مخزون"
+
+#: .\templates\seller_panel\products_form.html:43
+msgid "Main Image"
+msgstr "الصورة الرئيسية"
+
+#: .\templates\seller_panel\products_form.html:55
+msgid "Logistics & Delivery Configuration"
+msgstr "تكوين الخدمات اللوجستية والتسليم"
+
+#: .\templates\seller_panel\products_form.html:59
+msgid "Transport Type"
+msgstr "نوع النقل"
+
+#: .\templates\seller_panel\products_form.html:61
+msgid "Land Transport"
+msgstr "النقل البري"
+
+#: .\templates\seller_panel\products_form.html:62
+msgid "Air Freight"
+msgstr "الشحن الجوي"
+
+#: .\templates\seller_panel\products_form.html:63
+msgid "Sea Freight"
+msgstr "الشحن البحري"
+
+#: .\templates\seller_panel\products_form.html:67
+msgid "Free Delivery Up To (KM)"
+msgstr "توصيل مجاني لغاية (كم)"
+
+#: .\templates\seller_panel\products_form.html:71
+msgid "Maximum Delivery (KM)"
+msgstr "الحد الأقصى للتسليم (كم)"
+
+#: .\templates\seller_panel\products_form.html:78
+msgid "Price Per Country"
+msgstr "السعر لكل دولة"
+
+#: .\templates\seller_panel\products_form.html:82
+msgid "Price Per 0.1 KM"
+msgstr "السعر لكل 0.1 كم"
+
+#: .\templates\seller_panel\products_form.html:86
+msgid "Container Price"
+msgstr "سعر الحاوية"
+
+#: .\templates\seller_panel\products_form.html:90
+msgid "Container Number"
+msgstr "رقم الحاوية"
+
+#: .\templates\seller_panel\products_form.html:98
+msgid "Pickup Location"
+msgstr "موقع الالتقاط"
+
+#: .\templates\seller_panel\products_form.html:102
+msgid "Full Address"
+msgstr "العنوان الكامل"
+
+#: .\templates\seller_panel\products_form.html:106
+msgid "Pickup Country"
+msgstr "بلد الالتقاط"
+
+#: .\templates\seller_panel\products_form.html:119
+msgid "Update Product & Logistics"
+msgstr "تحديث المنتج والخدمات اللوجستية"
+
+#: .\templates\seller_panel\products_form.html:119
+msgid "Publish Product"
+msgstr "نشر المنتج"
+
+#: .\templates\seller_panel\seller_payment.html:19
+#: .\templates\seller_panel\seller_transaction.html:65
+msgid "Financial Hub"
+msgstr "المركز المالي"
+
+#: .\templates\seller_panel\seller_payment.html:23
+#: .\templates\seller_panel\seller_transaction.html:70
+msgid "Payment Configuration"
+msgstr "تكوين الدفع"
+
+#: .\templates\seller_panel\seller_payment.html:28
+#: .\templates\seller_panel\seller_transaction.html:75
+msgid "Transactions & Payouts"
+msgstr "المعاملات والمدفوعات"
+
+#: .\templates\seller_panel\seller_payment.html:36
+msgid ""
+"Manage how buyers pay you. Active gateways will be displayed on your product"
+" checkouts."
+msgstr ""
+"إدارة كيفية دفع المشترين لك. سيتم عرض البوابات النشطة عند الخروج من منتجك."
+
+#: .\templates\seller_panel\seller_payment.html:49
+msgid "Stripe Integration"
+msgstr "التكامل الشريطي"
+
+#: .\templates\seller_panel\seller_payment.html:53
+#: .\templates\seller_panel\seller_payment.html:86
+#: .\templates\seller_panel\seller_payment.html:118
+msgid "Disabled"
+msgstr "عاجز"
+
+#: .\templates\seller_panel\seller_payment.html:56
+#, python-format
+msgid ""
+"Accept credit/debit cards globally. A 5%% platform fee is automatically "
+"deducted."
+msgstr ""
+"قبول بطاقات الائتمان/الخصم على مستوى العالم. يتم خصم رسوم المنصة بنسبة 5%% "
+"تلقائيًا."
+
+#: .\templates\seller_panel\seller_payment.html:58
+msgid "Stripe Account ID"
+msgstr "معرف حساب الشريط"
+
+#: .\templates\seller_panel\seller_payment.html:72
+msgid "Found in Stripe Settings > Business Settings > Account Details."
+msgstr ""
+"يمكن العثور عليها في إعدادات الشريط > إعدادات الأعمال > تفاصيل الحساب."
+
+#: .\templates\seller_panel\seller_payment.html:82
+msgid "Chapa Integration"
+msgstr "التكامل تشابا"
+
+#: .\templates\seller_panel\seller_payment.html:89
+msgid "Accept Telebirr, CBE Birr, and mobile money locally in Ethiopia."
+msgstr ""
+"اقبل Telebirr وCBE Birr والأموال عبر الهاتف المحمول محليًا في إثيوبيا."
+
+#: .\templates\seller_panel\seller_payment.html:91
+msgid "Chapa Merchant ID / Bank Info"
+msgstr "معرف التاجر تشابا / معلومات البنك"
+
+#: .\templates\seller_panel\seller_payment.html:114
+msgid "Iyzico Integration"
+msgstr "التكامل إيزيكو"
+
+#: .\templates\seller_panel\seller_payment.html:121
+msgid ""
+"Accept payments locally in Turkey. USD is automatically converted to TRY."
+msgstr ""
+"قبول المدفوعات محليا في تركيا. يتم تحويل الدولار الأمريكي تلقائيًا إلى TRY."
+
+#: .\templates\seller_panel\seller_payment.html:123
+msgid "Iyzico API Key"
+msgstr "مفتاح Iyzico API"
+
+#: .\templates\seller_panel\seller_payment.html:131
+msgid "Iyzico Secret Key"
+msgstr "مفتاح ايزيكو السري"
+
+#: .\templates\seller_panel\seller_payment.html:144
+msgid "Keys can be found in the Iyzico Merchant Dashboard."
+msgstr "يمكن العثور على المفاتيح في لوحة معلومات Iyzico Merchant."
+
+#: .\templates\seller_panel\seller_payment.html:155
+msgid "Allow buyers to order and pay physical cash upon delivery."
+msgstr "السماح للمشترين بالطلب والدفع نقدًا عند التسليم."
+
+#: .\templates\seller_panel\seller_payment.html:168
+msgid "Save All Preferences"
+msgstr "حفظ كافة التفضيلات"
+
+#: .\templates\seller_panel\seller_transaction.html:84
+msgid "Display Currency"
+msgstr "عرض العملة"
+
+#: .\templates\seller_panel\seller_transaction.html:90
+msgid "ETB"
+msgstr "إي تي بي"
+
+#: .\templates\seller_panel\seller_transaction.html:93
+msgid "TRY"
+msgstr "يحاول"
+
+#: .\templates\seller_panel\seller_transaction.html:97
+msgid "Syncing exchange rates..."
+msgstr "مزامنة أسعار الصرف..."
+
+#: .\templates\seller_panel\seller_transaction.html:109
+msgid "Net Earnings"
+msgstr "صافي الأرباح"
+
+#: .\templates\seller_panel\seller_transaction.html:116
+msgid "Ready for payout"
+msgstr "جاهز للدفع"
+
+#: .\templates\seller_panel\seller_transaction.html:124
+msgid "Gross Volume"
+msgstr "الحجم الإجمالي"
+
+#: .\templates\seller_panel\seller_transaction.html:131
+msgid "Total client payments received"
+msgstr "إجمالي مدفوعات العميل المستلمة"
+
+#: .\templates\seller_panel\seller_transaction.html:138
+msgid "Platform Fees"
+msgstr "رسوم المنصة"
+
+#: .\templates\seller_panel\seller_transaction.html:145
+msgid "Asortie maintenance commission"
+msgstr "عمولة صيانة اسورتي"
+
+#: .\templates\seller_panel\seller_transaction.html:155
+msgid "Export CSV"
+msgstr "تصدير CSV"
+
+#: .\templates\seller_panel\seller_transaction.html:161
+msgid "Order Info"
+msgstr "معلومات الطلب"
+
+#: .\templates\seller_panel\seller_transaction.html:162
+msgid "Customer & Product"
+msgstr "العميل والمنتج"
+
+#: .\templates\seller_panel\seller_transaction.html:163
+msgid "Gross"
+msgstr "إجمالي"
+
+#: .\templates\seller_panel\seller_transaction.html:164
+msgid "Fee"
+msgstr "مصاريف"
+
+#: .\templates\seller_panel\seller_transaction.html:165
+msgid "Net"
+msgstr "شبكة"
+
+#: .\templates\seller_panel\seller_transaction.html:166
+msgid "Gateway"
+msgstr "بوابة"
+
+#: .\templates\seller_panel\seller_transaction.html:196
+msgid "Stripe"
+msgstr "شريط"
+
+#: .\templates\seller_panel\seller_transaction.html:200
+msgid "Chapa"
+msgstr "تشابا"
+
+#: .\templates\seller_panel\seller_transaction.html:204
+msgid "COD"
+msgstr "سمك القد"
+
+#: .\templates\seller_panel\seller_transaction.html:207
+msgid "System"
+msgstr "نظام"
+
+#: .\templates\seller_panel\seller_transaction.html:223
+msgid "No transactions yet"
+msgstr "لا توجد معاملات حتى الآن"
+
+#: .\templates\seller_panel\seller_transaction.html:224
+msgid "Successful orders and payments will appear here automatically."
+msgstr "ستظهر الطلبات والمدفوعات الناجحة هنا تلقائيًا."
+
+#~ msgid "PDF or Image required."
+#~ msgstr "مطلوب PDF أو صورة."
+
+#~ msgid "Manage your purchases and track shipments."
+#~ msgstr "إدارة مشترياتك وتتبع الشحنات."
+
+#~ msgid "Paid"
+#~ msgstr "مدفوع"
+
+#~ msgid "On the way"
+#~ msgstr "على الطريق"
+
+#~ msgid "No orders found"
+#~ msgstr "لم يتم العثور على أي أوامر"
+
+#~ msgid "You haven't placed any orders yet."
+#~ msgstr "لم تقم بتقديم أي طلبات حتى الآن."
+
+#~ msgid "Browse Products"
+#~ msgstr "تصفح المنتجات"
+
+#~ msgid "Newest Listed"
+#~ msgstr "أحدث المدرجة"
+
+#~ msgid "Price: Low to High"
+#~ msgstr "السعر: من الأقل إلى الأعلى"
+
+#~ msgid "Price: High to Low"
+#~ msgstr "السعر: من الأعلى إلى الأقل"
+
+#~ msgid "No products available right now."
+#~ msgstr "لا توجد منتجات متاحة الآن."
+
+#~ msgid "Secure Checkout"
+#~ msgstr "الخروج الآمن"
+
+#~ msgid "Step 2 of 2"
+#~ msgstr "الخطوة 2 من 2"
+
+#~ msgid "Qty:"
+#~ msgstr "الكمية:"
+
+#~ msgid "Local Payment (Ethiopia)"
+#~ msgstr "الدفع المحلي (إثيوبيا)"
+
+#~ msgid "Pay"
+#~ msgstr "يدفع"
+
+#~ msgid "Now"
+#~ msgstr "الآن"
+
+#~ msgid "Cancel Order"
+#~ msgstr "إلغاء الطلب"
+
+#~ msgid "SSL Encrypted Transaction"
+#~ msgstr "المعاملات المشفرة بتقنية SSL"
+
+#~ msgid "Buyer Messages"
+#~ msgstr "رسائل المشتري"
+
+#~ msgid "Pricing Strategy"
+#~ msgstr "استراتيجية التسعير"
+
+#~ msgid "Negotiated (Quote)"
+#~ msgstr "تم التفاوض (الاقتباس)"
+
+#~ msgid "selected"
+#~ msgstr "مختارة"
+
+#~ msgid "Imagery"
+#~ msgstr "الصور"
+
+#~ msgid "Current"
+#~ msgstr "حاضِر"
+
+#~ msgid "Upload to replace current main image."
+#~ msgstr "تحميل لاستبدال الصورة الرئيسية الحالية."
+
+#~ msgid "Gallery Images"
+#~ msgstr "معرض الصور"
+
+#~ msgid "Add New Images:"
+#~ msgstr "إضافة صور جديدة:"
+
+#~ msgid "3D Models & Variants"
+#~ msgstr "النماذج والمتغيرات ثلاثية الأبعاد"
+
+#~ msgid "Add New"
+#~ msgstr "أضف جديد"
+
+#~ msgid "Current Variants"
+#~ msgstr "المتغيرات الحالية"
+
+#~ msgid "File Uploaded"
+#~ msgstr "تم تحميل الملف"
+
+#~ msgid "External Link"
+#~ msgstr "رابط خارجي"
+
+#~ msgid "No 3D data"
+#~ msgstr "لا توجد بيانات ثلاثية الأبعاد"
