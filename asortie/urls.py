@@ -58,6 +58,7 @@ urlpatterns = [
     # --- SELLER PANEL ---
     path('seller/dashboard/', market_views.seller_dashboard, name='seller_dashboard'),
     path('seller/orders/', market_views.seller_orders, name='seller_orders'),
+    path('seller/order/<int:order_id>/', market_views.seller_order_detail, name='seller_order_detail'),
 
     path('seller/products/', market_views.seller_products, name='seller_products'),
     path('seller/products/add/', market_views.seller_product_add, name='seller_product_add'),
@@ -75,11 +76,16 @@ urlpatterns = [
     path('payment/<int:order_id>/', market_views.payment, name='payment'),
     path('stripe/<int:order_id>/', market_views.stripe_checkout, name='stripe_checkout'),
     path('chapa/<int:order_id>/', market_views.chapa_checkout, name='chapa_checkout'),
-    # path('payment-success/', market_views.payment_success, name='payment_success'),
+    path('payment-success/', market_views.payment_success, name='payment_success'),
+    # turkish payment
+    path('iyzico/checkout/<int:order_id>/', market_views.iyzico_checkout, name='iyzico_checkout'),
     
     path('payment-success/<int:order_id>/', views.payment_success, name='payment_success'),
     path('order/cancel/<int:order_id>/', views.cancel_order, name='cancel_order'),
-
+    
+    path('seller/payment-setup/', views.seller_payment_setup, name='seller_payment_setup'),
+    path('seller/transactions/', views.seller_transactions, name='seller_transactions'),
+    
 
     # --- CHAT ---
     path('messages/', chat_views.chat_inbox, name='chat_inbox'),
@@ -97,12 +103,14 @@ urlpatterns = [
     path('notifications/read-all/', core_views.mark_all_read, name='mark_all_read'),
     path('notifications/delete-all/', core_views.delete_all_notifications, name='delete_all_notifications'),
     
+    path('notifications/ajax/', core_views.get_notifications_ajax, name='get_notifications_ajax'),
+    
     # --- Profile ---
     path('profile/', auth_views.profile_view, name='profile'),
     path('profile/change-password/', ChangePasswordView.as_view(), name='change_password'),
 
     # ... business paths ...
-    path('seller/business-profile/', views.business_profile, name='business_profile'),
+    path('account/business-profile/', views.business_profile, name='business_profile'),
     path('seller/cert/delete/<int:cert_id>/', views.delete_certificate, name='delete_certificate'),
     path('market/seller/<int:seller_id>/', views.public_business_profile, name='public_business_profile'),
     path('business-profile/<int:user_id>/', views.view_business_profile, name='view_business_profile'),
