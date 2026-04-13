@@ -40,12 +40,15 @@
             <a href="{% url 'seller_orders' %}" class="{% if request.resolver_match.url_name == 'seller_orders' %}active{% endif %}">
                 <i class="fa-solid fa-clipboard-list me-2"></i> {% trans "Manage Orders" %}
             </a>
+            <a href="{% url 'seller_payment_setup' %}" class="{% if request.resolver_match.url_name == 'seller_payment_setup' or request.resolver_match.url_name == 'seller_transactions' %}active{% endif %}">
+                <i class="fa-solid fa-building-columns me-1"></i> {% trans "Manage Payments" %}
+            </a>
             <!-- Business Profile -->
             <a href="{% url 'business_profile' %}" class="{% if request.resolver_match.url_name == 'business_profile' %}active{% endif %}">
                 <i class="fa-solid fa-user me-2"></i> {% trans "Business Profile" %}
             </a>
             <a href="{% url 'chat_inbox' %}" class="{% if request.resolver_match.url_name == 'chat_inbox' %}active{% endif %}">
-                <i class="fa-solid fa-comments me-2"></i> {% trans "Buyer Messages" %}
+                <i class="fa-solid fa-comments me-2"></i> {% trans "Messages" %}
             </a>
             <a href="{% url 'business_directory' %}" class="{% if request.resolver_match.url_name == 'business_directory' %}active{% endif %}">
                 <i class="fa-solid fa-address-book me-2"></i> {% trans "Merchant Hub" %}
