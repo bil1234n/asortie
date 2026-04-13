@@ -10,13 +10,21 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 
 from .models import ChatRoom, Message
+from django.db.models import Q, Count
 
 User = get_user_model()
 
+
 @login_required
 def chat_inbox(request):
+    # We annotate the room with the count of messages NOT hidden by the user.
+    # Then we filter out any rooms where that count is 0.
     rooms = ChatRoom.objects.filter(
         Q(participant_1=request.user) | Q(participant_2=request.user)
+    ).annotate(
+        visible_msg_count=Count('messages', filter=~Q(messages__hidden_by=request.user))
+    ).filter(
+        visible_msg_count__gt=0
     ).order_by('-updated_at')
     
     return render(request, 'chat/inbox.html', {'rooms': rooms})
@@ -50,10 +58,17 @@ def chat_room(request, user_id):
             'sender_id': msg.sender.id,
             'timestamp': msg.timestamp.strftime("%H:%M"),
             'is_read': msg.is_read,
-            'is_edited': msg.is_edited,               # Added
-            'is_deleted': msg.is_deleted_everyone,    # Added
-            'msg_type': msg.message_type,             # Added
-            'file_url': msg.file.url if msg.file else None  # Added
+            'is_edited': msg.is_edited,               
+            'is_deleted': msg.is_deleted_everyone,    
+            'msg_type': msg.message_type,             
+            'file_url': msg.file.url if msg.file else None,
+            # NEW: Add reply_to data for infinite scroll/pagination
+            'reply_to': {
+                'id': msg.reply_to.id,
+                'sender': "You" if msg.reply_to.sender == request.user else msg.reply_to.sender.username,
+                'content': msg.reply_to.content,
+                'msg_type': msg.reply_to.message_type
+            } if msg.reply_to else None
         } for msg in chat_messages]
         return JsonResponse({'messages': messages_data, 'has_next': page_obj.has_next()})
 
@@ -65,6 +80,7 @@ def chat_room(request, user_id):
     })
 
 def contact_admin(request):
+    # ... (No changes needed here)
     if request.user.is_authenticated:
         admins = User.objects.filter(Q(role='admin') | Q(is_superuser=True), is_active=True)
         
@@ -122,11 +138,9 @@ def clear_chat_history(request, room_id):
     if request.method == 'POST':
         room = get_object_or_404(ChatRoom, id=room_id)
         
-        # FIX: Compare user IDs directly to avoid SimpleLazyObject failure
         if request.user.id not in [room.participant_1.id, room.participant_2.id]:
             return JsonResponse({'status': 'denied'}, status=403)
             
-        # Optimization: Only update messages the user hasn't already hidden
         messages_to_hide = room.messages.exclude(hidden_by=request.user)
         for msg in messages_to_hide:
             msg.hidden_by.add(request.user)
@@ -166,7 +180,7 @@ def manage_message(request):
         if action == 'delete_everyone':
             msg.is_deleted_everyone = True
             msg.content = "🚫 This message was deleted."
-            msg.updated_at = timezone.now() # FIX: Force timestamp update for get_updates
+            msg.updated_at = timezone.now()
             msg.save() 
             return JsonResponse({'status': 'deleted', 'new_content': msg.content})
             
@@ -175,7 +189,7 @@ def manage_message(request):
             if new_content:
                 msg.content = new_content
                 msg.is_edited = True
-                msg.updated_at = timezone.now() # FIX: Force timestamp update for get_updates
+                msg.updated_at = timezone.now()
                 msg.save()
                 return JsonResponse({'status': 'edited', 'new_content': new_content})
 
@@ -187,6 +201,7 @@ def send_message_api(request, room_id):
         room = get_object_or_404(ChatRoom, id=room_id)
         
         content = request.POST.get('content', '')
+        reply_to_id = request.POST.get('reply_to') # NEW: Catch reply ID
         file = request.FILES.get('file')
         msg_type = 'text'
 
@@ -197,14 +212,33 @@ def send_message_api(request, room_id):
             elif mime.startswith('audio/'): msg_type = 'audio' 
             else: msg_type = 'file'
 
+        # NEW: Find the original message being replied to
+        reply_message = None
+        if reply_to_id:
+            try:
+                reply_message = Message.objects.get(id=reply_to_id, room=room)
+            except Message.DoesNotExist:
+                pass
+
         msg = Message.objects.create(
             room=room, 
             sender=request.user, 
             content=content, 
             file=file, 
-            message_type=msg_type
+            message_type=msg_type,
+            reply_to=reply_message  # NEW: Save to DB
         )
         room.save()
+
+        # NEW: Prepare reply data for immediate frontend rendering
+        reply_data = None
+        if reply_message:
+            reply_data = {
+                'id': reply_message.id,
+                'sender': "You" if reply_message.sender == request.user else reply_message.sender.username,
+                'content': reply_message.content,
+                'msg_type': reply_message.message_type
+            }
 
         return JsonResponse({
             'status': 'success',
@@ -212,7 +246,8 @@ def send_message_api(request, room_id):
             'content': msg.content,
             'file_url': msg.file.url if msg.file else None,
             'msg_type': msg_type,
-            'time': msg.timestamp.strftime("%H:%M")
+            'time': msg.timestamp.strftime("%H:%M"),
+            'reply_to': reply_data # NEW
         })
 
 @login_required
@@ -231,6 +266,16 @@ def get_updates(request, room_id):
 
     new_data = []
     for msg in new_msgs_qs:
+        # NEW: Attach reply info to incoming messages
+        reply_data = None
+        if msg.reply_to:
+            reply_data = {
+                'id': msg.reply_to.id,
+                'sender': "You" if msg.reply_to.sender == request.user else msg.reply_to.sender.username,
+                'content': msg.reply_to.content,
+                'msg_type': msg.reply_to.message_type
+            }
+
         new_data.append({
             'id': msg.id,
             'sender_id': msg.sender.id,
@@ -240,7 +285,8 @@ def get_updates(request, room_id):
             'is_deleted': msg.is_deleted_everyone,
             'msg_type': msg.message_type,
             'file_url': msg.file.url if msg.file else None,
-            'reactions': msg.reactions
+            'reactions': msg.reactions,
+            'reply_to': reply_data # NEW
         })
         if msg.sender != request.user:
             msg.is_read = True
