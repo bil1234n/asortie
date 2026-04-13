@@ -118,19 +118,27 @@ def unified_register_view(request):
     if request.user.is_authenticated:
         return redirect('home')
 
+    # Get role from POST or GET (defaults to buyer)
+    role_type = request.POST.get('role_type') or request.GET.get('role_type', 'buyer')
+
     if request.method == 'POST':
-        role_type = request.POST.get('role_type')
-        form = SellerRegisterForm(request.POST, request.FILES) if role_type == 'seller' else BuyerRegisterForm(request.POST)
+        # Select the correct form based on the role submitted
+        if role_type == 'seller':
+            form = SellerRegisterForm(request.POST, request.FILES)
+        else:
+            form = BuyerRegisterForm(request.POST)
 
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('seller_dashboard' if user.role == User.SELLER else 'home')
     else:
-        form = SellerRegisterForm()
+        # Initial empty form based on role_type
+        form = SellerRegisterForm() if role_type == 'seller' else BuyerRegisterForm()
 
     context = {
         'form': form,
+        'role_type': role_type, # Pass current role to template
         'google_client_id': settings.GOOGLE_CLIENT_ID,
     }
     return render(request, 'accounts/register.html', context)
