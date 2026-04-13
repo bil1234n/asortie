@@ -1,0 +1,24 @@
+{% load i18n %}
+{% if notifications %}
+    {% for n in notifications %}
+    <li>
+        <a class="dropdown-item d-flex align-items-start gap-2 py-2" href="{% url 'mark_read' n.id %}">
+            <div class="mt-1">
+                {% if n.notification_type == 'order' %}
+                    <i class="fa-solid fa-cart-shopping text-success"></i>
+                {% elif n.notification_type == 'message' %}
+                    <i class="fa-solid fa-comment text-primary"></i>
+                {% else %}
+                    <i class="fa-solid fa-bell text-warning"></i>
+                {% endif %}
+            </div>
+            <div style="white-space: normal;">
+                <p class="mb-0 small fw-bold">{{ n.message }}</p>
+                <small class="text-muted" style="font-size: 0.75rem;">{{ n.created_at|timesince }} {% trans "ago" %}</small>
+            </div>
+        </a>
+    </li>
+    {% endfor %}
+{% else %}
+    <li class="text-center py-3 small text-muted">{% trans "No new notifications" %}</li>
+{% endif %}
