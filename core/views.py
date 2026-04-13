@@ -5,6 +5,8 @@ from django.db.models import Count, Sum, Q
 from django.contrib.auth import get_user_model
 import json
 import random  
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 # --- IMPORTS ---
 from .models import Notification
@@ -295,3 +297,24 @@ def delete_all_notifications(request):
     Notification.objects.filter(recipient=request.user).delete()
     messages.warning(request, "All notifications cleared.")
     return redirect('all_notifications')
+
+def get_notifications_ajax(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'status': 'unauthorized'}, status=401)
+    
+    # 1. Get the base queryset of ALL unread notifications
+    unread_notifications = request.user.notifications.filter(is_read=False)
+    
+    # 2. Get the ACTUAL total count before applying any limits
+    count = unread_notifications.count()
+    
+    # 3. Slice the queryset to get only the latest 5 for the dropdown UI
+    latest_notifications = unread_notifications.order_by('-created_at')[:5]
+    
+    # Render the dropdown items to a string to inject via JS
+    html = render_to_string('partials/notification_items.html', {'notifications': latest_notifications})
+    
+    return JsonResponse({
+        'count': count,
+        'html': html
+    })
