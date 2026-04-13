@@ -4,6 +4,9 @@ from cloudinary.models import CloudinaryField
 from django.conf import settings 
 
 class User(AbstractUser):
+    # Override the email field to make it unique
+    email = models.EmailField(unique=True)
+
     # Roles
     BUYER = 'buyer'
     SELLER = 'seller'
@@ -27,7 +30,7 @@ class User(AbstractUser):
     ]
     
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=BUYER)
-    package_tier = models.CharField(max_length=15, choices=PACKAGE_CHOICES, default=BASIC) # <--- Added
+    package_tier = models.CharField(max_length=15, choices=PACKAGE_CHOICES, default=BASIC)
     is_verified = models.BooleanField(default=False)
 
     def is_seller(self):
