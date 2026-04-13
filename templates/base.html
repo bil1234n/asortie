@@ -41,8 +41,8 @@
                         <div class="dropdown">
                             <button class="btn btn-sm btn-light border-0 fw-medium dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-globe me-2"></i> 
-                                <span class="show_mobile">Lang</span>
-                                <span class="hiden_mobile">Select Language</span>
+                                <span class="show_mobile">{% trans "Lang" %}</span>
+                                <span class="hiden_mobile">{% trans "Select Language" %}</span>
                             </button>
                             
                             <ul class="dropdown-menu shadow border-0">
@@ -80,14 +80,16 @@
                             <a class="nav-link position-relative" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown">
                                 <i class="fa-solid fa-bell fa-lg text-secondary"></i>
                                 
-                                {% if notification_count > 0 %}
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {{ notification_count }}
-                                    </span>
-                                {% endif %}
+                                <span id="notif-badge-container">
+                                    {% if notification_count > 0 %}
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            {{ notification_count }}
+                                        </span>
+                                    {% endif %}
+                                </span>
                             </a>
                             
-                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="width: 300px; max-height: 400px; overflow-y: auto;">
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" id="notif-dropdown-list" style="width: 300px; max-height: 400px; overflow-y: auto;">
                                 <li class="dropdown-header fw-bold">{% trans "Notifications" %}</li>
                                 <li><hr class="dropdown-divider"></li>
                                 
@@ -186,7 +188,47 @@
         <!-- MAIN JAVASCRIPT LOGIC -->
          <script src="{% static 'js/script.js' %}"></script>
         
-        {% block scripts %}{% endblock %}
+        {% block scripts %}
+            <script>
+                function updateNotifications() {
+                    fetch('/notifications/ajax/') // Change this to your actual URL
+                        .then(response => response.json())
+                        .then(data => {
+                            // 1. Update the Badge
+                            const badgeContainer = document.getElementById('notif-badge-container');
+                            if (data.count > 0) {
+                                badgeContainer.innerHTML = `
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        ${data.count}
+                                    </span>`;
+                            } else {
+                                badgeContainer.innerHTML = '';
+                            }
+
+                            // 2. Update the Dropdown List
+                            const listContainer = document.getElementById('notif-dropdown-list');
+                            // Keep the header and dividers, just replace the dynamic items
+                            listContainer.innerHTML = `
+                                <li class="dropdown-header fw-bold">Notifications</li>
+                                <li><hr class="dropdown-divider"></li>
+                                ${data.html}
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-center small text-primary" href="/notifications/all/">View All History</a></li>
+                            `;
+                        })
+                        .catch(error => console.error('Error fetching notifications:', error));
+                }
+
+                // Run once on load
+                document.addEventListener('DOMContentLoaded', function() {
+                    {% if user.is_authenticated %}
+                        updateNotifications();
+                        // Check every 30 seconds
+                        setInterval(updateNotifications, 5000);
+                    {% endif %}
+                });
+            </script>
+        {% endblock %}
 
     </body>
 </html>
