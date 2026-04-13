@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static i18n %} 
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h2 class="mb-4">{% trans "Complete Your Payment" %}</h2>
+            <p class="text-muted">{% trans "Order #" %}{{ order.id }} - {% trans "Total:" %} {{ order.total_price }} {% trans "USD" %}</p>
+            
+            <hr>
+
+            <div id="iyzipay-checkout-form" class="responsive"></div>
+
+            {% if iyzico_html %}
+                {{ iyzico_html|safe }}
+            {% else %}
+                <div class="alert alert-danger">
+                    {% trans "Failed to load the payment form. Please try again." %}
+                </div>
+            {% endif %}
+            
+            <div class="mt-4">
+                <a href="{% url 'buyer_orders' %}" class="btn btn-link text-decoration-none">
+                    <i class="fas fa-arrow-left"></i> {% trans "Cancel and go back" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Optional: Ensure the form looks good on your site */
+    #iyzipay-checkout-form {
+        min-height: 500px; /* Prevents page jump while loading */
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
