@@ -145,6 +145,29 @@
             background-color: var(--luxury-blue) !important;
             color: white !important;
         }
+
+        /* Luxury Popover Styling */
+        .popover {
+            border: 1px solid var(--luxury-gold);
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .popover-header {
+            background-color: var(--luxury-blue);
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--luxury-gold);
+        }
+        .popover-body {
+            font-size: 0.85rem;
+            color: #555;
+            background-color: #fff;
+        }
+
+        /* Live Refresh Transitions */
+        #orders-table-container { transition: opacity 0.3s ease-in-out; }
+        .updating { opacity: 0.6; pointer-events: none; }
     </style>
 
     <div class="container py-4">
@@ -156,7 +179,78 @@
             <span class="badge bg-dark rounded-pill px-4 py-2 shadow-sm">{{ orders.count }} {% trans "Total Orders" %}</span>
         </div>
 
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+                <h5 class="mb-0 fw-bold luxury-font text-muted small"><i class="fa-solid fa-filter me-2"></i> {% trans "ADVANCED FILTERS" %}</h5>
+                <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
+                    <i class="fa-solid fa-sliders"></i> {% trans "Adjust View" %}
+                </button>
+            </div>
+            <div class="collapse {% if request.GET %}show{% endif %}" id="filterCollapse">
+                <div class="card-body bg-light border-top">
+                    <form method="get" class="row g-3">
+                        <!-- Search by Username/Product -->
+                        <div class="col-md-3">
+                            <label class="lx-modal-label">{% trans "Client / Username" %}</label>
+                            <input type="text" name="username" class="form-control form-control-sm" value="{{ request.GET.username }}" placeholder="Search client...">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="lx-modal-label">{% trans "Luxury Item Name" %}</label>
+                            <input type="text" name="product_name" class="form-control form-control-sm" value="{{ request.GET.product_name }}" placeholder="Search product...">
+                        </div>
+
+                        <!-- Specific Date -->
+                        <div class="col-md-2">
+                            <label class="lx-modal-label">{% trans "Exact Date" %}</label>
+                            <input type="date" name="date" class="form-control form-control-sm" value="{{ request.GET.date }}">
+                        </div>
+
+                        <!-- Month/Year -->
+                        <div class="col-md-2">
+                            <label class="lx-modal-label">{% trans "Month" %}</label>
+                            <select name="month" class="form-select form-select-sm">
+                                <option value="">{% trans "All Months" %}</option>
+                                {% for num, name in months %}
+                                    <option value="{{ num }}" {% if request.GET.month == num|stringformat:"i" %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="lx-modal-label">{% trans "Year" %}</label>
+                            <select name="year" class="form-select form-select-sm">
+                                <option value="">{% trans "All Years" %}</option>
+                                {% for y in years %}
+                                    <option value="{{ y }}" {% if request.GET.year == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div class="col-md-3">
+                            <label class="lx-modal-label">{% trans "Min Price ($)" %}</label>
+                            <input type="number" name="min_price" class="form-control form-control-sm" value="{{ request.GET.min_price }}" placeholder="0.00">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="lx-modal-label">{% trans "Max Price ($)" %}</label>
+                            <input type="number" name="max_price" class="form-control form-control-sm" value="{{ request.GET.max_price }}" placeholder="10000.00">
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="col-md-6 d-flex align-items-end">
+                            <button type="submit" class="btn btn-dark btn-sm px-4 me-2">
+                                <i class="fa-solid fa-magnifying-glass"></i> {% trans "Apply Filters" %}
+                            </button>
+                            <a href="{% url 'seller_orders' %}" class="btn btn-outline-danger btn-sm px-4">
+                                <i class="fa-solid fa-rotate-left"></i> {% trans "Reset" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADDED TARGET ID HERE -->
+        <div class="card shadow-sm border-0" id="orders-table-container">
             <div class="card-body p-0 table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light">
@@ -196,12 +290,23 @@
                     <span class="text-danger small fw-bold">{% trans "Waiting for Quote" %}</span>
                 {% endif %}
             </td>
+            <!-- STATUS COLUMN -->
             <td>
-                
                 {% if o.status == 'Pending' %}
                     <span class="badge bg-warning text-dark px-3 py-2"><i class="fa-regular fa-clock me-1"></i> {% trans "Inquiry" %}</span>
                 {% elif o.status == 'Quoted' %}
-                    <span class="badge badge-quoted px-3 py-2"><i class="fa-solid fa-file-invoice-dollar me-1"></i> {% trans "Quoted" %}</span>
+                    <span class="badge badge-quoted px-3 py-2" 
+                        style="cursor: pointer;"
+                        data-bs-toggle="popover" 
+                        data-bs-trigger="hover focus" 
+                        data-bs-placement="top"
+                        title="{% trans 'Quote Details' %}" 
+                        data-bs-content="{{ o.seller_note|default:'No specific notes provided for this quote.' }}">
+                        <i class="fa-solid fa-file-invoice-dollar me-1"></i> {% trans "Quoted" %}
+                    </span>
+                {% elif o.status == 'Expired' %}
+                    <!-- NEW EXPIRED BADGE FOR SELLER -->
+                    <span class="badge bg-secondary px-3 py-2 text-white shadow-sm"><i class="fa-solid fa-clock-rotate-left me-1"></i> {% trans "Expired" %}</span>
                 {% elif o.status == 'Paid' or o.status == 'Accepted' %}
                     <span class="badge bg-info text-dark px-3 py-2"><i class="fa-solid fa-gears me-1"></i> {% trans "Processing" %}</span>
                 {% elif o.status == 'Shipped' %}
@@ -214,6 +319,8 @@
                     <span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-ban me-1"></i> {% trans "Declined" %}</span>
                 {% endif %}
             </td>
+
+            <!-- ACTIONS COLUMN -->
             <td class="text-end pe-4">
                 {% if o.status == 'Cancelled' %}
                     <span class="text-muted small italic">{% trans "Inquiry Withdrawn" %}</span>
@@ -224,8 +331,18 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu shadow-lg">
                         
+                        <!-- NEW: VIEW DETAILS BUTTON -->
+                        <li>
+                            <a href="{% url 'seller_order_detail' o.id %}" style="text-decoration: none; color: var(--luxury-gold);" class="custom-dropdown-item fw-bold text-primary">
+                                <i class="fa-solid fa-eye"></i> {% trans "View Full Details" %}
+                            </a>
+                        </li>
+                        
+                        <li><hr class="dropdown-divider"></li>
+                        
                         <!-- SECTION: NEXT LOGICAL STEPS -->
-                        {% if o.status != 'Delivered' and o.status != 'Declined' %}
+                        <!-- Hide Next Steps if Delivered, Declined, OR Expired -->
+                        {% if o.status != 'Delivered' and o.status != 'Declined' and o.status != 'Expired' %}
                             <li><h6 class="dropdown-header-custom">{% trans "Next Step" %}</h6></li>
                             {% if o.status == 'Pending' %}
                                 <li>
@@ -268,12 +385,13 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><h6 class="dropdown-header-custom">{% trans "Corrections" %}</h6></li>
                             
-                            {% if o.status == 'Quoted' or o.status == 'Declined' %}
+                            <!-- ALLOW RE-OPENING IF DECLINED OR EXPIRED -->
+                            {% if o.status == 'Quoted' or o.status == 'Declined' or o.status == 'Expired' %}
                                 <li>
                                     <form method="post" class="m-0">{% csrf_token %}
                                         <input type="hidden" name="order_id" value="{{ o.id }}">
                                         <button name="action" value="pending" class="custom-dropdown-item">
-                                            <i class="fa-solid fa-rotate-left"></i> {% if o.status == 'Declined' %}{% trans "Re-open Inquiry" %}{% else %}{% trans "Reset to Pending" %}{% endif %}
+                                            <i class="fa-solid fa-rotate-left"></i> {% if o.status == 'Declined' or o.status == 'Expired' %}{% trans "Re-open Inquiry" %}{% else %}{% trans "Reset to Pending" %}{% endif %}
                                         </button>
                                     </form>
                                 </li>
@@ -308,7 +426,7 @@
                         {% endif %}
 
                         <!-- SECTION: DANGER ZONE -->
-                        {% if o.status != 'Declined' and o.status != 'Delivered' %}
+                        {% if o.status != 'Declined' and o.status != 'Delivered' and o.status != 'Expired' %}
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="post" class="m-0">{% csrf_token %}
@@ -323,6 +441,7 @@
                 </div>
                 {% endif %}
             </td>
+           
         </tr>
 
                         <div class="modal fade lx-unique-modal" id="quoteModal{{ o.id }}" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
@@ -338,12 +457,21 @@
                                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                                             </div>
 
+                                            <!-- Inside the Modal Body -->
                                             <div class="modal-body p-4">
                                                 <div class="mb-4">
                                                     <label class="lx-modal-label">{% trans "Final Agreed Price (USD)" %}</label>
                                                     <div class="lx-input-group d-flex align-items-center">
                                                         <span class="fs-4 me-2 text-muted">$</span>
                                                         <input type="number" step="0.01" name="total_price" class="lx-modal-input w-100" placeholder="0.00" required>
+                                                    </div>
+                                                </div>
+
+                                                <!-- NEW: Seller Note Field -->
+                                                <div class="mb-4">
+                                                    <label class="lx-modal-label">{% trans "Note to Buyer / Terms" %}</label>
+                                                    <div class="lx-input-group">
+                                                        <textarea name="seller_note" class="lx-modal-input w-100" rows="2" placeholder="{% trans 'e.g. Includes custom packaging and shipping insurance...' %}"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -362,25 +490,75 @@
         </div>
     </div>
 
+    <!-- UPDATED LIVE REFRESH SCRIPT -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Find all our luxury modals
-            const luxuryModals = document.querySelectorAll('.lx-unique-modal');
-            
-            luxuryModals.forEach(modal => {
-                // Stop click events inside the modal from bubbling up to the dropdown/table
-                modal.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
+        // 1. Unified function to bind all interactive elements
+        function initInteractiveComponents() {
+            // A) Dispose and re-initialize Popovers
+            let existingPopovers = document.querySelectorAll('[data-bs-toggle="popover"]');
+            existingPopovers.forEach(el => {
+                let popoverInstance = bootstrap.Popover.getInstance(el);
+                if (popoverInstance) popoverInstance.dispose();
+            });
 
-                // Ensure inputs don't trigger any "close" actions from parent containers
+            let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl);
+            });
+
+            // B) Re-bind your specific Modal logic
+            const luxuryModals = document.querySelectorAll('.lx-unique-modal');
+            luxuryModals.forEach(modal => {
+                modal.addEventListener('click', function(e) { e.stopPropagation(); });
                 const inputs = modal.querySelectorAll('input, textarea');
                 inputs.forEach(input => {
-                    input.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                    });
+                    input.addEventListener('click', function(e) { e.stopPropagation(); });
                 });
             });
+        }
+
+        // 2. Fetch API function to refresh ONLY the table/modals
+        async function refreshSellerOrdersTable() {
+            const tableContainer = document.getElementById('orders-table-container');
+            if (!tableContainer) return;
+            
+            try {
+                // Visual fade out
+                tableContainer.classList.add('updating');
+
+                // Fetch current URL (preserves active search/filter URLs automatically)
+                const response = await fetch(window.location.href, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+
+                if (!response.ok) throw new Error("Network response failed");
+                
+                // Get and parse the HTML
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Extract new content and inject it safely
+                const newContent = doc.getElementById('orders-table-container').innerHTML;
+                tableContainer.innerHTML = newContent;
+                
+                // Re-bind JavaScript listeners so Modals and Popovers still work
+                initInteractiveComponents();
+
+            } catch (error) {
+                console.error('Failed to auto-refresh orders:', error);
+            } finally {
+                // Visual fade in
+                tableContainer.classList.remove('updating');
+            }
+        }
+
+        // 3. Trigger on Load and Start the 1-Minute Timer
+        document.addEventListener('DOMContentLoaded', function() {
+            initInteractiveComponents();
+            
+            // Execute every 60 seconds
+            setInterval(refreshSellerOrdersTable, 60000); 
         });
     </script>
 {% endblock %}
