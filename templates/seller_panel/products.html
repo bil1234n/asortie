@@ -21,7 +21,15 @@
     <!-- PRODUCT LIST -->
     <div class="col-md-12">
         <div class="card shadow-sm border-0">
-            <div class="card-header bg-white fw-bold">{% trans "Your Active Showroom" %}</div>
+            <!-- UPDATED: Card Header with Search Bar -->
+            <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
+                <span>{% trans "Your Active Showroom" %}</span>
+                <div class="input-group" style="max-width: 300px;">
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                    <input type="text" id="productSearch" class="form-control border-start-0 ps-0" placeholder="{% trans 'Search by product name...' %}">
+                </div>
+            </div>
+            
             <div class="card-body p-0 table-responsive">
                 <table class="table table-hover mb-0 align-middle">
                     <thead class="table-light">
@@ -31,13 +39,15 @@
                             <th>{% trans "Category" %}</th>
                             <th>{% trans "Price Strategy" %}</th>
                             <th>{% trans "Gallery" %}</th>
-                            <th>{% trans "Variants (AR)" %}</th> <!-- Updated Header -->
+                            <th>{% trans "Variants (AR)" %}</th>
                             <th class="text-end">{% trans "Actions" %}</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <!-- UPDATED: Added ID for JavaScript targeting -->
+                    <tbody id="productList">
                         {% for p in products %}
-                        <tr>
+                        <!-- Added a class 'product-row' for easier JS targeting -->
+                        <tr class="product-row">
                             <!-- Image -->
                             <td>
                                 {% if p.image %}
@@ -49,7 +59,8 @@
                             
                             <!-- Name -->
                             <td>
-                                <div class="fw-bold">{{ p.name }}</div>
+                                <!-- UPDATED: Added class 'product-name' to easily extract text via JS -->
+                                <div class="fw-bold product-name">{{ p.name }}</div>
                                 <small class="text-muted">{{ p.created_at|date:"M d, Y" }}</small>
                             </td>
 
@@ -70,10 +81,9 @@
                                 <span class="badge bg-secondary">{{ p.gallery.count }} {% trans "imgs" %}</span>
                             </td>
 
-                            <!-- === UPDATED VARIANTS COLUMN === -->
+                            <!-- Variants Column -->
                             <td>
                                 {% if p.variants.exists %}
-                                    <!-- Button to View in AR -->
                                     <a href="/ar_3d/?product={{ p.id }}" target="_blank" class="btn btn-sm btn-outline-dark border-0" title="View in 3D Showroom">
                                         <i class="fa-solid fa-cube fa-lg text-primary"></i> 
                                         <span class="ms-1 fw-bold">{% trans "View AR" %}</span>
@@ -85,7 +95,6 @@
                                     </span>
                                 {% endif %}
                             </td>
-                            <!-- =============================== -->
 
                             <!-- Actions -->
                             <td class="text-end">
@@ -101,7 +110,7 @@
                             </td>
                         </tr>
                         {% empty %}
-                        <tr>
+                        <tr id="emptyRow">
                             <td colspan="7" class="text-center py-5 text-muted">
                                 <i class="fa-solid fa-box-open fa-2x mb-3"></i><br>
                                 {% trans "No products listed yet." %}
@@ -114,4 +123,36 @@
         </div>
     </div>
 </div>
+
+<!-- Add this block at the bottom of your template to handle the search -->
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById("productSearch");
+    const productRows = document.querySelectorAll("#productList .product-row");
+
+    searchInput.addEventListener("keyup", function(e) {
+        // Convert input to lowercase for case-insensitive search
+        const term = e.target.value.toLowerCase();
+
+        productRows.forEach(row => {
+            // Find the element holding the product name
+            const nameElement = row.querySelector(".product-name");
+            
+            if (nameElement) {
+                // Get the name text
+                const productName = nameElement.textContent.toLowerCase();
+                
+                // If the name includes the search term, show the row, otherwise hide it
+                if (productName.includes(term)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
 {% endblock %}
