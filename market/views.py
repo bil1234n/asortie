@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
-from django.db.models import Sum, Q, Value, DecimalField, Count
+from django.db.models import Sum, Q, Value, DecimalField, Count, F, ExpressionWrapper
 from django.db.models.functions import Coalesce 
 from django.contrib.auth import get_user_model
 import json
@@ -12,9 +12,15 @@ from django.conf import settings
 from django.urls import reverse
 
 # Import Models
-from .models import Product, Order, BusinessProfile, BusinessCertification, ProductVariant, ProductImage
+from .models import Product, Order, BusinessProfile, BusinessCertification, ProductVariant, ProductImage, SellerPaymentConfig
 from core.models import Notification 
 from .forms import CertificationForm 
+from datetime import datetime
+from django.utils import timezone
+from datetime import timedelta
+import math
+import iyzipay
+
 
 User = get_user_model()
 
@@ -24,16 +30,23 @@ User = get_user_model()
 
 def product_list(request):
     products = Product.objects.filter(is_active=True, seller__is_verified=True)
+    
     q = request.GET.get('q')
     category = request.GET.get('category')
+    sub_category = request.GET.get('sub_category')
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
-    sort_by = request.GET.get('sort')
 
     if q:
-        products = products.filter(Q(name__icontains=q) | Q(description__icontains=q))
+        products = products.filter(
+            Q(name__icontains=q) | 
+            Q(description__icontains=q) | 
+            Q(sub_category__icontains=q)
+        )
     if category:
         products = products.filter(category=category)
+    if sub_category:
+        products = products.filter(sub_category=sub_category)
     if min_price:
         try: products = products.filter(price__gte=float(min_price))
         except: pass
@@ -41,11 +54,20 @@ def product_list(request):
         try: products = products.filter(price__lte=float(max_price))
         except: pass
 
-    if sort_by == 'price_asc': products = products.order_by('price')
-    elif sort_by == 'price_desc': products = products.order_by('-price')
-    else: products = products.order_by('-created_at')
+    products = products.order_by('-created_at')
 
-    context = {'products': products, 'categories': Product.CATEGORY_CHOICES}
+    context = {
+        'products': products, 
+        'categories': Product.CATEGORY_CHOICES,
+    }
+
+    # PROFESSIONAL FIX: Check if the request is an AJAX call from our JavaScript
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+    if is_ajax:
+        # If AJAX, only return the raw HTML for the product cards
+        return render(request, 'market/_product_grid.html', context)
+
+    # Otherwise, return the full page
     return render(request, 'market/list.html', context)
 
 def product_detail(request, product_id):
@@ -98,124 +120,86 @@ def seller_products(request):
     products = Product.objects.filter(seller=request.user, is_active=True).order_by('-created_at')
     return render(request, 'seller_panel/products.html', {'products': products})
 
+
+# Helper functions for safe type conversion
+def safe_float(value, default=0.0):
+    try: return float(value)
+    except (TypeError, ValueError): return default
+
+def safe_int(value, default=1):
+    try: return int(value)
+    except (TypeError, ValueError): return default
+
 @login_required
 def seller_product_add(request):
-    """Handles creating a new product with Gallery and 3D Variants"""
-    if request.user.role != 'seller':
+    if request.user.role != 'seller': 
         return redirect('home')
     
-    if not request.user.is_verified:
-        messages.error(request, "You must be a verified seller to list products.")
-        return redirect('seller_products')
-
     if request.method == 'POST':
-        # 1. Basic Product Info
-        name = request.POST.get('name')
-        category = request.POST.get('category')
-        description = request.POST.get('description')
-        price = request.POST.get('price')
-        
-        # Handle empty price for 'Negotiated' strategy
-        if not price or price.strip() == "":
-            price = 0
-            
-        main_image = request.FILES.get('image')
-
         product = Product.objects.create(
             seller=request.user,
-            name=name,
-            category=category,
-            price=price,
-            description=description,
-            image=main_image
+            name=request.POST.get('name'),
+            category=request.POST.get('category', 'Classic'),
+            sub_category=request.POST.get('sub_category'),
+            description=request.POST.get('description'),
+            price=safe_float(request.POST.get('price')),
+            stock=safe_int(request.POST.get('stock')),
+            
+            # --- Delivery & Logistics Fields ---
+            pickup_country=request.POST.get('pickup_country', 'Ethiopia'),
+            pickup_lat=safe_float(request.POST.get('pickup_lat')) or None,
+            pickup_lng=safe_float(request.POST.get('pickup_lng')) or None,
+            address=request.POST.get('address', ''),
+            free_delivery_km=safe_float(request.POST.get('free_delivery_km')),
+            price_per_country=safe_float(request.POST.get('price_per_country')),
+            price_per_0_1_km=safe_float(request.POST.get('price_per_0_1_km')),
+            maximum_delivery_km=safe_float(request.POST.get('maximum_delivery_km'), 100.0),
+            container_price=safe_float(request.POST.get('container_price')),
+            container_number=safe_int(request.POST.get('container_number')),
+            transport_fee=safe_float(request.POST.get('transport_fee')),
+            transport_type=request.POST.get('transport_type', 'Land'),
         )
-
-        # 2. Handle Gallery Images (Multiple)
-        gallery_files = request.FILES.getlist('gallery_images')
-        for f in gallery_files:
-            ProductImage.objects.create(product=product, image=f)
-
-        # 3. Handle 3D Variants (Dynamic List)
-        v_names = request.POST.getlist('variant_name[]')
-        v_files = request.FILES.getlist('variant_file[]')
-        v_links = request.POST.getlist('variant_link[]')
-
-        for i in range(len(v_names)):
-            if v_names[i]:
-                file_to_upload = v_files[i] if i < len(v_files) else None
-                link_to_save = v_links[i] if i < len(v_links) else ""
-
-                ProductVariant.objects.create(
-                    product=product,
-                    variant_name=v_names[i],
-                    model_3d=file_to_upload,
-                    model_3d_link=link_to_save
-                )
-
-        messages.success(request, "Product added successfully with gallery and variants.")
+        
+        if request.FILES.get('image'):
+            product.image = request.FILES.get('image')
+            product.save()
+            
         return redirect('seller_products')
-
+        
     return render(request, 'seller_panel/products_form.html', {'edit_mode': False})
 
 @login_required
 def seller_product_edit(request, pk):
-    """Handles editing existing product with professional deletion logic"""
     product = get_object_or_404(Product, pk=pk, seller=request.user)
-
+    
     if request.method == 'POST':
-        # 1. Update Basic Fields
         product.name = request.POST.get('name')
-        product.category = request.POST.get('category')
+        product.category = request.POST.get('category', 'Classic')
+        product.sub_category = request.POST.get('sub_category')
         product.description = request.POST.get('description')
+        product.price = safe_float(request.POST.get('price'))
+        product.stock = safe_int(request.POST.get('stock'))
         
-        price = request.POST.get('price')
-        product.price = price if price and price.strip() else 0
+        # --- Delivery & Logistics Fields ---
+        product.pickup_country = request.POST.get('pickup_country', 'Ethiopia')
+        product.pickup_lat = safe_float(request.POST.get('pickup_lat')) or None
+        product.pickup_lng = safe_float(request.POST.get('pickup_lng')) or None
+        product.address = request.POST.get('address', '')
+        product.free_delivery_km = safe_float(request.POST.get('free_delivery_km'))
+        product.price_per_country = safe_float(request.POST.get('price_per_country'))
+        product.price_per_0_1_km = safe_float(request.POST.get('price_per_0_1_km'))
+        product.maximum_delivery_km = safe_float(request.POST.get('maximum_delivery_km'), 100.0)
+        product.container_price = safe_float(request.POST.get('container_price'))
+        product.container_number = safe_int(request.POST.get('container_number'))
+        product.transport_fee = safe_float(request.POST.get('transport_fee'))
+        product.transport_type = request.POST.get('transport_type', 'Land')
         
-        # Update Main Image if a new one is uploaded
         if request.FILES.get('image'):
             product.image = request.FILES.get('image')
-        
+            
         product.save()
-
-        # 2. DELETE Logic (Professional Handling)
-        # We receive a comma-separated string of IDs to delete (e.g., "4,8,12")
-        del_gallery_ids = request.POST.get('delete_gallery_ids', '').split(',')
-        del_variant_ids = request.POST.get('delete_variant_ids', '').split(',')
-
-        # Clean empty strings and Delete from DB
-        del_gallery_ids = [id for id in del_gallery_ids if id.isdigit()]
-        if del_gallery_ids:
-            ProductImage.objects.filter(id__in=del_gallery_ids, product=product).delete()
-
-        del_variant_ids = [id for id in del_variant_ids if id.isdigit()]
-        if del_variant_ids:
-            ProductVariant.objects.filter(id__in=del_variant_ids, product=product).delete()
-
-        # 3. ADD NEW Gallery Images
-        gallery_files = request.FILES.getlist('gallery_images')
-        for f in gallery_files:
-            ProductImage.objects.create(product=product, image=f)
-
-        # 4. ADD NEW Variants
-        v_names = request.POST.getlist('variant_name[]')
-        v_files = request.FILES.getlist('variant_file[]')
-        v_links = request.POST.getlist('variant_link[]')
-
-        for i in range(len(v_names)):
-            if v_names[i]: # Only create if name exists
-                file_to_upload = v_files[i] if i < len(v_files) else None
-                link_to_save = v_links[i] if i < len(v_links) else ""
-                
-                ProductVariant.objects.create(
-                    product=product,
-                    variant_name=v_names[i],
-                    model_3d=file_to_upload,
-                    model_3d_link=link_to_save
-                )
-
-        messages.success(request, "Product updated successfully.")
         return redirect('seller_products')
-
+        
     return render(request, 'seller_panel/products_form.html', {'product': product, 'edit_mode': True})
 
 @login_required
@@ -240,44 +224,51 @@ def seller_orders(request):
     if request.user.role != 'seller': 
         return redirect('home')
 
+    now = timezone.now()
+    # Change to timedelta(days=3) when you are done testing!
+    expiration_time = now - timedelta(days=3) 
+    
+    # --- 1. AUTO-EXPIRE ENGINE (For Seller) ---
+    expired_orders = Order.objects.filter(
+        product__seller=request.user, 
+        status='Quoted', 
+        quoted_at__lt=expiration_time
+    )
+    for eo in expired_orders:
+        eo.status = 'Expired'
+        eo.save()
+
+    # --- PART 1: POST LOGIC (Status Management & Negotiation) ---
     if request.method == 'POST':
         o_id = request.POST.get('order_id')
         action = request.POST.get('action')
         order = get_object_or_404(Order, id=o_id, product__seller=request.user)
         
-        # 1. NEGOTIATION LOGIC
         if action == 'set_quote':
-            order.total_price = request.POST.get('total_price')
+            new_quote = request.POST.get('total_price')
+            order.product_price = new_quote 
+            order.total_price = new_quote
+            order.delivery_fee = 0 
+            
             order.seller_note = request.POST.get('seller_note')
             order.status = 'Quoted'
+            order.quoted_at = timezone.now() # Record the time the quote was sent
             messages.success(request, f"Quote sent for Order #{order.id}")
         
-        # 2. STANDARD WORKFLOW LOGIC (Forward)
-        elif action == 'accept': 
-            order.status = 'Accepted'
-        elif action == 'shipped': 
-            order.status = 'Shipped'
-        elif action == 'delivered': 
-            order.status = 'Delivered'
-        elif action == 'decline': 
-            order.status = 'Declined'
-            
-        # 3. REVERSE & RE-OPEN LOGIC (Backwards)
+        elif action == 'accept': order.status = 'Accepted'
+        elif action == 'shipped': order.status = 'Shipped'
+        elif action == 'delivered': order.status = 'Delivered'
+        elif action == 'decline': order.status = 'Declined'
         elif action == 'pending': 
-            # This handles both "Reset to Pending" and "Re-open Declined Inquiry"
             order.status = 'Pending'
-        elif action == 'quoted_reverse': 
-            order.status = 'Quoted'
-        elif action == 'accepted_reverse': 
-            order.status = 'Accepted'
-        elif action == 'shipped_reverse': 
-            order.status = 'Shipped'
+            order.quoted_at = None # Reset the quote timer when reopening
+        elif action == 'quoted_reverse': order.status = 'Quoted'
+        elif action == 'accepted_reverse': order.status = 'Accepted'
+        elif action == 'shipped_reverse': order.status = 'Shipped'
         
-        # Save the changes
         order.save()
         
-        # 4. PROFESSIONAL NOTIFICATION
-        # We use get_status_display() to show the "Human Readable" name (e.g. "Price Offered")
+        # Professional Notification
         Notification.objects.create(
             recipient=order.buyer,
             sender=request.user,
@@ -289,9 +280,67 @@ def seller_orders(request):
         messages.info(request, f"Order #{order.id} moved to {order.get_status_display()}.")
         return redirect('seller_orders')
 
-    # GET: Fetch all orders including 'Pending'
+    # --- PART 2: GET LOGIC (Advanced Filtering) ---
     orders = Order.objects.filter(product__seller=request.user).order_by('-created_at')
-    return render(request, 'seller_panel/orders.html', {'orders': orders})
+
+    # Capture Filter Parameters
+    q_user = request.GET.get('username')
+    q_product = request.GET.get('product_name')
+    q_date = request.GET.get('date')
+    q_month = request.GET.get('month')
+    q_year = request.GET.get('year')
+    q_min = request.GET.get('min_price')
+    q_max = request.GET.get('max_price')
+
+    # Apply Filters if they exist
+    if q_user:
+        orders = orders.filter(buyer__username__icontains=q_user)
+    if q_product:
+        orders = orders.filter(product__name__icontains=q_product)
+    if q_date:
+        orders = orders.filter(created_at__date=q_date)
+    if q_month:
+        orders = orders.filter(created_at__month=q_month)
+    if q_year:
+        orders = orders.filter(created_at__year=q_year)
+    if q_min:
+        orders = orders.filter(total_price__gte=q_min)
+    if q_max:
+        orders = orders.filter(total_price__lte=q_max)
+
+    # Prepare Context Data for UI Select Boxes
+    current_year = datetime.now().year
+    years = range(current_year, current_year - 5, -1)
+    months = [
+        (1, "January"), (2, "February"), (3, "March"), (4, "April"),
+        (5, "May"), (6, "June"), (7, "July"), (8, "August"),
+        (9, "September"), (10, "October"), (11, "November"), (12, "December")
+    ]
+
+    context = {
+        'orders': orders,
+        'years': years,
+        'months': months,
+    }
+    
+    return render(request, 'seller_panel/orders.html', context)
+
+@login_required
+def seller_order_detail(request, order_id):
+    """
+    Dedicated Professional Details Page for a specific Order.
+    Shows map routing, financial breakdown, and buyer details.
+    """
+    if request.user.role != 'seller':
+        return redirect('home')
+        
+    order = get_object_or_404(Order, id=order_id, product__seller=request.user)
+    
+    context = {
+        'order': order,
+        'GOOGLE_MAPS_API_KEY': settings.GOOGLE_MAPS_API_KEY  # Ensure this is set in settings.py
+    }
+    return render(request, 'seller_panel/order_details.html', context)
 
 @login_required
 def create_order(request, product_id):
@@ -332,20 +381,147 @@ def create_order(request, product_id):
 
 @login_required
 def buyer_orders(request):
+    now = timezone.now()
+    three_days_ago = now - timedelta(days=3)
+    
+    # 1. AUTO-EXPIRE ENGINE: Find quotes older than 3 days and mark them Expired
+    expired_orders = Order.objects.filter(
+        buyer=request.user, 
+        status='Quoted', 
+        quoted_at__lt=three_days_ago
+    )
+    for eo in expired_orders:
+        eo.status = 'Expired'
+        eo.save()
+
+    # 2. Base queryset for this buyer
     orders = Order.objects.filter(buyer=request.user).select_related('product', 'product__seller').order_by('-created_at')
+    
+    # --- ADVANCED FILTERING ---
+    q_product = request.GET.get('product_name')
+    q_date = request.GET.get('date')
+    q_month = request.GET.get('month')
+    q_year = request.GET.get('year')
+    q_min = request.GET.get('min_price')
+    q_max = request.GET.get('max_price')
+
+    if q_product:
+        orders = orders.filter(product__name__icontains=q_product)
+    if q_date:
+        orders = orders.filter(created_at__date=q_date)
+    if q_month:
+        orders = orders.filter(created_at__month=q_month)
+    if q_year:
+        orders = orders.filter(created_at__year=q_year)
+    if q_min:
+        orders = orders.filter(total_price__gte=q_min)
+    if q_max:
+        orders = orders.filter(total_price__lte=q_max)
+
+    # Calculate total spent (on successful orders)
     total_spend = orders.filter(status__in=['Paid', 'Shipped', 'Delivered']).aggregate(Sum('total_price'))['total_price__sum'] or 0
-    return render(request, 'market/buyer_orders.html', {'orders': orders, 'total_spend': total_spend})
+    
+    # 3. ATTACH EXPIRATION DEADLINE FOR THE TEMPLATE COUNTDOWN
+    for order in orders:
+        if order.status == 'Quoted' and order.quoted_at:
+            order.expires_at = order.quoted_at + timedelta(days=3)
+
+    # Data for filter dropdowns
+    current_year = datetime.now().year
+    years = range(current_year, current_year - 5, -1)
+    months = [
+        (1, "January"), (2, "February"), (3, "March"), (4, "April"),
+        (5, "May"), (6, "June"), (7, "July"), (8, "August"),
+        (9, "September"), (10, "October"), (11, "November"), (12, "December")
+    ]
+
+    context = {
+        'orders': orders, 
+        'total_spend': total_spend,
+        'years': years,
+        'months': months
+    }
+    return render(request, 'market/buyer_orders.html', context)
 
 @login_required
 def payment(request, order_id):
+    """Buyer Checkout View - Dynamically shows only seller-allowed payment methods"""
     order = get_object_or_404(Order, id=order_id, buyer=request.user)
     
-    # SAFETY: Don't allow payment if price isn't set
     if order.status == 'Pending':
         messages.warning(request, "Awaiting seller quote. You will be able to pay once the price is set.")
         return redirect('buyer_orders')
 
-    return render(request, 'market/payment.html', {'order': order})
+    # --- Fetch Seller Payment Configurations ---
+    seller_config = getattr(order.product.seller, 'payment_config', None)
+    
+    seller_has_stripe = bool(seller_config and seller_config.stripe_account_id)
+    seller_has_chapa = bool(seller_config and seller_config.chapa_account_id)
+    seller_has_iyzico = bool(seller_config and seller_config.iyzico_api_key and seller_config.iyzico_secret_key)
+    seller_has_cod = bool(seller_config and seller_config.is_cod_enabled)
+
+    if request.method == 'POST':
+        payment_method = request.POST.get('payment_method')
+        
+        # --- SECURITY CHECK: Ensure buyer didn't force a disabled method ---
+        if payment_method == 'stripe' and not seller_has_stripe:
+            messages.error(request, "Stripe is not accepted by this seller.")
+            return redirect('payment', order_id=order.id)
+            
+        if payment_method == 'chapa' and not seller_has_chapa:
+            messages.error(request, "Chapa is not accepted by this seller.")
+            return redirect('payment', order_id=order.id)
+            
+        if payment_method == 'iyzico' and not seller_has_iyzico:
+            messages.error(request, "Iyzico is not accepted by this seller.")
+            return redirect('payment', order_id=order.id)
+        
+        if payment_method == 'cod' and not seller_has_cod:
+            messages.error(request, "Cash on Delivery is not allowed by this seller.")
+            return redirect('payment', order_id=order.id)
+
+        # Standard Processing...
+        delivery_option = request.POST.get('delivery_option', 'Pickup')
+        delivery_fee = float(request.POST.get('calculated_delivery_fee', 0.0))
+        
+        order.delivery_option = delivery_option
+        order.delivery_fee = delivery_fee
+        order.delivery_lat = request.POST.get('delivery_lat') or None
+        order.delivery_lng = request.POST.get('delivery_lng') or None
+        order.buyer_country = request.POST.get('buyer_country') or None
+        order.payment_gateway = payment_method 
+        
+        selected_transport = request.POST.get('transport_type')
+        if selected_transport:
+            order.seller_note = (order.seller_note or "") + f" [Buyer Requested Transport: {selected_transport}]"
+
+        base_price = float(order.product_price) if order.product_price > 0 else float(order.total_price)
+        order.product_price = base_price 
+        order.total_price = base_price + delivery_fee 
+        order.save()
+
+        # Gateways
+        if payment_method == 'stripe': return redirect('stripe_checkout', order_id=order.id)
+        elif payment_method == 'chapa': return redirect('chapa_checkout', order_id=order.id)
+        elif payment_method == 'iyzico': return redirect('iyzico_checkout', order_id=order.id)
+        elif payment_method == 'cod':
+            order.status = 'Accepted'
+            order.save()
+            Notification.objects.create(recipient=request.user, notification_type='order', message=f"Order Confirmed: You selected Cash on Delivery for {order.product.name}.", link=reverse('buyer_orders'))
+            Notification.objects.create(recipient=order.product.seller, notification_type='order', message=f"New COD Order: {request.user.username} chose Cash on Delivery for {order.product.name}.", link=reverse('seller_orders'))
+            messages.success(request, "Order confirmed! You will pay when the item arrives.")
+            return redirect('buyer_orders')
+
+    context = {
+        'order': order,
+        'GOOGLE_MAPS_API_KEY': settings.GOOGLE_MAPS_API_KEY,
+        # Pass flags to template
+        'seller_has_stripe': seller_has_stripe,
+        'seller_has_chapa': seller_has_chapa,
+        'seller_has_iyzico': seller_has_iyzico,
+        'seller_has_cod': seller_has_cod,
+    }
+    return render(request, 'market/payment.html', context)
 
 @login_required
 def stripe_checkout(request, order_id):
@@ -356,25 +532,49 @@ def stripe_checkout(request, order_id):
         messages.error(request, "Price not yet quoted.")
         return redirect('buyer_orders')
 
+    # Ensure the seller has a Stripe Account linked
+    seller_config = getattr(order.product.seller, 'payment_config', None)
+    if not seller_config or not seller_config.stripe_account_id:
+        messages.error(request, "The seller has not configured their payment method yet. Please contact support.")
+        return redirect('buyer_orders')
+
     stripe.api_key = settings.STRIPE_SECRET_KEY
     success_url = request.build_absolute_uri(f'/payment-success/{order.id}/')
     
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=[{
-            'price_data': {
-                'currency': 'usd',
-                'product_data': {'name': order.product.name},
-                'unit_amount': int(order.total_price * 100), # Uses Negotiated Price
-            },
-            'quantity': 1, # Negotiated price usually covers the full set
-        }],
-        mode='payment',
-        success_url=success_url,
-        cancel_url=request.build_absolute_uri(f'/payment-page/{order.id}'),
-    )
-    return redirect(session.url)
+    # Calculate totals in cents
+    total_cents = int(math.ceil(order.total_price * 100))
+    
+    # Calculate the 5% Asortie platform fee
+    application_fee_cents = int(math.ceil(total_cents * 0.05))
 
+    try:
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {'name': order.product.name},
+                    'unit_amount': total_cents,
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            payment_intent_data={
+                # The 5% cut for the platform
+                'application_fee_amount': application_fee_cents,
+                # The remaining 95% goes to the seller
+                'transfer_data': {
+                    'destination': seller_config.stripe_account_id,
+                },
+            },
+            success_url=success_url,
+            cancel_url=request.build_absolute_uri(f'/payment-page/{order.id}'),
+        )
+        return redirect(session.url)
+    except stripe.error.StripeError as e:
+        messages.error(request, f"Stripe Error: {str(e)}")
+        return redirect('payment', order_id=order.id)
+    
 @login_required
 def chapa_checkout(request, order_id):
     order = get_object_or_404(Order, id=order_id, buyer=request.user)
@@ -407,6 +607,96 @@ def chapa_checkout(request, order_id):
         messages.error(request, "Payment gateway error.")
         return redirect('payment_page', order_id=order.id)
 
+
+
+@login_required
+def iyzico_checkout(request, order_id):
+    order = get_object_or_404(Order, id=order_id, buyer=request.user)
+    
+    # 1. Basic Validation
+    if order.total_price <= 0:
+        messages.error(request, "Price not yet quoted.")
+        return redirect('buyer_orders')
+
+    seller_config = getattr(order.product.seller, 'payment_config', None)
+    if not seller_config or not seller_config.iyzico_api_key:
+        messages.error(request, "Payment configuration missing.")
+        return redirect('buyer_orders')
+
+    # 2. Currency Conversion (Keep as float for calculation, then str for Iyzico)
+    USD_TO_TRY_RATE = 32.50 
+    total_amount = str(round(float(order.total_price) * USD_TO_TRY_RATE, 2))
+    
+    # 3. Iyzico Config (No https://)
+    options = {
+        'api_key': seller_config.iyzico_api_key,
+        'secret_key': seller_config.iyzico_secret_key,
+        'base_url': 'sandbox-api.iyzipay.com' 
+    }
+
+    # Use a generic callback for testing if localhost fails
+    callback_url = request.build_absolute_uri(f'/payment-success/{order.id}/')
+
+    # 4. Request Payload
+    request_data = {
+        'locale': 'en',
+        'conversationId': str(order.id),
+        'price': total_amount,
+        'paidPrice': total_amount,
+        'currency': 'TRY',
+        'basketId': f"B{order.id}",
+        'callbackUrl': callback_url,
+        'buyer': {
+            'id': str(request.user.id),
+            'name': 'John',
+            'surname': 'Doe',
+            'email': 'test@email.com',
+            'gsmNumber': '+905321234567', 
+            'identityNumber': '11111111111', 
+            'registrationAddress': 'Adalet Mahallesi, No:41',
+            'city': 'Istanbul',
+            'country': 'Turkey',
+            'zipCode': '34732',
+            'ip': '127.0.0.1' 
+        },
+        'shippingAddress': {
+            'contactName': 'John Doe',
+            'city': 'Istanbul',
+            'country': 'Turkey',
+            'address': 'Adalet Mahallesi, No:41',
+            'zipCode': '34732'
+        },
+        'billingAddress': {
+            'contactName': 'John Doe',
+            'city': 'Istanbul',
+            'country': 'Turkey',
+            'address': 'Adalet Mahallesi, No:41',
+            'zipCode': '34732'
+        },
+        'basketItems': [
+            {
+                'id': f"PR{order.product.id}",
+                'name': 'Luxury Furniture Item', 
+                'category1': 'Furniture',
+                'itemType': 'PHYSICAL',
+                'price': total_amount
+            }
+        ]
+    }
+
+    # 5. Execute
+    checkout_form_initialize = iyzipay.CheckoutFormInitialize().create(request_data, options)
+    response_json = json.loads(checkout_form_initialize.read().decode('utf-8'))
+    
+    if response_json.get('status') == 'success':
+        # REDIRECT DIRECTLY to the hosted page URL
+        payment_url = response_json.get('paymentPageUrl')
+        return redirect(payment_url)
+    else:
+        error_msg = response_json.get('errorMessage', 'Payment gateway error.')
+        messages.error(request, f"Iyzico Error: {error_msg}")
+        return redirect('buyer_orders')
+    
 @login_required
 def payment_success(request, order_id):
     order = get_object_or_404(Order, id=order_id, buyer=request.user)
@@ -439,6 +729,94 @@ def cancel_order(request, order_id):
         messages.error(request, "Cannot cancel an order that is already being processed or paid.")
         
     return redirect('buyer_orders')
+
+@login_required
+def seller_payment_setup(request):
+    if request.user.role != 'seller':
+        return redirect('home')
+
+    config, created = SellerPaymentConfig.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        # 1. DELETE ACTIONS
+        if action == 'delete_stripe':
+            config.stripe_account_id = None
+            config.save()
+            messages.success(request, "Stripe account removed successfully.")
+            return redirect('seller_payment_setup')
+            
+        elif action == 'delete_chapa':
+            config.chapa_account_id = None
+            config.save()
+            messages.success(request, "Chapa account removed successfully.")
+            return redirect('seller_payment_setup')
+
+        elif action == 'delete_iyzico':
+            config.iyzico_api_key = None
+            config.iyzico_secret_key = None
+            config.save()
+            messages.success(request, "Iyzico account removed successfully.")
+            return redirect('seller_payment_setup')
+
+        # 2. SAVE / UPDATE ACTIONS
+        elif action == 'save_all':
+            stripe_id = request.POST.get('stripe_account_id', '').strip()
+            chapa_id = request.POST.get('chapa_account_id', '').strip()
+            iyzico_api = request.POST.get('iyzico_api_key', '').strip()
+            iyzico_secret = request.POST.get('iyzico_secret_key', '').strip()
+            is_cod = request.POST.get('is_cod_enabled') == 'on' 
+
+            # Validation
+            if stripe_id and not stripe_id.startswith('acct_'):
+                messages.error(request, "Invalid Stripe ID. It must start with 'acct_'")
+            else:
+                config.stripe_account_id = stripe_id if stripe_id else None
+                config.chapa_account_id = chapa_id if chapa_id else None
+                config.iyzico_api_key = iyzico_api if iyzico_api else None
+                config.iyzico_secret_key = iyzico_secret if iyzico_secret else None
+                config.is_cod_enabled = is_cod
+                config.save()
+                messages.success(request, "Payment preferences updated successfully.")
+
+        return redirect('seller_payment_setup')
+
+    return render(request, 'seller_panel/seller_payment.html', {'config': config})
+
+@login_required
+def seller_transactions(request):
+    # FIXED ACCESS CHECK: Use the role system
+    if request.user.role != 'seller':
+        messages.error(request, "Access denied. Seller account required.")
+        return redirect('home')
+
+    # Get all successful orders for this seller
+    completed_orders = Order.objects.filter(
+        product__seller=request.user,
+        status__in=['Paid', 'Shipped', 'Delivered']
+    ).select_related('product', 'buyer').order_by('-created_at')
+
+    # Safely aggregate totals
+    stats = completed_orders.aggregate(total_gross=Sum('total_price'))
+    gross_total = stats['total_gross'] or 0.00
+    
+    platform_fee_total = float(gross_total) * 0.05
+    net_earnings_total = float(gross_total) * 0.95
+
+    # Manually attach calculated fields for the template
+    for order in completed_orders:
+        order.gross = float(order.total_price)
+        order.fee = order.gross * 0.05
+        order.net = order.gross * 0.95
+
+    context = {
+        'transactions': completed_orders,
+        'total_gross': gross_total,
+        'total_fee': platform_fee_total,
+        'total_net': net_earnings_total,
+    }
+    return render(request, 'seller_panel/seller_transaction.html', context)
 
 # ==========================
 # 3. UNIFIED BUSINESS PROFILE
@@ -720,6 +1098,4 @@ def public_business_profile(request, seller_id):
         'product_count_all': product_count_all,
     }
     return render(request, 'market/public_profile.html', context)
-
-
 
