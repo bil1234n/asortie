@@ -5,8 +5,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from pgvector.django import VectorField 
 
-# NOTE: User model is imported from settings.AUTH_USER_MODEL via ForeignKey
-
 class Product(models.Model):
     CATEGORY_CHOICES = [
         ('Classic', 'Classic'),
@@ -15,21 +13,42 @@ class Product(models.Model):
         ('Office', 'Office'),
         ('Hotel', 'Hotel'),
     ]
+    
+    TRANSPORT_CHOICES = [
+        ('Land', 'Land Transport'),
+        ('Air', 'Air Freight'),
+        ('Sea', 'Sea Freight'),
+    ]
 
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Green')
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Classic')
+    sub_category = models.CharField(max_length=100, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = CloudinaryField('image', folder='products', blank=True, null=True)
     description = models.TextField()
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    # AI Vector Field: CLIP-ViT-B/32 uses 512 dimensions
-    image_embedding = VectorField(dimensions=512, null=True, blank=True)
     
+    # --- New Delivery System Fields ---
+    pickup_country = models.CharField(max_length=100, default="Ethiopia", help_text="Used to check if delivery is domestic or international")
+    pickup_lat = models.FloatField(null=True, blank=True)
+    pickup_lng = models.FloatField(null=True, blank=True)
+    free_delivery_km = models.FloatField(default=0.0)
+    price_per_country = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    price_per_0_1_km = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    maximum_delivery_km = models.FloatField(default=100.0)
+    container_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    container_number = models.IntegerField(default=1)
+    transport_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    transport_type = models.CharField(max_length=50, choices=TRANSPORT_CHOICES, default='Land')
+    
+    stock = models.IntegerField(default=1)
+    address = models.CharField(max_length=255, blank=True, null=True)
+
     def __str__(self):
         return self.name
-    
+
 class ProductVariant(models.Model):
     """
     Imported from AR_3D System.
@@ -67,12 +86,18 @@ class ProductImage(models.Model):
 class Order(models.Model):
     STATUS_CHOICES = [
         ('Pending', 'Inquiry Received'),
-        ('Quoted', 'Price Offered'), # Seller has set the price
+        ('Quoted', 'Price Offered'),
         ('Accepted', 'Accepted by Buyer'),
         ('Declined', 'Declined'),
+        ('Expired', 'Quote Expired'),
         ('Paid', 'Paid'),
         ('Shipped', 'Shipped'),
         ('Delivered', 'Delivered'),
+    ]
+    
+    DELIVERY_CHOICES = [
+        ('Pickup', 'Pickup in Store'),
+        ('Delivery', 'Delivery'),
     ]
 
     buyer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -80,17 +105,25 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     quantity = models.IntegerField(default=1)
     
-    # This will be edited by the seller later
+    # Pricing
+    product_price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    delivery_fee = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     total_price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     
-    seller_note = models.TextField(blank=True, null=True) # For custom specs/negotiations
+    # Delivery details
+    delivery_option = models.CharField(max_length=20, choices=DELIVERY_CHOICES, default='Pickup')
+    delivery_lat = models.FloatField(null=True, blank=True)
+    delivery_lng = models.FloatField(null=True, blank=True)
+    buyer_country = models.CharField(max_length=100, blank=True, null=True)
+    
+    
+    # ADD THIS NEW FIELD
+    payment_gateway = models.CharField(max_length=50, blank=True, null=True, help_text="Stripe or Chapa")
+    
+    seller_note = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def save(self, *args, **kwargs):
-        # We REMOVE the automatic total_price = product.price logic 
-        # so the seller can manually set it.
-        super().save(*args, **kwargs)
-
+    quoted_at = models.DateTimeField(null=True, blank=True) 
+    
 class BusinessProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='business_profile')
     
@@ -135,6 +168,26 @@ class BusinessCertification(models.Model):
     def __str__(self):
         return f"{self.name} - {self.profile.user.username}"
 
+class SellerPaymentConfig(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='payment_config')
+    
+    # Gateway Accounts
+    stripe_account_id = models.CharField(max_length=255, blank=True, null=True, help_text="Starts with acct_")
+    chapa_account_id = models.CharField(max_length=255, blank=True, null=True, help_text="Chapa Merchant / Bank ID")
+    
+    # --- NEW: Iyzico for Turkey ---
+    iyzico_api_key = models.CharField(max_length=255, blank=True, null=True, help_text="Iyzico API Key")
+    iyzico_secret_key = models.CharField(max_length=255, blank=True, null=True, help_text="Iyzico Secret Key")
+    
+    # Toggles
+    is_cod_enabled = models.BooleanField(default=False, help_text="Allow Cash on Delivery")
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username} - Payment Config"
+    
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_business_profile(sender, instance, created, **kwargs):
     if created:
