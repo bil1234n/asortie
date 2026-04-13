@@ -16,7 +16,6 @@
         justify-content: center;
         gap: 20px;
         margin-bottom: 25px;
-        flex-wrap: wrap;
     }
     .role-option {
         display: none; /* Hide actual radio */
@@ -70,18 +69,23 @@
     .pkg-title { font-weight: 700; color: var(--coffee-dark); font-size: 1.1rem; }
     .pkg-price { font-size: 1.4rem; font-weight: 800; color: #1a1a1a; margin: 8px 0; }
     .badge-pro { background: var(--coffee-dark); color: var(--gold); padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; float: right; }
-    .S9gUrf-YoZ4jf {
-        width: 100%;
+
+    /* Form Error Styles */
+    .is-invalid-input {
+        border-color: #dc3545 !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
     }
-    .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId{
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        font-weight: 550;
-        color: #434343fa;
+    .custom-error-text {
+        color: #dc3545;
+        font-size: 0.85em;
+        margin-top: 0.25rem;
+        display: block;
     }
-    .nsm7Bb-HzV7m-LgbsSe{
-        border: 1px solid #bababa;
-        padding: 20px 12px;
+    ul.errorlist {
+        display: none; /* Hide default django error lists so we can style them manually */
     }
 </style>
 
@@ -91,7 +95,7 @@
             <div class="card shadow border-0 rounded-4">
                 <div class="card-header text-white py-4 text-center" style="background-color: var(--secondary-color); border-radius: 15px 15px 0 0;">
                     <h3 class="mb-0 fw-bold">
-                        <img src="../../static/img/logo_1.png" alt="" width="50px"> {% trans "Create Account" %}</h3>
+                        <img src="../../static/img/logo_1.png" alt="" width="50px">{% trans "Create Account" %} </h3>
                 </div>
                 
                 <div class="card-body p-4 p-md-5">
@@ -99,70 +103,102 @@
                     <form method="post" enctype="multipart/form-data" id="unifiedForm">
                         {% csrf_token %}
                         
-                        <!-- 1. Role Selection (Top) -->
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger border-0 border-start border-danger border-4 shadow-sm mb-4" role="alert">
+                            <ul class="mb-0 list-unstyled">
+                                {% for error in form.non_field_errors %}
+                                    <li><i class="fa-solid fa-triangle-exclamation me-2"></i>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
                         <div class="text-center mb-4">
                             <p class="text-muted mb-3">{% trans "Select your account type to get started" %}</p>
                             <div class="role-switcher">
-                                <!-- Default Checked: Buyer -->
-                                <input type="radio" name="role_type" value="buyer" id="role_buyer" class="role-option" checked onchange="toggleFormFields()">
+                                <input type="radio" name="role_type" value="buyer" id="role_buyer" class="role-option" 
+                                    {% if role_type == 'buyer' %}checked{% endif %} 
+                                    onchange="switchRole('buyer')">
                                 <label for="role_buyer" class="role-label">
                                     <i class="fa-solid fa-basket-shopping me-2"></i>{% trans "Buyer" %}
                                 </label>
                                 
-                                <input type="radio" name="role_type" value="seller" id="role_seller" class="role-option" onchange="toggleFormFields()">
+                                <input type="radio" name="role_type" value="seller" id="role_seller" class="role-option" 
+                                    {% if role_type == 'seller' %}checked{% endif %} 
+                                    onchange="switchRole('seller')">
                                 <label for="role_seller" class="role-label">
                                     <i class="fa-solid fa-boxes-packing me-2"></i>{% trans "Seller" %}
                                 </label>
                             </div>
+
+                            <input type="hidden" name="role_type" value="{{ role_type }}">
                         </div>
 
-                        <!-- 2. Personal Info (Common) -->
                         <div class="row g-3">
-                            <div class="col-md-6">
+                            <div class="col-md-6 error-container">
                                 <label class="form-label fw-bold small">{% trans "Username" %}</label>
                                 {{ form.username }}
+                                {% for error in form.username.errors %}
+                                    <span class="custom-error-text"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ error }}</span>
+                                {% endfor %}
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 error-container">
                                 <label class="form-label fw-bold small">{% trans "Email" %}</label>
                                 {{ form.email }}
+                                {% for error in form.email.errors %}
+                                    <span class="custom-error-text"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ error }}</span>
+                                {% endfor %}
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 error-container">
                                 <label class="form-label fw-bold small">{% trans "First Name" %}</label>
                                 {{ form.first_name }}
+                                {% for error in form.first_name.errors %}
+                                    <span class="custom-error-text"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ error }}</span>
+                                {% endfor %}
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 error-container">
                                 <label class="form-label fw-bold small">{% trans "Last Name" %}</label>
                                 {{ form.last_name }}
+                                {% for error in form.last_name.errors %}
+                                    <span class="custom-error-text"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ error }}</span>
+                                {% endfor %}
                             </div>
                         </div>
                         
-                        <!-- 3. Seller Verification Documents (Hidden for Buyer) -->
-                        <div id="seller_specific_fields" style="display: none;">
+                        {% if role_type == 'seller' %}
+                        <div id="seller_specific_fields">
                             <br>
                             <div class="p-3 rounded-3" style="background-color: #f8f9fa; border: 1px dashed var(--gold);">
                                 <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-file-shield me-2"></i>{% trans "Seller Verification Required" %}</h6>
                                 <div class="row g-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 error-container">
                                         <label class="form-label fw-bold small">{% trans "Import/Export License" %}</label>
                                         {{ form.business_license }}
-                                        <div class="form-text small">{% trans "PDF or Image required." %}</div>
+                                        {% for error in form.business_license.errors %}
+                                            <span class="custom-error-text"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ error }}</span>
+                                        {% endfor %}
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 error-container">
                                         <label class="form-label fw-bold small">{% trans "National ID Card" %}</label>
                                         {{ form.id_card }}
+                                        {% for error in form.id_card.errors %}
+                                            <span class="custom-error-text"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ error }}</span>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
 
-                        <!-- 4. Password Fields -->
                         <div class="mt-3 row g-3">
                             {% for field in form %}
                                 {% if field.name not in "username email first_name last_name business_license id_card package_tier" %}
-                                <div class="col-12">
+                                <div class="col-12 error-container">
                                     <label class="form-label fw-bold small">{{ field.label }}</label>
                                     {{ field }}
-                                    <div class="text-danger small">{{ field.errors }}</div>
+                                    {% for error in field.errors %}
+                                        <span class="custom-error-text"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ error }}</span>
+                                    {% endfor %}
                                 </div>
                                 {% endif %}
                             {% endfor %}
@@ -186,18 +222,18 @@
                                     <!-- Dynamic text handled loosely here, specific to tiers -->
                                     {% if radio.choice_label == 'Basic' %}
                                         <div class="pkg-title">{% trans "Basic" %}</div>
-                                        <div class="pkg-price">$0</div>
+                                        <div class="pkg-price">{% trans "$0" %}</div>
                                         <div class="text-muted small">{% trans "Business Profile." %}<br>{% trans "Luxury Furniture Listings." %}</div>
                                     {% elif radio.choice_label == 'Premium' %}
                                         <div class="pkg-title">{% trans "Premium" %}</div>
-                                        <div class="pkg-price">$400<small class="fs-6 fw-normal text-muted">/year</small></div>
+                                        <div class="pkg-price">{% trans "$400" %}<small class="fs-6 fw-normal text-muted">{% trans "/year" %}</small></div>
                                         <div class="text-muted small">{% trans "4 Smart Agents." %}<br>{% trans "Full 3D Visualization." %}</div>
                                     {% elif radio.choice_label == 'Professional' %}
                                         <div class="pkg-title">
                                             <i class="fa-solid fa-crown text-warning"></i> {% trans "Professional" %}
                                             <span class="badge-pro">{% trans "VIP" %}</span>
                                         </div>
-                                        <div class="pkg-price">$800<small class="fs-6 fw-normal text-muted">{% trans "/year" %}</small></div>
+                                        <div class="pkg-price">{% trans "$800" %}<small class="fs-6 fw-normal text-muted">{% trans "/year" %}</small></div>
                                         <div class="text-muted small"><strong>{% trans "8 Smart Agents." %}</strong><br>{% trans "Advanced Analytics." %}</div>
                                     {% endif %}
                                 </label>
@@ -209,36 +245,7 @@
                             {% trans "Complete Registration" %}
                         </button>
                     </form>
-                    <div class="" id="buyer_login" style="display: none;">
-                        <div class="d-flex align-items-center mb-4 mt-4">
-                            <hr class="flex-grow-1">
-                            <span class="mx-3 text-muted small fw-bold">{% trans "OR" %}</span>
-                            <hr class="flex-grow-1">
-                        </div>
-                                            
-                        <div id="g_id_onload"
-                            data-client_id="{{ google_client_id }}" 
-                            data-context="signin"
-                            data-ux_mode="popup"
-                            data-callback="handleGoogleLogin"
-                            data-auto_prompt="false">
-                        </div>
-    
-                        <div class="g_id_signin mb-4"
-                            data-type="standard"
-                            data-shape="pill"
-                            data-theme="outline"
-                            data-text="continue_with"
-                            data-size="large"
-                            data-logo_alignment="left"
-                            style="display: flex; justify-content: center;">
-                        </div>
-                    </div>
-                    
                 </div>
-
-                <script src="https://accounts.google.com/gsi/client" async defer></script>
-
                 <div class="card-footer text-center bg-light py-3 border-0 rounded-bottom-4">
                     <small class="text-muted">{% trans "Already have an account?" %} 
                         <a href="{% url 'login' %}" class="fw-bold text-decoration-none" style="color: var(--secondary-color);">{% trans "Login Here" %}</a> 
@@ -250,61 +257,24 @@
 </div>
 
 <script>
+    function switchRole(role) {
+        // Redirect to the same page but with the role_type as a GET parameter
+        const currentPath = window.location.pathname;
+        window.location.href = currentPath + "?role_type=" + role;
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
-        // Apply Bootstrap styling to inputs
+        // Style inputs
         document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]), select').forEach(i => i.classList.add('form-control'));
         
-        // Initialize state
-        toggleFormFields();
-    });
-
-    function toggleFormFields() {
-        const isSeller = document.getElementById('role_seller').checked;
-        const sellerFields = document.getElementById('seller_specific_fields');
-        const buyerLogin = document.getElementById('buyer_login');
-        const licenseInput = document.getElementById('id_business_license');
-        const idInput = document.getElementById('id_id_card');
-
-        if (isSeller) {
-            // Show fields
-            sellerFields.style.display = 'block';
-            buyerLogin.style.display = 'none';
-            // Make files required
-            if(licenseInput) licenseInput.required = true;
-            if(idInput) idInput.required = true;
-        } else {
-            // Hide fields
-            sellerFields.style.display = 'none';
-            buyerLogin.style.display = 'block';
-            // Remove required attribute so form submits for Buyer
-            if(licenseInput) licenseInput.required = false;
-            if(idInput) idInput.required = false;
-        }
-    }
-    
-    function handleGoogleLogin(response) {
-        // This is the secure token Google gives us after the user selects their account
-        const credential = response.credential;
-        
-        // Send it to our Django backend
-        fetch('{% url "google_login_api" %}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}' // Standard Django Security
-            },
-            body: JSON.stringify({ credential: credential })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'success') {
-                // Instantly redirect the user on success
-                window.location.href = data.redirect_url;
-            } else {
-                alert('Google Sign-In failed: ' + data.message);
+        // Highlight errors (same as previous step)
+        document.querySelectorAll('.error-container').forEach(container => {
+            const errorText = container.querySelector('.custom-error-text');
+            const inputField = container.querySelector('.form-control');
+            if (errorText && inputField) {
+                inputField.classList.add('is-invalid-input');
             }
-        })
-        .catch(error => console.error('Error:', error));
-    }
+        });
+    });
 </script>
 {% endblock %}
