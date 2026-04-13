@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-17 23:49+0300\n"
+"POT-Creation-Date: 2026-04-13 23:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,66 +18,128 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\templates\AR_3D\index.html:183
+#: .\templates\AR_3D\index.html:7
+msgid "Asortie | Ultimate Immersive Experience"
+msgstr "Ассорти | Максимальное погружение"
+
+#: .\templates\AR_3D\index.html:210
 msgid "Asorite 3D Hub"
 msgstr "Асорит 3D Хаб"
 
-#: .\templates\AR_3D\index.html:188 .\templates\ai\index.html:271
-#: .\templates\ai\trainer.html:198 .\templates\partials\header.html:14
-#: .\templates\partials\header.html:35 .\templates\partials\header.html:66
+#: .\templates\AR_3D\index.html:215 .\templates\ai\index.html:289
+#: .\templates\ai\trainer.html:216 .\templates\partials\header.html:14
+#: .\templates\partials\header.html:35 .\templates\partials\header.html:69
 msgid "Dashboard"
 msgstr "Панель управления"
 
-#: .\templates\AR_3D\index.html:192 .\templates\ai\index.html:276
+#: .\templates\AR_3D\index.html:219 .\templates\ai\index.html:294
 msgid "Train Ai"
 msgstr "Поезд Ай"
 
-#: .\templates\AR_3D\index.html:198
+#: .\templates\AR_3D\index.html:226 .\templates\market\list.html:40
+#: .\templates\market\list.html:50
 msgid "All"
 msgstr "Все"
 
-#: .\templates\AR_3D\index.html:211
+#: .\templates\AR_3D\index.html:243
 msgid "Loading..."
 msgstr "Загрузка..."
 
-#: .\templates\AR_3D\index.html:250 .\templates\ai\index.html:353
-#: .\templates\ai\trainer.html:267 .\templates\base.html:89
+#: .\templates\AR_3D\index.html:258 .\templates\ai\index.html:348
+#: .\templates\ai\trainer.html:263 .\templates\base.html:44
+msgid "Lang"
+msgstr "Ланг"
+
+#: .\templates\AR_3D\index.html:259 .\templates\ai\index.html:349
+#: .\templates\ai\trainer.html:264 .\templates\base.html:45
+#| msgid "Select Plan"
+msgid "Select Language"
+msgstr "Выберите язык"
+
+#: .\templates\AR_3D\index.html:305 .\templates\ai\index.html:395
+#: .\templates\ai\trainer.html:310 .\templates\base.html:93
 msgid "Notifications"
 msgstr "Уведомления"
 
-#: .\templates\AR_3D\index.html:268 .\templates\ai\index.html:371
-#: .\templates\ai\trainer.html:285 .\templates\base.html:107
+#: .\templates\AR_3D\index.html:323 .\templates\ai\index.html:413
+#: .\templates\ai\trainer.html:328 .\templates\base.html:111
+#: .\templates\partials\notification_items.html:17
 msgid "ago"
 msgstr "назад"
 
-#: .\templates\AR_3D\index.html:274 .\templates\ai\index.html:377
-#: .\templates\ai\trainer.html:291 .\templates\base.html:113
+#: .\templates\AR_3D\index.html:329 .\templates\ai\index.html:419
+#: .\templates\ai\trainer.html:334 .\templates\base.html:117
+#: .\templates\partials\notification_items.html:23
 msgid "No new notifications"
 msgstr "Нет новых уведомлений"
 
-#: .\templates\AR_3D\index.html:278 .\templates\ai\index.html:381
-#: .\templates\ai\trainer.html:295 .\templates\base.html:117
+#: .\templates\AR_3D\index.html:333 .\templates\ai\index.html:423
+#: .\templates\ai\trainer.html:338 .\templates\base.html:121
 msgid "View All History"
 msgstr "Просмотреть всю историю"
 
-#: .\templates\AR_3D\index.html:304 .\templates\ai\index.html:407
-#: .\templates\ai\trainer.html:321 .\templates\base.html:143
-#: .\templates\market\detail.html:450
+#: .\templates\AR_3D\index.html:357 .\templates\ai\index.html:449
+#: .\templates\ai\trainer.html:364 .\templates\base.html:147
+#: .\templates\market\detail.html:463
 msgid "Login"
 msgstr "Авторизоваться"
 
-#: .\templates\AR_3D\index.html:305 .\templates\ai\index.html:408
-#: .\templates\ai\trainer.html:322 .\templates\base.html:144
+#: .\templates\AR_3D\index.html:358 .\templates\ai\index.html:450
+#: .\templates\ai\trainer.html:365 .\templates\base.html:148
 msgid "Sign Up"
 msgstr "Зарегистрироваться"
 
-#: .\templates\AR_3D\index.html:346
+#: .\templates\AR_3D\index.html:397
 msgid "Color & Type Options"
 msgstr "Варианты цвета и типа"
 
-#: .\templates\AR_3D\index.html:350
+#: .\templates\AR_3D\index.html:402
 msgid "OPEN IN AR"
 msgstr "ОТКРЫТЬ В AR"
+
+#: .\templates\AR_3D\index.html:413
+msgid "Scan to View in AR"
+msgstr "Сканирование для просмотра в AR"
+
+#: .\templates\AR_3D\index.html:414
+msgid ""
+"Point your phone's camera at this code to view this product in your physical"
+" space."
+msgstr ""
+"Наведите камеру вашего телефона на этот код, чтобы просмотреть этот продукт "
+"в вашем физическом пространстве."
+
+#: .\templates\AR_3D\index.html:419 .\templates\AR_3D\index.html:436
+msgid "Close"
+msgstr "Закрывать"
+
+#: .\templates\AR_3D\index.html:428
+msgid "AR Not Supported"
+msgstr "AR не поддерживается"
+
+#: .\templates\AR_3D\index.html:429
+msgid ""
+"Your device does not meet the hardware or software requirements for "
+"Augmented Reality."
+msgstr ""
+"Ваше устройство не соответствует аппаратным или программным требованиям для "
+"дополненной реальности."
+
+#: .\templates\AR_3D\index.html:431
+msgid "System Requirements:"
+msgstr "Системные требования:"
+
+#: .\templates\AR_3D\index.html:446
+msgid "Ready for AR"
+msgstr "Готов к дополненной реальности"
+
+#: .\templates\AR_3D\index.html:447
+msgid "Tap anywhere to open camera"
+msgstr "Нажмите в любом месте, чтобы открыть камеру"
+
+#: .\templates\AR_3D\index.html:645
+msgid "No products match this filter."
+msgstr "Нет товаров, соответствующих этому фильтру."
 
 #: .\templates\accounts\admin\login.html:9
 msgid "Administration"
@@ -123,18 +185,18 @@ msgstr "Отмена"
 msgid "Welcome Back"
 msgstr "Добро пожаловать"
 
-#: .\templates\accounts\login.html:58 .\templates\accounts\register.html:108
+#: .\templates\accounts\login.html:58 .\templates\accounts\register.html:123
 #: .\templates\admin_panel\orders.html:53
 msgid "Buyer"
 msgstr "Покупатель"
 
-#: .\templates\accounts\login.html:63 .\templates\accounts\register.html:113
+#: .\templates\accounts\login.html:63 .\templates\accounts\register.html:130
 #: .\templates\admin_panel\products.html:32
 msgid "Seller"
 msgstr "Продавец"
 
 #: .\templates\accounts\login.html:77 .\templates\accounts\profile.html:91
-#: .\templates\accounts\register.html:121
+#: .\templates\accounts\register.html:139
 msgid "Username"
 msgstr "Имя пользователя"
 
@@ -146,7 +208,7 @@ msgstr "Пароль"
 msgid "LOGIN"
 msgstr "АВТОРИЗОВАТЬСЯ"
 
-#: .\templates\accounts\login.html:93 .\templates\accounts\register.html:214
+#: .\templates\accounts\login.html:93
 msgid "OR"
 msgstr "ИЛИ"
 
@@ -176,6 +238,9 @@ msgstr "Статус аккаунта"
 
 #: .\templates\accounts\profile.html:38
 #: .\templates\admin_panel\products.html:46
+#: .\templates\seller_panel\seller_payment.html:51
+#: .\templates\seller_panel\seller_payment.html:84
+#: .\templates\seller_panel\seller_payment.html:116
 msgid "Active"
 msgstr "Активный"
 
@@ -201,11 +266,11 @@ msgstr "В ожидании"
 msgid "Edit Profile"
 msgstr "Редактировать профиль"
 
-#: .\templates\accounts\profile.html:75 .\templates\accounts\register.html:129
+#: .\templates\accounts\profile.html:75 .\templates\accounts\register.html:153
 msgid "First Name"
 msgstr "Имя"
 
-#: .\templates\accounts\profile.html:79 .\templates\accounts\register.html:133
+#: .\templates\accounts\profile.html:79 .\templates\accounts\register.html:160
 msgid "Last Name"
 msgstr "Фамилия"
 
@@ -226,7 +291,7 @@ msgid "Business Documents"
 msgstr "Деловые документы"
 
 #: .\templates\accounts\profile.html:103
-#: .\templates\accounts\register.html:145
+#: .\templates\accounts\register.html:175
 msgid "Import/Export License"
 msgstr "Лицензия на импорт/экспорт"
 
@@ -235,7 +300,7 @@ msgid "View Current License"
 msgstr "Посмотреть текущую лицензию"
 
 #: .\templates\accounts\profile.html:114
-#: .\templates\accounts\register.html:150
+#: .\templates\accounts\register.html:182
 msgid "National ID Card"
 msgstr "Национальное удостоверение личности"
 
@@ -250,88 +315,96 @@ msgstr "Изменить пароль"
 #: .\templates\accounts\profile.html:136
 #: .\templates\market\business_profile.html:349
 #: .\templates\seller_panel\business_profile.html:340
-#: .\templates\seller_panel\products_form.html:142
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: .\templates\accounts\register.html:93
+#: .\templates\accounts\register.html:98
 msgid "Create Account"
 msgstr "Зарегистрироваться"
 
-#: .\templates\accounts\register.html:103
+#: .\templates\accounts\register.html:117
 msgid "Select your account type to get started"
 msgstr "Выберите тип учетной записи, чтобы начать"
 
-#: .\templates\accounts\register.html:125
+#: .\templates\accounts\register.html:146
 msgid "Email"
 msgstr "Электронная почта"
 
-#: .\templates\accounts\register.html:142
+#: .\templates\accounts\register.html:172
 msgid "Seller Verification Required"
 msgstr "Требуется проверка продавца"
 
-#: .\templates\accounts\register.html:147
-msgid "PDF or Image required."
-msgstr "Требуется PDF или изображение."
-
-#: .\templates\accounts\register.html:172
+#: .\templates\accounts\register.html:209
 msgid "Select Plan"
 msgstr "Выберите план"
 
-#: .\templates\accounts\register.html:187
+#: .\templates\accounts\register.html:224
 msgid "Basic"
 msgstr "Базовый"
 
-#: .\templates\accounts\register.html:189
+#: .\templates\accounts\register.html:225
+msgid "$0"
+msgstr "$0"
+
+#: .\templates\accounts\register.html:226
 msgid "Business Profile."
 msgstr "Бизнес-профиль."
 
-#: .\templates\accounts\register.html:189
+#: .\templates\accounts\register.html:226
 msgid "Luxury Furniture Listings."
 msgstr "Объявления о элитной мебели."
 
-#: .\templates\accounts\register.html:191
+#: .\templates\accounts\register.html:228
 msgid "Premium"
 msgstr "Премиум"
 
-#: .\templates\accounts\register.html:193
-msgid "4 Smart Agents."
-msgstr "4 умных агента."
+#: .\templates\accounts\register.html:229
+msgid "$400"
+msgstr "400 долларов США"
 
-#: .\templates\accounts\register.html:193
-msgid "Full 3D Visualization."
-msgstr "Полная 3D визуализация."
-
-#: .\templates\accounts\register.html:196
-msgid "Professional"
-msgstr "Профессиональный"
-
-#: .\templates\accounts\register.html:197
-msgid "VIP"
-msgstr "VIP"
-
-#: .\templates\accounts\register.html:199
+#: .\templates\accounts\register.html:229
+#: .\templates\accounts\register.html:236
 msgid "/year"
 msgstr "/год"
 
-#: .\templates\accounts\register.html:200
+#: .\templates\accounts\register.html:230
+msgid "4 Smart Agents."
+msgstr "4 умных агента."
+
+#: .\templates\accounts\register.html:230
+msgid "Full 3D Visualization."
+msgstr "Полная 3D визуализация."
+
+#: .\templates\accounts\register.html:233
+msgid "Professional"
+msgstr "Профессиональный"
+
+#: .\templates\accounts\register.html:234
+msgid "VIP"
+msgstr "VIP"
+
+#: .\templates\accounts\register.html:236
+msgid "$800"
+msgstr "800 долларов США"
+
+#: .\templates\accounts\register.html:237
 msgid "8 Smart Agents."
 msgstr "8 умных агентов."
 
-#: .\templates\accounts\register.html:200
+#: .\templates\accounts\register.html:237
 msgid "Advanced Analytics."
 msgstr "Расширенная аналитика."
 
-#: .\templates\accounts\register.html:208
+#: .\templates\accounts\register.html:245
 msgid "Complete Registration"
 msgstr "Завершить регистрацию"
 
-#: .\templates\accounts\register.html:242
+#: .\templates\accounts\register.html:250
 #: .\templates\chat\guest_contact.html:110
 msgid "Already have an account?"
 msgstr "У вас уже есть аккаунт?"
 
-#: .\templates\accounts\register.html:243
+#: .\templates\accounts\register.html:251
 msgid "Login Here"
 msgstr "Войти здесь"
 
@@ -351,14 +424,14 @@ msgstr "Общий доход"
 msgid "User Distribution"
 msgstr "Распределение пользователей"
 
-#: .\templates\admin_panel\orders.html:7 .\templates\ai\trainer.html:207
+#: .\templates\admin_panel\orders.html:7 .\templates\ai\trainer.html:225
 #: .\templates\partials\header.html:23
 msgid "Order Analytics"
 msgstr "Заказать аналитику"
 
 #: .\templates\admin_panel\orders.html:8
 #: .\templates\seller_panel\dashboard.html:17
-#: .\templates\seller_panel\orders.html:156
+#: .\templates\seller_panel\orders.html:179
 msgid "Total Orders"
 msgstr "Всего заказов"
 
@@ -371,22 +444,24 @@ msgid "Revenue"
 msgstr "Доход"
 
 #: .\templates\admin_panel\orders.html:47
+#: .\templates\seller_panel\seller_transaction.html:154
 msgid "Recent Transactions"
 msgstr "Недавние транзакции"
 
 #: .\templates\admin_panel\orders.html:52
-#: .\templates\seller_panel\orders.html:164
+#: .\templates\seller_panel\orders.html:258
 msgid "ID"
 msgstr "ИДЕНТИФИКАТОР"
 
-#: .\templates\admin_panel\orders.html:54 .\templates\market\payment.html:144
+#: .\templates\admin_panel\orders.html:54
 msgid "Total"
 msgstr "Общий"
 
 #: .\templates\admin_panel\orders.html:55
 #: .\templates\admin_panel\products.html:34
-#: .\templates\market\buyer_orders.html:32
-#: .\templates\seller_panel\orders.html:168
+#: .\templates\market\buyer_orders.html:110
+#: .\templates\seller_panel\orders.html:262
+#: .\templates\seller_panel\seller_transaction.html:167
 msgid "Status"
 msgstr "Статус"
 
@@ -414,13 +489,14 @@ msgstr "Все продукты"
 msgid "Name"
 msgstr "Имя"
 
-#: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:495
-#: .\templates\market\list.html:40 .\templates\seller_panel\products.html:31
-#: .\templates\seller_panel\products_form.html:30
+#: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:508
+#: .\templates\market\list.html:38 .\templates\seller_panel\products.html:39
+#: .\templates\seller_panel\products_form.html:19
 msgid "Category"
 msgstr "Категория"
 
 #: .\templates\admin_panel\products.html:33
+#: .\templates\seller_panel\products_form.html:35
 msgid "Price"
 msgstr "Цена"
 
@@ -465,8 +541,8 @@ msgid "Certificates"
 msgstr "Сертификаты"
 
 #: .\templates\admin_panel\users.html:115
-#: .\templates\seller_panel\orders.html:169
-#: .\templates\seller_panel\products.html:35
+#: .\templates\seller_panel\orders.html:263
+#: .\templates\seller_panel\products.html:43
 msgid "Actions"
 msgstr "Действия"
 
@@ -606,97 +682,106 @@ msgstr ""
 "Никаких дополнительных сертификатов (органических, справедливой торговли и "
 "т. д.) не загружается."
 
-#: .\templates\ai\index.html:266 .\templates\ai\trainer.html:193
+#: .\templates\ai\index.html:7 .\templates\partials\index.html:6
+msgid "Asortie Ultimate | Luxury AI Hub"
+msgstr "Ассорти Ultimate | Роскошный центр искусственного интеллекта"
+
+#: .\templates\ai\index.html:284 .\templates\ai\trainer.html:211
 msgid "Interior Intelligence Hub"
 msgstr "Центр внутренней разведки"
 
-#: .\templates\ai\index.html:280
+#: .\templates\ai\index.html:298
 msgid "+ New Inquiry"
 msgstr "+ Новый запрос"
 
-#: .\templates\ai\index.html:285
+#: .\templates\ai\index.html:303
 msgid "History"
 msgstr "История"
 
-#: .\templates\ai\index.html:424
+#: .\templates\ai\index.html:466
 msgid "Client Inquiry"
 msgstr "Запрос клиента"
 
-#: .\templates\ai\index.html:424
+#: .\templates\ai\index.html:466
 msgid "Asortie Consultant"
 msgstr "Консультант по ассортименту"
 
-#: .\templates\ai\index.html:457
+#: .\templates\ai\index.html:499
 msgid "INQUIRE"
 msgstr "ЗАПРОСИТЬ"
 
-#: .\templates\ai\trainer.html:201 .\templates\partials\header.html:17
+#: .\templates\ai\trainer.html:7
+#| msgid "AI Training Center"
+msgid "Asortie Ultimate | AI Training Center"
+msgstr "Ассорти Ultimate | Учебный центр искусственного интеллекта"
+
+#: .\templates\ai\trainer.html:219 .\templates\partials\header.html:17
 msgid "Manage Users"
 msgstr "Управление пользователями"
 
-#: .\templates\ai\trainer.html:204 .\templates\partials\header.html:20
+#: .\templates\ai\trainer.html:222 .\templates\partials\header.html:20
 msgid "Products Analytics"
 msgstr "Аналитика продуктов"
 
-#: .\templates\ai\trainer.html:210 .\templates\chat\inbox.html:9
-#: .\templates\partials\header.html:26 .\templates\partials\header.html:77
+#: .\templates\ai\trainer.html:228 .\templates\chat\inbox.html:9
+#: .\templates\partials\header.html:26 .\templates\partials\header.html:51
+#: .\templates\partials\header.html:80
 msgid "Messages"
 msgstr "Сообщения"
 
-#: .\templates\ai\trainer.html:213
+#: .\templates\ai\trainer.html:231
 msgid "Ai Agent"
 msgstr "ИИ-агент"
 
-#: .\templates\ai\trainer.html:228
+#: .\templates\ai\trainer.html:246
 msgid "AI Training Center"
 msgstr "Учебный центр искусственного интеллекта"
 
-#: .\templates\ai\trainer.html:330
+#: .\templates\ai\trainer.html:373
 msgid "Knowledge Management"
 msgstr "Управление знаниями"
 
-#: .\templates\ai\trainer.html:331
+#: .\templates\ai\trainer.html:374
 msgid "Inject new facts and visual assets into the Asortie Intelligence core."
 msgstr ""
 "Добавляйте новые факты и визуальные материалы в ядро ​​Asortie Intelligence."
 
-#: .\templates\ai\trainer.html:338
+#: .\templates\ai\trainer.html:381
 msgid "Add Text Fact"
 msgstr "Добавить текстовый факт"
 
-#: .\templates\ai\trainer.html:346
+#: .\templates\ai\trainer.html:389
 msgid "Inject into Memory"
 msgstr "Внедрить в память"
 
-#: .\templates\ai\trainer.html:355
+#: .\templates\ai\trainer.html:398
 msgid "Add Visual Asset"
 msgstr "Добавить визуальный актив"
 
-#: .\templates\ai\trainer.html:365
+#: .\templates\ai\trainer.html:408
 msgid "Vectorize Image"
 msgstr "Векторизовать изображение"
 
-#: .\templates\ai\trainer.html:373
+#: .\templates\ai\trainer.html:416
 msgid "Recent System Knowledge"
 msgstr "Недавние системные знания"
 
-#: .\templates\ai\trainer.html:387
+#: .\templates\ai\trainer.html:430
 msgid "Visual"
 msgstr "Визуальный"
 
-#: .\templates\ai\trainer.html:387
+#: .\templates\ai\trainer.html:430
 msgid "Fact"
 msgstr "Факт"
 
-#: .\templates\ai\trainer.html:396 .\templates\chat\single_message.html:26
-#: .\templates\seller_panel\products.html:93
+#: .\templates\ai\trainer.html:439 .\templates\chat\single_message.html:32
+#: .\templates\seller_panel\products.html:102
 msgid "Edit"
 msgstr "Редактировать"
 
-#: .\templates\ai\trainer.html:397
+#: .\templates\ai\trainer.html:440
 #: .\templates\market\business_profile.html:156
 #: .\templates\seller_panel\business_profile.html:153
-#: .\templates\seller_panel\products_form.html:129
 msgid "Delete"
 msgstr "Удалить"
 
@@ -740,51 +825,88 @@ msgstr "Войти здесь"
 msgid "Conversations"
 msgstr "Разговоры"
 
-#: .\templates\chat\inbox.html:25 .\templates\chat\inbox.html:38
+#: .\templates\chat\inbox.html:24 .\templates\chat\inbox.html:42
 msgid "Click to open chat"
 msgstr "Нажмите, чтобы открыть чат"
 
-#: .\templates\chat\inbox.html:47
+#: .\templates\chat\inbox.html:28 .\templates\chat\inbox.html:46
+msgid "Delete Conversation"
+msgstr "Удалить разговор"
+
+#: .\templates\chat\inbox.html:56
 msgid "No messages yet."
 msgstr "Сообщений пока нет."
 
-#: .\templates\chat\inbox.html:48
+#: .\templates\chat\inbox.html:57
 msgid "Contact a seller from the marketplace to start a chat."
 msgstr "Свяжитесь с продавцом на торговой площадке, чтобы начать чат."
 
-#: .\templates\chat\inbox.html:49
+#: .\templates\chat\inbox.html:58
 msgid "Go to Market"
 msgstr "Перейти на рынок"
 
-#: .\templates\chat\room.html:117
+#: .\templates\chat\inbox.html:73
+msgid ""
+"Are you sure you want to delete this conversation? All messages will be "
+"cleared for you."
+msgstr ""
+"Вы уверены, что хотите удалить этот разговор? Все сообщения будут удалены "
+"для вас."
+
+#: .\templates\chat\room.html:223
 msgid "Online"
 msgstr "Онлайн"
 
-#: .\templates\chat\room.html:126
+#: .\templates\chat\room.html:232
 msgid "Clear Chat"
 msgstr "Очистить чат"
 
-#: .\templates\chat\room.html:155
+#: .\templates\chat\room.html:274
 msgid "Recording..."
 msgstr "Запись..."
 
-#: .\templates\chat\single_message.html:29
+#: .\templates\chat\single_message.html:25
+#: .\templates\chat\single_message.html:60
+msgid "You"
+msgstr "Ты"
+
+#: .\templates\chat\single_message.html:26
+msgid "Reply"
+msgstr "Отвечать"
+
+#: .\templates\chat\single_message.html:37
 msgid "Delete for everyone"
 msgstr "Удалить для всех"
 
-#: .\templates\chat\single_message.html:33
+#: .\templates\chat\single_message.html:43
 msgid "Delete for me"
 msgstr "Удалить для меня"
 
-#: .\templates\chat\single_message.html:41
+#: .\templates\chat\single_message.html:52
 msgid "This message was deleted."
 msgstr "Это сообщение было удалено."
 
-#: .\templates\chat\single_message.html:58
+#: .\templates\chat\single_message.html:64
+msgid "Photo"
+msgstr "Фото"
+
+#: .\templates\chat\single_message.html:66
+msgid "Video"
+msgstr "Видео"
+
+#: .\templates\chat\single_message.html:68
+msgid "Audio"
+msgstr "Аудио"
+
+#: .\templates\chat\single_message.html:70
+msgid "Document"
+msgstr "Документ"
+
+#: .\templates\chat\single_message.html:92
 msgid "Download Attachment"
 msgstr "Скачать вложение"
 
-#: .\templates\chat\single_message.html:67
+#: .\templates\chat\single_message.html:101
 msgid "(edited)"
 msgstr "(отредактировано)"
 
@@ -879,7 +1001,7 @@ msgid "Luxury landing with featured items."
 msgstr "Роскошный лендинг с избранными товарами."
 
 #: .\templates\core\home.html:105 .\templates\partials\header.html:29
-#: .\templates\partials\header.html:60 .\templates\partials\header.html:91
+#: .\templates\partials\header.html:63 .\templates\partials\header.html:94
 msgid "AI Hub"
 msgstr "Центр искусственного интеллекта"
 
@@ -892,8 +1014,8 @@ msgstr ""
 " в режиме реального времени, ценовой информации и автоматизированной помощи "
 "в дизайне интерьера."
 
-#: .\templates\core\home.html:121 .\templates\partials\header.html:54
-#: .\templates\partials\header.html:69
+#: .\templates\core\home.html:121 .\templates\partials\header.html:57
+#: .\templates\partials\header.html:72
 msgid "Marketplace"
 msgstr "Торговая площадка"
 
@@ -910,8 +1032,8 @@ msgstr ""
 msgid "Our Shop"
 msgstr "Наш магазин"
 
-#: .\templates\core\home.html:137 .\templates\partials\header.html:57
-#: .\templates\partials\header.html:88
+#: .\templates\core\home.html:137 .\templates\partials\header.html:60
+#: .\templates\partials\header.html:91
 msgid "3D Visualization"
 msgstr "3D-визуализация"
 
@@ -958,6 +1080,7 @@ msgid "Read All"
 msgstr "Читать все"
 
 #: .\templates\core\notifications.html:26
+#: .\templates\market\buyer_orders.html:93
 msgid "Clear All"
 msgstr "Очистить все"
 
@@ -973,8 +1096,33 @@ msgstr "У вас нет уведомлений."
 msgid "We will notify you when important events happen."
 msgstr "Мы сообщим вам, когда произойдут важные события."
 
+#: .\templates\market\_product_grid.html:20
+msgid "Price on request"
+msgstr "Цена по запросу"
+
+#: .\templates\market\_product_grid.html:22
+msgid "(Base Price)"
+msgstr "(Базовая цена)"
+
+#: .\templates\market\_product_grid.html:31
+#: .\templates\market\public_profile.html:252
+msgid "To Order Login By Buyer"
+msgstr "Для заказа Войти Покупатель"
+
+#: .\templates\market\_product_grid.html:34
+msgid "Order Now"
+msgstr "Заказать сейчас"
+
+#: .\templates\market\_product_grid.html:37
+msgid "Login to Order"
+msgstr "Войдите, чтобы заказать"
+
+#: .\templates\market\_product_grid.html:47
+msgid "No products match your filters."
+msgstr "Нет товаров, соответствующих вашим фильтрам."
+
 #: .\templates\market\business_directory.html:59
-#: .\templates\partials\header.html:51 .\templates\partials\header.html:85
+#: .\templates\partials\header.html:54 .\templates\partials\header.html:88
 msgid "Merchant Hub"
 msgstr "Торговый центр"
 
@@ -987,6 +1135,7 @@ msgstr ""
 "и актуальным каталогам продуктов."
 
 #: .\templates\market\business_directory.html:68
+#: .\templates\market\list.html:30
 msgid "Search"
 msgstr "Поиск"
 
@@ -995,7 +1144,6 @@ msgid "All Countries"
 msgstr "Все страны"
 
 #: .\templates\market\business_directory.html:88
-#: .\templates\market\list.html:61
 msgid "Sort By"
 msgstr "Сортировать по"
 
@@ -1016,6 +1164,8 @@ msgid "With Certificates"
 msgstr "С сертификатами"
 
 #: .\templates\market\business_directory.html:111
+#: .\templates\market\buyer_orders.html:94
+#: .\templates\seller_panel\orders.html:241
 msgid "Apply Filters"
 msgstr "Применить фильтры"
 
@@ -1193,175 +1343,214 @@ msgstr "Изображение документа (JPG/PNG)"
 msgid "Upload for Verification"
 msgstr "Загрузить для проверки"
 
-#: .\templates\market\buyer_orders.html:10 .\templates\partials\header.html:74
+#: .\templates\market\buyer_orders.html:36 .\templates\partials\header.html:77
 msgid "My Orders"
 msgstr "Мои заказы"
 
-#: .\templates\market\buyer_orders.html:11
-msgid "Manage your purchases and track shipments."
-msgstr "Управляйте своими покупками и отслеживайте поставки."
+#: .\templates\market\buyer_orders.html:37
+msgid "Track your luxury furniture collection and inquiries."
+msgstr "Отслеживайте свою коллекцию роскошной мебели и запросы."
 
-#: .\templates\market\buyer_orders.html:16
-msgid "Total Spent"
-msgstr "Всего потрачено"
+#: .\templates\market\buyer_orders.html:42
+msgid "Total Investment"
+msgstr "Общий объем инвестиций"
 
-#: .\templates\market\buyer_orders.html:30
+#: .\templates\market\buyer_orders.html:52
+msgid "FILTER ORDERS"
+msgstr "ФИЛЬТРОВАТЬ ЗАКАЗЫ"
+
+#: .\templates\market\buyer_orders.html:54 .\templates\market\list.html:65
+msgid "Filter"
+msgstr "Фильтр"
+
+#: .\templates\market\buyer_orders.html:61
+msgid "Search Product"
+msgstr "Поиск продукта"
+
+#: .\templates\market\buyer_orders.html:65
+#: .\templates\seller_panel\orders.html:204
+msgid "Exact Date"
+msgstr "Точная дата"
+
+#: .\templates\market\buyer_orders.html:69
+msgid "Month / Year"
+msgstr "Месяц/Год"
+
+#: .\templates\market\buyer_orders.html:72
+#: .\templates\seller_panel\orders.html:210
+msgid "Month"
+msgstr "Месяц"
+
+#: .\templates\market\buyer_orders.html:78
+#: .\templates\seller_panel\orders.html:219
+msgid "Year"
+msgstr "Год"
+
+#: .\templates\market\buyer_orders.html:86 .\templates\market\list.html:55
+msgid "Price Range"
+msgstr "Ценовой диапазон"
+
+#: .\templates\market\buyer_orders.html:108
 msgid "Item"
 msgstr "Элемент"
 
-#: .\templates\market\buyer_orders.html:31
+#: .\templates\market\buyer_orders.html:109
 msgid "Order Date"
 msgstr "Дата заказа"
 
-#: .\templates\market\buyer_orders.html:33
+#: .\templates\market\buyer_orders.html:111
 msgid "Amount"
 msgstr "Количество"
 
-#: .\templates\market\buyer_orders.html:34
+#: .\templates\market\buyer_orders.html:112
 msgid "Action"
 msgstr "Действие"
 
-#: .\templates\market\buyer_orders.html:73
-msgid "Price Pending"
-msgstr "Цена в ожидании"
+#: .\templates\market\buyer_orders.html:138
+#: .\templates\seller_panel\orders.html:290
+msgid "Waiting for Quote"
+msgstr "Ожидание цитаты"
 
-#: .\templates\market\buyer_orders.html:75
-msgid "Paid"
-msgstr "Оплаченный"
+#: .\templates\market\buyer_orders.html:146
+msgid "Seller Terms & Notes"
+msgstr "Условия и примечания продавца"
 
-#: .\templates\market\buyer_orders.html:77
-#: .\templates\seller_panel\orders.html:206
+#: .\templates\market\buyer_orders.html:148
+msgid "Price Offered"
+msgstr "Предлагаемая цена"
+
+#: .\templates\market\buyer_orders.html:161
+msgid "Quote Expired"
+msgstr "Срок действия цитаты истек"
+
+#: .\templates\market\buyer_orders.html:165
+#: .\templates\seller_panel\orders.html:311
 msgid "Processing"
 msgstr "Обработка"
 
-#: .\templates\market\buyer_orders.html:79
-msgid "On the way"
+#: .\templates\market\buyer_orders.html:167
+#: .\templates\seller_panel\order_details.html:56
+#: .\templates\seller_panel\orders.html:313
+msgid "In Transit"
 msgstr "В пути"
 
-#: .\templates\market\buyer_orders.html:81
-#: .\templates\seller_panel\orders.html:210
+#: .\templates\market\buyer_orders.html:169
+#: .\templates\seller_panel\order_details.html:58
+#: .\templates\seller_panel\orders.html:315
 msgid "Delivered"
 msgstr "Доставленный"
 
-#: .\templates\market\buyer_orders.html:98
+#: .\templates\market\buyer_orders.html:183
 msgid "Pay Now"
 msgstr "Оплатить сейчас"
 
-#: .\templates\market\buyer_orders.html:107 .\templates\market\detail.html:409
+#: .\templates\market\buyer_orders.html:188
+msgid "Request Renew"
+msgstr "Запросить продление"
+
+#: .\templates\market\detail.html:362
+msgid "Collection"
+msgstr "Коллекция"
+
+#: .\templates\market\detail.html:378
+msgid "No Image Available"
+msgstr "Нет доступных изображений"
+
+#: .\templates\market\detail.html:384
+msgid "View in 3D"
+msgstr "Посмотреть в 3D"
+
+#: .\templates\market\detail.html:410
+msgid "Seller:"
+msgstr "Продавец:"
+
+#: .\templates\market\detail.html:412
+msgid "Visit Showroom"
+msgstr "Посетите выставочный зал"
+
+#: .\templates\market\detail.html:416
 #: .\templates\market\public_profile.html:94
 msgid "Chat"
 msgstr "Чат"
 
-#: .\templates\market\buyer_orders.html:117
-msgid "No orders found"
-msgstr "Заказы не найдены"
-
-#: .\templates\market\buyer_orders.html:118
-msgid "You haven't placed any orders yet."
-msgstr "Вы еще не разместили заказов."
-
-#: .\templates\market\buyer_orders.html:119
-msgid "Browse Products"
-msgstr "Просмотр продуктов"
-
-#: .\templates\market\detail.html:356
-msgid "Collection"
-msgstr "Коллекция"
-
-#: .\templates\market\detail.html:372
-msgid "No Image Available"
-msgstr "Нет доступных изображений"
-
-#: .\templates\market\detail.html:378
-msgid "View in 3D"
-msgstr "Посмотреть в 3D"
-
-#: .\templates\market\detail.html:403
-msgid "Seller:"
-msgstr "Продавец:"
-
-#: .\templates\market\detail.html:405
-msgid "Visit Showroom"
-msgstr "Посетите выставочный зал"
-
-#: .\templates\market\detail.html:415
+#: .\templates\market\detail.html:422 .\templates\market\detail.html:446
 msgid "Price On Request"
 msgstr "Цена по запросу"
 
-#: .\templates\market\detail.html:418
+#: .\templates\market\detail.html:425
 msgid "/ set"
 msgstr "/ набор"
 
-#: .\templates\market\detail.html:429
+#: .\templates\market\detail.html:436
 msgid "Quantity"
 msgstr "Количество"
 
-#: .\templates\market\detail.html:435
+#: .\templates\market\detail.html:442
 msgid "Total Estimate"
 msgstr "Общая оценка"
 
-#: .\templates\market\detail.html:443
+#: .\templates\market\detail.html:456
 msgid "Create Inquiry"
 msgstr "Создать запрос"
 
-#: .\templates\market\detail.html:449
+#: .\templates\market\detail.html:462
 msgid "Buyer Account Required"
 msgstr "Требуется учетная запись покупателя"
 
-#: .\templates\market\detail.html:450
+#: .\templates\market\detail.html:463
 msgid "Please"
 msgstr "Пожалуйста"
 
-#: .\templates\market\detail.html:450
+#: .\templates\market\detail.html:463
 msgid "to view shipping rates and place orders."
 msgstr "просматривать стоимость доставки и размещать заказы."
 
-#: .\templates\market\detail.html:457
+#: .\templates\market\detail.html:470
 msgid "Fast Shipping"
 msgstr "Быстрая доставка"
 
-#: .\templates\market\detail.html:461
+#: .\templates\market\detail.html:474
 msgid "Buyer Protection"
 msgstr "Защита покупателя"
 
-#: .\templates\market\detail.html:465
+#: .\templates\market\detail.html:478
 msgid "24/7 Support"
 msgstr "Круглосуточная поддержка"
 
-#: .\templates\market\detail.html:478
-#: .\templates\seller_panel\products_form.html:53
+#: .\templates\market\detail.html:491
+#: .\templates\seller_panel\products_form.html:48
 msgid "Description"
 msgstr "Описание"
 
-#: .\templates\market\detail.html:481
+#: .\templates\market\detail.html:494
 msgid "Specifications"
 msgstr "Технические характеристики"
 
-#: .\templates\market\detail.html:484
+#: .\templates\market\detail.html:497
 msgid "Shipping & Returns"
 msgstr "Доставка и возврат"
 
-#: .\templates\market\detail.html:489
+#: .\templates\market\detail.html:502
 msgid "Product Overview"
 msgstr "Обзор продукта"
 
-#: .\templates\market\detail.html:493
+#: .\templates\market\detail.html:506
 msgid "Technical Details"
 msgstr "Технические детали"
 
-#: .\templates\market\detail.html:497
+#: .\templates\market\detail.html:510
 msgid "Material"
 msgstr "Материал"
 
-#: .\templates\market\detail.html:497
+#: .\templates\market\detail.html:510
 msgid "Premium Source"
 msgstr "Премиум-источник"
 
-#: .\templates\market\detail.html:501
+#: .\templates\market\detail.html:514
 msgid "Delivery Information"
 msgstr "Информация о доставке"
 
-#: .\templates\market\detail.html:502
+#: .\templates\market\detail.html:515
 msgid ""
 "Standard delivery times for this item vary by location. Please create an "
 "inquiry to receive a custom logistics quote for deliveries to Addis Ababa "
@@ -1371,121 +1560,138 @@ msgstr ""
 "Пожалуйста, создайте запрос, чтобы получить индивидуальное предложение по "
 "логистике для доставки в Аддис-Абебу и близлежащие регионы."
 
-#: .\templates\market\list.html:19
+#: .\templates\market\iyzico_hosted.html:7
+msgid "Complete Your Payment"
+msgstr "Завершите оплату"
+
+#: .\templates\market\iyzico_hosted.html:8
+#: .\templates\seller_panel\order_details.html:45
+msgid "Order #"
+msgstr "Заказ #"
+
+#: .\templates\market\iyzico_hosted.html:8
+msgid "Total:"
+msgstr "Общий:"
+
+#: .\templates\market\iyzico_hosted.html:8
+#: .\templates\seller_panel\seller_transaction.html:87
+msgid "USD"
+msgstr "доллар США"
+
+#: .\templates\market\iyzico_hosted.html:18
+msgid "Failed to load the payment form. Please try again."
+msgstr "Не удалось загрузить форму оплаты. Пожалуйста, попробуйте еще раз."
+
+#: .\templates\market\iyzico_hosted.html:24
+msgid "Cancel and go back"
+msgstr "Отменить и вернуться назад"
+
+#: .\templates\market\list.html:22
 msgid "Global Marketplace"
 msgstr "Глобальный рынок"
 
-#: .\templates\market\list.html:20
+#: .\templates\market\list.html:23
 msgid "Browse premium luxury furniture products from verified sellers."
 msgstr "Выбирайте роскошную мебель премиум-класса от проверенных продавцов."
 
-#: .\templates\market\list.html:31
-msgid "Search Products"
-msgstr "Поиск продуктов"
+#: .\templates\market\list.html:48
+#: .\templates\seller_panel\products_form.html:29
+msgid "Sub Category"
+msgstr "Подкатегория"
 
-#: .\templates\market\list.html:42
-msgid "All Categories"
-msgstr "Все категории"
+#: .\templates\market\list.html:68
+msgid "Clear"
+msgstr "Прозрачный"
 
-#: .\templates\market\list.html:51
-msgid "Price Range (USD)"
-msgstr "Ценовой диапазон (долл. США)"
+#: .\templates\market\payment.html:51
+msgid "Negotiation"
+msgstr "Переговоры"
 
-#: .\templates\market\list.html:63
-msgid "Newest Listed"
-msgstr "Новейшие в списке"
+#: .\templates\market\payment.html:55
+msgid "Delivery & Payment"
+msgstr "Доставка и оплата"
 
-#: .\templates\market\list.html:64
-msgid "Price: Low to High"
-msgstr "Цена: от низкой до высокой"
+#: .\templates\market\payment.html:59
+msgid "Confirmation"
+msgstr "Подтверждение"
 
-#: .\templates\market\list.html:65
-msgid "Price: High to Low"
-msgstr "Цена: от высокой к низкой"
+#: .\templates\market\payment.html:76
+msgid "Delivery Options"
+msgstr "Варианты доставки"
 
-#: .\templates\market\list.html:71
-msgid "Filter"
-msgstr "Фильтр"
+#: .\templates\market\payment.html:99
+msgid "Destination Country"
+msgstr "Страна назначения"
 
-#: .\templates\market\list.html:96
-msgid "Price on request"
-msgstr "Цена по запросу"
+#: .\templates\market\payment.html:115
+msgid "Set Delivery Pin"
+msgstr "Установить пин-код доставки"
 
-#: .\templates\market\list.html:98
-msgid "(Base Price)"
-msgstr "(Базовая цена)"
+#: .\templates\market\payment.html:179
+msgid "Payment Gateway"
+msgstr "Платежный шлюз"
 
-#: .\templates\market\list.html:110 .\templates\market\public_profile.html:252
-msgid "To Order Login By Buyer"
-msgstr "Для заказа Войти Покупатель"
+#: .\templates\market\payment.html:202
+msgid "Credit / Debit Card"
+msgstr "Кредитная/дебетовая карта"
 
-#: .\templates\market\list.html:115
-msgid "Order Now"
-msgstr "Заказать сейчас"
+#: .\templates\market\payment.html:203
+msgid "Secure international checkout via Stripe"
+msgstr "Безопасная международная оплата через Stripe"
 
-#: .\templates\market\list.html:122
-msgid "Login to Order"
-msgstr "Войдите, чтобы заказать"
+#: .\templates\market\payment.html:216
+msgid "Local Mobile Payment"
+msgstr "Местный мобильный платеж"
 
-#: .\templates\market\list.html:132
-msgid "No products available right now."
-msgstr "На данный момент нет доступных продуктов."
+#: .\templates\market\payment.html:217
+msgid "Telebirr, CBE Birr, M-Pesa via Chapa"
+msgstr "Телебирр, CBE Бирр, М-Песа через Чапа"
 
-#: .\templates\market\payment.html:120
-msgid "Secure Checkout"
-msgstr "Безопасная оплата"
+#: .\templates\market\payment.html:230
+msgid "Iyzico"
+msgstr "Иизико"
 
-#: .\templates\market\payment.html:121
-msgid "Step 2 of 2"
-msgstr "Шаг 2 из 2"
+#: .\templates\market\payment.html:231
+msgid "Pay with credit card or protected transfer via Iyzico"
+msgstr "Оплатите кредитной картой или защищенным переводом через Iyzico."
 
-#: .\templates\market\payment.html:127
+#: .\templates\market\payment.html:244
+#: .\templates\seller_panel\seller_payment.html:154
+msgid "Cash on Delivery (COD)"
+msgstr "Наложенный платеж (COD)"
+
+#: .\templates\market\payment.html:245
+msgid "Pay securely when your item arrives"
+msgstr "Оплачивайте безопасно, когда ваш товар прибудет"
+
+#: .\templates\market\payment.html:258
 msgid "Order Summary"
 msgstr "Сводка заказа"
 
-#: .\templates\market\payment.html:140
-msgid "Qty:"
-msgstr "Кол-во:"
+#: .\templates\market\payment.html:276
+msgid "Agreed Product Quote"
+msgstr "Согласованное предложение по продукту"
 
-#: .\templates\market\payment.html:158
-msgid "Select Payment Method"
-msgstr "Выберите способ оплаты"
+#: .\templates\market\payment.html:282
+msgid "Delivery Total"
+msgstr "Итого доставки"
 
-#: .\templates\market\payment.html:168
-msgid "International Payment"
-msgstr "Международный платеж"
+#: .\templates\market\payment.html:286
+#: .\templates\seller_panel\order_details.html:143
+msgid "Grand Total"
+msgstr "Общий итог"
 
-#: .\templates\market\payment.html:169
-msgid "Credit Card, Debit Card (Stripe)"
-msgstr "Кредитная карта, дебетовая карта (полоса)"
+#: .\templates\market\payment.html:315 .\templates\market\payment.html:402
+msgid "Confirm & Pay Securely"
+msgstr "Подтвердите и оплатите безопасно"
 
-#: .\templates\market\payment.html:183
-msgid "Local Payment (Ethiopia)"
-msgstr "Местный платеж (Эфиопия)"
+#: .\templates\market\payment.html:319
+msgid "256-bit SSL Encrypted Checkout"
+msgstr "Проверка с 256-битным SSL-шифрованием"
 
-#: .\templates\market\payment.html:184
-msgid "Telebirr, CBE, Mobile Money (Chapa)"
-msgstr "Telebirr, CBE, Мобильные деньги (Чапа)"
-
-#: .\templates\market\payment.html:192
-msgid "Pay"
-msgstr "Платить"
-
-#: .\templates\market\payment.html:192
-msgid "Now"
-msgstr "Сейчас"
-
-#: .\templates\market\payment.html:195
-msgid "Cancel Order"
-msgstr "Отменить заказ"
-
-#: .\templates\market\payment.html:201
-msgid "SSL Encrypted Transaction"
-msgstr "SSL-шифрованная транзакция"
-
-#: .\templates\market\payment.html:206
-msgid "Chapa Verified"
-msgstr "Чапа проверено"
+#: .\templates\market\payment.html:399
+msgid "Confirm Order (Pay on Delivery)"
+msgstr "Подтвердить заказ (оплата при доставке)"
 
 #: .\templates\market\payment_success.html:7
 msgid "Payment Successful"
@@ -1579,7 +1785,7 @@ msgstr "Специалист по сообщениям"
 msgid "2026"
 msgstr "2026 год"
 
-#: .\templates\partials\footer.html:7 .\templates\partials\header.html:97
+#: .\templates\partials\footer.html:7 .\templates\partials\header.html:100
 msgid "Asortie"
 msgstr "Ассорти"
 
@@ -1615,13 +1821,33 @@ msgstr "Мои продукты"
 msgid "Manage Orders"
 msgstr "Управление заказами"
 
-#: .\templates\partials\header.html:45 .\templates\partials\header.html:81
+#: .\templates\partials\header.html:44
+msgid "Manage Payments"
+msgstr "Управление платежами"
+
+#: .\templates\partials\header.html:48 .\templates\partials\header.html:84
 msgid "Business Profile"
 msgstr "Бизнес-профиль"
 
-#: .\templates\partials\header.html:48
-msgid "Buyer Messages"
-msgstr "Сообщения покупателя"
+#: .\templates\partials\index.html:107
+msgid "Luxury Interior Intelligence"
+msgstr "Роскошный интерьер"
+
+#: .\templates\partials\index.html:109
+msgid "+ New Collection Inquiry"
+msgstr "+ Новый запрос на коллекцию"
+
+#: .\templates\partials\index.html:139
+msgid "User"
+msgstr "Пользователь"
+
+#: .\templates\partials\index.html:139
+msgid "Asortie Intelligence"
+msgstr "Ассорти Интеллект"
+
+#: .\templates\partials\index.html:167
+msgid "Inquire"
+msgstr "Запросить"
 
 #: .\templates\seller_panel\business_profile.html:177
 msgid "Revenue Today"
@@ -1659,115 +1885,316 @@ msgstr "Общий объем продаж"
 msgid "Order Status Analytics"
 msgstr "Аналитика статуса заказа"
 
-#: .\templates\seller_panel\orders.html:153
+#: .\templates\seller_panel\order_details.html:43
+msgid "Back to Orders"
+msgstr "Вернуться к заказам"
+
+#: .\templates\seller_panel\order_details.html:45
+msgid "Details"
+msgstr "Подробности"
+
+#: .\templates\seller_panel\order_details.html:46
+msgid "Placed on"
+msgstr "Размещено на"
+
+#: .\templates\seller_panel\order_details.html:50
+msgid "Inquiry Received"
+msgstr "Запрос получен"
+
+#: .\templates\seller_panel\order_details.html:52
+msgid "Quote Sent"
+msgstr "Цитата отправлена"
+
+#: .\templates\seller_panel\order_details.html:54
+msgid "Paid & Processing"
+msgstr "Платные и обработка"
+
+#: .\templates\seller_panel\order_details.html:70
+msgid "Product & Client Info"
+msgstr "Информация о продукте и клиенте"
+
+#: .\templates\seller_panel\order_details.html:85
+msgid "Client Username"
+msgstr "Имя пользователя клиента"
+
+#: .\templates\seller_panel\order_details.html:89
+msgid "Contact / Action"
+msgstr "Контакт / Действие"
+
+#: .\templates\seller_panel\order_details.html:91
+msgid "Message Client"
+msgstr "Клиент сообщений"
+
+#: .\templates\seller_panel\order_details.html:101
+msgid "Financial Summary"
+msgstr "Финансовая сводка"
+
+#: .\templates\seller_panel\order_details.html:105
+msgid "Settings"
+msgstr "Настройки"
+
+#: .\templates\seller_panel\order_details.html:112
+msgid "Awaiting Quote"
+msgstr "Ожидание цитаты"
+
+#: .\templates\seller_panel\order_details.html:113
+msgid "You have not set the final price for this inquiry yet."
+msgstr "Вы еще не установили окончательную цену для этого запроса."
+
+#: .\templates\seller_panel\order_details.html:118
+msgid "Chosen Payment Method"
+msgstr "Выбранный способ оплаты"
+
+#: .\templates\seller_panel\order_details.html:120
+msgid "Stripe Paid"
+msgstr "Полоса Платная"
+
+#: .\templates\seller_panel\order_details.html:122
+msgid "Chapa Paid"
+msgstr "Чапа оплачена"
+
+#: .\templates\seller_panel\order_details.html:124
+msgid "Cash on Delivery"
+msgstr "Наложенным платежом"
+
+#: .\templates\seller_panel\order_details.html:126
+msgid "Awaiting Checkout"
+msgstr "Ожидание оформления заказа"
+
+#: .\templates\seller_panel\order_details.html:131
+msgid "Agreed Product Price"
+msgstr "Согласованная цена продукта"
+
+#: .\templates\seller_panel\order_details.html:135
+msgid "Delivery / Logistics Fee"
+msgstr "Плата за доставку/логистику"
+
+#: .\templates\seller_panel\order_details.html:139
+msgid "Free / Pickup"
+msgstr "Бесплатно / Самовывоз"
+
+#: .\templates\seller_panel\order_details.html:150
+msgid "Internal Notes & Transport Requests"
+msgstr "Внутренние примечания и запросы на транспортировку"
+
+#: .\templates\seller_panel\order_details.html:164
+msgid "Logistics & Routing"
+msgstr "Логистика и маршрутизация"
+
+#: .\templates\seller_panel\order_details.html:166
+msgid "Store Pickup"
+msgstr "Самовывоз из магазина"
+
+#: .\templates\seller_panel\order_details.html:168
+msgid "Delivery Requested"
+msgstr "Запрошена доставка"
+
+#: .\templates\seller_panel\order_details.html:177
+msgid "Client will pick up in-store"
+msgstr "Клиент заберет в магазине"
+
+#: .\templates\seller_panel\order_details.html:178
+msgid "No delivery logistics required for this order."
+msgstr "Для этого заказа не требуется логистика доставки."
+
+#: .\templates\seller_panel\order_details.html:185
+msgid "From (Your Location)"
+msgstr "Откуда (Ваше местоположение)"
+
+#: .\templates\seller_panel\order_details.html:194
+msgid "To (Client Destination)"
+msgstr "Кому (назначение клиента)"
+
+#: .\templates\seller_panel\order_details.html:197
+msgid "Coordinates Received"
+msgstr "Координаты получены"
+
+#: .\templates\seller_panel\order_details.html:211
+msgid "Exact Distance"
+msgstr "Точное расстояние"
+
+#: .\templates\seller_panel\order_details.html:215
+msgid "Live ETA"
+msgstr "Текущее расчетное время прибытия"
+
+#: .\templates\seller_panel\order_details.html:221
+msgid "Start Route"
+msgstr "Начать маршрут"
+
+#: .\templates\seller_panel\order_details.html:230
+msgid "Calculating Optimal Driver Route..."
+msgstr "Расчет оптимального маршрута водителя..."
+
+#: .\templates\seller_panel\order_details.html:237
+msgid "International / Freight Delivery"
+msgstr "Международная/грузовая доставка"
+
+#: .\templates\seller_panel\order_details.html:238
+msgid "Coordinate mapping is disabled for international freight."
+msgstr "Отображение координат отключено для международных грузовых перевозок."
+
+#: .\templates\seller_panel\order_details.html:238
+msgid "Check the "
+msgstr "Проверьте"
+
+#: .\templates\seller_panel\orders.html:176
 msgid "Order Logistics"
 msgstr "Заказать логистику"
 
-#: .\templates\seller_panel\orders.html:154
+#: .\templates\seller_panel\orders.html:177
 msgid "Manage furniture inquiries and shipping from Asortie to Ethiopia."
 msgstr "Управляйте запросами на мебель и доставкой из Асорти в Эфиопию."
 
-#: .\templates\seller_panel\orders.html:165
+#: .\templates\seller_panel\orders.html:184
+msgid "ADVANCED FILTERS"
+msgstr "РАСШИРЕННЫЕ ФИЛЬТРЫ"
+
+#: .\templates\seller_panel\orders.html:186
+msgid "Adjust View"
+msgstr "Настроить вид"
+
+#: .\templates\seller_panel\orders.html:194
+msgid "Client / Username"
+msgstr "Клиент / Имя пользователя"
+
+#: .\templates\seller_panel\orders.html:198
+msgid "Luxury Item Name"
+msgstr "Название предмета роскоши"
+
+#: .\templates\seller_panel\orders.html:212
+msgid "All Months"
+msgstr "Все месяцы"
+
+#: .\templates\seller_panel\orders.html:221
+msgid "All Years"
+msgstr "Все годы"
+
+#: .\templates\seller_panel\orders.html:230
+msgid "Min Price ($)"
+msgstr "Минимальная цена ($)"
+
+#: .\templates\seller_panel\orders.html:234
+msgid "Max Price ($)"
+msgstr "Максимальная цена ($)"
+
+#: .\templates\seller_panel\orders.html:244
+msgid "Reset"
+msgstr "Перезагрузить"
+
+#: .\templates\seller_panel\orders.html:259
 msgid "Luxury Item"
 msgstr "Роскошный предмет"
 
-#: .\templates\seller_panel\orders.html:166
+#: .\templates\seller_panel\orders.html:260
 msgid "Client Info"
 msgstr "Информация о клиенте"
 
-#: .\templates\seller_panel\orders.html:167
+#: .\templates\seller_panel\orders.html:261
 msgid "Quoted Amount"
 msgstr "Заявленная сумма"
 
-#: .\templates\seller_panel\orders.html:196
-msgid "Waiting for Quote"
-msgstr "Ожидание цитаты"
-
-#: .\templates\seller_panel\orders.html:202
+#: .\templates\seller_panel\orders.html:296
 msgid "Inquiry"
 msgstr "Расследование"
 
-#: .\templates\seller_panel\orders.html:204
+#: .\templates\seller_panel\orders.html:303
+msgid "Quote Details"
+msgstr "Детали предложения"
+
+#: .\templates\seller_panel\orders.html:305
 msgid "Quoted"
 msgstr "Цитируется"
 
-#: .\templates\seller_panel\orders.html:208
-msgid "In Transit"
-msgstr "В пути"
+#: .\templates\seller_panel\orders.html:309
+msgid "Expired"
+msgstr "Истекший"
 
-#: .\templates\seller_panel\orders.html:212
+#: .\templates\seller_panel\orders.html:317
 msgid "Cancelled"
 msgstr "Отменено"
 
-#: .\templates\seller_panel\orders.html:214
+#: .\templates\seller_panel\orders.html:319
 msgid "Declined"
 msgstr "Отклоненный"
 
-#: .\templates\seller_panel\orders.html:219
+#: .\templates\seller_panel\orders.html:326
 msgid "Inquiry Withdrawn"
 msgstr "Запрос отозван"
 
-#: .\templates\seller_panel\orders.html:223
+#: .\templates\seller_panel\orders.html:330
 msgid "Manage"
 msgstr "Управлять"
 
-#: .\templates\seller_panel\orders.html:229
+#: .\templates\seller_panel\orders.html:337
+msgid "View Full Details"
+msgstr "Посмотреть полную информацию"
+
+#: .\templates\seller_panel\orders.html:346
 msgid "Next Step"
 msgstr "Следующий шаг"
 
-#: .\templates\seller_panel\orders.html:233
+#: .\templates\seller_panel\orders.html:350
 msgid "Set Final Price"
 msgstr "Установить окончательную цену"
 
-#: .\templates\seller_panel\orders.html:241
+#: .\templates\seller_panel\orders.html:358
 msgid "Accept Order"
 msgstr "Принять заказ"
 
-#: .\templates\seller_panel\orders.html:250
+#: .\templates\seller_panel\orders.html:367
 msgid "Start Shipping"
 msgstr "Начать доставку"
 
-#: .\templates\seller_panel\orders.html:259
+#: .\templates\seller_panel\orders.html:376
 msgid "Mark Delivered"
 msgstr "Отметить доставленное"
 
-#: .\templates\seller_panel\orders.html:269
+#: .\templates\seller_panel\orders.html:386
 msgid "Corrections"
 msgstr "Исправления"
 
-#: .\templates\seller_panel\orders.html:276
+#: .\templates\seller_panel\orders.html:394
 msgid "Re-open Inquiry"
 msgstr "Повторно открыть запрос"
 
-#: .\templates\seller_panel\orders.html:276
+#: .\templates\seller_panel\orders.html:394
 msgid "Reset to Pending"
 msgstr "Сбросить до состояния ожидания"
 
-#: .\templates\seller_panel\orders.html:285
+#: .\templates\seller_panel\orders.html:403
 msgid "Back to Quote"
 msgstr "Вернуться к цитате"
 
-#: .\templates\seller_panel\orders.html:294
+#: .\templates\seller_panel\orders.html:412
 msgid "Return to Warehouse"
 msgstr "Вернуться на склад"
 
-#: .\templates\seller_panel\orders.html:303
+#: .\templates\seller_panel\orders.html:421
 msgid "Reset to Shipping"
 msgstr "Сбросить настройки доставки"
 
-#: .\templates\seller_panel\orders.html:317
+#: .\templates\seller_panel\orders.html:435
 msgid "Decline Inquiry"
 msgstr "Отклонить запрос"
 
-#: .\templates\seller_panel\orders.html:337
+#: .\templates\seller_panel\orders.html:456
 msgid "OFFICIAL QUOTE"
 msgstr "ОФИЦИАЛЬНАЯ ЦИТАТА"
 
-#: .\templates\seller_panel\orders.html:343
+#: .\templates\seller_panel\orders.html:463
 msgid "Final Agreed Price (USD)"
 msgstr "Окончательная согласованная цена (долл. США)"
 
-#: .\templates\seller_panel\orders.html:352
+#: .\templates\seller_panel\orders.html:472
+msgid "Note to Buyer / Terms"
+msgstr "Примечание для покупателя / Условия"
+
+#: .\templates\seller_panel\orders.html:474
+msgid "e.g. Includes custom packaging and shipping insurance..."
+msgstr ""
+"например В стоимость входит индивидуальная упаковка и страховка доставки."
+
+#: .\templates\seller_panel\orders.html:480
 msgid "Send Quote to Buyer"
 msgstr "Отправить предложение покупателю"
 
@@ -1787,158 +2214,452 @@ msgstr "Добавить новый кусок"
 msgid "View Orders"
 msgstr "Просмотр заказов"
 
-#: .\templates\seller_panel\products.html:24
+#: .\templates\seller_panel\products.html:26
 msgid "Your Active Showroom"
 msgstr "Ваш активный выставочный зал"
 
 #: .\templates\seller_panel\products.html:29
+msgid "Search by product name..."
+msgstr "Поиск по названию продукта..."
+
+#: .\templates\seller_panel\products.html:37
 msgid "Preview"
 msgstr "Предварительный просмотр"
 
-#: .\templates\seller_panel\products.html:30
+#: .\templates\seller_panel\products.html:38
 msgid "Item Name"
 msgstr "Название предмета"
 
-#: .\templates\seller_panel\products.html:32
+#: .\templates\seller_panel\products.html:40
 msgid "Price Strategy"
 msgstr "Ценовая стратегия"
 
-#: .\templates\seller_panel\products.html:33
+#: .\templates\seller_panel\products.html:41
 msgid "Gallery"
 msgstr "Галерея"
 
-#: .\templates\seller_panel\products.html:34
+#: .\templates\seller_panel\products.html:42
 msgid "Variants (AR)"
 msgstr "Варианты (АР)"
 
-#: .\templates\seller_panel\products.html:46
+#: .\templates\seller_panel\products.html:56
 msgid "No Img"
 msgstr "Нет изображения"
 
-#: .\templates\seller_panel\products.html:62
+#: .\templates\seller_panel\products.html:73
 msgid "Quotation"
 msgstr "Цитата"
 
-#: .\templates\seller_panel\products.html:70
+#: .\templates\seller_panel\products.html:81
 msgid "imgs"
 msgstr "изображения"
 
-#: .\templates\seller_panel\products.html:79
+#: .\templates\seller_panel\products.html:89
 msgid "View AR"
 msgstr "Посмотреть AR"
 
-#: .\templates\seller_panel\products.html:84
+#: .\templates\seller_panel\products.html:94
 msgid "No 3D Models"
 msgstr "Нет 3D-моделей"
 
-#: .\templates\seller_panel\products.html:107
+#: .\templates\seller_panel\products.html:116
 msgid "No products listed yet."
 msgstr "Товаров пока нет."
 
-#: .\templates\seller_panel\products_form.html:9
+#: .\templates\seller_panel\products_form.html:5
 msgid "Edit Product"
 msgstr "Редактировать продукт"
 
-#: .\templates\seller_panel\products_form.html:9
+#: .\templates\seller_panel\products_form.html:5
 msgid "Add New Product"
 msgstr "Добавить новый продукт"
 
-#: .\templates\seller_panel\products_form.html:23
+#: .\templates\seller_panel\products_form.html:11
 msgid "Basic Information"
 msgstr "Основная информация"
 
-#: .\templates\seller_panel\products_form.html:26
+#: .\templates\seller_panel\products_form.html:15
 msgid "Product Name"
 msgstr "Название продукта"
 
-#: .\templates\seller_panel\products_form.html:32
-msgid "Modern"
-msgstr "Современный"
-
-#: .\templates\seller_panel\products_form.html:33
+#: .\templates\seller_panel\products_form.html:21
 msgid "Classic"
 msgstr "Классический"
 
-#: .\templates\seller_panel\products_form.html:34
+#: .\templates\seller_panel\products_form.html:22
+msgid "Modern"
+msgstr "Современный"
+
+#: .\templates\seller_panel\products_form.html:23
 msgid "Decoration"
 msgstr "Украшение"
 
-#: .\templates\seller_panel\products_form.html:35
+#: .\templates\seller_panel\products_form.html:24
 msgid "Office"
 msgstr "Офис"
 
-#: .\templates\seller_panel\products_form.html:36
+#: .\templates\seller_panel\products_form.html:25
 msgid "Hotel"
 msgstr "Отель"
 
-#: .\templates\seller_panel\products_form.html:41
-msgid "Pricing Strategy"
-msgstr "Ценовая стратегия"
+#: .\templates\seller_panel\products_form.html:39
+msgid "Stock"
+msgstr "Запас"
 
 #: .\templates\seller_panel\products_form.html:43
-msgid "Negotiated (Quote)"
-msgstr "Договорная (Цитата)"
-
-#: .\templates\seller_panel\products_form.html:44
-msgid "selected"
-msgstr "выбрано"
-
-#: .\templates\seller_panel\products_form.html:44
-msgid "Base Price"
-msgstr "Базовая цена"
-
-#: .\templates\seller_panel\products_form.html:48
-msgid "Price ($)"
-msgstr "Цена ($)"
-
-#: .\templates\seller_panel\products_form.html:59
-msgid "Imagery"
-msgstr "Образы"
-
-#: .\templates\seller_panel\products_form.html:63
 msgid "Main Image"
 msgstr "Основное изображение"
 
+#: .\templates\seller_panel\products_form.html:55
+msgid "Logistics & Delivery Configuration"
+msgstr "Настройка логистики и доставки"
+
+#: .\templates\seller_panel\products_form.html:59
+msgid "Transport Type"
+msgstr "Тип транспорта"
+
+#: .\templates\seller_panel\products_form.html:61
+msgid "Land Transport"
+msgstr "Наземный транспорт"
+
+#: .\templates\seller_panel\products_form.html:62
+msgid "Air Freight"
+msgstr "Авиаперевозки"
+
+#: .\templates\seller_panel\products_form.html:63
+msgid "Sea Freight"
+msgstr "Морские перевозки"
+
 #: .\templates\seller_panel\products_form.html:67
-msgid "Current"
-msgstr "Текущий"
+msgid "Free Delivery Up To (KM)"
+msgstr "Бесплатная доставка до (км)"
 
 #: .\templates\seller_panel\products_form.html:71
-msgid "Upload to replace current main image."
-msgstr "Загрузите, чтобы заменить текущее основное изображение."
+msgid "Maximum Delivery (KM)"
+msgstr "Максимальная доставка (км)"
 
-#: .\templates\seller_panel\products_form.html:76
-msgid "Gallery Images"
-msgstr "Галерея изображений"
+#: .\templates\seller_panel\products_form.html:78
+msgid "Price Per Country"
+msgstr "Цена за страну"
 
-#: .\templates\seller_panel\products_form.html:95
-msgid "Add New Images:"
-msgstr "Добавить новые изображения:"
+#: .\templates\seller_panel\products_form.html:82
+msgid "Price Per 0.1 KM"
+msgstr "Цена за 0,1 км"
+
+#: .\templates\seller_panel\products_form.html:86
+msgid "Container Price"
+msgstr "Цена контейнера"
+
+#: .\templates\seller_panel\products_form.html:90
+msgid "Container Number"
+msgstr "Номер контейнера"
+
+#: .\templates\seller_panel\products_form.html:98
+msgid "Pickup Location"
+msgstr "Место получения"
 
 #: .\templates\seller_panel\products_form.html:102
-msgid "3D Models & Variants"
-msgstr "3D-модели и варианты"
+msgid "Full Address"
+msgstr "Полный адрес"
 
-#: .\templates\seller_panel\products_form.html:104
-msgid "Add New"
-msgstr "Добавить новый"
+#: .\templates\seller_panel\products_form.html:106
+msgid "Pickup Country"
+msgstr "Страна самовывоза"
 
-#: .\templates\seller_panel\products_form.html:111
-msgid "Current Variants"
-msgstr "Текущие варианты"
+#: .\templates\seller_panel\products_form.html:119
+msgid "Update Product & Logistics"
+msgstr "Обновление продукта и логистики"
 
-#: .\templates\seller_panel\products_form.html:120
-msgid "File Uploaded"
-msgstr "Файл загружен"
-
-#: .\templates\seller_panel\products_form.html:122
-msgid "External Link"
-msgstr "Внешняя ссылка"
-
-#: .\templates\seller_panel\products_form.html:124
-msgid "No 3D data"
-msgstr "Нет 3D-данных"
-
-#: .\templates\seller_panel\products_form.html:142
+#: .\templates\seller_panel\products_form.html:119
 msgid "Publish Product"
 msgstr "Опубликовать продукт"
+
+#: .\templates\seller_panel\seller_payment.html:19
+#: .\templates\seller_panel\seller_transaction.html:65
+msgid "Financial Hub"
+msgstr "Финансовый центр"
+
+#: .\templates\seller_panel\seller_payment.html:23
+#: .\templates\seller_panel\seller_transaction.html:70
+msgid "Payment Configuration"
+msgstr "Конфигурация оплаты"
+
+#: .\templates\seller_panel\seller_payment.html:28
+#: .\templates\seller_panel\seller_transaction.html:75
+msgid "Transactions & Payouts"
+msgstr "Транзакции и выплаты"
+
+#: .\templates\seller_panel\seller_payment.html:36
+msgid ""
+"Manage how buyers pay you. Active gateways will be displayed on your product"
+" checkouts."
+msgstr ""
+"Управляйте тем, как покупатели платят вам. Активные шлюзы будут отображаться"
+" при оформлении заказа на товары."
+
+#: .\templates\seller_panel\seller_payment.html:49
+msgid "Stripe Integration"
+msgstr "Интеграция полос"
+
+#: .\templates\seller_panel\seller_payment.html:53
+#: .\templates\seller_panel\seller_payment.html:86
+#: .\templates\seller_panel\seller_payment.html:118
+msgid "Disabled"
+msgstr "Неполноценный"
+
+#: .\templates\seller_panel\seller_payment.html:56
+#, python-format
+msgid ""
+"Accept credit/debit cards globally. A 5%% platform fee is automatically "
+"deducted."
+msgstr ""
+"Принимайте кредитные/дебетовые карты по всему миру. Комиссия платформы в "
+"размере 5%% вычитается автоматически."
+
+#: .\templates\seller_panel\seller_payment.html:58
+msgid "Stripe Account ID"
+msgstr "Идентификатор учетной записи Stripe"
+
+#: .\templates\seller_panel\seller_payment.html:72
+msgid "Found in Stripe Settings > Business Settings > Account Details."
+msgstr ""
+"Находится в «Настройки Stripe» > «Настройки бизнеса» > «Сведения об учетной "
+"записи»."
+
+#: .\templates\seller_panel\seller_payment.html:82
+msgid "Chapa Integration"
+msgstr "Чапа Интеграция"
+
+#: .\templates\seller_panel\seller_payment.html:89
+msgid "Accept Telebirr, CBE Birr, and mobile money locally in Ethiopia."
+msgstr ""
+"Принимайте Telebirr, CBE Birr и мобильные деньги на территории Эфиопии."
+
+#: .\templates\seller_panel\seller_payment.html:91
+msgid "Chapa Merchant ID / Bank Info"
+msgstr "Идентификатор продавца Chapa / Банковская информация"
+
+#: .\templates\seller_panel\seller_payment.html:114
+msgid "Iyzico Integration"
+msgstr "Интеграция Иизико"
+
+#: .\templates\seller_panel\seller_payment.html:121
+msgid ""
+"Accept payments locally in Turkey. USD is automatically converted to TRY."
+msgstr ""
+"Принимайте платежи на месте в Турции. Доллар США автоматически "
+"конвертируется в TRY."
+
+#: .\templates\seller_panel\seller_payment.html:123
+msgid "Iyzico API Key"
+msgstr "API-ключ Иизико"
+
+#: .\templates\seller_panel\seller_payment.html:131
+msgid "Iyzico Secret Key"
+msgstr "Секретный ключ Иизико"
+
+#: .\templates\seller_panel\seller_payment.html:144
+msgid "Keys can be found in the Iyzico Merchant Dashboard."
+msgstr "Ключи можно найти на панели управления торговца Iyzico."
+
+#: .\templates\seller_panel\seller_payment.html:155
+msgid "Allow buyers to order and pay physical cash upon delivery."
+msgstr "Разрешите покупателям заказывать и платить наличными при доставке."
+
+#: .\templates\seller_panel\seller_payment.html:168
+msgid "Save All Preferences"
+msgstr "Сохранить все настройки"
+
+#: .\templates\seller_panel\seller_transaction.html:84
+msgid "Display Currency"
+msgstr "Отображать валюту"
+
+#: .\templates\seller_panel\seller_transaction.html:90
+msgid "ETB"
+msgstr "ЭТБ"
+
+#: .\templates\seller_panel\seller_transaction.html:93
+msgid "TRY"
+msgstr "ПЫТАТЬСЯ"
+
+#: .\templates\seller_panel\seller_transaction.html:97
+msgid "Syncing exchange rates..."
+msgstr "Синхронизация курсов валют..."
+
+#: .\templates\seller_panel\seller_transaction.html:109
+msgid "Net Earnings"
+msgstr "Чистая прибыль"
+
+#: .\templates\seller_panel\seller_transaction.html:116
+msgid "Ready for payout"
+msgstr "Готов к выплате"
+
+#: .\templates\seller_panel\seller_transaction.html:124
+msgid "Gross Volume"
+msgstr "Валовой объем"
+
+#: .\templates\seller_panel\seller_transaction.html:131
+msgid "Total client payments received"
+msgstr "Всего полученных клиентских платежей"
+
+#: .\templates\seller_panel\seller_transaction.html:138
+msgid "Platform Fees"
+msgstr "Плата за платформу"
+
+#: .\templates\seller_panel\seller_transaction.html:145
+msgid "Asortie maintenance commission"
+msgstr "Комиссия по обслуживанию ассортимента"
+
+#: .\templates\seller_panel\seller_transaction.html:155
+msgid "Export CSV"
+msgstr "Экспорт CSV"
+
+#: .\templates\seller_panel\seller_transaction.html:161
+msgid "Order Info"
+msgstr "Информация о заказе"
+
+#: .\templates\seller_panel\seller_transaction.html:162
+msgid "Customer & Product"
+msgstr "Клиент и продукт"
+
+#: .\templates\seller_panel\seller_transaction.html:163
+msgid "Gross"
+msgstr "Валовой"
+
+#: .\templates\seller_panel\seller_transaction.html:164
+msgid "Fee"
+msgstr "Платеж"
+
+#: .\templates\seller_panel\seller_transaction.html:165
+msgid "Net"
+msgstr "Сеть"
+
+#: .\templates\seller_panel\seller_transaction.html:166
+msgid "Gateway"
+msgstr "шлюз"
+
+#: .\templates\seller_panel\seller_transaction.html:196
+msgid "Stripe"
+msgstr "Полоса"
+
+#: .\templates\seller_panel\seller_transaction.html:200
+msgid "Chapa"
+msgstr "Чапа"
+
+#: .\templates\seller_panel\seller_transaction.html:204
+msgid "COD"
+msgstr "ХПК"
+
+#: .\templates\seller_panel\seller_transaction.html:207
+msgid "System"
+msgstr "Система"
+
+#: .\templates\seller_panel\seller_transaction.html:223
+msgid "No transactions yet"
+msgstr "Транзакций пока нет"
+
+#: .\templates\seller_panel\seller_transaction.html:224
+msgid "Successful orders and payments will appear here automatically."
+msgstr "Успешные заказы и платежи появятся здесь автоматически."
+
+#~ msgid "PDF or Image required."
+#~ msgstr "Требуется PDF или изображение."
+
+#~ msgid "Manage your purchases and track shipments."
+#~ msgstr "Управляйте своими покупками и отслеживайте поставки."
+
+#~ msgid "Paid"
+#~ msgstr "Оплаченный"
+
+#~ msgid "On the way"
+#~ msgstr "В пути"
+
+#~ msgid "No orders found"
+#~ msgstr "Заказы не найдены"
+
+#~ msgid "You haven't placed any orders yet."
+#~ msgstr "Вы еще не разместили заказов."
+
+#~ msgid "Browse Products"
+#~ msgstr "Просмотр продуктов"
+
+#~ msgid "Newest Listed"
+#~ msgstr "Новейшие в списке"
+
+#~ msgid "Price: Low to High"
+#~ msgstr "Цена: от низкой до высокой"
+
+#~ msgid "Price: High to Low"
+#~ msgstr "Цена: от высокой к низкой"
+
+#~ msgid "No products available right now."
+#~ msgstr "На данный момент нет доступных продуктов."
+
+#~ msgid "Secure Checkout"
+#~ msgstr "Безопасная оплата"
+
+#~ msgid "Step 2 of 2"
+#~ msgstr "Шаг 2 из 2"
+
+#~ msgid "Qty:"
+#~ msgstr "Кол-во:"
+
+#~ msgid "Local Payment (Ethiopia)"
+#~ msgstr "Местный платеж (Эфиопия)"
+
+#~ msgid "Pay"
+#~ msgstr "Платить"
+
+#~ msgid "Now"
+#~ msgstr "Сейчас"
+
+#~ msgid "Cancel Order"
+#~ msgstr "Отменить заказ"
+
+#~ msgid "SSL Encrypted Transaction"
+#~ msgstr "SSL-шифрованная транзакция"
+
+#~ msgid "Buyer Messages"
+#~ msgstr "Сообщения покупателя"
+
+#~ msgid "Pricing Strategy"
+#~ msgstr "Ценовая стратегия"
+
+#~ msgid "Negotiated (Quote)"
+#~ msgstr "Договорная (Цитата)"
+
+#~ msgid "selected"
+#~ msgstr "выбрано"
+
+#~ msgid "Imagery"
+#~ msgstr "Образы"
+
+#~ msgid "Current"
+#~ msgstr "Текущий"
+
+#~ msgid "Upload to replace current main image."
+#~ msgstr "Загрузите, чтобы заменить текущее основное изображение."
+
+#~ msgid "Gallery Images"
+#~ msgstr "Галерея изображений"
+
+#~ msgid "Add New Images:"
+#~ msgstr "Добавить новые изображения:"
+
+#~ msgid "3D Models & Variants"
+#~ msgstr "3D-модели и варианты"
+
+#~ msgid "Add New"
+#~ msgstr "Добавить новый"
+
+#~ msgid "Current Variants"
+#~ msgstr "Текущие варианты"
+
+#~ msgid "File Uploaded"
+#~ msgstr "Файл загружен"
+
+#~ msgid "External Link"
+#~ msgstr "Внешняя ссылка"
+
+#~ msgid "No 3D data"
+#~ msgstr "Нет 3D-данных"
