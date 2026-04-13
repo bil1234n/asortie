@@ -18,29 +18,63 @@
         {% endif %}
 
         {% if not message.is_deleted_everyone %}
-        <div class="dropdown msg-dropdown">
+        <div class="dropdown msg-dropdown position-absolute" style="top: 5px; right: 8px; z-index: 10;">
             <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem; cursor: pointer;" data-bs-toggle="dropdown"></i>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0 small">
+                <li>
+                    <a class="dropdown-item" href="#" onclick="prepareReply({{ message.id }}, '{% if message.sender == user %}{% trans 'You' %}{% else %}{{ message.sender.username|escapejs }}{% endif %}', '{{ message.content|default:'Media'|escapejs|truncatechars:50 }}')">
+                        <i class="fa-solid fa-reply me-3 text-secondary"></i>{% trans "Reply" %}
+                    </a>
+                </li>
                 {% if message.sender == user %}
                 <li>
-                    <a class="dropdown-item" href="#" onclick="openEdit({{ message.id }}, '{{ message.content|escapejs }}')"><i class="fa-solid fa-edit me-3 text-primary"></i>{% trans "Edit" %}</a>
+                    <a class="dropdown-item" href="#" onclick="openEdit({{ message.id }}, '{{ message.content|escapejs }}')">
+                        <i class="fa-solid fa-edit me-3 text-primary"></i>{% trans "Edit" %}
+                    </a>
                 </li>
                 <li>
-                    <a class="dropdown-item text-danger" href="#" onclick="deleteMsg({{ message.id }}, 'everyone')"><i class="fa-solid fa-trash-can me-3 text-danger"></i>{% trans "Delete for everyone" %}</a>
+                    <a class="dropdown-item text-danger" href="#" onclick="deleteMsg({{ message.id }}, 'everyone')">
+                        <i class="fa-solid fa-trash-can me-3 text-danger"></i>{% trans "Delete for everyone" %}
+                    </a>
                 </li>
                 {% endif %}
                 <li>
-                    <a class="dropdown-item" href="#" onclick="deleteMsg({{ message.id }}, 'me')"><i class="fa-solid fa-eye-slash me-3 text-danger"></i>{% trans "Delete for me" %}</a>
+                    <a class="dropdown-item" href="#" onclick="deleteMsg({{ message.id }}, 'me')">
+                        <i class="fa-solid fa-eye-slash me-3 text-danger"></i>{% trans "Delete for me" %}
+                    </a>
                 </li>
             </ul>
         </div>
         {% endif %}
 
-        <div class="text-break" id="msg-content-{{ message.id }}">
+        <div class="text-break mt-2" id="msg-content-{{ message.id }}">
             {% if message.is_deleted_everyone %}
-                <span class="deleted-text"><i class="fa-solid fa-ban me-1"></i> {% trans "This message was deleted." %}</span>
+                <span class="deleted-text text-muted fst-italic"><i class="fa-solid fa-ban me-1"></i> {% trans "This message was deleted." %}</span>
             {% else %}
                 
+                {% if message.reply_to %}
+                <div class="reply-quote rounded p-2 mb-2" 
+                     style="background-color: rgba(0,0,0,0.05); border-left: 4px solid {% if message.reply_to.sender == user %}var(--wa-blue, #34B7F1){% else %}#25D366{% endif %}; font-size: 0.85rem; cursor: pointer;" 
+                     onclick="scrollToMessage({{ message.reply_to.id }})">
+                    <div class="fw-bold" style="color: {% if message.reply_to.sender == user %}var(--wa-blue, #34B7F1){% else %}#25D366{% endif %};">
+                        {% if message.reply_to.sender == user %}{% trans "You" %}{% else %}{{ message.reply_to.sender.username }}{% endif %}
+                    </div>
+                    <div class="text-muted text-truncate" style="max-height: 40px; overflow: hidden;">
+                        {% if message.reply_to.message_type == 'image' %}
+                            <i class="fa-solid fa-image me-1"></i> {% trans "Photo" %}
+                        {% elif message.reply_to.message_type == 'video' %}
+                            <i class="fa-solid fa-video me-1"></i> {% trans "Video" %}
+                        {% elif message.reply_to.message_type == 'audio' %}
+                            <i class="fa-solid fa-microphone me-1"></i> {% trans "Audio" %}
+                        {% elif message.reply_to.file %}
+                            <i class="fa-solid fa-file-lines me-1"></i> {% trans "Document" %}
+                        {% else %}
+                            {{ message.reply_to.content }}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
                 {% if message.file %}
                     {% if message.message_type == 'image' %}
                         <img src="{{ message.file.url }}" class="img-fluid rounded-2 mb-1" style="max-height: 300px; cursor: pointer;" onclick="window.open(this.src)">
@@ -61,7 +95,7 @@
                 {% endif %}
 
                 {% if message.content %}
-                    <p class="mb-1">
+                    <p class="mb-1 pe-3">
                         {{ message.content }}
                         {% if message.is_edited %}
                             <small class="text-muted fst-italic" style="font-size:0.6rem">{% trans "(edited)" %}</small>
@@ -72,10 +106,10 @@
             {% endif %}
         </div>
 
-        <div class="msg-meta">
-            {{ message.timestamp|date:"H:i" }}
+        <div class="msg-meta d-flex justify-content-end align-items-center gap-1 mt-1" style="font-size: 0.7rem; color: #8696a0;">
+            <span>{{ message.timestamp|date:"H:i" }}</span>
             {% if message.sender == user %}
-                <i class="fa-solid fa-check-double" style="color: {% if message.is_read %}var(--wa-blue){% else %}#8696a0{% endif %}"></i>
+                <i class="fa-solid fa-check-double" style="color: {% if message.is_read %}var(--wa-blue, #34B7F1){% else %}#8696a0{% endif %}"></i>
             {% endif %}
         </div>
 
