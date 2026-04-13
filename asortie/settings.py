@@ -207,3 +207,7 @@ LANG_INFO = dict(django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO)
 django.conf.locale.LANG_INFO = LANG_INFO
 
 LOGIN_URL = '/login/'
+
+GOOGLE_MAPS_API_KEY=os.getenv('GOOGLE_MAPS_API_KEY')
+iyzico_api_key=os.getenv('iyzico_api_key')
+iyzico_secret_key=os.getenv('iyzico_secret_key')
