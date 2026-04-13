@@ -2,9 +2,7 @@
 {% load static i18n %} 
 {% block content %}
 <style>
-    .big_h{
-        font-size: 2.5rem;
-    }
+    .big_h { font-size: 2.5rem; }
     .market-filter-bar {
         background-color: white;
         border: 1px solid #eee;
@@ -13,125 +11,219 @@
         margin-bottom: 30px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
     }
+    /* Smooth loading state for AJAX */
+    #product-grid { transition: opacity 0.3s ease; }
+    .is-loading { opacity: 0.5; pointer-events: none; }
+    .transition-hover:hover { transform: translateY(-3px); transition: 0.3s; }
 </style>
+
 <div class="container py-4">
     <div class="text-center mb-5">
         <h2 class="fw-bold text-dark big_h"><i class="fa-solid fa-shop me-2"></i>{% trans "Global Marketplace" %}</h2>
         <p class="text-muted">{% trans "Browse premium luxury furniture products from verified sellers." %}</p>
     </div>
 
-    <!-- ========================================== -->
-    <!-- ADVANCED SEARCH FILTER BAR                 -->
-    <!-- ========================================== -->
-    <form method="get" class="market-filter-bar">
-        <div class="row g-3 align-items-end">
+    <form method="get" class="market-filter-bar" id="ajaxFilterForm">
+        <div class="row g-3 align-items-end justify-content-center">
             
-            <!-- 1. Search Keyword -->
             <div class="col-lg-3 col-md-6">
-                <label class="form-label">{% trans "Search Products" %}</label>
+                <label class="form-label fw-bold small text-uppercase">{% trans "Search" %}</label>
                 <div class="input-group">
                     <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>
-                    <input type="text" name="q" class="form-control" placeholder="Arabica, Machine..." value="{{ request.GET.q }}">
+                    <input type="text" name="q" id="searchInput" class="form-control" placeholder="Arabica, Machine..." value="{{ request.GET.q }}" autocomplete="off">
                 </div>
             </div>
 
-            <!-- 2. Category Select -->
             <div class="col-lg-2 col-md-6">
-                <label class="form-label">{% trans "Category" %}</label>
-                <select name="category" class="form-select">
-                    <option value="">{% trans "All Categories" %}</option>
+                <label class="form-label fw-bold small text-uppercase">{% trans "Category" %}</label>
+                <select name="category" id="categorySelect" class="form-select">
+                    <option value="">{% trans "All" %}</option>
                     {% for code, name in categories %}
                         <option value="{{ code }}" {% if request.GET.category == code %}selected{% endif %}>{{ name }}</option>
                     {% endfor %}
                 </select>
             </div>
 
-            <!-- 3. Price Range -->
+            <div class="col-lg-2 col-md-6" id="subCategoryGroup" style="display: none;">
+                <label class="form-label fw-bold small text-uppercase">{% trans "Sub Category" %}</label>
+                <select name="sub_category" id="subCategorySelect" class="form-select">
+                    <option value="">{% trans "All" %}</option>
+                    </select>
+            </div>
+
             <div class="col-lg-3 col-md-6">
-                <label class="form-label">{% trans "Price Range (USD)" %}</label>
+                <label class="form-label fw-bold small text-uppercase">{% trans "Price Range" %}</label>
                 <div class="input-group">
-                    <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request.GET.min_price }}">
-                    <span class="input-group-text bg-light">-</span>
-                    <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request.GET.max_price }}">
+                    <input type="number" name="min_price" id="minPrice" class="form-control" placeholder="Min" value="{{ request.GET.min_price }}">
+                    <span class="input-group-text bg-light border-0">-</span>
+                    <input type="number" name="max_price" id="maxPrice" class="form-control" placeholder="Max" value="{{ request.GET.max_price }}">
                 </div>
             </div>
 
-            <!-- 4. Sorting -->
-            <div class="col-lg-2 col-md-6">
-                <label class="form-label">{% trans "Sort By" %}</label>
-                <select name="sort" class="form-select">
-                    <option value="newest">{% trans "Newest Listed" %}</option>
-                    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>{% trans "Price: Low to High" %}</option>
-                    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>{% trans "Price: High to Low" %}</option>
-                </select>
-            </div>
-
-            <!-- 5. Submit -->
-            <div class="col-lg-2 col-md-12">
-                <button type="submit" class="btn btn-dark w-100 fw-bold">{% trans "Filter" %}</button>
+            <div class="col-lg-2 col-md-12 gap-2">
+                <button type="submit" class="btn btn-dark w-100 fw-bold" id="manualFilterBtn">
+                    <i class="fa-solid fa-filter me-1"></i> {% trans "Filter" %}
+                </button>
+                <button type="button" class="btn btn-outline-danger w-100 fw-bold" id="clearFilterBtn" style="margin-top: 0.3rem;">
+                    <i class="fa-solid fa-xmark me-1"></i> {% trans "Clear" %}
+                </button>
             </div>
         </div>
     </form>
-    <div class="row">
-        {% for product in products %}
-        
-        <div class="col-md-4 mb-4">
-            <a href="{% url 'product_detail' product.id %}" style="text-decoration: none; color: #000000d4;">
-                <div class="card h-100 shadow-sm border-0">
-                    <!-- Image -->
-                    {% if product.image %}
-                        <img src="{{ product.image.url }}" class="card-img-top" style="height: 250px; object-fit: contain; padding: 15px 0 5px;">
-                    {% else %}
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 220px;">
-                            <i class="fa-solid fa-mug-hot fa-3x text-muted"></i>
-                        </div>
-                    {% endif %}
-
-                    <!-- Body -->
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title fw-bold">{{ product.name }}</h5>
-                        <p class="text-muted small mb-2">{{ product.category }}</p>
-                        <h5 class="text-success fw-bold">
-                            {% if product.price == 0 %}
-                                {% trans "Price on request" %}
-                            {% else %}
-                                ${{ product.price }} <span style="font-size: 1rem; color: rgb(196, 4, 4);">{% trans "(Base Price)" %}</span>
-                            {% endif %}
-                        </h5>
-                        
-                        <div class="mt-auto pt-3">
-                            {% if user.is_authenticated %}
-                                
-                                <!-- CHECK ROLE -->
-                                {% if user.role == 'seller' %}
-                                    <!-- PRO STYLE: Disabled/Info Button for Sellers -->
-                                    <button class="btn w-100 d-flex align-items-center justify-content-center" disabled 
-                                            style="background-color: #f8f9fa; color: #adb5bd; border: 1px dashed #dee2e6; font-weight: 600; cursor: not-allowed; height: 38px;">
-                                        <i class="fa-solid fa-lock me-2" style="font-size: 0.8rem;"></i> {% trans "To Order Login By Buyer" %}
-                                    </button>
-                                {% else %}
-                                    <!-- BUYER: Standard Order Button -->
-                                    <a href="{% url 'product_detail' product.id %}" class="btn btn-warning w-100 fw-bold">
-                                        {% trans "Order Now" %}
-                                    </a>
-                                {% endif %}
-
-                            {% else %}
-                                <!-- GUEST: Redirect to Login -->
-                                <a href="{% url 'login' %}?next={% url 'product_detail' product.id %}" class="btn btn-outline-dark w-100">
-                                    {% trans "Login to Order" %}
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        {% empty %}
-            <div class="col-12 text-center py-5">
-                <h3>{% trans "No products available right now." %}</h3>
-            </div>
-        {% endfor %}
+    
+    <div id="product-grid">
+        {% include 'market/_product_grid.html' %}
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // --- 1. DYNAMIC SUB-CATEGORY CONFIGURATION ---
+    const subCategoryDictionary = {
+        'Classic': [
+            // Note: The 'value' here must match exactly what you type 
+            // into the sub_category field in your database/Django Admin.
+            { value: 'Sofa Set Models', text: 'Sofa Set Models' },
+            { value: 'Dining Room Models', text: 'Dining Room Models' },
+            { value: 'Wall and TV Units', text: 'Wall and TV Units' }
+        ],
+        'Modern': [
+            { value: 'Sofa Set Models', text: 'Sofa Set Models' },
+            { value: 'Dining Room Models', text: 'Dining Room Models' },
+            { value: 'Corner Sofa Models', text: 'Corner Sofa Models' }
+        ],
+        'Decoration': [
+            { value: 'Majlees Models', text: 'Majlees Models' },
+            { value: 'Kitchen Decoration', text: 'Kitchen Decoration' }
+        ],
+        'Office': [
+        ],
+        'Hotel': [
+        ]
+    };
+
+    const form = document.getElementById('ajaxFilterForm');
+    const categorySelect = document.getElementById('categorySelect');
+    const subCategoryGroup = document.getElementById('subCategoryGroup');
+    const subCategorySelect = document.getElementById('subCategorySelect');
+    const productGrid = document.getElementById('product-grid');
+    const clearBtn = document.getElementById('clearFilterBtn');
+    
+    // Elements that should trigger an active search
+    const activeInputs = form.querySelectorAll('input, select');
+
+    // --- 2. SUB-CATEGORY LOGIC ---
+    function updateSubCategories() {
+        const selectedCategory = categorySelect.value;
+        
+        // Clear existing sub-categories (except the default "All" option)
+        subCategorySelect.innerHTML = '<option value="">All</option>';
+
+        if (selectedCategory && subCategoryDictionary[selectedCategory]) {
+            // Show the dropdown and populate it
+            subCategoryGroup.style.display = 'block';
+            subCategoryDictionary[selectedCategory].forEach(sub => {
+                const option = document.createElement('option');
+                option.value = sub.value;
+                option.textContent = sub.text;
+                
+                // Keep selected value if it exists in the URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('sub_category') === sub.value) {
+                    option.selected = true;
+                }
+                
+                subCategorySelect.appendChild(option);
+            });
+        } else {
+            // Hide if no sub-categories exist for this selection
+            subCategoryGroup.style.display = 'none';
+        }
+    }
+
+    // Run on load to set initial state
+    updateSubCategories();
+
+    // Run when category changes
+    categorySelect.addEventListener('change', function() {
+        updateSubCategories();
+        fetchProducts(); // Auto-search when category changes
+    });
+
+
+    // --- 3. AJAX ACTIVE SEARCH LOGIC ---
+    function fetchProducts() {
+        // Add a visual loading state
+        productGrid.classList.add('is-loading');
+
+        // Gather form data and build URL
+        const formData = new FormData(form);
+        const searchParams = new URLSearchParams(formData);
+        const url = `${window.location.pathname}?${searchParams.toString()}`;
+
+        // Update the URL in the browser without reloading (so sharing links still works)
+        window.history.pushState({}, '', url);
+
+        // Fetch the new HTML from Django
+        fetch(url, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest' // Tells Django this is an AJAX call
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            // Swap the old HTML for the new HTML
+            productGrid.innerHTML = html;
+            // Remove loading state
+            productGrid.classList.remove('is-loading');
+        })
+        .catch(error => {
+            console.error("Error fetching products:", error);
+            productGrid.classList.remove('is-loading');
+        });
+    }
+
+    // --- 4. EVENT LISTENERS ---
+    
+    // Prevent default form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        fetchProducts();
+    });
+
+    // Debounce typing (waits 500ms after user stops typing to search)
+    let typingTimer;
+    document.getElementById('searchInput').addEventListener('input', function() {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(fetchProducts, 500);
+    });
+
+    // Price fields trigger search after a slight delay
+    document.getElementById('minPrice').addEventListener('input', function() {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(fetchProducts, 800);
+    });
+    document.getElementById('maxPrice').addEventListener('input', function() {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(fetchProducts, 800);
+    });
+
+    // Dropdowns trigger search instantly (Category is handled above)
+    subCategorySelect.addEventListener('change', fetchProducts);
+
+    // --- 5. CLEAR BUTTON LOGIC ---
+    clearBtn.addEventListener('click', function() {
+        // Reset the form
+        form.reset();
+        
+        // Hide sub-categories
+        subCategoryGroup.style.display = 'none';
+        subCategorySelect.innerHTML = '<option value="">All</option>';
+
+        // Fetch all products (empty query)
+        fetchProducts();
+    });
+});
+</script>
 {% endblock %}
