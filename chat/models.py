@@ -16,6 +16,8 @@ class Message(models.Model):
     is_deleted_everyone = models.BooleanField(default=False)
     hidden_by = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='hidden_messages', blank=True)
     
+    reply_to = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='replies')
+    
     # NEW: Store reactions as a dictionary e.g., {"user_id": "👍"}
     reactions = models.JSONField(default=dict, blank=True)
     
