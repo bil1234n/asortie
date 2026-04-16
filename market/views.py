@@ -121,14 +121,18 @@ def seller_products(request):
     return render(request, 'seller_panel/products.html', {'products': products})
 
 
-# Helper functions for safe type conversion
-def safe_float(value, default=0.0):
-    try: return float(value)
-    except (TypeError, ValueError): return default
+# Helper functions assuming they exist based on your provided code
+def safe_float(val, default=0.0):
+    try:
+        return float(val) if val else default
+    except ValueError:
+        return default
 
-def safe_int(value, default=1):
-    try: return int(value)
-    except (TypeError, ValueError): return default
+def safe_int(val, default=0):
+    try:
+        return int(val) if val else default
+    except ValueError:
+        return default
 
 @login_required
 def seller_product_add(request):
@@ -138,8 +142,9 @@ def seller_product_add(request):
     if not request.user.is_verified:
         messages.error(request, "You must be a verified seller to list products.")
         return redirect('seller_products')
-        
+    
     if request.method == 'POST':
+        # 1. Create Core Product Data
         product = Product.objects.create(
             seller=request.user,
             name=request.POST.get('name'),
@@ -164,19 +169,45 @@ def seller_product_add(request):
             transport_type=request.POST.get('transport_type', 'Land'),
         )
         
+        # 2. Add Main Image
         if request.FILES.get('image'):
             product.image = request.FILES.get('image')
             product.save()
+
+        # 3. Handle Gallery Images Addition (Multiple)
+        gallery_files = request.FILES.getlist('gallery_images')
+        for f in gallery_files:
+            ProductImage.objects.create(product=product, image=f)
+
+        # 4. Handle 3D Variants Addition (Dynamic List)
+        v_names = request.POST.getlist('variant_name[]')
+        v_files = request.FILES.getlist('variant_file[]')
+        v_links = request.POST.getlist('variant_link[]')
+
+        for i in range(len(v_names)):
+            if v_names[i]:  # Proceed only if variant name is provided
+                file_to_upload = v_files[i] if i < len(v_files) else None
+                link_to_save = v_links[i] if i < len(v_links) else ""
+
+                ProductVariant.objects.create(
+                    product=product,
+                    variant_name=v_names[i],
+                    model_3d=file_to_upload,
+                    model_3d_link=link_to_save
+                )
             
+        messages.success(request, "Product added successfully with gallery and variants.")
         return redirect('seller_products')
         
     return render(request, 'seller_panel/products_form.html', {'edit_mode': False})
+
 
 @login_required
 def seller_product_edit(request, pk):
     product = get_object_or_404(Product, pk=pk, seller=request.user)
     
     if request.method == 'POST':
+        # 1. Update Core Data
         product.name = request.POST.get('name')
         product.category = request.POST.get('category', 'Classic')
         product.sub_category = request.POST.get('sub_category')
@@ -184,7 +215,7 @@ def seller_product_edit(request, pk):
         product.price = safe_float(request.POST.get('price'))
         product.stock = safe_int(request.POST.get('stock'))
         
-        # --- Delivery & Logistics Fields ---
+        # --- Delivery & Logistics Fields Update ---
         product.pickup_country = request.POST.get('pickup_country', 'Ethiopia')
         product.pickup_lat = safe_float(request.POST.get('pickup_lat')) or None
         product.pickup_lng = safe_float(request.POST.get('pickup_lng')) or None
@@ -202,6 +233,43 @@ def seller_product_edit(request, pk):
             product.image = request.FILES.get('image')
             
         product.save()
+
+        # 2. Deletion Logic (Professional String Parsing Handling)
+        del_gallery_ids = request.POST.get('delete_gallery_ids', '').split(',')
+        del_variant_ids = request.POST.get('delete_variant_ids', '').split(',')
+
+        # Clean empty strings and Delete from DB
+        del_gallery_ids = [id for id in del_gallery_ids if id.isdigit()]
+        if del_gallery_ids:
+            ProductImage.objects.filter(id__in=del_gallery_ids, product=product).delete()
+
+        del_variant_ids = [id for id in del_variant_ids if id.isdigit()]
+        if del_variant_ids:
+            ProductVariant.objects.filter(id__in=del_variant_ids, product=product).delete()
+
+        # 3. Add New Gallery Images Uploaded during edit
+        gallery_files = request.FILES.getlist('gallery_images')
+        for f in gallery_files:
+            ProductImage.objects.create(product=product, image=f)
+
+        # 4. Add New Variants Added during edit
+        v_names = request.POST.getlist('variant_name[]')
+        v_files = request.FILES.getlist('variant_file[]')
+        v_links = request.POST.getlist('variant_link[]')
+
+        for i in range(len(v_names)):
+            if v_names[i]:
+                file_to_upload = v_files[i] if i < len(v_files) else None
+                link_to_save = v_links[i] if i < len(v_links) else ""
+                
+                ProductVariant.objects.create(
+                    product=product,
+                    variant_name=v_names[i],
+                    model_3d=file_to_upload,
+                    model_3d_link=link_to_save
+                )
+
+        messages.success(request, "Product updated successfully.")
         return redirect('seller_products')
         
     return render(request, 'seller_panel/products_form.html', {'product': product, 'edit_mode': True})
