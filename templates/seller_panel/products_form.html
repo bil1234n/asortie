@@ -1,23 +1,50 @@
 {% extends 'base.html' %}
 {% load static i18n %} 
 {% block content %}
-<div class="container mt-4">
-    <h2>{% if edit_mode %}{% trans "Edit Product" %}{% else %}{% trans "Add New Product" %}{% endif %}</h2>
+
+<!-- Include FontAwesome for Professional Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* Custom Professional Styles */
+    .form-label { font-weight: 600; color: #495057; font-size: 0.9rem; }
+    .card { border: none; border-radius: 10px; margin-bottom: 2rem; }
+    .card-header { border-radius: 10px 10px 0 0 !important; font-weight: bold; font-size: 1.1rem; border-bottom: none; padding: 1rem 1.5rem; }
+    .form-control, .form-select { border-radius: 8px; border: 1px solid #ced4da; padding: 0.6rem 1rem; transition: all 0.3s ease; }
+    .form-control:focus, .form-select:focus { border-color: #0d6efd; box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15); }
+    .btn-locate { background-color: #e9ecef; border: 1px solid #ced4da; border-left: none; color: #0d6efd; font-weight: 600; transition: all 0.2s; }
+    .btn-locate:hover { background-color: #0d6efd; color: white; }
+    #imagePreview { border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark">
+            {% if edit_mode %}
+                <i class="fas fa-edit text-primary me-2"></i>{% trans "Edit Product" %}
+            {% else %}
+                <i class="fas fa-plus-circle text-success me-2"></i>{% trans "Add New Product" %}
+            {% endif %}
+        </h2>
+    </div>
     
-    <form method="POST" enctype="multipart/form-data" class="needs-validation">
+    <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         {% csrf_token %}
         
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header bg-dark text-white">{% trans "Basic Information" %}</div>
-            <div class="card-body">
+        <!-- Basic Information Card -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-light text-dark border-bottom">
+                <i class="fas fa-info-circle text-primary me-2"></i>{% trans "Basic Information" %}
+            </div>
+            <div class="card-body p-4">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label>{% trans "Product Name" %}</label>
-                        <input type="text" name="name" class="form-control" value="{{ product.name }}" required>
+                        <label class="form-label">{% trans "Product Name" %}</label>
+                        <input type="text" name="name" class="form-control" value="{{ product.name }}" placeholder="{% trans 'Enter product name' %}" required>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label>{% trans "Category" %}</label>
-                        <select name="category" class="form-control">
+                        <label class="form-label">{% trans "Category" %}</label>
+                        <select name="category" class="form-control form-select">
                             <option value="Classic" {% if product.category == 'Classic' %}selected{% endif %}>{% trans "Classic" %}</option>
                             <option value="Modern" {% if product.category == 'Modern' %}selected{% endif %}>{% trans "Modern" %}</option>
                             <option value="Decoration" {% if product.category == 'Decoration' %}selected{% endif %}>{% trans "Decoration" %}</option>
@@ -26,100 +53,148 @@
                         </select>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label>{% trans "Sub Category" %}</label>
-                        <input type="text" name="sub_category" class="form-control" value="{{ product.sub_category }}">
+                        <label class="form-label">{% trans "Sub Category" %}</label>
+                        <input type="text" name="sub_category" class="form-control" value="{{ product.sub_category }}" placeholder="{% trans 'e.g. Chairs' %}">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label>{% trans "Price" %}</label>
-                        <input type="number" step="0.01" name="price" class="form-control" value="{{ product.price }}" required>
+                        <label class="form-label">{% trans "Price" %}</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">$</span>
+                            <input type="number" step="0.01" name="price" class="form-control" value="{{ product.price }}" required>
+                        </div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>{% trans "Stock" %}</label>
+                        <label class="form-label">{% trans "Stock Quantity" %}</label>
                         <input type="number" name="stock" class="form-control" value="{{ product.stock|default:1 }}" required>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>{% trans "Main Image" %}</label>
-                        <input type="file" name="image" class="form-control">
+                        <label class="form-label">{% trans "Main Image" %}</label>
+                        <input type="file" id="imageInput" name="image" class="form-control" accept="image/*">
+                        <!-- Image Preview Feature -->
+                        <div class="mt-3 text-center">
+                            <img id="imagePreview" src="{% if product.image %}{{ product.image.url }}{% endif %}" class="img-fluid {% if not product.image %}d-none{% endif %}" style="max-height: 120px; object-fit: cover;">
+                        </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label>{% trans "Description" %}</label>
-                    <textarea name="description" class="form-control" rows="3" required>{{ product.description }}</textarea>
+                <div class="mb-2">
+                    <label class="form-label">{% trans "Description" %}</label>
+                    <textarea name="description" class="form-control" rows="4" placeholder="{% trans 'Enter detailed product description here...' %}" required>{{ product.description }}</textarea>
                 </div>
             </div>
         </div>
 
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header bg-secondary text-white">{% trans "Logistics & Delivery Configuration" %}</div>
-            <div class="card-body">
+        <!-- Logistics Card -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-light text-dark border-bottom">
+                <i class="fas fa-truck-loading text-warning me-2"></i>{% trans "Logistics & Delivery Configuration" %}
+            </div>
+            <div class="card-body p-4">
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label>{% trans "Transport Type" %}</label>
-                        <select name="transport_type" class="form-control">
-                            <option value="Land" {% if product.transport_type == 'Land' %}selected{% endif %}>{% trans "Land Transport" %}</option>
-                            <option value="Air" {% if product.transport_type == 'Air' %}selected{% endif %}>{% trans "Air Freight" %}</option>
-                            <option value="Sea" {% if product.transport_type == 'Sea' %}selected{% endif %}>{% trans "Sea Freight" %}</option>
-                        </select>
+                        <label class="form-label">{% trans "Transport Type" %}</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-shipping-fast"></i></span>
+                            <select name="transport_type" class="form-control form-select">
+                                <option value="Land" {% if product.transport_type == 'Land' %}selected{% endif %}>{% trans "Land Transport" %}</option>
+                                <option value="Air" {% if product.transport_type == 'Air' %}selected{% endif %}>{% trans "Air Freight" %}</option>
+                                <option value="Sea" {% if product.transport_type == 'Sea' %}selected{% endif %}>{% trans "Sea Freight" %}</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>{% trans "Free Delivery Up To (KM)" %}</label>
+                        <label class="form-label">{% trans "Free Delivery Up To (KM)" %}</label>
                         <input type="number" step="0.1" name="free_delivery_km" class="form-control" value="{{ product.free_delivery_km|default:0 }}">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>{% trans "Maximum Delivery (KM)" %}</label>
+                        <label class="form-label">{% trans "Maximum Delivery (KM)" %}</label>
                         <input type="number" step="0.1" name="maximum_delivery_km" class="form-control" value="{{ product.maximum_delivery_km|default:100 }}">
                     </div>
                 </div>
                 
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <label>{% trans "Price Per Country" %}</label>
+                        <label class="form-label">{% trans "Price Per Country" %}</label>
                         <input type="number" step="0.01" name="price_per_country" class="form-control" value="{{ product.price_per_country|default:0 }}">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label>{% trans "Price Per 0.1 KM" %}</label>
+                        <label class="form-label">{% trans "Price Per 0.1 KM" %}</label>
                         <input type="number" step="0.01" name="price_per_0_1_km" class="form-control" value="{{ product.price_per_0_1_km|default:0 }}">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label>{% trans "Container Price" %}</label>
+                        <label class="form-label">{% trans "Container Price" %}</label>
                         <input type="number" step="0.01" name="container_price" class="form-control" value="{{ product.container_price|default:0 }}">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label>{% trans "Container Number" %}</label>
+                        <label class="form-label">{% trans "Container Number" %}</label>
                         <input type="number" name="container_number" class="form-control" value="{{ product.container_number|default:1 }}">
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header bg-info text-white">{% trans "Pickup Location" %}</div>
-            <div class="card-body">
+        <!-- Location Card -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-light text-dark border-bottom">
+                <i class="fas fa-map-marked-alt text-danger me-2"></i>{% trans "Pickup Location Configuration" %}
+            </div>
+            <div class="card-body p-4">
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label>{% trans "Full Address" %}</label>
-                        <input type="text" id="addressInput" name="address" class="form-control" value="{{ product.address }}" placeholder="Search or click on map">
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">{% trans "Full Address" %}</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
+                            <input type="text" id="addressInput" name="address" class="form-control" value="{{ product.address }}" placeholder="{% trans 'Search location or click Locate Me...' %}">
+                            <!-- Locate Me Button -->
+                            <button type="button" class="btn btn-locate" id="locateMeBtn" title="{% trans 'Find my exact location' %}">
+                                <i class="fas fa-crosshairs"></i> {% trans "Locate Me" %}
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label>{% trans "Pickup Country" %}</label>
-                        <input type="text" id="countryInput" name="pickup_country" class="form-control" value="{{ product.pickup_country|default:'Ethiopia' }}">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">{% trans "Pickup Country" %}</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-globe"></i></span>
+                            <input type="text" id="countryInput" name="pickup_country" class="form-control" value="{{ product.pickup_country|default:'Ethiopia' }}" readonly>
+                        </div>
                     </div>
                 </div>
 
                 <input type="hidden" name="pickup_lat" id="latInput" value="{{ product.pickup_lat|default:'' }}">
                 <input type="hidden" name="pickup_lng" id="lngInput" value="{{ product.pickup_lng|default:'' }}">
                 
-                <div id="googleMap" style="height: 400px; width: 100%; border-radius: 8px;"></div>
+                <!-- Map Container -->
+                <div class="position-relative mt-2">
+                    <div id="googleMap" style="height: 500px; width: 100%; border-radius: 12px; border: 2px solid #dee2e6;"></div>
+                </div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success btn-lg w-100 mb-5">
-            {% if edit_mode %}{% trans "Update Product & Logistics" %}{% else %}{% trans "Publish Product" %}{% endif %}
+        <button type="submit" class="btn btn-primary btn-lg w-100 mb-5 py-3 fw-bold shadow">
+            {% if edit_mode %}
+                <i class="fas fa-save me-2"></i>{% trans "Update Product & Logistics" %}
+            {% else %}
+                <i class="fas fa-check-circle me-2"></i>{% trans "Publish Product" %}
+            {% endif %}
         </button>
     </form>
 </div>
+
+<!-- Image Preview Script -->
+<script>
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('imagePreview');
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.classList.remove('d-none');
+        } else {
+            preview.src = '';
+            preview.classList.add('d-none');
+        }
+    });
+</script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVi9J0zQIHG4urTz7ROJSIybpNJvcA-4Y&libraries=places&callback=initMap" async defer></script>
 
@@ -133,17 +208,36 @@
         const lngInput = document.getElementById('lngInput');
         const addressInput = document.getElementById('addressInput');
         const countryInput = document.getElementById('countryInput');
+        const locateMeBtn = document.getElementById('locateMeBtn');
 
         // Default to Addis Ababa
         let startLat = latInput.value ? parseFloat(latInput.value) : 8.9806;
         let startLng = lngInput.value ? parseFloat(lngInput.value) : 38.7578;
         const startLocation = { lat: startLat, lng: startLng };
 
+        // Initialize Map with highly detailed settings (POIs, Buildings, Businesses all visible)
         map = new google.maps.Map(document.getElementById("googleMap"), {
-            zoom: 13,
+            zoom: 17, // Zoomed in closer to see building footprints and street details automatically
             center: startLocation,
-            mapTypeControl: false,
-            streetViewControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP, // Default to standard map with all labels and businesses
+            
+            // Allow user to switch between highly detailed views
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                position: google.maps.ControlPosition.TOP_RIGHT,
+                mapTypeIds: [
+                    google.maps.MapTypeId.ROADMAP, 
+                    google.maps.MapTypeId.SATELLITE, 
+                    google.maps.MapTypeId.HYBRID,
+                    google.maps.MapTypeId.TERRAIN
+                ]
+            },
+            tilt: 45, // Enables 3D building view when zooming in on satellite/hybrid mode
+            streetViewControl: true, // Allow users to drop the pegman to see real-life street view
+            fullscreenControl: true,
+            zoomControl: true,
+            clickableIcons: true // Ensures you can click on businesses/places on the map to see details
         });
 
         marker = new google.maps.Marker({
@@ -151,6 +245,7 @@
             map: map,
             draggable: true,
             animation: google.maps.Animation.DROP,
+            title: "Drag to pin accurate location"
         });
 
         geocoder = new google.maps.Geocoder();
@@ -164,7 +259,7 @@
             if (!place.geometry || !place.geometry.location) return;
 
             map.setCenter(place.geometry.location);
-            map.setZoom(15);
+            map.setZoom(18); // Zoom very close to see the exact building
             marker.setPosition(place.geometry.location);
             
             updateInputsFromLocation(place.geometry.location);
@@ -183,6 +278,44 @@
             marker.setPosition(e.latLng);
             updateInputsFromLocation(e.latLng);
             reverseGeocode(e.latLng);
+        });
+
+        // "Locate Me" Feature Logic
+        locateMeBtn.addEventListener('click', function() {
+            const originalIcon = locateMeBtn.innerHTML;
+            locateMeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Locating...';
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+                        
+                        // Set map to User's exact GPS location and zoom in closely to show building details
+                        map.setCenter(pos);
+                        map.setZoom(18); 
+                        marker.setPosition(pos);
+                        
+                        // Update Fields
+                        updateInputsFromLocation(marker.getPosition());
+                        reverseGeocode(marker.getPosition());
+
+                        // Reset Button
+                        locateMeBtn.innerHTML = '<i class="fas fa-check text-success"></i> Found!';
+                        setTimeout(() => locateMeBtn.innerHTML = originalIcon, 2000);
+                    },
+                    (error) => {
+                        alert("Geolocation failed: Please allow location access in your browser settings.");
+                        locateMeBtn.innerHTML = originalIcon;
+                    },
+                    { enableHighAccuracy: true } // Request maximum GPS accuracy
+                );
+            } else {
+                alert("Error: Your browser doesn't support geolocation.");
+                locateMeBtn.innerHTML = originalIcon;
+            }
         });
 
         function updateInputsFromLocation(location) {
