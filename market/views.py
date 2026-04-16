@@ -135,6 +135,10 @@ def seller_product_add(request):
     if request.user.role != 'seller': 
         return redirect('home')
     
+    if not request.user.is_verified:
+        messages.error(request, "You must be a verified seller to list products.")
+        return redirect('seller_products')
+        
     if request.method == 'POST':
         product = Product.objects.create(
             seller=request.user,
