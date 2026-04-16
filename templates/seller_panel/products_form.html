@@ -68,7 +68,7 @@
                         <label class="form-label">{% trans "Price Configuration" %}</label>
                         <div class="input-group">
                             <select id="priceTypeSelect" class="form-select bg-light text-dark fw-bold" style="max-width: 150px;">
-                                <option value="custom" {% if product.price != 0 %}selected{% endif %}>{% trans "Enter Price" %}</option>
+                                <option value="custom" {% if product.price != 0 %}selected{% endif %}>{% trans "Price" %}</option>
                                 <option value="on_request" {% if product.price == 0 %}selected{% endif %}>{% trans "Price on Request" %}</option>
                             </select>
                             <span class="input-group-text bg-light text-muted" id="currencySymbol">$</span>
