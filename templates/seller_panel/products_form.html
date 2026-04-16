@@ -15,9 +15,8 @@
     .btn-locate { background-color: #e9ecef; border: 1px solid #ced4da; border-left: none; color: #0d6efd; font-weight: 600; transition: all 0.2s; }
     .btn-locate:hover { background-color: #0d6efd; color: white; }
     #imagePreview { border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    
-    /* Smooth transition for price dropdown */
     #priceTypeSelect { transition: all 0.3s ease; }
+    .variant-row { background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px dashed #ced4da; margin-bottom: 15px; }
 </style>
 
 <div class="container mt-5 mb-5">
@@ -33,6 +32,10 @@
     
     <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         {% csrf_token %}
+        
+        <!-- Hidden inputs for deletion logic -->
+        <input type="hidden" name="delete_gallery_ids" id="deleteGalleryIds" value="">
+        <input type="hidden" name="delete_variant_ids" id="deleteVariantIds" value="">
         
         <!-- Basic Information Card -->
         <div class="card shadow-sm">
@@ -64,9 +67,8 @@
                     <div class="col-md-4 mb-3">
                         <label class="form-label">{% trans "Price Configuration" %}</label>
                         <div class="input-group">
-                            <!-- Dynamic Price Dropdown -->
                             <select id="priceTypeSelect" class="form-select bg-light text-dark fw-bold" style="max-width: 150px;">
-                                <option value="custom" {% if product.price != 0 %}selected{% endif %}>{% trans "Price" %}</option>
+                                <option value="custom" {% if product.price != 0 %}selected{% endif %}>{% trans "Enter Price" %}</option>
                                 <option value="on_request" {% if product.price == 0 %}selected{% endif %}>{% trans "Price on Request" %}</option>
                             </select>
                             <span class="input-group-text bg-light text-muted" id="currencySymbol">$</span>
@@ -80,7 +82,6 @@
                     <div class="col-md-4 mb-3">
                         <label class="form-label">{% trans "Main Image" %}</label>
                         <input type="file" id="imageInput" name="image" class="form-control" accept="image/*">
-                        <!-- Image Preview Feature -->
                         <div class="mt-3 text-center">
                             <img id="imagePreview" src="{% if product.image %}{{ product.image.url }}{% endif %}" class="img-fluid {% if not product.image %}d-none{% endif %}" style="max-height: 120px; object-fit: cover;">
                         </div>
@@ -89,6 +90,81 @@
                 <div class="mb-2">
                     <label class="form-label">{% trans "Description" %}</label>
                     <textarea name="description" class="form-control" rows="4" placeholder="{% trans 'Enter detailed product description here...' %}" required>{{ product.description }}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Media & 3D Variants Card -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-light text-dark border-bottom">
+                <i class="fas fa-images text-info me-2"></i>{% trans "Gallery & 3D Models" %}
+            </div>
+            <div class="card-body p-4">
+                
+                <!-- Gallery Section -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-photo-video text-secondary me-2"></i>{% trans "Gallery Images" %}</h5>
+                    
+                    {% if product.gallery.all %}
+                        <div class="row g-3 mb-3">
+                            {% for img in product.gallery.all %}
+                                <div class="col-md-2 col-4" id="gallery-item-{{ img.id }}">
+                                    <div class="position-relative border rounded shadow-sm overflow-hidden">
+                                        <img src="{{ img.image.url }}" style="width: 100%; height: 90px; object-fit: cover;">
+                                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" style="padding: 2px 6px;"
+                                                onclick="markForDelete('gallery', {{ img.id }})" title="Remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <label class="form-label small text-muted">{% trans "Upload Additional Gallery Images" %}</label>
+                    <input type="file" name="gallery_images" class="form-control" multiple accept="image/*">
+                </div>
+
+                <hr>
+
+                <!-- 3D Variants Section -->
+                <div class="mt-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="fas fa-cube text-secondary me-2"></i>{% trans "3D Models & Variants" %}</h5>
+                        <button type="button" class="btn btn-sm btn-outline-primary fw-bold" onclick="addVariantRow()">
+                            <i class="fas fa-plus me-1"></i> {% trans "Add New Variant" %}
+                        </button>
+                    </div>
+
+                    {% if product.variants.all %}
+                        <div class="mb-3">
+                            <label class="fw-bold mb-2 small text-uppercase text-muted">{% trans "Current Variants" %}</label>
+                            <div class="list-group shadow-sm mb-3">
+                                {% for v in product.variants.all %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-center" id="variant-item-{{ v.id }}">
+                                        <div>
+                                            <strong class="text-dark">{{ v.variant_name }}</strong><br>
+                                            <small class="text-muted">
+                                                {% if v.model_3d %}
+                                                    <i class="fas fa-file-upload text-success me-1"></i> File Uploaded
+                                                {% elif v.model_3d_link %}
+                                                    <i class="fas fa-link text-info me-1"></i> External Link
+                                                {% else %}
+                                                    <i class="fas fa-exclamation-circle text-warning me-1"></i> No 3D data
+                                                {% endif %}
+                                            </small>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="markForDelete('variant', {{ v.id }})">
+                                            <i class="fas fa-trash-alt me-1"></i> Delete
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Container for dynamically added variants -->
+                    <div id="variantsContainer"></div>
                 </div>
             </div>
         </div>
@@ -154,7 +230,6 @@
                         <div class="input-group">
                             <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
                             <input type="text" id="addressInput" name="address" class="form-control" value="{{ product.address }}" placeholder="{% trans 'Search location or click Locate Me...' %}">
-                            <!-- Locate Me Button -->
                             <button type="button" class="btn btn-locate" id="locateMeBtn" title="{% trans 'Find my exact location' %}">
                                 <i class="fas fa-crosshairs"></i> {% trans "Locate Me" %}
                             </button>
@@ -172,7 +247,6 @@
                 <input type="hidden" name="pickup_lat" id="latInput" value="{{ product.pickup_lat|default:'' }}">
                 <input type="hidden" name="pickup_lng" id="lngInput" value="{{ product.pickup_lng|default:'' }}">
                 
-                <!-- Map Container -->
                 <div class="position-relative mt-2">
                     <div id="googleMap" style="height: 500px; width: 100%; border-radius: 12px; border: 2px solid #dee2e6;"></div>
                 </div>
@@ -189,7 +263,7 @@
     </form>
 </div>
 
-<!-- Price & Image Preview Script -->
+<!-- Scripts -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // --- Image Preview Logic ---
@@ -212,47 +286,80 @@
 
         function togglePriceInput() {
             if (priceTypeSelect.value === 'on_request') {
-                // Hide price input and currency symbol
                 priceInput.style.display = 'none';
                 currencySymbol.style.display = 'none';
-                
-                // Set hidden value to 0 to bypass validation
                 priceInput.value = '0';
-                
-                // Make dropdown expand and look completely rounded
                 priceTypeSelect.style.maxWidth = '100%';
                 priceTypeSelect.style.borderRadius = '8px';
             } else {
-                // Show price input and currency symbol
                 priceInput.style.display = 'block';
                 currencySymbol.style.display = 'flex';
-                
-                // Snap dropdown back to attached input-group style
                 priceTypeSelect.style.maxWidth = '150px';
                 priceTypeSelect.style.borderRadius = '8px 0 0 8px';
-                
-                // Clear the 0 if they just switched back so they can type
                 if (priceInput.value === '0' || priceInput.value === '0.00') {
                     priceInput.value = '';
                 }
             }
         }
-
-        // Run on load to set initial state
         togglePriceInput();
-        
-        // Run whenever the user changes the dropdown
         priceTypeSelect.addEventListener('change', togglePriceInput);
     });
+
+    // --- Dynamic Deletion Logic ---
+    let deletedGallery = [];
+    let deletedVariants = [];
+
+    function markForDelete(type, id) {
+        if (confirm("Are you sure you want to remove this item?")) {
+            if (type === 'gallery') {
+                deletedGallery.push(id);
+                document.getElementById('deleteGalleryIds').value = deletedGallery.join(',');
+                document.getElementById(`gallery-item-${id}`).style.display = 'none';
+            } else if (type === 'variant') {
+                deletedVariants.push(id);
+                document.getElementById('deleteVariantIds').value = deletedVariants.join(',');
+                document.getElementById(`variant-item-${id}`).style.display = 'none';
+            }
+        }
+    }
+
+    // --- Dynamic Addition Logic (Variants) ---
+    function addVariantRow() {
+        const container = document.getElementById('variantsContainer');
+        const rowId = `vrow_${Math.floor(Math.random() * 10000)}`;
+        
+        const html = `
+            <div class="variant-row shadow-sm" id="${rowId}">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="fw-bold text-primary">New Variant</span>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.getElementById('${rowId}').remove()">
+                        <i class="fas fa-times"></i> Remove
+                    </button>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <label class="form-label small">Variant Name</label>
+                        <input type="text" name="variant_name[]" class="form-control" placeholder="e.g. Red, XL, Modern" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small">3D Model File (.glb, .gltf)</label>
+                        <input type="file" name="variant_file[]" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small">Or 3D Model Link</label>
+                        <input type="url" name="variant_link[]" class="form-control" placeholder="https://...">
+                    </div>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', html);
+    }
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVi9J0zQIHG4urTz7ROJSIybpNJvcA-4Y&libraries=places&callback=initMap" async defer></script>
 
 <script>
-    let map;
-    let marker;
-    let geocoder;
-
+    let map, marker, geocoder;
     function initMap() {
         const latInput = document.getElementById('latInput');
         const lngInput = document.getElementById('lngInput');
@@ -260,32 +367,18 @@
         const countryInput = document.getElementById('countryInput');
         const locateMeBtn = document.getElementById('locateMeBtn');
 
-        // Default to Addis Ababa
         let startLat = latInput.value ? parseFloat(latInput.value) : 8.9806;
         let startLng = lngInput.value ? parseFloat(lngInput.value) : 38.7578;
         const startLocation = { lat: startLat, lng: startLng };
 
-        // Initialize Map with highly detailed settings (POIs, Buildings, Businesses all visible)
         map = new google.maps.Map(document.getElementById("googleMap"), {
             zoom: 17, 
             center: startLocation,
             mapTypeId: google.maps.MapTypeId.ROADMAP, 
-            
             mapTypeControl: true,
-            mapTypeControlOptions: {
-                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-                position: google.maps.ControlPosition.TOP_RIGHT,
-                mapTypeIds: [
-                    google.maps.MapTypeId.ROADMAP, 
-                    google.maps.MapTypeId.SATELLITE, 
-                    google.maps.MapTypeId.HYBRID,
-                    google.maps.MapTypeId.TERRAIN
-                ]
-            },
             tilt: 45, 
             streetViewControl: true, 
             fullscreenControl: true,
-            zoomControl: true,
             clickableIcons: true 
         });
 
@@ -294,30 +387,25 @@
             map: map,
             draggable: true,
             animation: google.maps.Animation.DROP,
-            title: "Drag to pin accurate location"
         });
 
         geocoder = new google.maps.Geocoder();
-
         const autocomplete = new google.maps.places.Autocomplete(addressInput);
         autocomplete.bindTo("bounds", map);
 
         autocomplete.addListener("place_changed", () => {
             const place = autocomplete.getPlace();
-            if (!place.geometry || !place.geometry.location) return;
-
+            if (!place.geometry) return;
             map.setCenter(place.geometry.location);
             map.setZoom(18); 
             marker.setPosition(place.geometry.location);
-            
             updateInputsFromLocation(place.geometry.location);
             extractCountryFromAddress(place.address_components);
         });
 
         marker.addListener('dragend', function() {
-            const position = marker.getPosition();
-            updateInputsFromLocation(position);
-            reverseGeocode(position);
+            updateInputsFromLocation(marker.getPosition());
+            reverseGeocode(marker.getPosition());
         });
 
         map.addListener('click', function(e) {
@@ -326,7 +414,6 @@
             reverseGeocode(e.latLng);
         });
 
-        // "Locate Me" Feature Logic
         locateMeBtn.addEventListener('click', function() {
             const originalIcon = locateMeBtn.innerHTML;
             locateMeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Locating...';
@@ -334,29 +421,20 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        const pos = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude,
-                        };
-                        
+                        const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
                         map.setCenter(pos);
                         map.setZoom(18); 
                         marker.setPosition(pos);
-                        
                         updateInputsFromLocation(marker.getPosition());
                         reverseGeocode(marker.getPosition());
-
                         locateMeBtn.innerHTML = '<i class="fas fa-check text-success"></i> Found!';
                         setTimeout(() => locateMeBtn.innerHTML = originalIcon, 2000);
                     },
-                    (error) => {
-                        alert("Geolocation failed: Please allow location access in your browser settings.");
-                        locateMeBtn.innerHTML = originalIcon;
-                    },
+                    (error) => { alert("Location access denied."); locateMeBtn.innerHTML = originalIcon; },
                     { enableHighAccuracy: true } 
                 );
             } else {
-                alert("Error: Your browser doesn't support geolocation.");
+                alert("Geolocation not supported.");
                 locateMeBtn.innerHTML = originalIcon;
             }
         });
@@ -377,9 +455,8 @@
 
         function extractCountryFromAddress(components) {
             for (let i = 0; i < components.length; i++) {
-                const component = components[i];
-                if (component.types.includes("country")) {
-                    countryInput.value = component.long_name;
+                if (components[i].types.includes("country")) {
+                    countryInput.value = components[i].long_name;
                     break;
                 }
             }
