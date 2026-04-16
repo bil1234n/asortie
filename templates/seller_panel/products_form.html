@@ -15,6 +15,9 @@
     .btn-locate { background-color: #e9ecef; border: 1px solid #ced4da; border-left: none; color: #0d6efd; font-weight: 600; transition: all 0.2s; }
     .btn-locate:hover { background-color: #0d6efd; color: white; }
     #imagePreview { border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    
+    /* Smooth transition for price dropdown */
+    #priceTypeSelect { transition: all 0.3s ease; }
 </style>
 
 <div class="container mt-5 mb-5">
@@ -59,10 +62,15 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">{% trans "Price" %}</label>
+                        <label class="form-label">{% trans "Price Configuration" %}</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-light">$</span>
-                            <input type="number" step="0.01" name="price" class="form-control" value="{{ product.price }}" required>
+                            <!-- Dynamic Price Dropdown -->
+                            <select id="priceTypeSelect" class="form-select bg-light text-dark fw-bold" style="max-width: 150px;">
+                                <option value="custom" {% if product.price != 0 %}selected{% endif %}>{% trans "Price" %}</option>
+                                <option value="on_request" {% if product.price == 0 %}selected{% endif %}>{% trans "Price on Request" %}</option>
+                            </select>
+                            <span class="input-group-text bg-light text-muted" id="currencySymbol">$</span>
+                            <input type="number" step="0.01" name="price" id="priceInput" class="form-control" value="{{ product.price }}" placeholder="0.00" required>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -181,18 +189,60 @@
     </form>
 </div>
 
-<!-- Image Preview Script -->
+<!-- Price & Image Preview Script -->
 <script>
-    document.getElementById('imageInput').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        const preview = document.getElementById('imagePreview');
-        if (file) {
-            preview.src = URL.createObjectURL(file);
-            preview.classList.remove('d-none');
-        } else {
-            preview.src = '';
-            preview.classList.add('d-none');
+    document.addEventListener("DOMContentLoaded", function() {
+        // --- Image Preview Logic ---
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.classList.remove('d-none');
+            } else {
+                preview.src = '';
+                preview.classList.add('d-none');
+            }
+        });
+
+        // --- Price on Request Dynamic Hide/Show Logic ---
+        const priceTypeSelect = document.getElementById('priceTypeSelect');
+        const priceInput = document.getElementById('priceInput');
+        const currencySymbol = document.getElementById('currencySymbol');
+
+        function togglePriceInput() {
+            if (priceTypeSelect.value === 'on_request') {
+                // Hide price input and currency symbol
+                priceInput.style.display = 'none';
+                currencySymbol.style.display = 'none';
+                
+                // Set hidden value to 0 to bypass validation
+                priceInput.value = '0';
+                
+                // Make dropdown expand and look completely rounded
+                priceTypeSelect.style.maxWidth = '100%';
+                priceTypeSelect.style.borderRadius = '8px';
+            } else {
+                // Show price input and currency symbol
+                priceInput.style.display = 'block';
+                currencySymbol.style.display = 'flex';
+                
+                // Snap dropdown back to attached input-group style
+                priceTypeSelect.style.maxWidth = '150px';
+                priceTypeSelect.style.borderRadius = '8px 0 0 8px';
+                
+                // Clear the 0 if they just switched back so they can type
+                if (priceInput.value === '0' || priceInput.value === '0.00') {
+                    priceInput.value = '';
+                }
+            }
         }
+
+        // Run on load to set initial state
+        togglePriceInput();
+        
+        // Run whenever the user changes the dropdown
+        priceTypeSelect.addEventListener('change', togglePriceInput);
     });
 </script>
 
@@ -217,11 +267,10 @@
 
         // Initialize Map with highly detailed settings (POIs, Buildings, Businesses all visible)
         map = new google.maps.Map(document.getElementById("googleMap"), {
-            zoom: 17, // Zoomed in closer to see building footprints and street details automatically
+            zoom: 17, 
             center: startLocation,
-            mapTypeId: google.maps.MapTypeId.ROADMAP, // Default to standard map with all labels and businesses
+            mapTypeId: google.maps.MapTypeId.ROADMAP, 
             
-            // Allow user to switch between highly detailed views
             mapTypeControl: true,
             mapTypeControlOptions: {
                 style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
@@ -233,11 +282,11 @@
                     google.maps.MapTypeId.TERRAIN
                 ]
             },
-            tilt: 45, // Enables 3D building view when zooming in on satellite/hybrid mode
-            streetViewControl: true, // Allow users to drop the pegman to see real-life street view
+            tilt: 45, 
+            streetViewControl: true, 
             fullscreenControl: true,
             zoomControl: true,
-            clickableIcons: true // Ensures you can click on businesses/places on the map to see details
+            clickableIcons: true 
         });
 
         marker = new google.maps.Marker({
@@ -250,7 +299,6 @@
 
         geocoder = new google.maps.Geocoder();
 
-        // Autocomplete for the address search bar
         const autocomplete = new google.maps.places.Autocomplete(addressInput);
         autocomplete.bindTo("bounds", map);
 
@@ -259,21 +307,19 @@
             if (!place.geometry || !place.geometry.location) return;
 
             map.setCenter(place.geometry.location);
-            map.setZoom(18); // Zoom very close to see the exact building
+            map.setZoom(18); 
             marker.setPosition(place.geometry.location);
             
             updateInputsFromLocation(place.geometry.location);
             extractCountryFromAddress(place.address_components);
         });
 
-        // Update on marker drag
         marker.addListener('dragend', function() {
             const position = marker.getPosition();
             updateInputsFromLocation(position);
             reverseGeocode(position);
         });
 
-        // Update on map click
         map.addListener('click', function(e) {
             marker.setPosition(e.latLng);
             updateInputsFromLocation(e.latLng);
@@ -293,16 +339,13 @@
                             lng: position.coords.longitude,
                         };
                         
-                        // Set map to User's exact GPS location and zoom in closely to show building details
                         map.setCenter(pos);
                         map.setZoom(18); 
                         marker.setPosition(pos);
                         
-                        // Update Fields
                         updateInputsFromLocation(marker.getPosition());
                         reverseGeocode(marker.getPosition());
 
-                        // Reset Button
                         locateMeBtn.innerHTML = '<i class="fas fa-check text-success"></i> Found!';
                         setTimeout(() => locateMeBtn.innerHTML = originalIcon, 2000);
                     },
@@ -310,7 +353,7 @@
                         alert("Geolocation failed: Please allow location access in your browser settings.");
                         locateMeBtn.innerHTML = originalIcon;
                     },
-                    { enableHighAccuracy: true } // Request maximum GPS accuracy
+                    { enableHighAccuracy: true } 
                 );
             } else {
                 alert("Error: Your browser doesn't support geolocation.");
