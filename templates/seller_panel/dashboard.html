@@ -2,41 +2,339 @@
 {% load static i18n %} 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-<h2 class="fw-bold">{% trans "Seller Dashboard" %}</h2>
-<div class="row my-4">
-    <div class="col-md-4">
-        <div class="card border-0 shadow-sm p-3">
-            <h4>${{ revenue }}</h4>
-            <span class="text-muted">{% trans "Total Sales" %}</span>
+<style>
+    .dashboard-card { border-radius: 12px; transition: transform 0.2s ease-in-out; }
+    .dashboard-card:hover { transform: translateY(-5px); }
+    .icon-box { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .bg-gold-light { background-color: rgba(212, 175, 55, 0.15); color: #D4AF37; }
+    .bg-blue-light { background-color: rgba(13, 110, 253, 0.15); color: #0d6efd; }
+    .bg-green-light { background-color: rgba(25, 135, 84, 0.15); color: #198754; }
+    .table-custom th { background-color: #f8f9fa; color: #6c757d; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; border-bottom: none; }
+    .table-custom td { vertical-align: middle; font-size: 0.95rem; border-bottom: 1px solid #f1f1f1; }
+    .status-badge { padding: 6px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+</style>
+
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">{% trans "Seller Dashboard" %}</h2>
+        <a href="{% url 'seller_product_add' %}" class="btn btn-primary px-4 py-2" style="background-color: #D4AF37; border: none; font-weight: 500;">
+            <i class="bi bi-plus-lg me-1"></i> {% trans "New Product" %}
+        </a>
+    </div>
+
+    <!-- Summary Statistics Row -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card dashboard-card border-0 shadow-sm p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-muted d-block mb-1 fw-bold text-uppercase" style="font-size: 0.8rem;">{% trans "Total Revenue" %}</span>
+                        <h3 class="mb-0 fw-bold">${{ revenue|floatformat:2 }}</h3>
+                    </div>
+                    <div class="icon-box bg-green-light">
+                        <i class="bi bi-currency-dollar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card border-0 shadow-sm p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-muted d-block mb-1 fw-bold text-uppercase" style="font-size: 0.8rem;">{% trans "Total Orders" %}</span>
+                        <h3 class="mb-0 fw-bold">{{ orders_count }}</h3>
+                    </div>
+                    <div class="icon-box bg-blue-light">
+                        <i class="bi bi-bag-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card border-0 shadow-sm p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-muted d-block mb-1 fw-bold text-uppercase" style="font-size: 0.8rem;">{% trans "Active Products" %}</span>
+                        <h3 class="mb-0 fw-bold">{{ products_count }}</h3>
+                    </div>
+                    <div class="icon-box bg-gold-light">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card border-0 shadow-sm p-3">
-            <h4>{{ orders_count }}</h4>
-            <span class="text-muted">{% trans "Total Orders" %}</span>
+
+    <!-- Charts Row -->
+    <div class="row g-4 mb-4">
+        
+        <!-- Revenue Line/Area Chart with Dynamic Filters -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm h-100 dashboard-card">
+                <div class="card-header bg-white border-0 pt-4 pb-0 d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <h5 class="fw-bold mb-0 text-nowrap">{{ chart_title }}</h5>
+                    
+                    <!-- Dynamic Filter Form -->
+                    <form method="GET" class="d-flex gap-2" id="revenueFilterForm">
+                        <select name="year" class="form-select form-select-sm fw-bold shadow-none" style="width: auto; border-color: #e0e0e0;" onchange="document.getElementById('revenueFilterForm').submit();">
+                            <option value="">{% trans "Last 7 Days" %}</option>
+                            {% for y in years %}
+                                <option value="{{ y }}" {% if selected_year == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <!-- Month unlocks only if a Year is selected -->
+                        <select name="month" class="form-select form-select-sm fw-bold shadow-none" style="width: auto; border-color: #e0e0e0;" onchange="document.getElementById('revenueFilterForm').submit();" {% if not selected_year %}disabled{% endif %}>
+                            <option value="">{% trans "All Year" %}</option>
+                            {% for m_val, m_name in months %}
+                                <option value="{{ m_val }}" {% if selected_month == m_val|stringformat:"s" %}selected{% endif %}>{{ m_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+
+                </div>
+                <div class="card-body">
+                    <canvas id="salesChart" height="280"></canvas>
+                </div>
+            </div>
         </div>
+
+        <!-- Order Status Circle/Doughnut Chart -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm h-100 dashboard-card">
+                <div class="card-header bg-white border-0 pt-4 pb-0">
+                    <h5 class="fw-bold mb-0">{% trans "Order Analytics" %}</h5>
+                </div>
+                <div class="card-body d-flex justify-content-center align-items-center pb-4">
+                    <canvas id="orderChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Row (Recent Orders & Products) -->
+    <div class="row g-4">
+        
+        <!-- Recent Orders Detailed Table (5 Items Max) -->
+        <div class="col-lg-12">
+            <div class="card border-0 shadow-sm dashboard-card mb-4">
+                <div class="card-header bg-white border-0 pt-4 pb-3 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0">{% trans "Recent Orders Detail" %}</h5>
+                    <a href="{% url 'seller_orders' %}" class="text-decoration-none text-muted small fw-bold">{% trans "View All Orders" %} <i class="bi bi-arrow-right"></i></a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-custom mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4">{% trans "Order ID" %}</th>
+                                    <th>{% trans "Product Detail" %}</th>
+                                    <th>{% trans "Buyer" %}</th>
+                                    <th>{% trans "Date" %}</th>
+                                    <th>{% trans "Status" %}</th>
+                                    <th class="text-end pe-4">{% trans "Total Amount" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in recent_orders %}
+                                <tr>
+                                    <td class="ps-4 fw-bold text-muted">#{{ order.id }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            {% if order.product.image %}
+                                                <img src="{{ order.product.image.url }}" class="rounded me-3 shadow-sm" width="45" height="45" style="object-fit: cover;">
+                                            {% else %}
+                                                <div class="bg-light rounded me-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 45px; height: 45px;">
+                                                    <i class="bi bi-image text-muted"></i>
+                                                </div>
+                                            {% endif %}
+                                            <div>
+                                                <span class="fw-bold d-block text-dark">{{ order.product.name|truncatechars:30 }}</span>
+                                                <small class="text-muted">Qty: {{ order.quantity }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted">@{{ order.buyer.username }}</td>
+                                    <td class="text-muted">{{ order.created_at|date:"M d, Y" }}</td>
+                                    <td>
+                                        <span class="status-badge 
+                                            {% if order.status == 'Delivered' or order.status == 'Paid' %}bg-success text-white
+                                            {% elif order.status == 'Pending' or order.status == 'Quoted' or order.status == 'Accepted' %}bg-warning text-dark
+                                            {% elif order.status == 'Declined' or order.status == 'Expired' or order.status == 'Cancelled' %}bg-danger text-white
+                                            {% else %}bg-info text-dark{% endif %}">
+                                            {{ order.get_status_display }}
+                                        </span>
+                                    </td>
+                                    <td class="text-end pe-4 fw-bold text-dark">${{ order.total_price|floatformat:2 }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center py-5 text-muted">
+                                        <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                        {% trans "No orders found." %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Products Detailed Table (5 Items Max) -->
+        <div class="col-lg-12">
+            <div class="card border-0 shadow-sm dashboard-card mb-4">
+                <div class="card-header bg-white border-0 pt-4 pb-3 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0">{% trans "Your Product Inventory" %}</h5>
+                    <a href="{% url 'seller_products' %}" class="text-decoration-none text-muted small fw-bold">{% trans "Manage Inventory" %} <i class="bi bi-arrow-right"></i></a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-custom mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4">{% trans "Product Name" %}</th>
+                                    <th>{% trans "Category" %}</th>
+                                    <th>{% trans "Stock Level" %}</th>
+                                    <th class="text-end pe-4">{% trans "Unit Price" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for prod in recent_products %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            {% if prod.image %}
+                                                <img src="{{ prod.image.url }}" class="rounded me-3 shadow-sm" width="45" height="45" style="object-fit: cover;">
+                                            {% endif %}
+                                            <span class="fw-bold text-dark">{{ prod.name }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted">{{ prod.get_category_display|default:prod.category }}</td>
+                                    <td>
+                                        {% if prod.stock > 10 %}
+                                            <span class="text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i> {{ prod.stock }} {% trans "In Stock" %}</span>
+                                        {% elif prod.stock > 0 %}
+                                            <span class="text-warning fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i> {% trans "Only" %} {{ prod.stock }} {% trans "left" %}</span>
+                                        {% else %}
+                                            <span class="text-danger fw-bold"><i class="bi bi-x-circle-fill me-1"></i> {% trans "Out of stock" %}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-end pe-4 fw-bold text-dark">${{ prod.price|floatformat:2 }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-5 text-muted">
+                                        <i class="bi bi-box-seam fs-1 d-block mb-2"></i>
+                                        {% trans "No products found. Start selling today!" %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<div class="card border-0 shadow">
-    <div class="card-header bg-white">{% trans "Order Status Analytics" %}</div>
-    <div class="card-body">
-        <canvas id="orderChart"></canvas>
-    </div>
-</div>
-
+<!-- Chart JS Setup Script -->
 <script>
-    const ctx = document.getElementById('orderChart');
-    new Chart(ctx, {
-        type: 'bar',
+    // 1. Circle / Doughnut Chart for Order Status
+    const rawLabels = {{ chart_labels|safe }};
+    const rawData = {{ chart_values|safe }};
+
+    // Advanced dynamic coloring based on specific status
+    const colorMap = {
+        'Paid': '#198754',      // Green
+        'Shipped': '#0d6efd',   // Blue
+        'Accepted': '#0dcaf0',  // Light Blue/Cyan
+        'Declined': '#dc3545',  // Red
+        'Pending': '#fd7e14', // Orange
+        'Expired': '#6c757d'    // Gray
+    };
+
+    // Map the colors dynamically based on what labels exist
+    const dynamicColors = rawLabels.map(label => colorMap[label] || '#D4AF37');
+
+    const ctxOrder = document.getElementById('orderChart').getContext('2d');
+    new Chart(ctxOrder, {
+        type: 'doughnut',
         data: {
-            labels: {{ chart_labels|safe }},
+            labels: rawLabels,
             datasets: [{
-                label: 'Orders',
-                data: {{ chart_values|safe }},
-                backgroundColor: '#D4AF37',
+                data: rawData,
+                backgroundColor: dynamicColors,
+                borderWidth: 0,
+                hoverOffset: 6
             }]
+        },
+        options: {
+            responsive: true,
+            cutout: '75%',
+            plugins: {
+                legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } }
+            }
+        }
+    });
+
+    // 2. Financial Area Chart for Sales
+    const ctxSales = document.getElementById('salesChart').getContext('2d');
+    
+    // Create Gold Gradient for the area under the line
+    let gradient = ctxSales.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, 'rgba(212, 175, 55, 0.4)'); // Gold Semi-transparent
+    gradient.addColorStop(1, 'rgba(212, 175, 55, 0.0)'); // Fades to transparent
+
+    new Chart(ctxSales, {
+        type: 'line',
+        data: {
+            labels: {{ dates_json|safe }},
+            datasets: [{
+                label: 'Revenue ($)',
+                data: {{ sales_data_json|safe }},
+                borderColor: '#D4AF37', // Gold Line
+                backgroundColor: gradient,
+                borderWidth: 3,
+                pointBackgroundColor: '#ffffff',
+                pointBorderColor: '#D4AF37',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                fill: true,
+                tension: 0.4 // Creates smooth curves
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    titleFont: { size: 13 },
+                    bodyFont: { size: 14, weight: 'bold' },
+                    padding: 12,
+                    displayColors: false,
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { borderDash: [5, 5], color: '#f1f1f1' },
+                    border: { display: false }
+                },
+                x: {
+                    grid: { display: false },
+                    border: { display: false }
+                }
+            }
         }
     });
 </script>
