@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 23:51+0300\n"
+"POT-Creation-Date: 2026-04-19 10:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,6 @@ msgstr "ላንግ"
 
 #: .\templates\AR_3D\index.html:259 .\templates\ai\index.html:349
 #: .\templates\ai\trainer.html:264 .\templates\base.html:45
-#| msgid "Select Plan"
 msgid "Select Language"
 msgstr "ቋንቋ ይምረጡ"
 
@@ -486,12 +485,12 @@ msgstr "ስም"
 
 #: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:508
 #: .\templates\market\list.html:38 .\templates\seller_panel\products.html:39
-#: .\templates\seller_panel\products_form.html:19
+#: .\templates\seller_panel\products_form.html:52
 msgid "Category"
 msgstr "ምድብ"
 
 #: .\templates\admin_panel\products.html:33
-#: .\templates\seller_panel\products_form.html:35
+#: .\templates\seller_panel\products_form.html:71
 msgid "Price"
 msgstr "ዋጋ"
 
@@ -702,7 +701,6 @@ msgid "INQUIRE"
 msgstr "ይጠይቁ"
 
 #: .\templates\ai\trainer.html:7
-#| msgid "AI Training Center"
 msgid "Asortie Ultimate | AI Training Center"
 msgstr "Asortie Ultimate | AI ማሰልጠኛ ማዕከል"
 
@@ -1489,7 +1487,7 @@ msgid "24/7 Support"
 msgstr "24/7 ድጋፍ"
 
 #: .\templates\market\detail.html:491
-#: .\templates\seller_panel\products_form.html:48
+#: .\templates\seller_panel\products_form.html:91
 msgid "Description"
 msgstr "መግለጫ"
 
@@ -1565,7 +1563,7 @@ msgid "Browse premium luxury furniture products from verified sellers."
 msgstr "ከተረጋገጡ ሻጮች ፕሪሚየም የቅንጦት የቤት ዕቃ ምርቶችን ያስሱ።"
 
 #: .\templates\market\list.html:48
-#: .\templates\seller_panel\products_form.html:29
+#: .\templates\seller_panel\products_form.html:62
 msgid "Sub Category"
 msgstr "ንዑስ ምድብ"
 
@@ -1750,34 +1748,30 @@ msgid "Message Specialist"
 msgstr "የመልእክት ባለሙያ"
 
 #: .\templates\partials\footer.html:7
+msgid "Copyright"
+msgstr "የቅጂ መብት"
+
+#: .\templates\partials\footer.html:7
 msgid "2026"
 msgstr "2026"
 
-#: .\templates\partials\footer.html:7 .\templates\partials\header.html:100
-msgid "Asortie"
-msgstr "Asortie"
+#: .\templates\partials\footer.html:7
+msgid "Asortie Luxury Furniture"
+msgstr "Asortie የቅንጦት ዕቃዎች"
 
 #: .\templates\partials\footer.html:8
-msgid "Addis Ababa, Ethiopia. Developer"
-msgstr "አዲስ አበባ፣ ኢትዮጵያ። ገንቢ"
-
-#: .\templates\partials\footer.html:8
-msgid "Bilal Nesru"
-msgstr "ቢላል ነስሩ"
-
-#: .\templates\partials\footer.html:9
 msgid "Powered By"
 msgstr "የተጎላበተ በ"
 
-#: .\templates\partials\footer.html:9
-msgid "Anwar5Promoter"
-msgstr "አንዋር5 ፕሮሞተር"
+#: .\templates\partials\footer.html:8
+msgid "BilyonArc"
+msgstr "ቢሊዮን አርክ"
 
-#: .\templates\partials\footer.html:10
+#: .\templates\partials\footer.html:9
 msgid "Privacy"
 msgstr "ግላዊነት"
 
-#: .\templates\partials\footer.html:11
+#: .\templates\partials\footer.html:10
 msgid "Terms"
 msgstr "ውሎች"
 
@@ -1796,6 +1790,10 @@ msgstr "ክፍያዎችን ያስተዳድሩ"
 #: .\templates\partials\header.html:48 .\templates\partials\header.html:84
 msgid "Business Profile"
 msgstr "የንግድ መገለጫ"
+
+#: .\templates\partials\header.html:100
+msgid "Asortie"
+msgstr "Asortie"
 
 #: .\templates\partials\index.html:107
 msgid "Luxury Interior Intelligence"
@@ -2233,111 +2231,167 @@ msgstr "ምንም 3D ሞዴሎች የሉም"
 msgid "No products listed yet."
 msgstr "እስካሁን ምንም የተዘረዘሩ ምርቶች የሉም።"
 
-#: .\templates\seller_panel\products_form.html:5
+#: .\templates\seller_panel\products_form.html:26
 msgid "Edit Product"
 msgstr "ምርቱን ያርትዑ"
 
-#: .\templates\seller_panel\products_form.html:5
+#: .\templates\seller_panel\products_form.html:28
 msgid "Add New Product"
 msgstr "አዲስ ምርት ያክሉ"
 
-#: .\templates\seller_panel\products_form.html:11
+#: .\templates\seller_panel\products_form.html:43
 msgid "Basic Information"
 msgstr "መሰረታዊ መረጃ"
 
-#: .\templates\seller_panel\products_form.html:15
+#: .\templates\seller_panel\products_form.html:48
 msgid "Product Name"
 msgstr "የምርት ስም"
 
-#: .\templates\seller_panel\products_form.html:21
+#: .\templates\seller_panel\products_form.html:49
+msgid "Enter product name"
+msgstr "የምርት ስም ያስገቡ"
+
+#: .\templates\seller_panel\products_form.html:54
 msgid "Classic"
 msgstr "ክላሲክ"
 
-#: .\templates\seller_panel\products_form.html:22
+#: .\templates\seller_panel\products_form.html:55
 msgid "Modern"
 msgstr "ዘመናዊ"
 
-#: .\templates\seller_panel\products_form.html:23
+#: .\templates\seller_panel\products_form.html:56
 msgid "Decoration"
 msgstr "ማስጌጥ"
 
-#: .\templates\seller_panel\products_form.html:24
+#: .\templates\seller_panel\products_form.html:57
 msgid "Office"
 msgstr "ቢሮ"
 
-#: .\templates\seller_panel\products_form.html:25
+#: .\templates\seller_panel\products_form.html:58
 msgid "Hotel"
 msgstr "ሆቴል"
 
-#: .\templates\seller_panel\products_form.html:39
-msgid "Stock"
-msgstr "አክሲዮን"
+#: .\templates\seller_panel\products_form.html:63
+msgid "e.g. Chairs"
+msgstr "ለምሳሌ. ወንበሮች"
 
-#: .\templates\seller_panel\products_form.html:43
+#: .\templates\seller_panel\products_form.html:68
+msgid "Price Configuration"
+msgstr "የዋጋ ውቅር"
+
+#: .\templates\seller_panel\products_form.html:72
+msgid "Price on Request"
+msgstr "በጥያቄ ላይ ያለው ዋጋ"
+
+#: .\templates\seller_panel\products_form.html:79
+msgid "Stock Quantity"
+msgstr "የአክሲዮን ብዛት"
+
+#: .\templates\seller_panel\products_form.html:83
 msgid "Main Image"
 msgstr "ዋና ምስል"
 
-#: .\templates\seller_panel\products_form.html:55
+#: .\templates\seller_panel\products_form.html:92
+msgid "Enter detailed product description here..."
+msgstr "ዝርዝር የምርት መግለጫ እዚህ ያስገቡ..."
+
+#: .\templates\seller_panel\products_form.html:100
+msgid "Gallery & 3D Models"
+msgstr "ማዕከለ-ስዕላት እና 3-ል ሞዴሎች"
+
+#: .\templates\seller_panel\products_form.html:106
+msgid "Gallery Images"
+msgstr "የጋለሪ ምስሎች"
+
+#: .\templates\seller_panel\products_form.html:124
+msgid "Upload Additional Gallery Images"
+msgstr "ተጨማሪ የጋለሪ ምስሎችን ይስቀሉ።"
+
+#: .\templates\seller_panel\products_form.html:133
+msgid "3D Models & Variants"
+msgstr "3D ሞዴሎች እና ተለዋጮች"
+
+#: .\templates\seller_panel\products_form.html:135
+msgid "Add New Variant"
+msgstr "አዲስ ተለዋጭ ያክሉ"
+
+#: .\templates\seller_panel\products_form.html:141
+msgid "Current Variants"
+msgstr "የአሁኑ ተለዋጮች"
+
+#: .\templates\seller_panel\products_form.html:175
 msgid "Logistics & Delivery Configuration"
 msgstr "ሎጅስቲክስ እና ማቅረቢያ ውቅር"
 
-#: .\templates\seller_panel\products_form.html:59
+#: .\templates\seller_panel\products_form.html:180
 msgid "Transport Type"
 msgstr "የመጓጓዣ አይነት"
 
-#: .\templates\seller_panel\products_form.html:61
+#: .\templates\seller_panel\products_form.html:184
 msgid "Land Transport"
 msgstr "የመሬት ትራንስፖርት"
 
-#: .\templates\seller_panel\products_form.html:62
+#: .\templates\seller_panel\products_form.html:185
 msgid "Air Freight"
 msgstr "የአየር ጭነት"
 
-#: .\templates\seller_panel\products_form.html:63
+#: .\templates\seller_panel\products_form.html:186
 msgid "Sea Freight"
 msgstr "የባህር ጭነት"
 
-#: .\templates\seller_panel\products_form.html:67
+#: .\templates\seller_panel\products_form.html:191
 msgid "Free Delivery Up To (KM)"
 msgstr "ነጻ ማድረስ እስከ (ኪሜ)"
 
-#: .\templates\seller_panel\products_form.html:71
+#: .\templates\seller_panel\products_form.html:195
 msgid "Maximum Delivery (KM)"
 msgstr "ከፍተኛው መላኪያ (ኪሜ)"
 
-#: .\templates\seller_panel\products_form.html:78
+#: .\templates\seller_panel\products_form.html:202
 msgid "Price Per Country"
 msgstr "ዋጋ በአገር"
 
-#: .\templates\seller_panel\products_form.html:82
+#: .\templates\seller_panel\products_form.html:206
 msgid "Price Per 0.1 KM"
 msgstr "ዋጋ በ 0.1 ኪ.ሜ"
 
-#: .\templates\seller_panel\products_form.html:86
+#: .\templates\seller_panel\products_form.html:210
 msgid "Container Price"
 msgstr "የመያዣ ዋጋ"
 
-#: .\templates\seller_panel\products_form.html:90
+#: .\templates\seller_panel\products_form.html:214
 msgid "Container Number"
 msgstr "የመያዣ ቁጥር"
 
-#: .\templates\seller_panel\products_form.html:98
-msgid "Pickup Location"
-msgstr "የመውሰጃ ቦታ"
+#: .\templates\seller_panel\products_form.html:224
+msgid "Pickup Location Configuration"
+msgstr "የመውሰጃ አካባቢ ውቅር"
 
-#: .\templates\seller_panel\products_form.html:102
+#: .\templates\seller_panel\products_form.html:229
 msgid "Full Address"
 msgstr "ሙሉ አድራሻ"
 
-#: .\templates\seller_panel\products_form.html:106
+#: .\templates\seller_panel\products_form.html:232
+msgid "Search location or click Locate Me..."
+msgstr "አካባቢ ፈልግ ወይም አግኘኝን ጠቅ አድርግ..."
+
+#: .\templates\seller_panel\products_form.html:233
+msgid "Find my exact location"
+msgstr "ትክክለኛ ቦታዬን አግኝ"
+
+#: .\templates\seller_panel\products_form.html:234
+msgid "Locate Me"
+msgstr "አግኙኝ።"
+
+#: .\templates\seller_panel\products_form.html:239
 msgid "Pickup Country"
 msgstr "የመውሰጃ ሀገር"
 
-#: .\templates\seller_panel\products_form.html:119
+#: .\templates\seller_panel\products_form.html:258
 msgid "Update Product & Logistics"
 msgstr "ምርት እና ሎጂስቲክስን ያዘምኑ"
 
-#: .\templates\seller_panel\products_form.html:119
+#: .\templates\seller_panel\products_form.html:260
 msgid "Publish Product"
 msgstr "ምርትን አትም"
 
@@ -2520,6 +2574,18 @@ msgstr "እስካሁን ምንም ግብይቶች የሉም"
 msgid "Successful orders and payments will appear here automatically."
 msgstr "የተሳካላቸው ትዕዛዞች እና ክፍያዎች በራስ-ሰር እዚህ ይታያሉ።"
 
+#~ msgid "Addis Ababa, Ethiopia. Developer"
+#~ msgstr "አዲስ አበባ፣ ኢትዮጵያ። ገንቢ"
+
+#~ msgid "Bilal Nesru"
+#~ msgstr "ቢላል ነስሩ"
+
+#~ msgid "Anwar5Promoter"
+#~ msgstr "አንዋር5 ፕሮሞተር"
+
+#~ msgid "Stock"
+#~ msgstr "አክሲዮን"
+
 #~ msgid "PDF or Image required."
 #~ msgstr "ፒዲኤፍ ወይም ምስል ያስፈልጋል።"
 
@@ -2598,20 +2664,11 @@ msgstr "የተሳካላቸው ትዕዛዞች እና ክፍያዎች በራስ-�
 #~ msgid "Upload to replace current main image."
 #~ msgstr "የአሁኑን ዋና ምስል ለመተካት ስቀል።"
 
-#~ msgid "Gallery Images"
-#~ msgstr "የጋለሪ ምስሎች"
-
 #~ msgid "Add New Images:"
 #~ msgstr "አዲስ ምስሎችን ያክሉ"
 
-#~ msgid "3D Models & Variants"
-#~ msgstr "3D ሞዴሎች እና ተለዋጮች"
-
 #~ msgid "Add New"
 #~ msgstr "አዲስ ያክሉ"
-
-#~ msgid "Current Variants"
-#~ msgstr "የአሁኑ ተለዋጮች"
 
 #~ msgid "File Uploaded"
 #~ msgstr "ፋይል ተጭኗል"
