@@ -20,6 +20,7 @@ from django.utils import timezone
 from datetime import timedelta
 import math
 import iyzipay
+import calendar
 
 
 User = get_user_model()
@@ -85,29 +86,110 @@ def product_detail(request, product_id):
 # ==========================
 # 2. SELLER PANEL VIEWS
 # ==========================
-
 @login_required
 def seller_dashboard(request):
-    if request.user.role != 'seller': return redirect('home')
-    my_products = Product.objects.filter(seller=request.user, is_active=True)
-    my_orders = Order.objects.filter(product__seller=request.user)
+    if request.user.role != 'seller': 
+        return redirect('home')
+        
+    my_products = Product.objects.filter(seller=request.user, is_active=True).order_by('-created_at')
+    my_orders = Order.objects.filter(product__seller=request.user).order_by('-created_at')
     
     valid_statuses = ['Paid', 'Shipped', 'Delivered']
     revenue = my_orders.filter(status__in=valid_statuses).aggregate(Sum('total_price'))['total_price__sum'] or 0
     
-    status_data = list(my_orders.values('status').annotate(count=Count('status')))
+    # 1. Circle Chart Data (Order Statuses) - FILTERED
+    allowed_chart_statuses = ['Accepted', 'Paid', 'Declined', 'Expired', 'Shipped', 'Pending']
     
-    # Handle charts safely
-    import json
+    # ADD .order_by() HERE to prevent duplicate grouping
+    status_data = list(
+        my_orders.filter(status__in=allowed_chart_statuses)
+        .order_by()  # <--- THIS FIXES THE DUPLICATES
+        .values('status')
+        .annotate(count=Count('status'))
+    )
+    
     chart_labels = json.dumps([x['status'] for x in status_data])
     chart_values = json.dumps([x['count'] for x in status_data])
+    
+    # 2. Area/Line Chart Data (Dynamic Filtering)
+    now = timezone.now()
+    q_year = request.GET.get('year')
+    q_month = request.GET.get('month')
+    
+    dates = []
+    sales_data = []
+    chart_title = "Revenue Trend (Last 7 Days)"
+    
+    if q_year:
+        year = int(q_year)
+        if q_month:
+            # Scenario A: Specific Month Selected
+            month = int(q_month)
+            chart_title = f"Revenue Trend ({calendar.month_name[month]} {year})"
+            num_days = calendar.monthrange(year, month)[1]
+            
+            for day in range(1, num_days + 1):
+                dates.append(f"{calendar.month_abbr[month]} {day}")
+                day_total = my_orders.filter(
+                    created_at__year=year,
+                    created_at__month=month,
+                    created_at__day=day,
+                    status__in=valid_statuses
+                ).aggregate(Sum('total_price'))['total_price__sum'] or 0
+                sales_data.append(float(day_total))
+        else:
+            # Scenario B: Only Year Selected
+            chart_title = f"Revenue Trend ({year})"
+            for month in range(1, 13):
+                dates.append(calendar.month_abbr[month])
+                month_total = my_orders.filter(
+                    created_at__year=year,
+                    created_at__month=month,
+                    status__in=valid_statuses
+                ).aggregate(Sum('total_price'))['total_price__sum'] or 0
+                sales_data.append(float(month_total))
+    else:
+        # Scenario C: Default (Last 7 Days)
+        last_7_days = [now - timedelta(days=i) for i in range(6, -1, -1)]
+        for d in last_7_days:
+            dates.append(d.strftime('%b %d'))
+            day_total = my_orders.filter(
+                created_at__year=d.year,
+                created_at__month=d.month,
+                created_at__day=d.day,
+                status__in=valid_statuses
+            ).aggregate(Sum('total_price'))['total_price__sum'] or 0
+            sales_data.append(float(day_total))
+
+    # Prepping Filter Dropdown Values
+    current_year = now.year
+    years = range(current_year, current_year - 5, -1)
+    months = [
+        (1, "Jan"), (2, "Feb"), (3, "Mar"), (4, "Apr"), (5, "May"), (6, "Jun"), 
+        (7, "Jul"), (8, "Aug"), (9, "Sep"), (10, "Oct"), (11, "Nov"), (12, "Dec")
+    ]
 
     context = {
         'products_count': my_products.count(),
         'orders_count': my_orders.count(),
         'revenue': revenue,
+        
+        # Chart Data
         'chart_labels': chart_labels,
-        'chart_values': chart_values
+        'chart_values': chart_values,
+        'dates_json': json.dumps(dates),
+        'sales_data_json': json.dumps(sales_data),
+        'chart_title': chart_title,
+        
+        # Form Filter Data
+        'years': years,
+        'months': months,
+        'selected_year': q_year,
+        'selected_month': q_month,
+        
+        # Table Data - LIMITED TO 5
+        'recent_orders': my_orders[:5],    
+        'recent_products': my_products[:5],
     }
     return render(request, 'seller_panel/dashboard.html', context)
 
