@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 23:51+0300\n"
+"POT-Creation-Date: 2026-04-19 10:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,6 @@ msgstr "Uzunluk"
 
 #: .\templates\AR_3D\index.html:259 .\templates\ai\index.html:349
 #: .\templates\ai\trainer.html:264 .\templates\base.html:45
-#| msgid "Select Plan"
 msgid "Select Language"
 msgstr "Dil Seçiniz"
 
@@ -491,12 +490,12 @@ msgstr "İsim"
 
 #: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:508
 #: .\templates\market\list.html:38 .\templates\seller_panel\products.html:39
-#: .\templates\seller_panel\products_form.html:19
+#: .\templates\seller_panel\products_form.html:52
 msgid "Category"
 msgstr "Kategori"
 
 #: .\templates\admin_panel\products.html:33
-#: .\templates\seller_panel\products_form.html:35
+#: .\templates\seller_panel\products_form.html:71
 msgid "Price"
 msgstr "Fiyat"
 
@@ -707,7 +706,6 @@ msgid "INQUIRE"
 msgstr "SORUŞTUR"
 
 #: .\templates\ai\trainer.html:7
-#| msgid "AI Training Center"
 msgid "Asortie Ultimate | AI Training Center"
 msgstr "Çeşitli Ultimate | Yapay Zeka Eğitim Merkezi"
 
@@ -1512,7 +1510,7 @@ msgid "24/7 Support"
 msgstr "7/24 Destek"
 
 #: .\templates\market\detail.html:491
-#: .\templates\seller_panel\products_form.html:48
+#: .\templates\seller_panel\products_form.html:91
 msgid "Description"
 msgstr "Tanım"
 
@@ -1589,7 +1587,7 @@ msgid "Browse premium luxury furniture products from verified sellers."
 msgstr "Doğrulanmış satıcıların premium lüks mobilya ürünlerine göz atın."
 
 #: .\templates\market\list.html:48
-#: .\templates\seller_panel\products_form.html:29
+#: .\templates\seller_panel\products_form.html:62
 msgid "Sub Category"
 msgstr "Alt Kategori"
 
@@ -1776,34 +1774,30 @@ msgid "Message Specialist"
 msgstr "Mesaj Uzmanı"
 
 #: .\templates\partials\footer.html:7
+msgid "Copyright"
+msgstr "Telif hakkı"
+
+#: .\templates\partials\footer.html:7
 msgid "2026"
 msgstr "2026"
 
-#: .\templates\partials\footer.html:7 .\templates\partials\header.html:100
-msgid "Asortie"
-msgstr "Çeşitli"
+#: .\templates\partials\footer.html:7
+msgid "Asortie Luxury Furniture"
+msgstr "Asortie Lüks Mobilya"
 
 #: .\templates\partials\footer.html:8
-msgid "Addis Ababa, Ethiopia. Developer"
-msgstr "Addis Ababa, Etiyopya. Geliştirici"
-
-#: .\templates\partials\footer.html:8
-msgid "Bilal Nesru"
-msgstr "Bilal Nesru"
-
-#: .\templates\partials\footer.html:9
 msgid "Powered By"
 msgstr "Tarafından desteklenmektedir"
 
-#: .\templates\partials\footer.html:9
-msgid "Anwar5Promoter"
-msgstr "Anwar5Destekleyici"
+#: .\templates\partials\footer.html:8
+msgid "BilyonArc"
+msgstr "BilyonArc"
 
-#: .\templates\partials\footer.html:10
+#: .\templates\partials\footer.html:9
 msgid "Privacy"
 msgstr "Mahremiyet"
 
-#: .\templates\partials\footer.html:11
+#: .\templates\partials\footer.html:10
 msgid "Terms"
 msgstr "Şartlar"
 
@@ -1822,6 +1816,10 @@ msgstr "Ödemeleri Yönet"
 #: .\templates\partials\header.html:48 .\templates\partials\header.html:84
 msgid "Business Profile"
 msgstr "İşletme Profili"
+
+#: .\templates\partials\header.html:100
+msgid "Asortie"
+msgstr "Çeşitli"
 
 #: .\templates\partials\index.html:107
 msgid "Luxury Interior Intelligence"
@@ -2259,111 +2257,167 @@ msgstr "3D Model Yok"
 msgid "No products listed yet."
 msgstr "Henüz listelenmiş ürün yok."
 
-#: .\templates\seller_panel\products_form.html:5
+#: .\templates\seller_panel\products_form.html:26
 msgid "Edit Product"
 msgstr "Ürünü Düzenle"
 
-#: .\templates\seller_panel\products_form.html:5
+#: .\templates\seller_panel\products_form.html:28
 msgid "Add New Product"
 msgstr "Yeni Ürün Ekle"
 
-#: .\templates\seller_panel\products_form.html:11
+#: .\templates\seller_panel\products_form.html:43
 msgid "Basic Information"
 msgstr "Temel Bilgiler"
 
-#: .\templates\seller_panel\products_form.html:15
+#: .\templates\seller_panel\products_form.html:48
 msgid "Product Name"
 msgstr "Ürün Adı"
 
-#: .\templates\seller_panel\products_form.html:21
+#: .\templates\seller_panel\products_form.html:49
+msgid "Enter product name"
+msgstr "Ürün adını girin"
+
+#: .\templates\seller_panel\products_form.html:54
 msgid "Classic"
 msgstr "Klasik"
 
-#: .\templates\seller_panel\products_form.html:22
+#: .\templates\seller_panel\products_form.html:55
 msgid "Modern"
 msgstr "Modern"
 
-#: .\templates\seller_panel\products_form.html:23
+#: .\templates\seller_panel\products_form.html:56
 msgid "Decoration"
 msgstr "Dekorasyon"
 
-#: .\templates\seller_panel\products_form.html:24
+#: .\templates\seller_panel\products_form.html:57
 msgid "Office"
 msgstr "Ofis"
 
-#: .\templates\seller_panel\products_form.html:25
+#: .\templates\seller_panel\products_form.html:58
 msgid "Hotel"
 msgstr "Otel"
 
-#: .\templates\seller_panel\products_form.html:39
-msgid "Stock"
-msgstr "Stoklamak"
+#: .\templates\seller_panel\products_form.html:63
+msgid "e.g. Chairs"
+msgstr "örneğin Sandalyeler"
 
-#: .\templates\seller_panel\products_form.html:43
+#: .\templates\seller_panel\products_form.html:68
+msgid "Price Configuration"
+msgstr "Fiyat Yapılandırması"
+
+#: .\templates\seller_panel\products_form.html:72
+msgid "Price on Request"
+msgstr "Talep Üzerine Fiyat"
+
+#: .\templates\seller_panel\products_form.html:79
+msgid "Stock Quantity"
+msgstr "Stok Miktarı"
+
+#: .\templates\seller_panel\products_form.html:83
 msgid "Main Image"
 msgstr "Ana Resim"
 
-#: .\templates\seller_panel\products_form.html:55
+#: .\templates\seller_panel\products_form.html:92
+msgid "Enter detailed product description here..."
+msgstr "Detaylı ürün açıklamasını buraya girin..."
+
+#: .\templates\seller_panel\products_form.html:100
+msgid "Gallery & 3D Models"
+msgstr "Galeri ve 3D Modeller"
+
+#: .\templates\seller_panel\products_form.html:106
+msgid "Gallery Images"
+msgstr "Galeri Görselleri"
+
+#: .\templates\seller_panel\products_form.html:124
+msgid "Upload Additional Gallery Images"
+msgstr "Ek Galeri Görselleri Yükleyin"
+
+#: .\templates\seller_panel\products_form.html:133
+msgid "3D Models & Variants"
+msgstr "3B Modeller ve Çeşitler"
+
+#: .\templates\seller_panel\products_form.html:135
+msgid "Add New Variant"
+msgstr "Yeni Varyant Ekle"
+
+#: .\templates\seller_panel\products_form.html:141
+msgid "Current Variants"
+msgstr "Mevcut Varyantlar"
+
+#: .\templates\seller_panel\products_form.html:175
 msgid "Logistics & Delivery Configuration"
 msgstr "Lojistik ve Teslimat Yapılandırması"
 
-#: .\templates\seller_panel\products_form.html:59
+#: .\templates\seller_panel\products_form.html:180
 msgid "Transport Type"
 msgstr "Taşıma Türü"
 
-#: .\templates\seller_panel\products_form.html:61
+#: .\templates\seller_panel\products_form.html:184
 msgid "Land Transport"
 msgstr "Kara Taşımacılığı"
 
-#: .\templates\seller_panel\products_form.html:62
+#: .\templates\seller_panel\products_form.html:185
 msgid "Air Freight"
 msgstr "Hava Taşımacılığı"
 
-#: .\templates\seller_panel\products_form.html:63
+#: .\templates\seller_panel\products_form.html:186
 msgid "Sea Freight"
 msgstr "Deniz Taşımacılığı"
 
-#: .\templates\seller_panel\products_form.html:67
+#: .\templates\seller_panel\products_form.html:191
 msgid "Free Delivery Up To (KM)"
 msgstr "(KM) Kadar Ücretsiz Teslimat"
 
-#: .\templates\seller_panel\products_form.html:71
+#: .\templates\seller_panel\products_form.html:195
 msgid "Maximum Delivery (KM)"
 msgstr "Maksimum Teslimat (KM)"
 
-#: .\templates\seller_panel\products_form.html:78
+#: .\templates\seller_panel\products_form.html:202
 msgid "Price Per Country"
 msgstr "Ülke Başına Fiyat"
 
-#: .\templates\seller_panel\products_form.html:82
+#: .\templates\seller_panel\products_form.html:206
 msgid "Price Per 0.1 KM"
 msgstr "0,1 KM Başına Fiyat"
 
-#: .\templates\seller_panel\products_form.html:86
+#: .\templates\seller_panel\products_form.html:210
 msgid "Container Price"
 msgstr "Konteyner Fiyatı"
 
-#: .\templates\seller_panel\products_form.html:90
+#: .\templates\seller_panel\products_form.html:214
 msgid "Container Number"
 msgstr "Konteyner Numarası"
 
-#: .\templates\seller_panel\products_form.html:98
-msgid "Pickup Location"
-msgstr "Teslim Alma Konumu"
+#: .\templates\seller_panel\products_form.html:224
+msgid "Pickup Location Configuration"
+msgstr "Alım Konumu Yapılandırması"
 
-#: .\templates\seller_panel\products_form.html:102
+#: .\templates\seller_panel\products_form.html:229
 msgid "Full Address"
 msgstr "Tam Adres"
 
-#: .\templates\seller_panel\products_form.html:106
+#: .\templates\seller_panel\products_form.html:232
+msgid "Search location or click Locate Me..."
+msgstr "Konum arayın veya Beni Bul'a tıklayın..."
+
+#: .\templates\seller_panel\products_form.html:233
+msgid "Find my exact location"
+msgstr "Tam konumumu bul"
+
+#: .\templates\seller_panel\products_form.html:234
+msgid "Locate Me"
+msgstr "Beni Bul"
+
+#: .\templates\seller_panel\products_form.html:239
 msgid "Pickup Country"
 msgstr "Teslim Alma Ülkesi"
 
-#: .\templates\seller_panel\products_form.html:119
+#: .\templates\seller_panel\products_form.html:258
 msgid "Update Product & Logistics"
 msgstr "Ürün ve Lojistiği Güncelle"
 
-#: .\templates\seller_panel\products_form.html:119
+#: .\templates\seller_panel\products_form.html:260
 msgid "Publish Product"
 msgstr "Ürünü Yayınla"
 
@@ -2555,6 +2609,18 @@ msgstr "Henüz işlem yok"
 msgid "Successful orders and payments will appear here automatically."
 msgstr "Başarılı siparişler ve ödemeler burada otomatik olarak görünecektir."
 
+#~ msgid "Addis Ababa, Ethiopia. Developer"
+#~ msgstr "Addis Ababa, Etiyopya. Geliştirici"
+
+#~ msgid "Bilal Nesru"
+#~ msgstr "Bilal Nesru"
+
+#~ msgid "Anwar5Promoter"
+#~ msgstr "Anwar5Destekleyici"
+
+#~ msgid "Stock"
+#~ msgstr "Stoklamak"
+
 #~ msgid "PDF or Image required."
 #~ msgstr "PDF veya Resim gereklidir."
 
@@ -2633,20 +2699,11 @@ msgstr "Başarılı siparişler ve ödemeler burada otomatik olarak görünecekt
 #~ msgid "Upload to replace current main image."
 #~ msgstr "Mevcut ana resmi değiştirmek için yükleyin."
 
-#~ msgid "Gallery Images"
-#~ msgstr "Galeri Görselleri"
-
 #~ msgid "Add New Images:"
 #~ msgstr "Yeni Görseller Ekle:"
 
-#~ msgid "3D Models & Variants"
-#~ msgstr "3B Modeller ve Çeşitler"
-
 #~ msgid "Add New"
 #~ msgstr "Yeni Ekle"
-
-#~ msgid "Current Variants"
-#~ msgstr "Mevcut Varyantlar"
 
 #~ msgid "File Uploaded"
 #~ msgstr "Dosya Yüklendi"
