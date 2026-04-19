@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 23:51+0300\n"
+"POT-Creation-Date: 2026-04-19 10:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,6 @@ msgstr "Lang"
 
 #: .\templates\AR_3D\index.html:259 .\templates\ai\index.html:349
 #: .\templates\ai\trainer.html:264 .\templates\base.html:45
-#| msgid "Select Plan"
 msgid "Select Language"
 msgstr "Sélectionnez la langue"
 
@@ -495,12 +494,12 @@ msgstr "Nom"
 
 #: .\templates\admin_panel\products.html:31 .\templates\market\detail.html:508
 #: .\templates\market\list.html:38 .\templates\seller_panel\products.html:39
-#: .\templates\seller_panel\products_form.html:19
+#: .\templates\seller_panel\products_form.html:52
 msgid "Category"
 msgstr "Catégorie"
 
 #: .\templates\admin_panel\products.html:33
-#: .\templates\seller_panel\products_form.html:35
+#: .\templates\seller_panel\products_form.html:71
 msgid "Price"
 msgstr "Prix"
 
@@ -714,7 +713,6 @@ msgid "INQUIRE"
 msgstr "RENSEIGNER"
 
 #: .\templates\ai\trainer.html:7
-#| msgid "AI Training Center"
 msgid "Asortie Ultimate | AI Training Center"
 msgstr "Assortie Ultime | Centre de formation en IA"
 
@@ -1525,7 +1523,7 @@ msgid "24/7 Support"
 msgstr "Assistance 24h/24 et 7j/7"
 
 #: .\templates\market\detail.html:491
-#: .\templates\seller_panel\products_form.html:48
+#: .\templates\seller_panel\products_form.html:91
 msgid "Description"
 msgstr "Description"
 
@@ -1605,7 +1603,7 @@ msgstr ""
 "vérifiés."
 
 #: .\templates\market\list.html:48
-#: .\templates\seller_panel\products_form.html:29
+#: .\templates\seller_panel\products_form.html:62
 msgid "Sub Category"
 msgstr "Sous-catégorie"
 
@@ -1792,34 +1790,30 @@ msgid "Message Specialist"
 msgstr "Spécialiste des messages"
 
 #: .\templates\partials\footer.html:7
+msgid "Copyright"
+msgstr "Droit d'auteur"
+
+#: .\templates\partials\footer.html:7
 msgid "2026"
 msgstr "2026"
 
-#: .\templates\partials\footer.html:7 .\templates\partials\header.html:100
-msgid "Asortie"
-msgstr "Assortie"
+#: .\templates\partials\footer.html:7
+msgid "Asortie Luxury Furniture"
+msgstr "Meubles de luxe Asortie"
 
 #: .\templates\partials\footer.html:8
-msgid "Addis Ababa, Ethiopia. Developer"
-msgstr "Addis-Abeba, Éthiopie. Promoteur"
-
-#: .\templates\partials\footer.html:8
-msgid "Bilal Nesru"
-msgstr "Bilal Nesrou"
-
-#: .\templates\partials\footer.html:9
 msgid "Powered By"
 msgstr "Alimenté par"
 
-#: .\templates\partials\footer.html:9
-msgid "Anwar5Promoter"
-msgstr "Anwar5Promoteur"
+#: .\templates\partials\footer.html:8
+msgid "BilyonArc"
+msgstr "BilyonArc"
 
-#: .\templates\partials\footer.html:10
+#: .\templates\partials\footer.html:9
 msgid "Privacy"
 msgstr "Confidentialité"
 
-#: .\templates\partials\footer.html:11
+#: .\templates\partials\footer.html:10
 msgid "Terms"
 msgstr "Termes"
 
@@ -1838,6 +1832,10 @@ msgstr "Gérer les paiements"
 #: .\templates\partials\header.html:48 .\templates\partials\header.html:84
 msgid "Business Profile"
 msgstr "Profil d'entreprise"
+
+#: .\templates\partials\header.html:100
+msgid "Asortie"
+msgstr "Assortie"
 
 #: .\templates\partials\index.html:107
 msgid "Luxury Interior Intelligence"
@@ -2279,111 +2277,167 @@ msgstr "Aucun modèle 3D"
 msgid "No products listed yet."
 msgstr "Aucun produit répertorié pour l'instant."
 
-#: .\templates\seller_panel\products_form.html:5
+#: .\templates\seller_panel\products_form.html:26
 msgid "Edit Product"
 msgstr "Modifier le produit"
 
-#: .\templates\seller_panel\products_form.html:5
+#: .\templates\seller_panel\products_form.html:28
 msgid "Add New Product"
 msgstr "Ajouter un nouveau produit"
 
-#: .\templates\seller_panel\products_form.html:11
+#: .\templates\seller_panel\products_form.html:43
 msgid "Basic Information"
 msgstr "Informations de base"
 
-#: .\templates\seller_panel\products_form.html:15
+#: .\templates\seller_panel\products_form.html:48
 msgid "Product Name"
 msgstr "Nom du produit"
 
-#: .\templates\seller_panel\products_form.html:21
+#: .\templates\seller_panel\products_form.html:49
+msgid "Enter product name"
+msgstr "Entrez le nom du produit"
+
+#: .\templates\seller_panel\products_form.html:54
 msgid "Classic"
 msgstr "Classique"
 
-#: .\templates\seller_panel\products_form.html:22
+#: .\templates\seller_panel\products_form.html:55
 msgid "Modern"
 msgstr "Moderne"
 
-#: .\templates\seller_panel\products_form.html:23
+#: .\templates\seller_panel\products_form.html:56
 msgid "Decoration"
 msgstr "Décoration"
 
-#: .\templates\seller_panel\products_form.html:24
+#: .\templates\seller_panel\products_form.html:57
 msgid "Office"
 msgstr "Bureau"
 
-#: .\templates\seller_panel\products_form.html:25
+#: .\templates\seller_panel\products_form.html:58
 msgid "Hotel"
 msgstr "Hôtel"
 
-#: .\templates\seller_panel\products_form.html:39
-msgid "Stock"
-msgstr "Action"
+#: .\templates\seller_panel\products_form.html:63
+msgid "e.g. Chairs"
+msgstr "par ex. Chaises"
 
-#: .\templates\seller_panel\products_form.html:43
+#: .\templates\seller_panel\products_form.html:68
+msgid "Price Configuration"
+msgstr "Configuration des prix"
+
+#: .\templates\seller_panel\products_form.html:72
+msgid "Price on Request"
+msgstr "Prix ​​sur demande"
+
+#: .\templates\seller_panel\products_form.html:79
+msgid "Stock Quantity"
+msgstr "Quantité en stock"
+
+#: .\templates\seller_panel\products_form.html:83
 msgid "Main Image"
 msgstr "Image principale"
 
-#: .\templates\seller_panel\products_form.html:55
+#: .\templates\seller_panel\products_form.html:92
+msgid "Enter detailed product description here..."
+msgstr "Entrez la description détaillée du produit ici..."
+
+#: .\templates\seller_panel\products_form.html:100
+msgid "Gallery & 3D Models"
+msgstr "Galerie et modèles 3D"
+
+#: .\templates\seller_panel\products_form.html:106
+msgid "Gallery Images"
+msgstr "Images de la galerie"
+
+#: .\templates\seller_panel\products_form.html:124
+msgid "Upload Additional Gallery Images"
+msgstr "Télécharger des images de galerie supplémentaires"
+
+#: .\templates\seller_panel\products_form.html:133
+msgid "3D Models & Variants"
+msgstr "Modèles et variantes 3D"
+
+#: .\templates\seller_panel\products_form.html:135
+msgid "Add New Variant"
+msgstr "Ajouter une nouvelle variante"
+
+#: .\templates\seller_panel\products_form.html:141
+msgid "Current Variants"
+msgstr "Variantes actuelles"
+
+#: .\templates\seller_panel\products_form.html:175
 msgid "Logistics & Delivery Configuration"
 msgstr "Configuration logistique et livraison"
 
-#: .\templates\seller_panel\products_form.html:59
+#: .\templates\seller_panel\products_form.html:180
 msgid "Transport Type"
 msgstr "Type de transport"
 
-#: .\templates\seller_panel\products_form.html:61
+#: .\templates\seller_panel\products_form.html:184
 msgid "Land Transport"
 msgstr "Transports terrestres"
 
-#: .\templates\seller_panel\products_form.html:62
+#: .\templates\seller_panel\products_form.html:185
 msgid "Air Freight"
 msgstr "Fret aérien"
 
-#: .\templates\seller_panel\products_form.html:63
+#: .\templates\seller_panel\products_form.html:186
 msgid "Sea Freight"
 msgstr "Fret maritime"
 
-#: .\templates\seller_panel\products_form.html:67
+#: .\templates\seller_panel\products_form.html:191
 msgid "Free Delivery Up To (KM)"
 msgstr "Livraison gratuite jusqu'à (KM)"
 
-#: .\templates\seller_panel\products_form.html:71
+#: .\templates\seller_panel\products_form.html:195
 msgid "Maximum Delivery (KM)"
 msgstr "Livraison maximale (KM)"
 
-#: .\templates\seller_panel\products_form.html:78
+#: .\templates\seller_panel\products_form.html:202
 msgid "Price Per Country"
 msgstr "Prix ​​par pays"
 
-#: .\templates\seller_panel\products_form.html:82
+#: .\templates\seller_panel\products_form.html:206
 msgid "Price Per 0.1 KM"
 msgstr "Prix ​​par 0,1 KM"
 
-#: .\templates\seller_panel\products_form.html:86
+#: .\templates\seller_panel\products_form.html:210
 msgid "Container Price"
 msgstr "Prix ​​du conteneur"
 
-#: .\templates\seller_panel\products_form.html:90
+#: .\templates\seller_panel\products_form.html:214
 msgid "Container Number"
 msgstr "Numéro de conteneur"
 
-#: .\templates\seller_panel\products_form.html:98
-msgid "Pickup Location"
-msgstr "Lieu de prise en charge"
+#: .\templates\seller_panel\products_form.html:224
+msgid "Pickup Location Configuration"
+msgstr "Configuration du lieu de ramassage"
 
-#: .\templates\seller_panel\products_form.html:102
+#: .\templates\seller_panel\products_form.html:229
 msgid "Full Address"
 msgstr "Adresse complète"
 
-#: .\templates\seller_panel\products_form.html:106
+#: .\templates\seller_panel\products_form.html:232
+msgid "Search location or click Locate Me..."
+msgstr "Recherchez un emplacement ou cliquez sur Me localiser..."
+
+#: .\templates\seller_panel\products_form.html:233
+msgid "Find my exact location"
+msgstr "Trouver ma position exacte"
+
+#: .\templates\seller_panel\products_form.html:234
+msgid "Locate Me"
+msgstr "Localisez-moi"
+
+#: .\templates\seller_panel\products_form.html:239
 msgid "Pickup Country"
 msgstr "Pays de ramassage"
 
-#: .\templates\seller_panel\products_form.html:119
+#: .\templates\seller_panel\products_form.html:258
 msgid "Update Product & Logistics"
 msgstr "Mettre à jour le produit et la logistique"
 
-#: .\templates\seller_panel\products_form.html:119
+#: .\templates\seller_panel\products_form.html:260
 msgid "Publish Product"
 msgstr "Publier le produit"
 
@@ -2577,6 +2631,18 @@ msgstr "Aucune transaction pour l'instant"
 msgid "Successful orders and payments will appear here automatically."
 msgstr "Les commandes et paiements réussis apparaîtront automatiquement ici."
 
+#~ msgid "Addis Ababa, Ethiopia. Developer"
+#~ msgstr "Addis-Abeba, Éthiopie. Promoteur"
+
+#~ msgid "Bilal Nesru"
+#~ msgstr "Bilal Nesrou"
+
+#~ msgid "Anwar5Promoter"
+#~ msgstr "Anwar5Promoteur"
+
+#~ msgid "Stock"
+#~ msgstr "Action"
+
 #~ msgid "PDF or Image required."
 #~ msgstr "PDF ou image requis."
 
@@ -2655,20 +2721,11 @@ msgstr "Les commandes et paiements réussis apparaîtront automatiquement ici."
 #~ msgid "Upload to replace current main image."
 #~ msgstr "Téléchargez pour remplacer l'image principale actuelle."
 
-#~ msgid "Gallery Images"
-#~ msgstr "Images de la galerie"
-
 #~ msgid "Add New Images:"
 #~ msgstr "Ajouter de nouvelles images :"
 
-#~ msgid "3D Models & Variants"
-#~ msgstr "Modèles et variantes 3D"
-
 #~ msgid "Add New"
 #~ msgstr "Ajouter un nouveau"
-
-#~ msgid "Current Variants"
-#~ msgstr "Variantes actuelles"
 
 #~ msgid "File Uploaded"
 #~ msgstr "Fichier téléchargé"
