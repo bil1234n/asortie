@@ -169,86 +169,107 @@
             </div>
         </div>
 
-        <!-- Logistics Card -->
+        <!-- New: Pickup Status Selector -->
         <div class="card shadow-sm">
             <div class="card-header bg-light text-dark border-bottom">
-                <i class="fas fa-truck-loading text-warning me-2"></i>{% trans "Logistics & Delivery Configuration" %}
+                <i class="fas fa-truck-loading text-warning me-2"></i> & &nbsp; <i class="fas fa-map-marked-alt text-danger me-2"></i> {% trans "Pickup & Delivery Status" %}
             </div>
-            <div class="card-body p-4">
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">{% trans "Transport Type" %}</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="fas fa-shipping-fast"></i></span>
-                            <select name="transport_type" class="form-control form-select">
-                                <option value="Land" {% if product.transport_type == 'Land' %}selected{% endif %}>{% trans "Land Transport" %}</option>
-                                <option value="Air" {% if product.transport_type == 'Air' %}selected{% endif %}>{% trans "Air Freight" %}</option>
-                                <option value="Sea" {% if product.transport_type == 'Sea' %}selected{% endif %}>{% trans "Sea Freight" %}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">{% trans "Free Delivery Up To (KM)" %}</label>
-                        <input type="number" step="0.1" name="free_delivery_km" class="form-control" value="{{ product.free_delivery_km|default:0 }}">
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">{% trans "Maximum Delivery (KM)" %}</label>
-                        <input type="number" step="0.1" name="maximum_delivery_km" class="form-control" value="{{ product.maximum_delivery_km|default:100 }}">
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">{% trans "Price Per Country" %}</label>
-                        <input type="number" step="0.01" name="price_per_country" class="form-control" value="{{ product.price_per_country|default:0 }}">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">{% trans "Price Per 0.1 KM" %}</label>
-                        <input type="number" step="0.01" name="price_per_0_1_km" class="form-control" value="{{ product.price_per_0_1_km|default:0 }}">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">{% trans "Container Price" %}</label>
-                        <input type="number" step="0.01" name="container_price" class="form-control" value="{{ product.container_price|default:0 }}">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">{% trans "Container Number" %}</label>
-                        <input type="number" name="container_number" class="form-control" value="{{ product.container_number|default:1 }}">
-                    </div>
-                </div>
+            <div class="col-md-4  p-4">
+                <select name="pickup_status" id="pickupStatusSelect" class="form-control form-select">
+                    <option value="available" {% if product.pickup_status == 'available' or not product %}selected{% endif %}>{% trans "Available" %}</option>
+                    <option value="unavailable" {% if product.pickup_status == 'unavailable' %}selected{% endif %}>{% trans "Unavailable (No Pickup)" %}</option>
+                </select>
             </div>
         </div>
+        <!-- Logistics Card -->
+         <div id="pickupDetailsDiv">
 
-        <!-- Location Card -->
-        <div class="card shadow-sm">
-            <div class="card-header bg-light text-dark border-bottom">
-                <i class="fas fa-map-marked-alt text-danger me-2"></i>{% trans "Pickup Location Configuration" %}
-            </div>
-            <div class="card-body p-4">
-                <div class="row">
-                    <div class="col-md-8 mb-3">
-                        <label class="form-label">{% trans "Full Address" %}</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
-                            <input type="text" id="addressInput" name="address" class="form-control" value="{{ product.address }}" placeholder="{% trans 'Search location or click Locate Me...' %}">
-                            <button type="button" class="btn btn-locate" id="locateMeBtn" title="{% trans 'Find my exact location' %}">
-                                <i class="fas fa-crosshairs"></i> {% trans "Locate Me" %}
-                            </button>
+            <div class="card shadow-sm">
+                <div class="card-header bg-light text-dark border-bottom">
+                    <i class="fas fa-truck-loading text-warning me-2"></i>{% trans "Logistics & Delivery Configuration" %}
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">{% trans "Transport Type" %}</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-shipping-fast"></i></span>
+                                <select name="transport_type" class="form-control form-select">
+                                    <option value="Land" {% if product.transport_type == 'Land' %}selected{% endif %}>{% trans "Land Transport" %}</option>
+                                    <option value="Air" {% if product.transport_type == 'Air' %}selected{% endif %}>{% trans "Air Freight" %}</option>
+                                    <option value="Sea" {% if product.transport_type == 'Sea' %}selected{% endif %}>{% trans "Sea Freight" %}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">{% trans "Free Delivery Up To (KM)" %}</label>
+                            <input type="number" step="0.1" name="free_delivery_km" class="form-control" value="{{ product.free_delivery_km|default:0 }}">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">{% trans "Maximum Delivery (KM)" %}</label>
+                            <input type="number" step="0.1" name="maximum_delivery_km" class="form-control" value="{{ product.maximum_delivery_km|default:100 }}">
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">{% trans "Pickup Country" %}</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="fas fa-globe"></i></span>
-                            <input type="text" id="countryInput" name="pickup_country" class="form-control" value="{{ product.pickup_country|default:'Ethiopia' }}" readonly>
+                    
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">{% trans "Price Per Country" %}</label>
+                            <input type="number" step="0.01" name="price_per_country" class="form-control" value="{{ product.price_per_country|default:0 }}">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">{% trans "Price Per 0.1 KM" %}</label>
+                            <input type="number" step="0.01" name="price_per_0_1_km" class="form-control" value="{{ product.price_per_0_1_km|default:0 }}">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">{% trans "Container Price" %}</label>
+                            <input type="number" step="0.01" name="container_price" class="form-control" value="{{ product.container_price|default:0 }}">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">{% trans "Container Number" %}</label>
+                            <input type="number" name="container_number" class="form-control" value="{{ product.container_number|default:1 }}">
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <input type="hidden" name="pickup_lat" id="latInput" value="{{ product.pickup_lat|default:'' }}">
-                <input type="hidden" name="pickup_lng" id="lngInput" value="{{ product.pickup_lng|default:'' }}">
-                
-                <div class="position-relative mt-2">
-                    <div id="googleMap" style="height: 500px; width: 100%; border-radius: 12px; border: 2px solid #dee2e6;"></div>
+            <!-- Location Card -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-light text-dark border-bottom">
+                    <i class="fas fa-map-marked-alt text-danger me-2"></i>{% trans "Pickup Location Configuration" %}
+                </div>
+                <div class="card-body p-4">
+
+
+                    <!-- Pickup Details Toggle Div -->
+                    <div>
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label class="form-label">{% trans "Full Address" %}</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
+                                    <input type="text" id="addressInput" name="address" class="form-control" value="{{ product.address }}" placeholder="{% trans 'Search location or click Locate Me...' %}">
+                                    <button type="button" class="btn btn-locate" id="locateMeBtn" title="{% trans 'Find my exact location' %}">
+                                        <i class="fas fa-crosshairs"></i> {% trans "Locate Me" %}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">{% trans "Pickup Country" %}</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="fas fa-globe"></i></span>
+                                    <input type="text" id="countryInput" name="pickup_country" class="form-control" value="{{ product.pickup_country|default:'Ethiopia' }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="pickup_lat" id="latInput" value="{{ product.pickup_lat|default:'' }}">
+                        <input type="hidden" name="pickup_lng" id="lngInput" value="{{ product.pickup_lng|default:'' }}">
+                        
+                        <div class="position-relative mt-2">
+                            <div id="googleMap" style="height: 500px; width: 100%; border-radius: 12px; border: 2px solid #dee2e6;"></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -266,6 +287,33 @@
 <!-- Scripts -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+
+        // --- NEW: Prevent Scrolling from changing number input values ---
+        document.addEventListener('wheel', function(event) {
+            if (event.target.type === 'number') {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+
+        // --- NEW: Toggle Pickup Settings Visibility ---
+        const pickupStatusSelect = document.getElementById('pickupStatusSelect');
+        const pickupDetailsDiv = document.getElementById('pickupDetailsDiv');
+
+        function togglePickupVisibility() {
+            if (pickupStatusSelect.value === 'unavailable') {
+                pickupDetailsDiv.style.display = 'none';
+            } else {
+                pickupDetailsDiv.style.display = 'block';
+            }
+        }
+        
+        // Initial setup
+        togglePickupVisibility();
+        // Listener on change
+        pickupStatusSelect.addEventListener('change', togglePickupVisibility);
+
+
         // --- Image Preview Logic ---
         document.getElementById('imageInput').addEventListener('change', function(event) {
             const file = event.target.files[0];
