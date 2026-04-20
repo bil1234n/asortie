@@ -178,16 +178,34 @@
 </div>
 
 <script>
+    const rawCatLabels = {{ chart_labels|safe }};
+    const rawCatData = {{ chart_values|safe }};
+
+    // Professional color palette that auto-repeats if you have many categories
+    const baseColors = [
+        '#D4AF37', // Gold
+        '#1B3C59', // Dark Blue
+        '#388E3C', // Green
+        '#6f42c1', // Purple
+        '#0dcaf0', // Cyan
+        '#fd7e14', // Orange
+        '#dc3545', // Red
+        '#6c757d'  // Gray
+    ];
+    
+    // Dynamically assign colors based on the number of labels
+    const catColors = rawCatLabels.map((_, index) => baseColors[index % baseColors.length]);
+
     const ctx = document.getElementById('productChart').getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: {{ chart_labels|safe }},
+            labels: rawCatLabels,
             datasets: [{
-                data: {{ chart_values|safe }},
-                backgroundColor: ['#D4AF37', '#1B3C59', '#388E3C', '#6c757d', '#dc3545', '#0dcaf0'],
+                data: rawCatData,
+                backgroundColor: catColors,
                 borderWidth: 0,
-                hoverOffset: 5
+                hoverOffset: 6
             }]
         },
         options: {
