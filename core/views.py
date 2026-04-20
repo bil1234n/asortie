@@ -323,7 +323,6 @@ def admin_users(request):
     
     return render(request, 'admin_panel/users.html', {'users': users})
 
-
 @login_required
 def admin_product_analytics(request):
     if not request.user.is_staff: 
@@ -353,8 +352,8 @@ def admin_product_analytics(request):
         )
     ).order_by('-total_sales', '-prod_count')[:5] # Top 5 by sales and inventory
 
-    # 4. Chart Data (Categories)
-    cat_data = list(products.values('category').annotate(count=Count('category')))
+    # 4. Chart Data (Categories) - ADDED .order_by() TO FIX DUPLICATES
+    cat_data = list(products.order_by().values('category').annotate(count=Count('category')))
     labels = [x['category'] if x['category'] else 'Unknown' for x in cat_data]
     values = [x['count'] for x in cat_data]
     
